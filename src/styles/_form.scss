@@ -1,0 +1,71 @@
+// @import "common";
+
+// .custom-form-group {
+
+//   .custom-form-control {
+//     background-color: $common-white;
+//     border: 1px solid $border;
+//     &.readonly {
+//       cursor: not-allowed;
+//       background-color: darken($common-white, 5);
+//     }
+//     &:focus {
+//       outline: none;
+//       border: 1px solid darken($border, 50);
+//     }
+//   }
+
+//   select.custom-form-control {
+//     background-image: $dropdown-image;
+//   }
+
+//   margin-bottom: 1rem;
+
+//   label {
+//     margin-bottom: 0.1rem;
+//   }
+
+//   .custom-form-control {
+//     display: block;
+//     width: 100%;
+//     height: 2.8rem;
+//     padding: 0 0.5rem;
+//     line-height: 2.6rem;
+//     border-radius: 0.5rem;
+//   }
+
+//   textarea.custom-form-control {
+//     min-height: 2.8rem;
+//     height: auto;
+//   }
+
+//   select.custom-form-control {
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+
+//     padding-right: 1.5rem;
+
+//     background-position: right top;
+//     background-repeat: no-repeat;
+//     background-size: 1.5rem 100%;
+
+//     cursor: pointer;
+
+//     &:disabled {
+//       cursor: not-allowed;
+//     }
+//   }
+
+//   .custom-checkbox-control {
+//     line-height: 2.8rem;
+
+//     input {
+//       cursor: pointer;
+//     }
+
+//     label {
+//       margin-left: 0.5rem;
+//     }
+//   }
+
+// }

@@ -1,0 +1,126 @@
+{
+  "header": {
+    "specialty-menu": "Specialty",
+    "facility-menu": "Health facilities",
+    "doctor-menu": "Doctor",
+    "covid-19": "Covid-19",
+    "support": "Support",
+    "language": "EN",
+    "welcome": "Welcome, "
+  },
+  "banner": {
+    "basic": "Medical Platform",
+    "title": "Comprehensive health care",
+    "examination1": "Khám chuyên khoa",
+    "examination2": "Specialized examination",
+    "examination3": "General examination",
+    "examination4": "Medical test",
+    "examination5": "Mental health",
+    "examination6": "Dental examination"
+  },
+  "menu": {
+    "admin": {
+      "manage": "User System",
+      "dashboard": "Dashboard",
+      "crud": "User CRUD",
+      "manage-doctor": "Doctor management",
+      "manage-admin": "Admin Management",
+      "manage-user": "Manage User",
+      "clinic": "Clinic",
+      "manage-clinic": "Clinic Management",
+      "specialty": "Specialist",
+      "manage-specialty": "Specialized management"
+    },
+    "doctor": {
+      "manage-schedule": "Manage Doctor Schedule",
+      "manage-patient": "Manage Doctor Patient"
+    }
+  },
+  "manage-user": {
+    "add": "Add new users",
+    "email": "Email",
+    "password": "Password",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "address": "Address",
+    "phone-number": "Phone number",
+    "gender": "Gender",
+    "position": "Position",
+    "role": "Role ID",
+    "image": "Avatar",
+    "create": "Create",
+    "update": "Update",
+    "user-list": "User list"
+  },
+  "home-page": {
+    "see-more": "See more",
+    "outstanding-doctor": "Outstanding Doctor",
+    "specialty-popular": "Popular Specialty",
+    "clinic": "Clinic"
+  },
+  "manage-schedule": {
+    "title": "Manage medical examination plan",
+    "choose-doctor": "Choose doctor",
+    "choose-date": "Choose day/month/year",
+    "btn-save": "Save information"
+  },
+  "patient": {
+    "detail-doctor": {
+      "schedule": "Schedules",
+      "choose": "Choose ",
+      "end-book": " and book (free)",
+      "no-schedule": "The doctor currently does not have an appointment for today, please choose another date !"
+    },
+    "extra-infor-doctor": {
+      "examination-address": "Examination address",
+      "examination-price": "Examination price:",
+      "see-details": "See details",
+      "hidden": "Hide details",
+      "payment": "Payment methods: "
+    },
+    "booking-modal": {
+      "title": "Information to book a medical appointment",
+      "full-name": "Full name",
+      "email": "Email",
+      "phone-number": "Phone number",
+      "address": "Address",
+      "gender": "Gender",
+      "date-of-birth": "Date of birth",
+      "reason": "Reasons for medical examination",
+      "comfirm": "Confirm",
+      "cancel": "Cancel"
+    }
+  },
+  "admin": {
+    "manage-doctor": {
+      "title": "More doctor information",
+      "choose-doctor": "Choose doctor",
+      "intro-infor": "Introduction information",
+      "create-infor": "Create infor",
+      "update-infor": "Update infor",
+      "price": "Medical examination price",
+      "payment": "Payment methods",
+      "province": "Province/city",
+      "address": "Clinic address",
+      "clinic-name": "Clinic name",
+      "note": "Note",
+      "specialty": "Choose specialty",
+      "clinic": "Choose clinic"
+    },
+    "manage-specialty": {
+      "specialty-title": "Manage Specialty",
+      "specialty-name": "Name Specialty",
+      "specialty-image": "Specialty image",
+      "save": "Save infor",
+      "edit": "Update infor"
+    },
+    "manage-clinic": {
+      "clinic-title": "Manage Specialty",
+      "clinic-name": "Clinic Name",
+      "clinic-address": "Clinic Address",
+      "clinic-image": "Clinic image",
+      "save": "Save infor",
+      "edit": "Update infor"
+    }
+  }
+}
