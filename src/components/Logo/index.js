@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography } from 'antd';
+import { withRouter } from 'react-router';
 import styled from 'styled-components';
 
 const { Text } = Typography;
@@ -15,7 +16,7 @@ const LogoWrapper = styled.div`
   }
 `;
 
-export default class Logo extends React.Component {
+class Logo extends React.Component {
   returnToHome = () => {
     if (this.props.history) {
       this.props.history.push(`/home`);
@@ -31,3 +32,6 @@ export default class Logo extends React.Component {
     );
   }
 }
+
+export default withRouter(Logo);
+

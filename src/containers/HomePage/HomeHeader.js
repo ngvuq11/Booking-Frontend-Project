@@ -28,6 +28,18 @@ class HomeHeader extends Component {
   handlechangeLanguage = (value) => {
     this.props.changeLanguageAppRedux(value);
   };
+  
+  handleListSpecialty = () => {
+      if (this.props.history) {
+        this.props.history.push(`/list-specialty`);
+      }
+    };
+  
+    handleListClinic = () => {
+      if (this.props.history) {
+        this.props.history.push(`/list-clinic`);
+      }
+    };
 
   handleListDoctor = () => {
     if (this.props.history) {
@@ -51,17 +63,17 @@ class HomeHeader extends Component {
               </Col>
               <Col span={12} className='header__col'>
                 <Space size={'large'}>
-                  <Text>
+                  <Text onClick={() => this.handleListSpecialty()}>
                     <FormattedMessage id='header.specialty-menu' />
                   </Text>
-                  <Text>
-                    <FormattedMessage id='header.facility-menu' />
+                  <Text onClick={() => this.handleListClinic()}>
+                    <FormattedMessage id='header.clinic-menu' />
                   </Text>
                   <Text onClick={() => this.handleListDoctor()}>
                     <FormattedMessage id='header.doctor-menu' />
                   </Text>
                   <Text onClick={() => this.handleCovid19()}>
-                    <FormattedMessage id='header.package-menu' />
+                    <FormattedMessage id='header.covid-19' />
                   </Text>
                 </Space>
               </Col>
