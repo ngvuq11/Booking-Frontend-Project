@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { FormattedMessage } from 'react-intl';
 import HomeHeader from '../../HomePage/HomeHeader';
-import DoctorSchedule from '../Doctor/DoctorSchedule';
-import DoctorExtraInfor from '../Doctor/DoctorExtraInfor';
-import ProfileDoctor from '../Doctor/ProfileDoctor';
 import {
-  /*getAllCodeService, */ getAllDetailClinicById,
+  getAllDetailClinicById,
 } from '../../../services/userService';
+import { withRouter } from 'react-router';
 
-import './DetailClinic.scss';
 import _ from 'lodash';
-// import { LANGUAGES } from '../../../utils';
+import './DetailClinic.scss';
 
 class DetailClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrDoctorId: [],
-      dataDetailClinic: {},
+      dataDetailClinic: {}
     };
   }
 
@@ -35,20 +30,8 @@ class DetailClinic extends Component {
       });
 
       if (res && res.errCode === 0) {
-        let data = res.data;
-        let arrDoctorId = [];
-        if (data && !_.isEmpty(res.data)) {
-          let arr = data.doctorClinic;
-          if (arr && arr.length > 0) {
-            arr.map((item) => {
-              arrDoctorId.push(item.doctorId);
-            });
-          }
-        }
-
         this.setState({
-          dataDetailClinic: res.data,
-          arrDoctorId: arrDoctorId,
+          dataDetailClinic: res.data
         });
       }
     }
@@ -60,12 +43,19 @@ class DetailClinic extends Component {
     }
   }
 
+  handleViewDetailSpecialty = (item) => {
+    if (this.props.history) {
+      this.props.history.push(`/detail-specialty/${item.id}`);
+    }
+  };
+
   render() {
-    let { arrDoctorId, dataDetailClinic } = this.state;
+    let { dataDetailClinic } = this.state;
     // let { language } = this.props;
-    console.log('arrdoc: ', arrDoctorId);
+    let listSpecialty = dataDetailClinic.specialtyClinic;
+    console.log(listSpecialty);
     return (
-      <div className='detail-specialty'>
+      <div className='detail-clinic'>
         <HomeHeader />
         <section className='banner'>
           {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
@@ -81,29 +71,20 @@ class DetailClinic extends Component {
           )}
         </section>
         <section className='specialty-list'>
-          {arrDoctorId &&
-            arrDoctorId.length > 0 &&
-            arrDoctorId.map((item, index) => {
+          {listSpecialty &&
+            listSpecialty.length > 0 &&
+            listSpecialty.map((item, index) => {
               return (
                 <div className='specialty-item' key={index}>
-                  <div className='intro'>
-                    <div className='profile-doctor'>
-                      <ProfileDoctor
-                        doctorId={item}
-                        isShowDescDoctor={true}
-                        isShowLinkDetail={true}
-                        isShowPrice={false}
-                        // dataTime={dataTime}
-                      />
+                  <div className='infor-specialty'>
+                    <div className='specialty-name'>
+                      {item.name}
                     </div>
-                  </div>
-                  <div className='schedule'>
-                    <div className='schedule-infor'>
-                      <DoctorSchedule doctorIdFromParent={item} />
-                    </div>
-                    <div className='schedule-price'>
-                      <DoctorExtraInfor doctorIdFromParent={item} />
-                    </div>
+                    <img 
+                      className='specialty-image'
+                      src={item.image} 
+                    />
+                    <span onClick={() => this.handleViewDetailSpecialty(item)}>Xem thêm</span>
                   </div>
                 </div>
               );
@@ -126,4 +107,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailClinic);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailClinic));
