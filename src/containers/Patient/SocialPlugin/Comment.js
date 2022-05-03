@@ -32,7 +32,7 @@ class Comment extends Component {
         appId: process.env.REACT_APP_FACEBOOK_APP_ID,
         cookie: true,
         xfbml: true,
-        version: 'v12.0',
+        version: 'v13.0'
       });
     };
 
@@ -49,6 +49,7 @@ class Comment extends Component {
 
   render() {
     let { width, dataHref, numPost } = this.props;
+    console.log(process.env.REACT_APP_FACEBOOK_APP_ID);
     return (
       <>
         <div

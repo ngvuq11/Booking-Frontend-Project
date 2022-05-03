@@ -55,7 +55,7 @@ class DetailDoctor extends Component {
 
     let currentURL =
       +process.env.REACT_APP_IS_LOCALHOST === 1
-        ? 'https://developers.facebook.com/docs/plugins/'
+        ? 'https://client-reactjs-datn.herokuapp.com/'
         : window.location.href;
 
     return (

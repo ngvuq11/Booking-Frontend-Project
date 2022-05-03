@@ -32,7 +32,7 @@ class LikeAndShare extends Component {
         appId: process.env.REACT_APP_FACEBOOK_APP_ID,
         cookie: true,
         xfbml: true,
-        version: 'v13.0'
+        version: 'v13.0',
       });
     };
 
@@ -49,12 +49,14 @@ class LikeAndShare extends Component {
 
   render() {
     let { dataHref } = this.props;
+
+    console.log(dataHref);
     return (
       <div
-        className='fb-like'
+        class='fb-like'
         data-href={dataHref}
         data-width=''
-        data-layout='standard'
+        data-layout='button_count'
         data-action='like'
         data-size='small'
         data-share='true'
