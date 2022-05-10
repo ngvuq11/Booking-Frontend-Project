@@ -23,7 +23,6 @@ import CustomScrollbars from '../components/CustomScrollbars';
 import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
 import Covid19 from './HomePage/Covid19/Covid19';
 
-// import { CustomToastCloseButton } from '../components/CustomToast';
 
 class App extends Component {
   handlePersistorState = () => {
