@@ -19,7 +19,7 @@ class Header extends Component {
     };
   }
 
-  handleChaneLanguage = (language) => {
+  handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
 
@@ -45,7 +45,7 @@ class Header extends Component {
     return (
       <div className='header-container'>
         <div className='header-container-logo'>
-          <img src={logo} />
+          <img src={logo} alt="logo" />
         </div>
 
         <div className='languages'>
@@ -58,7 +58,7 @@ class Header extends Component {
             className={
               language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'
             }
-            onClick={() => this.handleChaneLanguage(LANGUAGES.VI)}
+            onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}
           >
             VN
           </span>
@@ -66,18 +66,16 @@ class Header extends Component {
             className={
               language === LANGUAGES.EN ? 'language-en active' : 'language-en'
             }
-            onClick={() => this.handleChaneLanguage(LANGUAGES.EN)}
+            onClick={() => this.handleChangeLanguage(LANGUAGES.EN)}
           >
             EN
           </span>
         </div>
 
-        {/* thanh navigator */}
         <div className='header-tabs-container'>
           <Navigator menus={this.state.menuApp} />
         </div>
 
-        {/* nút logout */}
         <div className='logout'>
           <button className='btn-logout' onClick={processLogout} title='Logout'>
             Log out

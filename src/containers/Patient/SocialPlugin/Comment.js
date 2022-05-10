@@ -26,7 +26,7 @@ class Comment extends Component {
       window.FB.XFBML.parse();
     }
 
-    let locale = language === LANGUAGES.Vi ? 'vi_VN' : 'en_US';
+    let locale = language === LANGUAGES.VI ? 'vi_VN' : 'en_US';
     window.fbAsyncInit = function () {
       window.FB.init({
         appId: process.env.REACT_APP_FACEBOOK_APP_ID,
