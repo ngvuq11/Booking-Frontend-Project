@@ -8,7 +8,7 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 import {
   userIsAuthenticated,
   userIsNotAuthenticated,
-} from '../hoc/authentication';
+} from '../auth/authentication';
 
 import Login from './Auth/Login';
 import Home from '../routes/Home';

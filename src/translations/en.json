@@ -68,7 +68,20 @@
     "see-more": "See more",
     "outstanding-doctor": "Outstanding Doctor",
     "specialty-popular": "Popular Specialty",
-    "clinic": "Clinic"
+    "clinic": "Clinic",
+    "covid-19": {
+      "viet-nam": "Vietnam",
+      "the-world": "The world",
+      "total-cases": "Total cases",
+      "death": "Death",
+      "recovered": "Recovered",
+      "treating": "Treating",
+      "today": "Today",
+      "national-epidemic-situation": "National epidemic situation",
+      "province-city": "Province/City",
+      "average": "7 days on average",
+      "number-of-infections": "Number of infections"
+    }
   },
   "manage-schedule": {
     "title": "Manage medical examination plan",
