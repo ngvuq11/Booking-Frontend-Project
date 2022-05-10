@@ -28,18 +28,18 @@ class HomeHeader extends Component {
   handlechangeLanguage = (value) => {
     this.props.changeLanguageAppRedux(value);
   };
-  
+
   handleListSpecialty = () => {
-      if (this.props.history) {
-        this.props.history.push(`/list-specialty`);
-      }
-    };
-  
-    handleListClinic = () => {
-      if (this.props.history) {
-        this.props.history.push(`/list-clinic`);
-      }
-    };
+    if (this.props.history) {
+      this.props.history.push(`/list-specialty`);
+    }
+  };
+
+  handleListClinic = () => {
+    if (this.props.history) {
+      this.props.history.push(`/list-clinic`);
+    }
+  };
 
   handleListDoctor = () => {
     if (this.props.history) {
@@ -54,7 +54,7 @@ class HomeHeader extends Component {
   };
   render() {
     return (
-      <React.Fragment>
+      <>
         <HeaderWrapper>
           <Container>
             <Row className='header__row'>
@@ -63,16 +63,28 @@ class HomeHeader extends Component {
               </Col>
               <Col span={12} className='header__col'>
                 <Space size={'large'}>
-                  <Text onClick={() => this.handleListSpecialty()}>
+                  <Text
+                    onClick={() => this.handleListSpecialty()}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <FormattedMessage id='header.specialty-menu' />
                   </Text>
-                  <Text onClick={() => this.handleListClinic()}>
+                  <Text
+                    onClick={() => this.handleListClinic()}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <FormattedMessage id='header.clinic-menu' />
                   </Text>
-                  <Text onClick={() => this.handleListDoctor()}>
+                  <Text
+                    onClick={() => this.handleListDoctor()}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <FormattedMessage id='header.doctor-menu' />
                   </Text>
-                  <Text onClick={() => this.handleCovid19()}>
+                  <Text
+                    onClick={() => this.handleCovid19()}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <FormattedMessage id='header.covid-19' />
                   </Text>
                 </Space>
@@ -103,7 +115,7 @@ class HomeHeader extends Component {
             </Row>
           </Container>
         </HeaderWrapper>
-      </React.Fragment>
+      </>
     );
   }
 }

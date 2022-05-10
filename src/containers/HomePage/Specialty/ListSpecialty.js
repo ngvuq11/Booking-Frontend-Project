@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import HomeHeader from '../HomeHeader';
 import { withRouter } from 'react-router';
 import { LANGUAGES } from '../../../utils';
-import CopyRight from '../Section/CopyRight';
+import CopyRight from '../Section/CoppyRight/index';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../store/actions';
 
@@ -13,7 +13,7 @@ class ListSpecialty extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      listSpecialty: []
+      listSpecialty: [],
     };
   }
 
@@ -54,11 +54,15 @@ class ListSpecialty extends Component {
                     <div className='image-clinic'>
                       <img src={item.image} />
                     </div>
-                    <div onClick={() => this.handleViewDetailSpecialty(item)}>Xem thêm</div>
+                    <div onClick={() => this.handleViewDetailSpecialty(item)}>
+                      Xem thêm
+                    </div>
                   </div>
                 );
               })}
-            {listSpecialty.length <= 0 ? 'Không tìm thấy các phòng khám...' : ''}
+            {listSpecialty.length <= 0
+              ? 'Không tìm thấy các phòng khám...'
+              : ''}
           </div>
         </section>
         <CopyRight />

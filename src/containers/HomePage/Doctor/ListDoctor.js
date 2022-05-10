@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import HomeHeader from '../HomeHeader';
 import { withRouter } from 'react-router';
 import { LANGUAGES } from '../../../utils';
-import CopyRight from '../Section/CopyRight';
+import CopyRight from '../Section/CoppyRight/index';
 // import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../store/actions';
 
