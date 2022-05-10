@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { LANGUAGES } from '../../../utils';
+import { LANGUAGES } from '../../../../utils';
 import { FormattedMessage } from 'react-intl';
-import * as actions from '../../../store/actions';
+import * as actions from '../../../../store/actions';
 
-import '../HomePage.scss';
+import '../../HomePage.scss';
 
 class Specialty extends Component {
   constructor(props) {

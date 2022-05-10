@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../store/actions';
 import NumberFormat from 'react-number-format';
 import HomeHeader from '../HomeHeader';
-import CopyRight from '../Section/CopyRight';
+import CopyRight from '../Section/CoppyRight/index';
 import {
   XAxis,
   YAxis,

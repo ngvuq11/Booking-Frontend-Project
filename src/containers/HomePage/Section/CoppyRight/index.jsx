@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Typography } from 'antd';
 // import { FormattedMessage } from 'react-intl';
 
-import '../HomePage.scss';
+import '../../HomePage.scss';
+const { Text } = Typography;
 
 class CopyRight extends Component {
   render() {
     return (
       <section className='section-copyright'>
-        <p>
-          &copy; 2021{' '}
-          <a href='https://www.facebook.com/tobi0208/' target='blank'>
-            DuongDangDuc
-          </a>
-        </p>
+        <Text>2022 - Khoa Luan Team</Text>
       </section>
     );
   }

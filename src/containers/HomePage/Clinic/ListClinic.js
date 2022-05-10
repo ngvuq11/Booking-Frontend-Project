@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import HomeHeader from '../HomeHeader';
 import { withRouter } from 'react-router';
 import { LANGUAGES } from '../../../utils';
-import CopyRight from '../Section/CopyRight';
+import CopyRight from '../Section/CoppyRight';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../store/actions';
 
@@ -26,7 +26,6 @@ class ListClinic extends Component {
       this.setState({
         listClinic: this.props.data,
       });
-     
     }
   }
 
@@ -44,7 +43,6 @@ class ListClinic extends Component {
       <>
         <HomeHeader isShowBanner={false} />
         <section className='clinic'>
-
           <h2 className='title'>Danh sách các cơ sở y tế</h2>
           <div className='list-doctor'>
             {listClinic &&
@@ -55,11 +53,12 @@ class ListClinic extends Component {
                     <div className='name-clinic'>{item.name}</div>
                     <div className='address-clinic'>{item.address}</div>
                     <div className='image-clinic'>
-                      <img src={item.image} />
+                      <img src={item.image} alt='' />
                     </div>
-                    <div onClick={() => this.handleViewDetailClinic(item)}>Xem thêm</div>
+                    <div onClick={() => this.handleViewDetailClinic(item)}>
+                      Xem thêm
+                    </div>
                   </div>
-                    
                 );
               })}
             {listClinic.length <= 0 ? 'Không tìm thấy các cơ sở y tế...' : ''}

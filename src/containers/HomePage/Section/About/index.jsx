@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { FormattedMessage } from 'react-intl';
 
-import '../HomePage.scss';
+// import '../HomePage.scss';
 
 class About extends Component {
   render() {
