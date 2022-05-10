@@ -28,18 +28,18 @@ class HomeHeader extends Component {
   handlechangeLanguage = (value) => {
     this.props.changeLanguageAppRedux(value);
   };
-  
+
   handleListSpecialty = () => {
-      if (this.props.history) {
-        this.props.history.push(`/list-specialty`);
-      }
-    };
-  
-    handleListClinic = () => {
-      if (this.props.history) {
-        this.props.history.push(`/list-clinic`);
-      }
-    };
+    if (this.props.history) {
+      this.props.history.push(`/list-specialty`);
+    }
+  };
+
+  handleListClinic = () => {
+    if (this.props.history) {
+      this.props.history.push(`/list-clinic`);
+    }
+  };
 
   handleListDoctor = () => {
     if (this.props.history) {
