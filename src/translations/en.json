@@ -34,7 +34,18 @@
     "doctor": {
       "manage-schedule": "Manage Doctor Schedule",
       "manage-patient": "Manage Doctor Patient",
-      "manage-medical-record": "Manage Medical Record"
+      "manage-medical-record": "Manage Medical Record",
+      "medical-record": {
+        "list-medical-record": "List of patients examined",
+        "see-more": "See more"
+      },
+      "patient": {
+        "choose-date": "Choose a date of examination",
+        "list-patient": "List of patients examined"
+      },
+      "schedule" : {
+        
+      }
     }
   },
   "manage-user": {

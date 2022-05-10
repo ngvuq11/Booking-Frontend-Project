@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import PatientDetail from './PatentDetail';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import LoadingOverlay from 'react-loading-overlay';
 import DatePicker from '../../../components/Input/DatePicker';
 import { getMedicalRecordForDoctor } from '../../../services/userService';
@@ -33,7 +33,6 @@ class ManageMedicalRecord extends Component {
     let { user } = this.props;
     let id = user.id;
     let res = await getMedicalRecordForDoctor(id);
-    console.log(res);
 
     if (res && res.errCode === 0) {
       this.setState({
@@ -62,12 +61,16 @@ class ManageMedicalRecord extends Component {
       <>
         <LoadingOverlay active={this.state.isLoading} spinner text='Loading...'>
           <div className='manage-patient'>
-            <h2 className='title'>Quản lý hồ sơ bệnh án</h2>
+            <h2 className='title'>
+              <FormattedMessage id='menu.doctor.manage-medical-record' />
+            </h2>
 
             <div className='manage-patient-body'>
               <div className='row'>
                 <div className='col-12 form-group patient-list'>
-                  <label>Danh sách bệnh nhân khám bệnh</label>
+                  <label>
+                    <FormattedMessage id='menu.doctor.medical-record.list-medical-record' />
+                  </label>
                   <table>
                     <tbody>
                       <tr>
@@ -91,7 +94,7 @@ class ManageMedicalRecord extends Component {
                                       this.handleShowDetailPatientModal(item)
                                     }
                                   >
-                                    Xem thêm
+                                    <FormattedMessage id='menu.doctor.medical-record.see-more' />
                                   </button>
                                 </div>
                               </td>
