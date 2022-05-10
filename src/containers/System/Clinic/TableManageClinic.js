@@ -34,7 +34,7 @@ class TableManageUser extends Component {
 
   render() {
     let listClinic = this.state.clinicArray;
-
+    
     return (
       <div className='user-container'>
         <h1 className='title-user'>TABLE SPECIALTY</h1>

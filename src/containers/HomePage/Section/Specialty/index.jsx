@@ -3,9 +3,10 @@ import Slider from 'react-slick';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import { getAllSpecialty } from '../../../services/userService';
+import { getAllSpecialty } from '../../../../services/userService';
 
-import '../HomePage.scss';
+import '../../HomePage.scss';
+import Title from '../../../../components/Title';
 
 class Specialty extends Component {
   constructor(props) {
@@ -36,9 +37,9 @@ class Specialty extends Component {
         <div className='container'>
           <div className='section-content'>
             <div className='section-header'>
-              <h2>
-                <FormattedMessage id='home-page.specialty-popular' />
-              </h2>
+              <Title
+                title={<FormattedMessage id='home-page.specialty-popular' />}
+              ></Title>
             </div>
             <Slider {...this.props.settings} className='section-list'>
               {dataSpecialty &&

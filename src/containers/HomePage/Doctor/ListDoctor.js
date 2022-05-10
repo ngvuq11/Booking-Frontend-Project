@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Pagination from './Pagination';
+// import Pagination from './Pagination';
 import Search from './Search';
 import { connect } from 'react-redux';
 import HomeHeader from '../HomeHeader';
 import { withRouter } from 'react-router';
 import { LANGUAGES } from '../../../utils';
-import CopyRight from '../Section/CopyRight';
-import { FormattedMessage } from 'react-intl';
+import CopyRight from '../Section/CoppyRight/index';
+// import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../store/actions';
 
 import './ListDoctor.scss';

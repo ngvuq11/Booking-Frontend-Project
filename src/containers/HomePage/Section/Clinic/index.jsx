@@ -3,9 +3,9 @@ import Slider from 'react-slick';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import { getAllClinic } from '../../../services/userService';
+import { getAllClinic } from '../../../../services/userService';
 
-import '../HomePage.scss';
+import '../../HomePage.scss';
 
 class Clinic extends Component {
   constructor(props) {
