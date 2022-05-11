@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { LANGUAGES } from '../../../utils';
 import DoctorSchedule from './DoctorSchedule';
 import DoctorExtraInfor from './DoctorExtraInfor';
-import HomeHeader from '../../HomePage/HomeHeader';
+import HomeHeader from '../../../components/Header/HomeHeader';
 import Comment from '../SocialPlugin/Comment';
 import LikeAndShare from '../SocialPlugin/LikeAndShare';
 import { getDetailInforDoctor } from '../../../services/userService';

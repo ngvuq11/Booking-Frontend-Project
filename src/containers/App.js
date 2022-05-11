@@ -15,16 +15,15 @@ import Home from '../routes/Home';
 import System from '../routes/System';
 import Doctor from '../routes/Doctor';
 import HomePage from './HomePage/HomePage.js';
-import ListSpecialty from './HomePage/Specialty/ListSpecialty';
-import ListClinic from './HomePage/Clinic/ListClinic';
-import ListDoctor from './HomePage/Doctor/ListDoctor';
+import ListSpecialty from './HomePage/components/Specialty/ListSpecialty';
+import ListClinic from './HomePage/components/Clinic/ListClinic';
+import ListDoctor from './HomePage/components/Doctor/ListDoctor';
 import VerifyEmail from './Patient/VerifyEmail';
 import DetailDoctor from './Patient/Doctor/DetailDoctor';
 import DetailClinic from './Patient/Clinic/DetailClinic';
-import CustomScrollbars from '../components/CustomScrollbars';
+import CustomScrollbars from '../components/CustomScrollbar/CustomScrollbars';
 import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
-import Covid19 from './HomePage/Covid19/Covid19';
-
+import Covid19 from '../containers/HomePage/components/Covid19/Covid19';
 
 class App extends Component {
   handlePersistorState = () => {

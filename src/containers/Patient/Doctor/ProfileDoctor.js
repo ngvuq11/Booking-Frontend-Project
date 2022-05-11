@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
 import _ from 'lodash';
 import moment from 'moment';
-import { connect } from 'react-redux';
-import { LANGUAGES } from '../../../utils';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import NumberFormat from 'react-number-format';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getProfileDoctor } from '../../../services/userService';
-
+import { LANGUAGES } from '../../../utils';
 import './ProfileDoctor.scss';
 
 class ProfileDoctor extends Component {
@@ -81,7 +80,7 @@ class ProfileDoctor extends Component {
       isShowLinkDetail,
       isShowPrice,
       doctorId,
-      doctorName,
+      // doctorName,
     } = this.props;
     let nameVi = '',
       nameEn = '';

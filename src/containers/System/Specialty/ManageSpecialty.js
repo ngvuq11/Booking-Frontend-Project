@@ -1,17 +1,24 @@
-import React, { Component } from 'react';
 import MarkdownIt from 'markdown-it';
-import { connect } from 'react-redux';
+
+import React, { Component } from 'react';
+
+
 import Select from 'react-select';
 import { CommonUtils } from '../../../utils';
+
 import { FormattedMessage } from 'react-intl';
-import { CRUD_ACTIONS } from '../../../utils';
-import * as actions from '../../../store/actions';
 import MdEditor from 'react-markdown-editor-lite';
+
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions';
+
+
 import { getAllDetailSpecialtyById } from '../../../services/userService';
 
 import TableManageSpecialty from './TableManageSpecialty';
 
 import './ManageSpecialty.scss';
+import TableManageSpecialty from './TableManageSpecialty';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -147,6 +154,7 @@ class ManageSpecialty extends Component {
     let imageBase64 = '';
     if (specialty.image) {
       imageBase64 = Buffer.from(specialty.image, 'base64').toString('binary');
+      console.log(imageBase64);
     }
 
     this.setState({
