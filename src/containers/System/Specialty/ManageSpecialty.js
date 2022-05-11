@@ -2,7 +2,6 @@ import MarkdownIt from 'markdown-it';
 
 import React, { Component } from 'react';
 
-
 import Select from 'react-select';
 import { CommonUtils } from '../../../utils';
 
@@ -12,13 +11,11 @@ import MdEditor from 'react-markdown-editor-lite';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 
-
 import { getAllDetailSpecialtyById } from '../../../services/userService';
 
 import TableManageSpecialty from './TableManageSpecialty';
 
 import './ManageSpecialty.scss';
-import TableManageSpecialty from './TableManageSpecialty';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
