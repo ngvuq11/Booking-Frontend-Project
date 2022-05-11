@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import NumberFormat from 'react-number-format';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -249,10 +250,18 @@ class Covid19 extends Component {
               <div className='table'>
                 <div className='header-table'>
                   <span className='colums-table0'>STT</span>
-                  <span className='colums-table1'><FormattedMessage id='home-page.covid-19.province-city' /></span>
-                  <span className='colums-table2'><FormattedMessage id='home-page.covid-19.total-cases' /></span>
-                  <span className='colums-table3'><FormattedMessage id='home-page.covid-19.today' /></span>
-                  <span className='colums-table4'><FormattedMessage id='home-page.covid-19.death' /></span>
+                  <span className='colums-table1'>
+                    <FormattedMessage id='home-page.covid-19.province-city' />
+                  </span>
+                  <span className='colums-table2'>
+                    <FormattedMessage id='home-page.covid-19.total-cases' />
+                  </span>
+                  <span className='colums-table3'>
+                    <FormattedMessage id='home-page.covid-19.today' />
+                  </span>
+                  <span className='colums-table4'>
+                    <FormattedMessage id='home-page.covid-19.death' />
+                  </span>
                 </div>
                 <div className='content-table'>
                   {locations.map((item, index) => (
@@ -305,9 +314,7 @@ class Covid19 extends Component {
                   type='monotone'
                   dataKey='avgCases7day'
                   stroke='#e74c3c'
-                  name={
-                    <FormattedMessage id='home-page.covid-19.average' />
-                  }
+                  name={<FormattedMessage id='home-page.covid-19.average' />}
                 />
               </ComposedChart>
             </div>
