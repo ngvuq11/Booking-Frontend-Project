@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import { getAllSpecialty } from '../../../../../services/userService';
-import Title from '../../../../../components/Title';
 
 import '../../../HomePage.scss';
+import Titles from '../../../../../components/Title';
 
 class Specialty extends Component {
   constructor(props) {
@@ -36,11 +36,10 @@ class Specialty extends Component {
       <section className='section-container section-specialty'>
         <div className='container'>
           <div className='section-content'>
-            <div className='section-header'>
-              <Title
-                title={<FormattedMessage id='home-page.specialty-popular' />}
-              ></Title>
-            </div>
+            <Titles
+              title={<FormattedMessage id='home-page.specialty-popular' />}
+            />
+
             <Slider {...this.props.settings} className='section-list'>
               {dataSpecialty &&
                 dataSpecialty.length > 0 &&

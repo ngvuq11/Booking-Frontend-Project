@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { LANGUAGES } from '../../../../../utils';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../../../store/actions';
+import Titles from '../../../../../components/Title';
 
 // import '../../HomePage.scss';
 
@@ -43,11 +44,9 @@ class Specialty extends Component {
       <section className='section-container section-doctor'>
         <div className='container'>
           <div className='section-content'>
-            <div className='section-header'>
-              <h2>
-                <FormattedMessage id='home-page.outstanding-doctor' />
-              </h2>
-            </div>
+            <Titles
+              title={<FormattedMessage id='home-page.outstanding-doctor' />}
+            />
             <Slider {...this.props.settings} className='doctor-list'>
               {arrDoctors &&
                 arrDoctors.length > 0 &&

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Title from '../../../../../components/Title';
 // import { FormattedMessage } from 'react-intl';
 
 // import '../HomePage.scss';
@@ -9,7 +10,7 @@ class About extends Component {
     return (
       <section className='section-about'>
         <div className='container'>
-          <h2 className='section-about-title'>VTV 24</h2>
+          <Title title={'Blog'} />
           <div className='section-about-item'>
             <div className='section-about-item-video'>
               <iframe
