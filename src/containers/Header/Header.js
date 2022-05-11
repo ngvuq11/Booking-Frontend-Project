@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions';
-import Navigator from '../../components/Navigator';
+import Navigator from '../../components/Navigator/Navigator';
 import { adminMenu, doctorMenu } from './menuApp';
 import { LANGUAGES, USER_ROLE } from '../../utils';
 import { FormattedMessage } from 'react-intl';
@@ -45,7 +45,7 @@ class Header extends Component {
     return (
       <div className='header-container'>
         <div className='header-container-logo'>
-          <img src={logo} alt="logo" />
+          <img src={logo} alt='logo' />
         </div>
 
         <div className='languages'>
