@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 
 import Select from 'react-select';
-import { CommonUtils } from '../../../utils';
+import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
 
 import { FormattedMessage } from 'react-intl';
 import MdEditor from 'react-markdown-editor-lite';
@@ -13,12 +13,11 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 
 
-import { getAllDetailSpecialtyById } from '../../../services/userService';
+// import { getAllDetailSpecialtyById } from '../../../services/userService';
 
 import TableManageSpecialty from './TableManageSpecialty';
 
 import './ManageSpecialty.scss';
-import TableManageSpecialty from './TableManageSpecialty';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -75,12 +74,12 @@ class ManageSpecialty extends Component {
     let result = [];
     if (data && data.length > 0) {
       if (type === 'CLINIC') {
-        data.map((item) => {
-          let object = {};
+        let object = {};
+        data.map(item => {
           object.label = item.name;
           object.value = item.id;
           result.push(object);
-        });
+        })
       }
     }
     return result;

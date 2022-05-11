@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import moment from 'moment';
 import { Modal } from 'reactstrap';
 // import { toast } from 'react-toastify';
-import { CommonUtils } from '../../../utils';
+// import { CommonUtils } from '../../../utils';
 
 import './PatientDetail.scss';
 

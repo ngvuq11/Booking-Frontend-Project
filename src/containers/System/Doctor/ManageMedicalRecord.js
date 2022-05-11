@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+// import moment from 'moment';
 import { connect } from 'react-redux';
 import PatientDetail from './PatentDetail';
 // import { FormattedMessage } from 'react-intl';
 import LoadingOverlay from 'react-loading-overlay';
-import DatePicker from '../../../components/Input/DatePicker';
+// import DatePicker from '../../../components/Input/DatePicker';
 import { getMedicalRecordForDoctor } from '../../../services/userService';
 
 import './ManageMedicalRecord.scss';
