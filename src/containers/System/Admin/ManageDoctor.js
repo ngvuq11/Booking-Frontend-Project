@@ -114,6 +114,7 @@ class ManageDoctor extends Component {
     let { language } = this.props;
     if (data && data.length > 0) {
       if (type === 'USERS') {
+        // eslint-disable-next-line array-callback-return
         data.map((item) => {
           let object = {};
           let labelVi = `${item.lastName} ${item.firstName}`;
@@ -125,6 +126,7 @@ class ManageDoctor extends Component {
         });
       }
       if (type === 'PRICE') {
+        // eslint-disable-next-line array-callback-return
         data.map((item) => {
           let object = {};
           let labelVi = `${item.valueVi} VND`;
@@ -136,6 +138,7 @@ class ManageDoctor extends Component {
         });
       }
       if (type === 'PAYMENT' || type === 'PROVINCE') {
+        // eslint-disable-next-line array-callback-return
         data.map((item) => {
           let object = {};
           let labelVi = `${item.valueVi}`;
@@ -147,6 +150,7 @@ class ManageDoctor extends Component {
         });
       }
       if (type === 'SPECIALTY') {
+        // eslint-disable-next-line array-callback-return
         data.map((item) => {
           let object = {};
           object.label = item.name;
@@ -155,6 +159,7 @@ class ManageDoctor extends Component {
         });
       }
       if (type === 'CLINIC') {
+        // eslint-disable-next-line array-callback-return
         data.map((item) => {
           let object = {};
           object.label = item.name;

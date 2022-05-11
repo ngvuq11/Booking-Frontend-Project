@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import HomeHeader from './HomeHeader';
+import HomeHeader from '../../components/Header/HomeHeader';
 
-import Specialty from './Section/Specialty/index';
-import Clinic from './Section/Clinic/index';
-import Doctor from './Section/Doctor/index';
-import About from './Section/About/index';
-import CopyRight from './Section/CoppyRight/index';
-import Footer from './Section/Footer/index';
+import Specialty from './components/Section/Specialty/index';
+import Clinic from './components/Section/Clinic/index';
+import Doctor from './components/Section/Doctor/index';
+import About from './components/Section/About/index';
+import CopyRight from './components/Section/CoppyRight/index';
+import Footer from './components/Section/Footer/index';
 
 // import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import HeroSlider from './Section/Slider/index';
+import HeroSlider from './components/Section/Slider/index';
 
 class HomePage extends Component {
   render() {

@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
-import moment from 'moment';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import { FormattedMessage } from 'react-intl';
-import * as actions from '../../../store/actions';
 import DatePicker from '../../../components/Input/DatePicker';
-import { LANGUAGES } from '../../../utils';
 import { saveBulkScheduleDoctor } from '../../../services/userService';
-
+import * as actions from '../../../store/actions';
+import { LANGUAGES } from '../../../utils';
 import './ManageSchedule.scss';
 
 class ManageSchedule extends Component {
@@ -74,6 +71,7 @@ class ManageSchedule extends Component {
     if (rangeTime && rangeTime.length > 0) {
       let selectedTime = rangeTime.filter((item) => item.isActive === true);
       if (selectedTime && selectedTime.length > 0) {
+        // eslint-disable-next-line array-callback-return
         selectedTime.map((time) => {
           let object = {};
           object.doctorId = user.id;
