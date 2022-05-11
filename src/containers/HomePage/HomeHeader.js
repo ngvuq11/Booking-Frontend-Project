@@ -25,7 +25,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 class HomeHeader extends Component {
-  handlechangeLanguage = (value) => {
+  handleChangeLanguage = (value) => {
     this.props.changeLanguageAppRedux(value);
   };
   
@@ -54,7 +54,7 @@ class HomeHeader extends Component {
   };
   render() {
     return (
-      <React.Fragment>
+      <>
         <HeaderWrapper>
           <Container>
             <Row className='header__row'>
@@ -93,7 +93,7 @@ class HomeHeader extends Component {
                   <Select
                     defaultValue={LANGUAGES.VI}
                     style={{ width: 120 }}
-                    onChange={(value) => this.handlechangeLanguage(value)}
+                    onChange={(value) => this.handleChangeLanguage(value)}
                   >
                     <Option value={LANGUAGES.VI}>Việt Nam</Option>
                     <Option value={LANGUAGES.EN}>English</Option>
@@ -103,7 +103,7 @@ class HomeHeader extends Component {
             </Row>
           </Container>
         </HeaderWrapper>
-      </React.Fragment>
+      </>
     );
   }
 }
