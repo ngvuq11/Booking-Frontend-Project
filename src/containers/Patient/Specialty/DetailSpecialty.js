@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { FormattedMessage } from 'react-intl';
-import HomeHeader from '../../HomePage/HomeHeader';
+import HomeHeader from '../../../components/Header/HomeHeader';
 import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorExtraInfor from '../Doctor/DoctorExtraInfor';
 import ProfileDoctor from '../Doctor/ProfileDoctor';
@@ -50,6 +50,7 @@ class DetailSpecialty extends Component {
         if (data && !_.isEmpty(res.data)) {
           let arr = data.doctorSpecialty;
           if (arr && arr.length > 0) {
+            // eslint-disable-next-line array-callback-return
             arr.map((item) => {
               arrDoctorId.push(item.doctorId);
             });
@@ -102,6 +103,7 @@ class DetailSpecialty extends Component {
         if (data && !_.isEmpty(res.data)) {
           let arr = data.doctorSpecialty;
           if (arr && arr.length > 0) {
+            // eslint-disable-next-line array-callback-return
             arr.map((item) => {
               arrDoctorId.push(item.doctorId);
             });
