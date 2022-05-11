@@ -201,8 +201,7 @@ class ManageDoctor extends Component {
 
   handleOnChangeSelect = async (selectedOption) => {
     this.setState({ selectedOption });
-    let { listPayment, listPrice, listProvince, listSpecialty, listClinic } =
-      this.state;
+    let { listPayment, listPrice, listProvince, listSpecialty, listClinic } = this.state;
 
     let res = await getDetailInforDoctor(selectedOption.value);
     if (res && res.errCode === 0 && res.data && res.data.Markdown) {
@@ -306,6 +305,7 @@ class ManageDoctor extends Component {
       ...stateCopy,
     });
   };
+  
   handleOnChangeText = (event, id) => {
     let stateCopy = { ...this.state };
     stateCopy[id] = event.target.value;

@@ -39,7 +39,7 @@ const saveDetailDoctorService = (data) => {
 };
 
 const getDetailInforDoctor = (id) => {
-  return axios.get(`/api/get/detail-doctor-by-id?id=${id}`);
+  return axios.get(`/api/get-detail-doctor-by-id?id=${id}`);
 };
 
 const saveBulkScheduleDoctor = (data) => {
@@ -63,6 +63,10 @@ const getProfileDoctor = (doctorId) => {
 const postBookAppointment = (data) => {
   return axios.post('/api/patient-book-appointment', data);
 };
+
+const getMedicalRecordForDoctor = (doctorId) => {
+  return axios.get(`/api/get-medical-record-for-doctor?doctorId=${doctorId}`);
+}
 
 // ---------------- Email ----------------
 
@@ -179,4 +183,5 @@ export {
   postSendBlockedNotification,
   getAllPatient,
   getApiCovid19,
+  getMedicalRecordForDoctor,
 };
