@@ -1,19 +1,24 @@
+import { Breadcrumb, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { Container } from '../../../../components/Container/Container.styles';
 import HomeHeader from '../../../../components/Header/HomeHeader';
+import { Section } from '../../../../components/Secction/Section.styleds';
+import SpecialtyCard from '../../../../components/SpecialtyCard/index';
 import * as actions from '../../../../store/actions';
-import CopyRight from '../Section/CoppyRight/index';
+import Footer from '../Section/Footer/index';
+import './ListSpecialty.scss';
 import Search from './SearchSpecialty';
 
-import './ListSpecialty.scss';
-
+const { Text } = Typography;
 class ListSpecialty extends Component {
   constructor(props) {
     super(props);
     this.state = {
       listSpecialty: [],
       keyword: '',
+      isLoading: false,
     };
   }
 
@@ -25,6 +30,10 @@ class ListSpecialty extends Component {
     if (prevProps.data !== this.props.data) {
       this.setState({
         listSpecialty: this.props.data,
+        isLoading: true,
+        currentPage: 1,
+        newsPerPage: 4,
+        pageNumberss: 0,
       });
     }
   }
@@ -40,53 +49,129 @@ class ListSpecialty extends Component {
       keyword: keyword,
     });
   };
+  chosePage = (event) => {
+    this.setState({
+      currentPage: Number(event.target.id),
+    });
+  };
 
   render() {
     // let { language } = this.props;
-    let { listSpecialty, keyword  } = this.state;
+    let { listSpecialty, keyword, isLoading } = this.state;
+    console.log('data', listSpecialty);
 
+    // eslint-disable-next-line array-callback-return
     listSpecialty = listSpecialty.filter((clinic) => {
       if (keyword === '') {
         return listSpecialty;
-      } else if (
-        clinic.name.toLowerCase().includes(keyword.toLowerCase())
-      ) {
+      } else if (clinic.name.toLowerCase().includes(keyword.toLowerCase())) {
         return listSpecialty;
       }
     });
+    const currentPage = this.state.currentPage;
+    const newsPerPage = this.state.newsPerPage;
+    const indexOfLastNews = currentPage * newsPerPage;
+    const indexOfFirstNews = indexOfLastNews - newsPerPage;
+    const currentTodos = listSpecialty.slice(indexOfFirstNews, indexOfLastNews);
+    const renderTodos = currentTodos.map((item, index) => {
+      return (
+        <SpecialtyCard
+          onClick={() => this.handleViewDetailSpecialty(item)}
+          image={item.image}
+          name={item.name}
+        />
+      );
+    });
+
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(listSpecialty.length / newsPerPage); i++) {
+      pageNumbers.push(i);
+    }
 
     return (
       <>
-        <HomeHeader isShowBanner={false} />
-        <section className='clinic'>
-        <Search
-            className='search'
-            keyword={keyword}
-            handleSearchSpecialty={this.handleSearchSpecialty}
+        {isLoading ? (
+          <>
+            <HomeHeader isShowBanner={false} />
+            <Section className='clinic'>
+              <Container>
+                <Breadcrumb>
+                  <Breadcrumb.Item>
+                    <Text
+                      onClick={() => this.props.history.push('/home')}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Home
+                    </Text>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Text>Danh sách các phòng khám</Text>
+                  </Breadcrumb.Item>
+                </Breadcrumb>
+                <Search
+                  className='search'
+                  keyword={keyword}
+                  handleSearchSpecialty={this.handleSearchSpecialty}
+                />
+                <div className='list__specialty--all'>
+                  {renderTodos}
+                  {listSpecialty.length <= 0
+                    ? 'Không tìm thấy các phòng khám...'
+                    : ''}
+                  {/* {listSpecialty &&
+                    listSpecialty.length > 0 &&
+                    listSpecialty.map((item, index) => {
+                      return (
+                        <SpecialtyCard
+                          onClick={() => this.handleViewDetailSpecialty(item)}
+                          image={item.image}
+                          name={item.name}
+                        />
+                      );
+                    })}
+                  {listSpecialty.length <= 0
+                    ? 'Không tìm thấy các phòng khám...'
+                    : ''} */}
+                </div>
+                <div className='pagination-custom'>
+                  <ul id='page-numbers'>
+                    {pageNumbers.map((number) => {
+                      if (this.state.currentPage === number) {
+                        return (
+                          <li key={number} id={number} className='active'>
+                            {number}
+                          </li>
+                        );
+                      } else {
+                        return (
+                          <li key={number} id={number} onClick={this.chosePage}>
+                            {number}
+                          </li>
+                        );
+                      }
+                    })}
+                  </ul>
+                </div>
+              </Container>
+            </Section>
+            <Footer />
+          </>
+        ) : (
+          <Spin
+            tip='Loading...'
+            size='large'
+            style={{
+              width: '100vw',
+              height: '100vh',
+              maxHeight: 'unset',
+              display: 'flex',
+              gap: '20px',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
           />
-          <h2 className='title'>Danh sách các phòng khám</h2>
-          <div className='list-doctor'>
-            {listSpecialty &&
-              listSpecialty.length > 0 &&
-              listSpecialty.map((item, index) => {
-                return (
-                  <div className='clinic-item' key={index}>
-                    <div className='name-clinic'>{item.name}</div>
-                    <div className='image-clinic'>
-                      <img src={item.image} alt='' />
-                    </div>
-                    <div onClick={() => this.handleViewDetailSpecialty(item)}>
-                      Xem thêm
-                    </div>
-                  </div>
-                );
-              })}
-            {listSpecialty.length <= 0
-              ? 'Không tìm thấy các phòng khám...'
-              : ''}
-          </div>
-        </section>
-        <CopyRight />
+        )}
       </>
     );
   }

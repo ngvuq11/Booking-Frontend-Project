@@ -1,20 +1,21 @@
+import { Button, Space, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
-import Slider from 'react-slick';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { LANGUAGES } from '../../../../../utils';
-import { FormattedMessage } from 'react-intl';
-import * as actions from '../../../../../store/actions';
-import Titles from '../../../../../components/Title';
 import { Container } from '../../../../../components/Container/Container.styles';
+import DoctorCard from '../../../../../components/DoctorCard/index';
+import { Section } from '../../../../../components/Secction/Section.styleds';
+import * as actions from '../../../../../store/actions';
+import { LANGUAGES } from '../../../../../utils';
+import './Doctor.scss';
 
-// import '../../HomePage.scss';
-
+const { Title } = Typography;
 class Specialty extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrDoctors: [],
+      isLoading: false,
     };
   }
 
@@ -26,6 +27,7 @@ class Specialty extends Component {
     if (prevProps.topDoctors !== this.props.topDoctors) {
       this.setState({
         arrDoctors: this.props.topDoctors,
+        isLoading: true,
       });
     }
   }
@@ -35,55 +37,98 @@ class Specialty extends Component {
       this.props.history.push(`/detail-doctor/${doctor.id}`);
     }
   };
+  handleViewAllDoctor = () => {
+    if (this.props.history) {
+      this.props.history.push('/list-doctor');
+    }
+  };
 
   render() {
-    let arrDoctors = this.state.arrDoctors;
+    let { arrDoctors, isLoading } = this.state;
     let { language } = this.props;
 
-    console.log('list dortor: ', arrDoctors);
     return (
-      <section className='section-container section-doctor'>
-        <Container>
-          <div className='section-content'>
-            <Titles
+      <>
+        {isLoading ? (
+          <Section className='section__home--doctor'>
+            <Container>
+              <Space
+                direction='vertical'
+                size={10}
+                style={{ display: 'flex' }}
+                className='home__doctor'
+              >
+                {/* <Titles
               title={<FormattedMessage id='home-page.outstanding-doctor' />}
-            />
-            <Slider {...this.props.settings} className='doctor-list'>
-              {arrDoctors &&
-                arrDoctors.length > 0 &&
-                arrDoctors.map((item, index) => {
-                  let imageBase64 = '';
-                  if (item.image) {
-                    imageBase64 = Buffer.from(item.image, 'base64').toString(
-                      'binary'
-                    );
-                  }
-                  let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
-                  let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
-                  return (
-                    <div
-                      className='section-item section-item-doctor'
-                      key={index}
-                      onClick={() => this.handleViewDetailDoctor(item)}
-                    >
-                      <div
-                        className='section-image doctor-image'
-                        style={{
-                          backgroundImage: `url(${imageBase64})`,
-                        }}
-                      ></div>
-                      <div className='section-title'>
-                        <span>
-                          {language === LANGUAGES.VI ? nameVi : nameEn}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-            </Slider>
-          </div>
-        </Container>
-      </section>
+            /> */}
+                <Title
+                  level={3}
+                  className='home__list--doctor--title title__green'
+                >
+                  ĐỘI NGŨ CHUYÊN NGHIỆP
+                </Title>
+                <Title level={3} className='home__list--doctor--title'>
+                  CÁC BÁC SĨ CỦA PHÒNG KHÁM ĐA KHOA THÀNH CÔNG
+                </Title>
+                <div className='home__list--doctor'>
+                  {arrDoctors &&
+                    arrDoctors.length > 0 &&
+                    arrDoctors.map((item, index) => {
+                      let imageBase64 = '';
+                      if (item.image) {
+                        imageBase64 = Buffer.from(
+                          item.image,
+                          'base64'
+                        ).toString('binary');
+                      }
+                      let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
+                      let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
+                      return (
+                        <DoctorCard
+                          key={index}
+                          onClick={() => this.handleViewDetailDoctor(item)}
+                          image={imageBase64}
+                          name={language === LANGUAGES.VI ? nameVi : nameEn}
+                        />
+                      );
+                    })}
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: '50px',
+                  }}
+                >
+                  <Button
+                    type='danger'
+                    ghost
+                    onClick={() => this.handleViewAllDoctor()}
+                  >
+                    Xem thêm
+                  </Button>
+                </div>
+              </Space>
+            </Container>
+          </Section>
+        ) : (
+          <Spin
+            tip='Loading...'
+            size='large'
+            style={{
+              width: '100vw',
+              height: '100vh',
+              maxHeight: 'unset',
+              display: 'flex',
+              gap: '20px',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+        )}
+      </>
     );
   }
 }

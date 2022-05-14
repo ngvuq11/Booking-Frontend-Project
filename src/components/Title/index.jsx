@@ -7,18 +7,25 @@ const TitleWrap = styled.div`
   width: 100%;
   text-align: left;
   position: relative;
-  padding: 10px 0;
+  padding: 17px 0;
   margin-bottom: 20px;
+  border-bottom: 1px solid #333;
   h3 {
+    font-size: 21px;
+    text-transform: uppercase;
     margin-bottom: 0 !important;
+    color: #ff9966;
+    line-height: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
   }
   &:before {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 50px;
-    height: 4px;
+    width: 100px;
+    height: 5px;
     background: #62929e;
   }
 `;

@@ -1,13 +1,14 @@
+import { Button, Space } from 'antd';
 import React, { Component } from 'react';
-import Slider from 'react-slick';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { FormattedMessage } from 'react-intl';
-import { getTopSpecialty } from '../../../../../services/userService';
-
-import '../../../HomePage.scss';
-import Titles from '../../../../../components/Title';
 import { Container } from '../../../../../components/Container/Container.styles';
+import { Section } from '../../../../../components/Secction/Section.styleds';
+import Titles from '../../../../../components/Title';
+import { getTopSpecialty } from '../../../../../services/userService';
+import SpecialtyCard from '../../../../../components/SpecialtyCard';
+import './Specialty.scss';
 
 class Specialty extends Component {
   constructor(props) {
@@ -25,46 +26,59 @@ class Specialty extends Component {
       });
     }
   }
-
   handleViewDetailSpecialty = (item) => {
     if (this.props.history) {
       this.props.history.push(`/detail-specialty/${item.id}`);
     }
   };
+  handleViewAllSpecialty = () => {
+    if (this.props.history) {
+      this.props.history.push(`/list-specialty`);
+    }
+  };
   render() {
     let { dataSpecialty } = this.state;
+
     return (
-      <section className='section-container section-specialty'>
+      <Section className='section__specialty'>
         <Container>
-          <div className='section-content'>
+          <Space direction='vertical' size={10} style={{ display: 'flex' }}>
             <Titles
               title={<FormattedMessage id='home-page.specialty-popular' />}
             />
-
-            <Slider {...this.props.settings} className='section-list'>
+            <div className='home__specialty--list'>
               {dataSpecialty &&
                 dataSpecialty.length > 0 &&
                 dataSpecialty.map((item, index) => {
                   return (
-                    <div
-                      className='section-item section-item-specialty'
-                      key={index}
+                    <SpecialtyCard
                       onClick={() => this.handleViewDetailSpecialty(item)}
-                    >
-                      <div
-                        className='section-image specialty-image'
-                        style={{
-                          backgroundImage: `url(${item.image})`,
-                        }}
-                      ></div>
-                      <span className='specily_name'>{item.name}</span>
-                    </div>
+                      name={item.name}
+                      image={item.image}
+                      description={item.descriptionHTML}
+                    />
                   );
                 })}
-            </Slider>
-          </div>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: '50px',
+              }}
+            >
+              <Button
+                type='danger'
+                ghost
+                onClick={() => this.handleViewAllSpecialty()}
+              >
+                Xem tất cả
+              </Button>
+            </div>
+          </Space>
         </Container>
-      </section>
+      </Section>
     );
   }
 }

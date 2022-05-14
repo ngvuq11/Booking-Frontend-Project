@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 
 import TableManageSpecialty from './TableManageSpecialty';
-
 import './ManageSpecialty.scss';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -70,6 +69,7 @@ class ManageSpecialty extends Component {
     let result = [];
     if (data && data.length > 0) {
       if (type === 'CLINIC') {
+        // eslint-disable-next-line array-callback-return
         data.map((item) => {
           let object = {};
           object.label = item.name;

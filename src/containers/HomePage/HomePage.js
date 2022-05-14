@@ -1,40 +1,55 @@
-import React, { Component } from 'react';
+import { Spin } from 'antd';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 import HomeHeader from '../../components/Header/HomeHeader';
-
-import Specialty from './components/Section/Specialty/index';
+import Maps from '../../components/Maps';
+import About from './components/About/index';
+import Banner from './components/Banner';
 import Clinic from './components/Section/Clinic/index';
 import Doctor from './components/Section/Doctor/index';
-import About from './components/Section/About/index';
+import Experience from './components/Section/Experience';
 import Footer from './components/Section/Footer/index';
+import Specialty from './components/Section/Specialty/index';
 
-// import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import HeroSlider from './components/Section/Slider/index';
-
-class HomePage extends Component {
-  render() {
-    let settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 3,
-    };
-
-    return (
-      <div>
-        <HomeHeader isShowBanner={true} />
-        <HeroSlider />
-        <Specialty settings={settings} />
-        <Clinic settings={settings} />
-        <Doctor settings={settings} />
-        <About />
-        <Footer />
-      </div>
-    );
-  }
+function HomePage(props) {
+  const [isLoading, setIsLoading] = useState(false);
+  setTimeout(() => {
+    setIsLoading(true);
+  }, 1000);
+  return (
+    <>
+      {isLoading ? (
+        <>
+          <HomeHeader />
+          <Banner />
+          <Specialty />
+          <Clinic />
+          <Experience />
+          <Doctor />
+          <About />
+          <Maps />
+          <Footer />
+        </>
+      ) : (
+        <Spin
+          tip='Loading...'
+          size='large'
+          style={{
+            width: '100vw',
+            height: '100vh',
+            maxHeight: 'unset',
+            display: 'flex',
+            gap: '20px',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      )}
+    </>
+  );
 }
 
 const mapStateToProps = (state) => {

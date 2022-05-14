@@ -1,4 +1,4 @@
-.list__specialty--all {
+.home__clinic--list {
   --f-columns: 2;
   --f-gap: 20px;
   display: flex;
@@ -9,5 +9,12 @@
     margin-left: var(--f-gap);
     margin-bottom: var(--f-gap);
     width: calc((100% / var(--f-columns) - var(--f-gap)));
+  }
+  @media screen and (max-width: 767px) {
+    --f-columns: 1;
+    --f-gap: 10px;
+    > * {
+      width: 100%;
+    }
   }
 }

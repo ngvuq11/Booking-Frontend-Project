@@ -1,5 +1,5 @@
 .section__hero {
-  padding: 20px;
+  padding: 40px 0 30px;
   .slick-slide {
     > div > div {
       display: flex !important;
@@ -12,9 +12,11 @@
   }
   .slider__image {
     width: 50%;
-    aspect-ratio: 16/9;
+    aspect-ratio: 16/ 9;
     object-fit: cover;
-    border-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+
     @media screen and (max-width: 767px) {
       width: 100%;
     }
@@ -30,5 +32,14 @@
         font-size: 16px;
       }
     }
+  }
+  .slick-dots li {
+    background-color: #ccc;
+    border-radius: 100rem;
+    width: 10px;
+    height: 10px;
+  }
+  .slick-dots li.slick-active {
+    background-color: #00a8ff;
   }
 }
