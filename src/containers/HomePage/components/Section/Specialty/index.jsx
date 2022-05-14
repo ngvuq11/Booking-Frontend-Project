@@ -1,14 +1,16 @@
+import { Button, Col, Image, Row, Space, Typography } from 'antd';
 import React, { Component } from 'react';
-import Slider from 'react-slick';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { FormattedMessage } from 'react-intl';
-import { getTopSpecialty } from '../../../../../services/userService';
-
-import '../../../HomePage.scss';
-import Titles from '../../../../../components/Title';
+import Slider from 'react-slick';
 import { Container } from '../../../../../components/Container/Container.styles';
+import { Section } from '../../../../../components/Secction/Section.styleds';
+import Titles from '../../../../../components/Title';
+import { getTopSpecialty } from '../../../../../services/userService';
+import './Specialty.scss';
 
+const { Title } = Typography;
 class Specialty extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +27,6 @@ class Specialty extends Component {
       });
     }
   }
-
   handleViewDetailSpecialty = (item) => {
     if (this.props.history) {
       this.props.history.push(`/detail-specialty/${item.id}`);
@@ -33,38 +34,73 @@ class Specialty extends Component {
   };
   render() {
     let { dataSpecialty } = this.state;
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 2,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 4000,
+      arrows: true,
+      cssEase: 'linear',
+      appendDots: (dots) => <ul>{dots}</ul>,
+      customPaging: (i) => (
+        <div className='ft-slick__dots--custom'>
+          <div className='loading' />
+        </div>
+      ),
+    };
     return (
-      <section className='section-container section-specialty'>
+      <Section className='section__specialty'>
         <Container>
-          <div className='section-content'>
+          <Space direction='vertical' size={10} style={{ display: 'flex' }}>
             <Titles
               title={<FormattedMessage id='home-page.specialty-popular' />}
             />
-
-            <Slider {...this.props.settings} className='section-list'>
+            <Slider {...settings}>
               {dataSpecialty &&
                 dataSpecialty.length > 0 &&
                 dataSpecialty.map((item, index) => {
                   return (
-                    <div
-                      className='section-item section-item-specialty'
+                    <Row
                       key={index}
                       onClick={() => this.handleViewDetailSpecialty(item)}
                     >
-                      <div
-                        className='section-image specialty-image'
-                        style={{
-                          backgroundImage: `url(${item.image})`,
-                        }}
-                      ></div>
-                      <span className='specily_name'>{item.name}</span>
-                    </div>
+                      <Col span={12}>
+                        <Image
+                          src={item.image}
+                          preview={false}
+                          style={{ width: '100%' }}
+                        />
+                      </Col>
+                      <Col span={12}>
+                        <Title level={3}>{item.name}</Title>
+                        <div
+                          className='specialty__description'
+                          dangerouslySetInnerHTML={{
+                            __html: item.descriptionHTML,
+                          }}
+                        ></div>
+                      </Col>
+                    </Row>
                   );
                 })}
             </Slider>
-          </div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Button type='primary' danger>
+                Xem thêm
+              </Button>
+            </div>
+          </Space>
         </Container>
-      </section>
+      </Section>
     );
   }
 }
