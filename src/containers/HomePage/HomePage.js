@@ -14,6 +14,14 @@ import 'slick-carousel/slick/slick-theme.css';
 import HeroSlider from './components/Section/Slider/index';
 
 class HomePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSpin: false,
+    };
+  }
+
+  componentDidUpdate;
   render() {
     let settings = {
       dots: false,
@@ -29,7 +37,7 @@ class HomePage extends Component {
         <HeroSlider />
         <Specialty settings={settings} />
         <Clinic settings={settings} />
-        <Doctor settings={settings} />
+        <Doctor />
         <About />
         <Footer />
       </>

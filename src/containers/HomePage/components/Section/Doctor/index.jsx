@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import Slider from 'react-slick';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { LANGUAGES } from '../../../../../utils';
-import { FormattedMessage } from 'react-intl';
-import * as actions from '../../../../../store/actions';
-import Titles from '../../../../../components/Title';
 import { Container } from '../../../../../components/Container/Container.styles';
-import { Section } from '../../../../../components/Secction/Section.styleds';
 import DoctorCard from '../../../../../components/DoctorCard/index';
-
-// import '../../HomePage.scss';
-
+import Titles from '../../../../../components/Title';
+import * as actions from '../../../../../store/actions';
+import { LANGUAGES } from '../../../../../utils';
+import './Doctor.scss';
 class Specialty extends Component {
   constructor(props) {
     super(props);
@@ -42,29 +38,19 @@ class Specialty extends Component {
     let arrDoctors = this.state.arrDoctors;
     let { language } = this.props;
 
-    console.log('list dortor: ', arrDoctors);
     return (
       <>
-        <Section>
-          <Container>
-            <Titles
-              title={<FormattedMessage id='home-page.outstanding-doctor' />}
-            />
-            <div className='doctor-list'>
-              <DoctorCard />
-            </div>
-          </Container>
-        </Section>
         <section className='section-container section-doctor'>
           <Container>
             <div className='section-content'>
               <Titles
                 title={<FormattedMessage id='home-page.outstanding-doctor' />}
               />
-              <Slider {...this.props.settings} className='doctor-list'>
+              <div className='home__list--doctor'>
                 {arrDoctors &&
                   arrDoctors.length > 0 &&
                   arrDoctors.map((item, index) => {
+          
                     let imageBase64 = '';
                     if (item.image) {
                       imageBase64 = Buffer.from(item.image, 'base64').toString(
@@ -74,26 +60,15 @@ class Specialty extends Component {
                     let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
                     let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
                     return (
-                      <div
-                        className='section-item section-item-doctor'
-                        key={index}
+                      <DoctorCard 
+                      key={index}
                         onClick={() => this.handleViewDetailDoctor(item)}
-                      >
-                        <div
-                          className='section-image doctor-image'
-                          style={{
-                            backgroundImage: `url(${imageBase64})`,
-                          }}
-                        ></div>
-                        <div className='section-title'>
-                          <span>
-                            {language === LANGUAGES.VI ? nameVi : nameEn}
-                          </span>
-                        </div>
-                      </div>
+                        image={imageBase64}
+                        name={language === LANGUAGES.VI ? nameVi : nameEn}
+                      />
                     );
                   })}
-              </Slider>
+              </div>
             </div>
           </Container>
         </section>

@@ -1,10 +1,25 @@
+// import PropTypes from 'prop-types';
+import { Card } from 'antd';
 import React from 'react';
-import PropTypes from 'prop-types';
+import './DoctorCard.scss';
+const { Meta } = Card;
 
 DoctorCard.propTypes = {};
 
 function DoctorCard(props) {
-  return <div>this is doctor card</div>;
+  const { image, name, clinic, address, onClick } = props;
+  return (
+    <Card
+      hoverable
+      cover={<img alt='SpecialDoctorImg' src={image} />}
+      onClick={onClick}
+      className='doctor__card'
+    >
+      <Meta title={name} />
+      <Meta title={clinic} />
+      <Meta title={address} />
+    </Card>
+  );
 }
 
 export default DoctorCard;

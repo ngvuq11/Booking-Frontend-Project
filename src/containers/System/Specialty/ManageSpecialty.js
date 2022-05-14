@@ -11,9 +11,10 @@ import MdEditor from 'react-markdown-editor-lite';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 
-import TableManageSpecialty from './TableManageSpecialty';
-
+import TableManageSpecialty from './TableManageSpecialty'
 import './ManageSpecialty.scss';
+
+
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -75,7 +76,7 @@ class ManageSpecialty extends Component {
           object.label = item.name;
           object.value = item.id;
           result.push(object);
-        });
+        })
       }
     }
     return result;
