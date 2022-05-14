@@ -1,10 +1,25 @@
+import { Image, Typography } from 'antd';
 import React from 'react';
-import PropTypes from 'prop-types';
+import './SpecialtyCard.scss';
 
-SpecialtyCard.propTypes = {};
+const { Title } = Typography;
 
 function SpecialtyCard(props) {
-  return <div>This is Specialty Card</div>;
+  const { onClick, image, description, name } = props;
+  return (
+    <div onClick={onClick} className='specialty__card'>
+      <Image src={image} preview={false} style={{ width: '100%' }} />
+      <div className='specialty__card--bottom'>
+        <Title level={3}>{name}</Title>
+        <div
+          className='specialty__card--description'
+          dangerouslySetInnerHTML={{
+            __html: { description },
+          }}
+        ></div>
+      </div>
+    </div>
+  );
 }
 
 export default SpecialtyCard;

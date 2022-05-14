@@ -1,16 +1,15 @@
-import { Button, Col, Image, Row, Space, Typography } from 'antd';
+import { Button, Space } from 'antd';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Slider from 'react-slick';
 import { Container } from '../../../../../components/Container/Container.styles';
 import { Section } from '../../../../../components/Secction/Section.styleds';
 import Titles from '../../../../../components/Title';
 import { getTopSpecialty } from '../../../../../services/userService';
+import SpecialtyCard from '../../../../../components/SpecialtyCard';
 import './Specialty.scss';
 
-const { Title } = Typography;
 class Specialty extends Component {
   constructor(props) {
     super(props);
@@ -32,25 +31,14 @@ class Specialty extends Component {
       this.props.history.push(`/detail-specialty/${item.id}`);
     }
   };
+  handleViewAllSpecialty = () => {
+    if (this.props.history) {
+      this.props.history.push(`/list-specialty`);
+    }
+  };
   render() {
     let { dataSpecialty } = this.state;
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 2,
-      slidesToScroll: 1,
-      // autoplay: true,
-      autoplaySpeed: 4000,
-      arrows: true,
-      cssEase: 'linear',
-      appendDots: (dots) => <ul>{dots}</ul>,
-      customPaging: (i) => (
-        <div className='ft-slick__dots--custom'>
-          <div className='loading' />
-        </div>
-      ),
-    };
+
     return (
       <Section className='section__specialty'>
         <Container>
@@ -58,43 +46,33 @@ class Specialty extends Component {
             <Titles
               title={<FormattedMessage id='home-page.specialty-popular' />}
             />
-            <Slider {...settings}>
+            <div className='home__specialty--list'>
               {dataSpecialty &&
                 dataSpecialty.length > 0 &&
                 dataSpecialty.map((item, index) => {
                   return (
-                    <Row
-                      key={index}
+                    <SpecialtyCard
                       onClick={() => this.handleViewDetailSpecialty(item)}
-                    >
-                      <Col span={12}>
-                        <Image
-                          src={item.image}
-                          preview={false}
-                          style={{ width: '100%' }}
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <Title level={3}>{item.name}</Title>
-                        <div
-                          className='specialty__description'
-                          dangerouslySetInnerHTML={{
-                            __html: item.descriptionHTML,
-                          }}
-                        ></div>
-                      </Col>
-                    </Row>
+                      name={item.name}
+                      image={item.image}
+                      description={item.descriptionHTML}
+                    />
                   );
                 })}
-            </Slider>
+            </div>
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                marginTop: '50px',
               }}
             >
-              <Button type='danger' ghost>
+              <Button
+                type='danger'
+                ghost
+                onClick={() => this.handleViewAllSpecialty()}
+              >
                 Xem tất cả
               </Button>
             </div>

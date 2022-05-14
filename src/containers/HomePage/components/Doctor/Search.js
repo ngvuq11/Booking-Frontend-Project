@@ -30,25 +30,27 @@ class Search extends Component {
   render() {
     let { keyword } = this.state;
     return (
-      <div className='search-doctor'>
-        <input
-          name='keyword'
-          type='text'
-          className='input-search'
-          placeholder='Search doctor...'
-          value={keyword}
-          onChange={(event) => this.handleOnChangeDoctor(event)}
-        />
-        <span className='input-gr-btn'>
-          <button
-            className='btn-search'
-            type='button'
-            onClick={this.handleSearchDoctor}
-          >
-            <span className='fa fa-search'></span>
-            Search
-          </button>
-        </span>
+      <div className='search__wrapper'>
+        <div className='search-bar'>
+          <input
+            name='keyword'
+            type='text'
+            className='input-search'
+            placeholder='Search doctor...'
+            value={keyword}
+            onChange={(event) => this.handleOnChangeDoctor(event)}
+          />
+          <span className='input-gr-btn'>
+            <button
+              className='btn-search'
+              type='button'
+              onClick={this.handleSearchDoctor}
+            >
+              <span className='fa fa-search'></span>
+              Search
+            </button>
+          </span>
+        </div>
       </div>
     );
   }

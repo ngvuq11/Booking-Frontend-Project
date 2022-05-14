@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './SearchClinic.scss';
 
 class SearchClinic extends Component {
   constructor(props) {
@@ -30,16 +31,16 @@ class SearchClinic extends Component {
   render() {
     let { keyword } = this.state;
     return (
-      <div className='search-clinic'>
-        <input
-          name='keyword'
-          type='text'
-          className='input-search'
-          placeholder='Search clinic...'
-          value={keyword}
-          onChange={(event) => this.handleOnChangeClinic(event)}
-        />
-        <span className='input-gr-btn'>
+      <div className='search__wrapper'>
+        <div className='search-bar'>
+          <input
+            name='keyword'
+            type='text'
+            className='input-search'
+            placeholder='Search clinic...'
+            value={keyword}
+            onChange={(event) => this.handleOnChangeClinic(event)}
+          />
           <button
             className='btn-search'
             type='button'
@@ -48,7 +49,7 @@ class SearchClinic extends Component {
             <span className='fa fa-search'></span>
             Search
           </button>
-        </span>
+        </div>
       </div>
     );
   }

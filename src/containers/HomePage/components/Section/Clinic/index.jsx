@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Slider from 'react-slick';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
@@ -8,7 +7,8 @@ import Titles from '../../../../../components/Title';
 import { Container } from '../../../../../components/Container/Container.styles';
 import { Button, Space } from 'antd';
 import { Section } from '../../../../../components/Secction/Section.styleds';
-
+import ClinicCard from '../../../../../components/ClinicCard';
+import './Clinic.scss';
 class Clinic extends Component {
   constructor(props) {
     super(props);
@@ -33,45 +33,47 @@ class Clinic extends Component {
       this.props.history.push(`/detail-clinic/${item.id}`);
     }
   };
+  handleviewAllClinic = () => {
+    if (this.props.history) {
+      this.props.history.push(`/list-clinic`);
+    }
+  };
 
   render() {
     let { dataClinic } = this.state;
     return (
-      <Section>
+      <Section style={{ backgroundColor: '#eee' }}>
         <Container>
           <Space direction='vertical' size={10} style={{ display: 'flex' }}>
             <Titles title={<FormattedMessage id='home-page.clinic' />} />
-            <div className='section-list'>
-              <Slider {...this.props.settings}>
-                {dataClinic &&
-                  dataClinic.length > 0 &&
-                  dataClinic.map((item, index) => {
-                    return (
-                      <div
-                        className='section-item section-item-facility'
-                        key={index}
-                        onClick={() => this.handleviewDetailClinic(item)}
-                      >
-                        <div
-                          className='section-image facility-image'
-                          style={{
-                            backgroundImage: `url(${item.image})`,
-                          }}
-                        ></div>
-                        <span className='clinic_name'>{item.name}</span>
-                      </div>
-                    );
-                  })}
-              </Slider>
+            <div className='home__clinic--list'>
+              {dataClinic &&
+                dataClinic.length > 0 &&
+                dataClinic.map((item, index) => {
+                  return (
+                    <ClinicCard
+                      key={index}
+                      onClick={() => this.handleviewDetailClinic(item)}
+                      image={item.image}
+                      name={item.name}
+                      address={item.address}
+                    />
+                  );
+                })}
             </div>
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                marginTop: '50px',
               }}
             >
-              <Button type='danger' ghost>
+              <Button
+                type='danger'
+                ghost
+                onClick={() => this.handleviewAllClinic()}
+              >
                 Xem thêm
               </Button>
             </div>
