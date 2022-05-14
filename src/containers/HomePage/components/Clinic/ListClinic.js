@@ -1,18 +1,27 @@
+import { Breadcrumb, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import ClinicCard from '../../../../components/ClinicCard';
+import { Container } from '../../../../components/Container/Container.styles';
 import HomeHeader from '../../../../components/Header/HomeHeader';
+import { Section } from '../../../../components/Secction/Section.styleds';
 import * as actions from '../../../../store/actions';
-import CopyRight from '../Section/CoppyRight';
-import Search from './SearchClinic';
+import Footer from '../Section/Footer';
 import './ListClinic.scss';
+import Search from './SearchClinic';
 
+const { Text } = Typography;
 class ListClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
       listClinic: [],
       keyword: '',
+      isLoading: false,
+      currentPage: 1,
+      newsPerPage: 3,
+      pageNumberss: 0,
     };
   }
 
@@ -24,6 +33,10 @@ class ListClinic extends Component {
     if (prevProps.data !== this.props.data) {
       this.setState({
         listClinic: this.props.data,
+        isLoading: true,
+        pageNumberss: Math.ceil(
+          this.props.data.length / this.state.newsPerPage
+        ),
       });
     }
   }
@@ -39,11 +52,17 @@ class ListClinic extends Component {
       keyword: keyword,
     });
   };
+  chosePage = (event) => {
+    this.setState({
+      currentPage: Number(event.target.id),
+    });
+  };
 
   render() {
     // let { language } = this.props;
-    let { listClinic, keyword } = this.state;
+    let { listClinic, keyword, isLoading } = this.state;
 
+    // eslint-disable-next-line array-callback-return
     listClinic = listClinic.filter((clinic) => {
       if (keyword === '') {
         return listClinic;
@@ -54,39 +73,92 @@ class ListClinic extends Component {
         return listClinic;
       }
     });
-    
+
+    const currentPage = this.state.currentPage;
+    const newsPerPage = this.state.newsPerPage;
+    const indexOfLastNews = currentPage * newsPerPage;
+    const indexOfFirstNews = indexOfLastNews - newsPerPage;
+    const currentTodos = listClinic.slice(indexOfFirstNews, indexOfLastNews);
+    const renderTodos = currentTodos.map((item, index) => {
+      return (
+        <ClinicCard
+          image={item.image}
+          onClick={() => this.handleViewDetailClinic(item)}
+          name={item.name}
+          address={item.address}
+        />
+      );
+    });
+
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(listClinic.length / newsPerPage); i++) {
+      pageNumbers.push(i);
+    }
     return (
       <>
-        <HomeHeader isShowBanner={false} />
-        <section className='clinic'>
-          <Search
-            className='search'
-            keyword={keyword}
-            handleSearchClinic={this.handleSearchClinic}
+        {isLoading ? (
+          <>
+            <HomeHeader isShowBanner={false} />
+            <Section className='clinic'>
+              <Container>
+                <Breadcrumb>
+                  <Breadcrumb.Item>
+                    <Text
+                      onClick={() => this.props.history.push(`/home`)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Home
+                    </Text>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Text>Danh sách các cơ sở y tế</Text>
+                  </Breadcrumb.Item>
+                </Breadcrumb>
+                <Search
+                  className='search'
+                  keyword={keyword}
+                  handleSearchClinic={this.handleSearchClinic}
+                />
+                <div className='list__clinic--all'>{renderTodos}</div>
+                <div className='pagination-custom'>
+                  <ul id='page-numbers'>
+                    {pageNumbers.map((number) => {
+                      if (this.state.currentPage === number) {
+                        return (
+                          <li key={number} id={number} className='active'>
+                            {number}
+                          </li>
+                        );
+                      } else {
+                        return (
+                          <li key={number} id={number} onClick={this.chosePage}>
+                            {number}
+                          </li>
+                        );
+                      }
+                    })}
+                  </ul>
+                </div>
+              </Container>
+            </Section>
+            <Footer />
+          </>
+        ) : (
+          <Spin
+            tip='Loading...'
+            size='large'
+            style={{
+              width: '100vw',
+              height: '100vh',
+              maxHeight: 'unset',
+              display: 'flex',
+              gap: '20px',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
           />
-          <h2 className='title'>Danh sách các cơ sở y tế</h2>
-
-          <div className='list-doctor'>
-            {listClinic &&
-              listClinic.length > 0 &&
-              listClinic.map((item, index) => {
-                return (
-                  <div className='clinic-item' key={index}>
-                    <div className='name-clinic'>{item.name}</div>
-                    <div className='address-clinic'>{item.address}</div>
-                    <div className='image-clinic'>
-                      <img src={item.image} alt='' />
-                    </div>
-                    <div onClick={() => this.handleViewDetailClinic(item)}>
-                      Xem thêm
-                    </div>
-                  </div>
-                );
-              })}
-            {listClinic.length <= 0 ? 'Không tìm thấy các cơ sở y tế...' : ''}
-          </div>
-        </section>
-        <CopyRight />
+        )}
       </>
     );
   }

@@ -30,16 +30,16 @@ class SearchSpecialty extends Component {
   render() {
     let { keyword } = this.state;
     return (
-      <div className='search-specialty'>
-        <input
-          name='keyword'
-          type='text'
-          className='input-search'
-          placeholder='Search specialty...'
-          value={keyword}
-          onChange={(event) => this.handleOnChangeSpecialty(event)}
-        />
-        <span className='input-gr-btn'>
+      <div className='search__wrapper'>
+        <div className='search-bar'>
+          <input
+            name='keyword'
+            type='text'
+            className='input-search'
+            placeholder='Search specialty...'
+            value={keyword}
+            onChange={(event) => this.handleOnChangeSpecialty(event)}
+          />
           <button
             className='btn-search'
             type='button'
@@ -48,7 +48,7 @@ class SearchSpecialty extends Component {
             <span className='fa fa-search'></span>
             Search
           </button>
-        </span>
+        </div>
       </div>
     );
   }

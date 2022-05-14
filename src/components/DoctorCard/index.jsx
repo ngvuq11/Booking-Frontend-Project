@@ -7,7 +7,7 @@ const { Meta } = Card;
 DoctorCard.propTypes = {};
 
 function DoctorCard(props) {
-  const { image, name, clinic, address, onClick } = props;
+  const { image, name, onClick } = props;
   return (
     <Card
       hoverable

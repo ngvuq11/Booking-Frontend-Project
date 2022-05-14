@@ -34,4 +34,3 @@ class Logo extends React.Component {
 }
 
 export default withRouter(Logo);
-
