@@ -16,6 +16,10 @@ import {
   createNewClinic,
   deleteClinicService,
   editClinicService,
+  getAllHandBook,
+  createNewHandBook,
+  editHandBookService,
+  deleteHandBookService,
 } from '../../services/userService';
 
 import { toast } from 'react-toastify';
@@ -600,4 +604,120 @@ export const deleteClinicSuccess = () => ({
 
 export const deleteClinicFailed = () => ({
   type: actionTypes.DELETE_CLINIC_FAILED,
+});
+
+
+// ----------------- ACTIONS HAND BOOK -------------------
+export const fetchAllHandBookStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllHandBook();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_HAND_BOOK_SUCCESS,
+          data: res.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_HAND_BOOK_FAILED,
+        });
+      }
+    } catch (e) {
+      toast.error('Fetch a hand book error !');
+      dispatch({
+        type: actionTypes.FETCH_ALL_HAND_BOOK_FAILED,
+      });
+      console.log('fetch All hand book Failed error: ', e);
+    }
+  };
+};
+
+// ------------------ CREATE CLINIC ------------------
+
+export const fetchCreateNewHandBook = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await createNewHandBook(data);
+      if (res && res.errCode === 0) {
+        toast.success('Create a new hand book success !');
+        dispatch(fetchCreateHandBookSuccess());
+        dispatch(fetchAllHandBookStart());
+      } else {
+        toast.error('Create a new hand book error !');
+        dispatch(fetchCreateHandBookFailed());
+      }
+    } catch (e) {
+      toast.error('Create a new hand book error !');
+      dispatch(fetchCreateHandBookFailed());
+      console.log('create hand book Failed error: ', e);
+    }
+  };
+};
+
+export const fetchCreateHandBookSuccess = () => ({
+  type: actionTypes.CREATE_HAND_BOOK_SUCCESS,
+});
+
+export const fetchCreateHandBookFailed = () => ({
+  type: actionTypes.CREATE_HAND_BOOK_FAILED,
+});
+
+// ------------------ UPDATE CLINIC ------------------
+
+export const editHandBook = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await editHandBookService(data);
+      if (res && res.errCode === 0) {
+        toast.success('Update the hand book success !');
+        dispatch(editHandBookSuccess());
+        dispatch(fetchAllHandBookStart());
+      } else {
+        toast.error('Update the hand book error !');
+        dispatch(editHandBookFailed());
+      }
+    } catch (e) {
+      toast.error('Update the hand book error !');
+      dispatch(editHandBookFailed());
+      console.log('Update hand book Failed error: ', e);
+    }
+  };
+};
+
+export const editHandBookSuccess = () => ({
+  type: actionTypes.EDIT_HAND_BOOK_SUCCESS,
+});
+
+export const editHandBookFailed = () => ({
+  type: actionTypes.EDIT_HAND_BOOK_FAILED,
+});
+
+// ------------------ DELETE CLINIC ------------------
+
+export const deleteHandBook = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await deleteHandBookService(id);
+      if (res && res.errCode === 0) {
+        toast.success('Delete the hand book success !');
+        dispatch(deleteHandBookSuccess());
+        dispatch(fetchAllHandBookStart());
+      } else {
+        toast.error('Delete the hand book error !');
+        dispatch(deleteHandBookFailed());
+      }
+    } catch (e) {
+      toast.error('Delete the hand book error !');
+      dispatch(deleteHandBookFailed());
+      console.log('delete hand book Failed error: ', e);
+    }
+  };
+};
+
+export const deleteHandBookSuccess = () => ({
+  type: actionTypes.DELETE_HAND_BOOK_SUCCESS,
+});
+
+export const deleteHandBookFailed = () => ({
+  type: actionTypes.DELETE_HAND_BOOK_FAILED,
 });

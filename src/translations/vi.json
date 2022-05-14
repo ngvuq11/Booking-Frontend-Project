@@ -29,7 +29,8 @@
       "clinic": "Phòng khám",
       "manage-clinic": "Quản lý phòng khám",
       "specialty": "Chuyên khoa",
-      "manage-specialty": "Quản lý chuyên khoa"
+      "manage-specialty": "Quản lý chuyên khoa",
+      "manage-handbook": "Quản lý cẩm nang"
     },
     "doctor": {
       "manage-schedule": "Quản lý kế hoạch khám bệnh",
@@ -146,6 +147,14 @@
       "clinic-name": "Tên phòng khám",
       "clinic-address": "Địa chỉ phòng khám",
       "clinic-image": "Ảnh phòng khám",
+      "save": "Lưu thông tin",
+      "edit": "Cập nhật thông tin"
+    },
+    "manage-handbook": {
+      "handbook-title": "Quản lý phòng khám",
+      "handbook-name": "Tên phòng khám",
+      "handbook-address": "Địa chỉ phòng khám",
+      "handbook-image": "Ảnh phòng khám",
       "save": "Lưu thông tin",
       "edit": "Cập nhật thông tin"
     }

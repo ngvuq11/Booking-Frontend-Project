@@ -52,7 +52,7 @@ class DetailClinic extends Component {
     let { dataDetailClinic } = this.state;
     // let { language } = this.props;
     let listSpecialty = dataDetailClinic.specialtyClinic;
-    console.log(listSpecialty);
+
     return (
       <div className='detail-clinic'>
         <HomeHeader />

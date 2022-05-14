@@ -2,72 +2,70 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 
-import './TableManageClinic.scss';
+import './TableManageHandBook.scss';
 
-class TableManageClinic extends Component {
+class TableManageHandBook extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clinicArray: [],
+      handBookArray: [],
     };
   }
 
   componentDidMount() {
-    this.props.fetchClinic();
+    this.props.fetchAllHandBook();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.data !== this.props.data) {
       this.setState({
-        clinicArray: this.props.data,
+        handBookArray: this.props.data,
       });
     }
   }
 
-  handleDeleteClinic = (clinic) => {
-    this.props.deleteClinic(clinic.id);
+  handleDeleteHandBook = (handBook) => {
+    this.props.deleteHandBook(handBook.id);
   };
 
-  handleEditClinic = (clinic) => {
-    this.props.handleEditClinic(clinic);
+  handleEditHandBook = (handBook) => {
+    this.props.handleEditHandBook(handBook);
   };
 
   render() {
-    let listClinic = this.state.clinicArray;
-    
+    let { handBookArray } = this.state;
+
     return (
       <div className='user-container'>
-        <h1 className='title-user'>TABLE SPECIALTY</h1>
+        <h1 className='title-user'>TABLE HAND BOOK</h1>
         <div className='users-table'>
           <table id='customers'>
             <thead>
               <tr>
                 <th>STT</th>
                 <th>Name</th>
-                <th>Address</th>
                 <th>Options</th>
               </tr>
             </thead>
 
             <tbody>
-              {listClinic &&
-                listClinic.length > 0 &&
-                listClinic.map((item, index) => {
+              {handBookArray &&
+                handBookArray.length > 0 &&
+                handBookArray.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{item.name}</td>
-                      <td>{item.address}</td>
                       <td>
                         <button
                           className='btn-edit'
-                          onClick={() => this.handleEditClinic(item)}
+                          onClick={() => this.handleEditHandBook(item)}
                         >
                           <i className='fas fa-pencil-alt'></i>
                         </button>
                         <button
                           className='btn-delete'
-                          onClick={() => this.handleDeleteClinic(item)}
+                          onClick={() => this.handleDeleteHandBook(item)}
                         >
                           <i className='fas fa-trash-alt'></i>
                         </button>
@@ -91,9 +89,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchClinic: () => dispatch(actions.fetchAllClinicStart()),
-    deleteClinic: (id) => dispatch(actions.deleteClinic(id)),
+    fetchAllHandBook: () => dispatch(actions.fetchAllHandBookStart()),
+    deleteHandBook: (id) => dispatch(actions.deleteHandBook(id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableManageClinic);
+export default connect(mapStateToProps, mapDispatchToProps)(TableManageHandBook);
