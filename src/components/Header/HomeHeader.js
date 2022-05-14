@@ -53,6 +53,12 @@ class HomeHeader extends Component {
       this.props.history.push(`/covid-19`);
     }
   };
+
+  handleLogin = () => {
+    if (this.props.history) {
+      this.props.history.push(`/login`);
+    }
+  }
   render() {
     return (
       <>
@@ -112,6 +118,7 @@ class HomeHeader extends Component {
                     <Option value={LANGUAGES.EN}>English</Option>
                   </Select>
                 </Space>
+                <span onClick={() => this.handleLogin()}>Login</span>
               </Col>
             </Row>
           </Container>
