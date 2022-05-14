@@ -6,7 +6,6 @@ import Specialty from './components/Section/Specialty/index';
 import Clinic from './components/Section/Clinic/index';
 import Doctor from './components/Section/Doctor/index';
 import About from './components/Section/About/index';
-import CopyRight from './components/Section/CoppyRight/index';
 import Footer from './components/Section/Footer/index';
 
 // import Slider from 'react-slick';
@@ -33,7 +32,6 @@ class HomePage extends Component {
         <Doctor settings={settings} />
         <About />
         <Footer />
-        <CopyRight />
       </div>
     );
   }

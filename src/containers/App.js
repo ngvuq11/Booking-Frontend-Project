@@ -19,10 +19,10 @@ import ListSpecialty from './HomePage/components/Specialty/ListSpecialty';
 import ListClinic from './HomePage/components/Clinic/ListClinic';
 import ListDoctor from './HomePage/components/Doctor/ListDoctor';
 import VerifyEmail from './Patient/VerifyEmail';
-import DetailDoctor from './Patient/Doctor/DetailDoctor';
+import DetailDoctor from './Patient/Doctor/DetailDoctor/index';
 import DetailClinic from './Patient/Clinic/DetailClinic';
 import CustomScrollbars from '../components/CustomScrollbar/CustomScrollbars';
-import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
+import DetailSpecialty from './Patient/Specialty';
 import Covid19 from '../containers/HomePage/components/Covid19/Covid19';
 
 class App extends Component {

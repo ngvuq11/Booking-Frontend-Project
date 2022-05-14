@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LANGUAGES } from '../../../utils';
-import DoctorSchedule from './DoctorSchedule';
-import DoctorExtraInfor from './DoctorExtraInfor';
-import HomeHeader from '../../../components/Header/HomeHeader';
-import Comment from '../SocialPlugin/Comment';
-import LikeAndShare from '../SocialPlugin/LikeAndShare';
-import { getDetailInforDoctor } from '../../../services/userService';
+import { LANGUAGES } from '../../../../../utils';
+import DoctorSchedule from '../DoctorSchedule/index';
+import DoctorExtraInfor from '../DoctorExtraInfor/index';
+import HomeHeader from '../../../../components/Header/HomeHeader';
+import Comment from '../../SocialPlugin/Comment';
+import LikeAndShare from '../../SocialPlugin/LikeAndShare';
+import { getDetailInforDoctor } from '../../../../services/userService';
 
 import './DetailDoctor.scss';
 
