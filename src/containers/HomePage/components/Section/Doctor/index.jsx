@@ -6,6 +6,7 @@ import { LANGUAGES } from '../../../../../utils';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../../../store/actions';
 import Titles from '../../../../../components/Title';
+import { Container } from '../../../../../components/Container/Container.styles';
 
 // import '../../HomePage.scss';
 
@@ -42,7 +43,7 @@ class Specialty extends Component {
     console.log('list dortor: ', arrDoctors);
     return (
       <section className='section-container section-doctor'>
-        <div className='container'>
+        <Container>
           <div className='section-content'>
             <Titles
               title={<FormattedMessage id='home-page.outstanding-doctor' />}
@@ -81,7 +82,7 @@ class Specialty extends Component {
                 })}
             </Slider>
           </div>
-        </div>
+        </Container>
       </section>
     );
   }

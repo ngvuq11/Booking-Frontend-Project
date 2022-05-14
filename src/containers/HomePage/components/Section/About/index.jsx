@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Container } from '../../../../../components/Container/Container.styles';
 import Title from '../../../../../components/Title';
 // import { FormattedMessage } from 'react-intl';
 
@@ -9,7 +10,7 @@ class About extends Component {
   render() {
     return (
       <section className='section-about'>
-        <div className='container'>
+        <Container>
           <Title title={'Blog'} />
           <div className='section-about-item'>
             <div className='section-about-item-video'>
@@ -28,7 +29,7 @@ class About extends Component {
               </p>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     );
   }

@@ -4,7 +4,7 @@ import moment from 'moment';
 import Select from 'react-select';
 import { Modal } from 'reactstrap';
 import { connect } from 'react-redux';
-import ProfileDoctor from '../ProfileDoctor';
+import ProfileDoctor from '../ProfileDoctor/index';
 import { LANGUAGES } from '../../../../utils';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../../store/actions';

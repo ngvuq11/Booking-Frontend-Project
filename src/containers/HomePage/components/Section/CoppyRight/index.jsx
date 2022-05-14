@@ -8,6 +8,8 @@ const CoppyRightWrapper = styled.div`
   width: 100%;
   background-color: #eee;
   color: #333;
+  text-align: center;
+  padding: 10px 0;
 `;
 class CopyRight extends Component {
   render() {
