@@ -40,7 +40,7 @@ class Specialty extends Component {
       speed: 500,
       slidesToShow: 2,
       slidesToScroll: 1,
-      autoplay: true,
+      // autoplay: true,
       autoplaySpeed: 4000,
       arrows: true,
       cssEase: 'linear',
@@ -94,8 +94,8 @@ class Specialty extends Component {
                 justifyContent: 'center',
               }}
             >
-              <Button type='primary' danger>
-                Xem thêm
+              <Button type='danger' ghost>
+                Xem tất cả
               </Button>
             </div>
           </Space>
