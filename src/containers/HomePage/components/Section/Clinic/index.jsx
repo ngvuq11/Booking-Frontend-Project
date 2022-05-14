@@ -6,14 +6,14 @@ import { FormattedMessage } from 'react-intl';
 import { getTopClinic } from '../../../../../services/userService';
 import Titles from '../../../../../components/Title';
 import { Container } from '../../../../../components/Container/Container.styles';
-
-// import '../../HomePage.scss';
+import { Button, Space } from 'antd';
+import { Section } from '../../../../../components/Secction/Section.styleds';
 
 class Clinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataClinic: []
+      dataClinic: [],
     };
   }
 
@@ -37,9 +37,9 @@ class Clinic extends Component {
   render() {
     let { dataClinic } = this.state;
     return (
-      <section className='section-container section-facility'>
+      <Section>
         <Container>
-          <div className='section-content'>
+          <Space direction='vertical' size={10} style={{ display: 'flex' }}>
             <Titles title={<FormattedMessage id='home-page.clinic' />} />
             <div className='section-list'>
               <Slider {...this.props.settings}>
@@ -64,9 +64,20 @@ class Clinic extends Component {
                   })}
               </Slider>
             </div>
-          </div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Button type='danger' ghost>
+                Xem thêm
+              </Button>
+            </div>
+          </Space>
         </Container>
-      </section>
+      </Section>
     );
   }
 }

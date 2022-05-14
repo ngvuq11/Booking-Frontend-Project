@@ -1,21 +1,20 @@
 .doctor__card {
   background: rgb(255, 255, 255);
-  padding: 15px;
-  border-radius: 8px;
+  border-radius: 6px;
   transition: all 0.3s linear;
   cursor: pointer;
   img {
     width: 100%;
     object-fit: cover;
     aspect-ratio: 1;
-    border-radius: inherit;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
   }
   &:hover {
-    transform: scale(1.01);
+    transform: translateY(-5px);
   }
-  .ant-card-body,
-  .ant-card-meta {
-    padding: 8px;
+  .ant-card-body {
+    padding: 15px 10px 20px;
     text-align: center;
   }
 }

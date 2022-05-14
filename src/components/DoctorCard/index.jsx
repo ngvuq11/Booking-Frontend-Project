@@ -16,8 +16,8 @@ function DoctorCard(props) {
       className='doctor__card'
     >
       <Meta title={name} />
-      <Meta title={clinic} />
-      <Meta title={address} />
+      {/* <Meta title={clinic} /> */}
+      {/* <Meta title={address} /> */}
     </Card>
   );
 }

@@ -77,7 +77,7 @@ function About(props) {
           </Col>
           <Col span={8}>
             <Image
-              src='https://thinkpro.vn/_nuxt/img/thinkpro-footer.d5b4dbc.png'
+              src='https://images.unsplash.com/photo-1550831106-0994fe8abcfe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
               preview={false}
             />
           </Col>

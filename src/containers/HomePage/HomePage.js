@@ -13,6 +13,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import HeroSlider from './components/Section/Slider/index';
 import Banner from './components/Banner';
+import Experience from './components/Section/Experience';
 
 class HomePage extends Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class HomePage extends Component {
         <HeroSlider />
         <Specialty settings={settings} />
         <Clinic settings={settings} />
+        <Experience />
         <Doctor />
         <About />
         <Footer />
