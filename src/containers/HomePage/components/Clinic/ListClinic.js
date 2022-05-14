@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import HomeHeader from '../../../../components/Header/HomeHeader';
 import * as actions from '../../../../store/actions';
 import CopyRight from '../Section/CoppyRight';
+import Search from './SearchClinic';
 import './ListClinic.scss';
 
 class ListClinic extends Component {
@@ -11,6 +12,7 @@ class ListClinic extends Component {
     super(props);
     this.state = {
       listClinic: [],
+      keyword: '',
     };
   }
 
@@ -32,16 +34,38 @@ class ListClinic extends Component {
     }
   };
 
+  handleSearchClinic = (keyword) => {
+    this.setState({
+      keyword: keyword,
+    });
+  };
+
   render() {
-    let { language } = this.props;
-    console.log(language);
-    let { listClinic } = this.state;
-    console.log('listClinic:', listClinic);
+    // let { language } = this.props;
+    let { listClinic, keyword } = this.state;
+
+    listClinic = listClinic.filter((clinic) => {
+      if (keyword === '') {
+        return listClinic;
+      } else if (
+        clinic.name.toLowerCase().includes(keyword.toLowerCase()) ||
+        clinic.address.toLowerCase().includes(keyword.toLowerCase())
+      ) {
+        return listClinic;
+      }
+    });
+    
     return (
       <>
         <HomeHeader isShowBanner={false} />
         <section className='clinic'>
+          <Search
+            className='search'
+            keyword={keyword}
+            handleSearchClinic={this.handleSearchClinic}
+          />
           <h2 className='title'>Danh sách các cơ sở y tế</h2>
+
           <div className='list-doctor'>
             {listClinic &&
               listClinic.length > 0 &&

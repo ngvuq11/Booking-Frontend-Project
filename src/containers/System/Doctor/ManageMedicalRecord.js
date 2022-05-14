@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import LoadingOverlay from 'react-loading-overlay';
 import { connect } from 'react-redux';
-import { getMedicalRecordForDoctor } from '../../../services/userService';
+import { getMedicalRecordForDoctor, getPatientforDoctorById } from '../../../services/userService';
 import './ManageMedicalRecord.scss';
 import PatientDetail from './PatentDetail';
 
@@ -11,6 +11,7 @@ class ManageMedicalRecord extends Component {
     super(props);
     this.state = {
       dataPatient: [],
+      newDataPatient: [],
       isLoading: false,
       detailPatient: '',
     };
@@ -30,7 +31,6 @@ class ManageMedicalRecord extends Component {
     let { user } = this.props;
     let id = user.id;
     let res = await getMedicalRecordForDoctor(id);
-    console.log(res);
 
     if (res && res.errCode === 0) {
       this.setState({
@@ -39,11 +39,15 @@ class ManageMedicalRecord extends Component {
     }
   };
 
-  handleShowDetailPatientModal = (item) => {
-    this.setState({
-      isOpenModal: true,
-      detailPatient: item,
-    });
+  handleShowDetailPatientModal = async (item) => {
+    let id = item.patientId;
+    let res = await getPatientforDoctorById(id);
+    if(res && res.errCode === 0) {
+      this.setState({
+        isOpenModal: true,
+        detailPatient: res.data
+      });
+    }
   };
 
   handleCloseDetailPatientModal = () => {
@@ -54,32 +58,49 @@ class ManageMedicalRecord extends Component {
   };
 
   render() {
-    let { dataPatient, isOpenModal, detailPatient } = this.state;
+    let { dataPatient, isOpenModal, detailPatient, newDataPatient } =
+      this.state;
+
+      // filter email
+      newDataPatient = dataPatient
+      .map((e) => e['email'])
+      .map((e, i, final) => final.indexOf(e) === i && i)
+      .filter((e) => dataPatient[e])
+      .map((e) => dataPatient[e]);
+
     return (
       <>
         <LoadingOverlay active={this.state.isLoading} spinner text='Loading...'>
           <div className='manage-patient'>
-            <h2 className='title'>Quản lý hồ sơ bệnh án</h2>
+            <h2 className='title'>
+              <FormattedMessage id='menu.doctor.manage-medical-record' />
+            </h2>
 
             <div className='manage-patient-body'>
               <div className='row'>
                 <div className='col-12 form-group patient-list'>
-                  <label>Danh sách bệnh nhân khám bệnh</label>
+                  <label>
+                    <FormattedMessage id='menu.doctor.medical-record.list-medical-record' />
+                  </label>
                   <table>
                     <tbody>
                       <tr>
                         <th>STT</th>
                         <th>Email</th>
-                        <th>diagnose</th>
+                        <th>Full name</th>
+                        <th>Phone number</th>
+                        <th>Address</th>
                         <th>Actions</th>
                       </tr>
-                      {dataPatient && dataPatient.length > 0 ? (
-                        dataPatient.map((item, index) => {
+                      {newDataPatient && newDataPatient.length > 0 ? (
+                        newDataPatient.map((item, index) => {
                           return (
                             <tr key={index}>
                               <td>{index + 1}</td>
-                              <td>{item.email}</td>
-                              <td>{item.diagnose}</td>
+                              <td>{item.patientInfor.email}</td>
+                              <td>{item.patientInfor.fullName}</td>
+                              <td>{item.patientInfor.phoneNumber}</td>
+                              <td>{item.patientInfor.address}</td>
                               <td className='actions'>
                                 <div className='btn-container'>
                                   <button
@@ -88,7 +109,7 @@ class ManageMedicalRecord extends Component {
                                       this.handleShowDetailPatientModal(item)
                                     }
                                   >
-                                    Xem thêm
+                                    <FormattedMessage id='menu.doctor.medical-record.see-more' />
                                   </button>
                                 </div>
                               </td>
