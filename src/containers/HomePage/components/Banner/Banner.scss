@@ -1,0 +1,28 @@
+.section__banner {
+  margin-top: 10px;
+  .banner__image {
+    border-radius: 10px;
+    width: 100%;
+    aspect-ratio: 21/ 9;
+    object-fit: cover;
+  }
+  .banner__right--space {
+    height: 100%;
+    justify-content: space-between;
+    .ant-space-item {
+      height: calc(100% / 3 - 10px);
+      .banner__item {
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10px;
+        border: 10px;
+        //   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        border-radius: 10px;
+        background-color: #ecf0f4;
+      }
+    }
+  }
+}
