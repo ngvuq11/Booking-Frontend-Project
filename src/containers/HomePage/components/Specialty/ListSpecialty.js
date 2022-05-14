@@ -4,6 +4,8 @@ import { withRouter } from 'react-router';
 import HomeHeader from '../../../../components/Header/HomeHeader';
 import * as actions from '../../../../store/actions';
 import CopyRight from '../Section/CoppyRight/index';
+import Search from './SearchSpecialty';
+
 import './ListSpecialty.scss';
 
 class ListSpecialty extends Component {
@@ -11,6 +13,7 @@ class ListSpecialty extends Component {
     super(props);
     this.state = {
       listSpecialty: [],
+      keyword: '',
     };
   }
 
@@ -32,14 +35,35 @@ class ListSpecialty extends Component {
     }
   };
 
+  handleSearchSpecialty = (keyword) => {
+    this.setState({
+      keyword: keyword,
+    });
+  };
+
   render() {
     // let { language } = this.props;
-    let { listSpecialty } = this.state;
-    console.log(listSpecialty);
+    let { listSpecialty, keyword  } = this.state;
+
+    listSpecialty = listSpecialty.filter((clinic) => {
+      if (keyword === '') {
+        return listSpecialty;
+      } else if (
+        clinic.name.toLowerCase().includes(keyword.toLowerCase())
+      ) {
+        return listSpecialty;
+      }
+    });
+
     return (
       <>
         <HomeHeader isShowBanner={false} />
         <section className='clinic'>
+        <Search
+            className='search'
+            keyword={keyword}
+            handleSearchSpecialty={this.handleSearchSpecialty}
+          />
           <h2 className='title'>Danh sách các phòng khám</h2>
           <div className='list-doctor'>
             {listSpecialty &&

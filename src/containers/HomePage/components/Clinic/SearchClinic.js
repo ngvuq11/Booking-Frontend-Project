@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class Search extends Component {
+class SearchClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,7 @@ class Search extends Component {
 
   async componentDidUpdate(prevProps, prevState) {}
 
-  handleOnChangeDoctor = (event) => {
+  handleOnChangeClinic = (event) => {
     var target = event.target;
     var name = target.name;
     var value = target.value;
@@ -23,27 +23,27 @@ class Search extends Component {
     });
   };
 
-  handleSearchDoctor = () => {
-    this.props.handleSearchDoctor(this.state.keyword);
+  handleSearchClinic = () => {
+    this.props.handleSearchClinic(this.state.keyword);
   };
 
   render() {
     let { keyword } = this.state;
     return (
-      <div className='search-doctor'>
+      <div className='search-clinic'>
         <input
           name='keyword'
           type='text'
           className='input-search'
-          placeholder='Search doctor...'
+          placeholder='Search clinic...'
           value={keyword}
-          onChange={(event) => this.handleOnChangeDoctor(event)}
+          onChange={(event) => this.handleOnChangeClinic(event)}
         />
         <span className='input-gr-btn'>
           <button
             className='btn-search'
             type='button'
-            onClick={this.handleSearchDoctor}
+            onClick={this.handleSearchClinic}
           >
             <span className='fa fa-search'></span>
             Search
@@ -62,4 +62,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchClinic);

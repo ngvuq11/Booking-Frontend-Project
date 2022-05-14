@@ -132,7 +132,7 @@ class Covid19 extends Component {
                       />
                     </div>
                     <div className='today'>
-                      <FormattedMessage id='home-page.covid-19.today' />:
+                      <FormattedMessage id='home-page.covid-19.today' />: 
                       <NumberFormat
                         value={todayInternal.treating}
                         displayType={'text'}
