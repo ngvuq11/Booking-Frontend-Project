@@ -1,0 +1,14 @@
+.about__booking {
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0px 0px 12px #0000000f;
+  overflow: hidden;
+  .ant-image {
+    width: 100%;
+  }
+  &--content {
+    padding: 40px;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+}

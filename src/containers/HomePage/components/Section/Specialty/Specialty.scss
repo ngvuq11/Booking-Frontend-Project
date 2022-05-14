@@ -1,0 +1,24 @@
+.section__specialty {
+  .ant-row {
+    display: flex !important;
+    gap: 10px;
+    flex-wrap: nowrap;
+    .ant-image {
+      width: 100%;
+      > img {
+        width: 100%;
+        object-fit: cover;
+        aspect-ratio: 16 / 9;
+        border-radius: 8px;
+      }
+    }
+  }
+  .specialty__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+  }
+}

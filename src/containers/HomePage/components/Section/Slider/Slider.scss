@@ -1,5 +1,4 @@
 .section__hero {
-  padding: 20px;
   .slick-slide {
     > div > div {
       display: flex !important;
@@ -12,9 +11,11 @@
   }
   .slider__image {
     width: 50%;
-    aspect-ratio: 16/9;
+    aspect-ratio: 16/ 9;
     object-fit: cover;
-    border-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+
     @media screen and (max-width: 767px) {
       width: 100%;
     }
