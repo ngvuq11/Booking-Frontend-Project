@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import { getAllSpecialty } from '../../../../../services/userService';
-import Title from '../../../../../components/Title';
 
 import '../../../HomePage.scss';
+import Titles from '../../../../../components/Title';
+import { Container } from '../../../../../components/Container/Container.styles';
 
 class Specialty extends Component {
   constructor(props) {
@@ -34,13 +35,12 @@ class Specialty extends Component {
     let { dataSpecialty } = this.state;
     return (
       <section className='section-container section-specialty'>
-        <div className='container'>
+        <Container>
           <div className='section-content'>
-            <div className='section-header'>
-              <Title
-                title={<FormattedMessage id='home-page.specialty-popular' />}
-              ></Title>
-            </div>
+            <Titles
+              title={<FormattedMessage id='home-page.specialty-popular' />}
+            />
+
             <Slider {...this.props.settings} className='section-list'>
               {dataSpecialty &&
                 dataSpecialty.length > 0 &&
@@ -63,7 +63,7 @@ class Specialty extends Component {
                 })}
             </Slider>
           </div>
-        </div>
+        </Container>
       </section>
     );
   }

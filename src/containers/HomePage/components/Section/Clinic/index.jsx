@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import { getAllClinic } from '../../../../../services/userService';
+import Titles from '../../../../../components/Title';
+import { Container } from '../../../../../components/Container/Container.styles';
 
 // import '../../HomePage.scss';
 
@@ -36,13 +38,9 @@ class Clinic extends Component {
     let { dataClinic } = this.state;
     return (
       <section className='section-container section-facility'>
-        <div className='container'>
+        <Container>
           <div className='section-content'>
-            <div className='section-header'>
-              <h2>
-                <FormattedMessage id='home-page.clinic' />
-              </h2>
-            </div>
+            <Titles title={<FormattedMessage id='home-page.clinic' />} />
             <div className='section-list'>
               <Slider {...this.props.settings}>
                 {dataClinic &&
@@ -67,7 +65,7 @@ class Clinic extends Component {
               </Slider>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     );
   }

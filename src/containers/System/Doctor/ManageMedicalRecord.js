@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-// import moment from 'moment';
-import { connect } from 'react-redux';
-import PatientDetail from './PatentDetail';
 // import { FormattedMessage } from 'react-intl';
 import LoadingOverlay from 'react-loading-overlay';
-// import DatePicker from '../../../components/Input/DatePicker';
+import { connect } from 'react-redux';
 import { getMedicalRecordForDoctor } from '../../../services/userService';
-
 import './ManageMedicalRecord.scss';
+import PatientDetail from './PatentDetail';
 
 class ManageMedicalRecord extends Component {
   constructor(props) {

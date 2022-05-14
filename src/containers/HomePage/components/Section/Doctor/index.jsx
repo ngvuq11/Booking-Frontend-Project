@@ -5,6 +5,8 @@ import { withRouter } from 'react-router';
 import { LANGUAGES } from '../../../../../utils';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../../../store/actions';
+import Titles from '../../../../../components/Title';
+import { Container } from '../../../../../components/Container/Container.styles';
 
 // import '../../HomePage.scss';
 
@@ -38,16 +40,13 @@ class Specialty extends Component {
     let arrDoctors = this.state.arrDoctors;
     let { language } = this.props;
 
-    console.log('list dortor: ', arrDoctors);
     return (
       <section className='section-container section-doctor'>
-        <div className='container'>
+        <Container>
           <div className='section-content'>
-            <div className='section-header'>
-              <h2>
-                <FormattedMessage id='home-page.outstanding-doctor' />
-              </h2>
-            </div>
+            <Titles
+              title={<FormattedMessage id='home-page.outstanding-doctor' />}
+            />
             <Slider {...this.props.settings} className='doctor-list'>
               {arrDoctors &&
                 arrDoctors.length > 0 &&
@@ -82,7 +81,7 @@ class Specialty extends Component {
                 })}
             </Slider>
           </div>
-        </div>
+        </Container>
       </section>
     );
   }

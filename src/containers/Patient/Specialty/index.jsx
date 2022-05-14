@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { FormattedMessage } from 'react-intl';
 import HomeHeader from '../../../components/Header/HomeHeader';
-import DoctorSchedule from '../Doctor/DoctorSchedule';
-import DoctorExtraInfor from '../Doctor/DoctorExtraInfor';
-import ProfileDoctor from '../Doctor/ProfileDoctor';
+import DoctorSchedule from '../Doctor/DoctorSchedule/index';
+import DoctorExtraInfor from '../Doctor/DoctorExtraInfor/index';
+import ProfileDoctor from '../Doctor/ProfileDoctor/index';
 import {
   getAllDetailSpecialtyById,
   getAllCodeService,
@@ -13,6 +13,7 @@ import {
 import './DetailSpecialty.scss';
 import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
+import Footer from '../../HomePage/components/Section/Footer';
 
 class DetailSpecialty extends Component {
   constructor(props) {
@@ -177,7 +178,7 @@ class DetailSpecialty extends Component {
             })}
         </section>
 
-        <section className='footer'></section>
+        <Footer />
       </div>
     );
   }

@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Typography } from 'antd';
-// import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 
-// import '../../HomePage.scss';
 const { Text } = Typography;
-
+const CoppyRightWrapper = styled.div`
+  width: 100%;
+  background-color: #eee;
+  color: #333;
+  text-align: center;
+  padding: 10px 0;
+`;
 class CopyRight extends Component {
   render() {
     return (
-      <section className='section-copyright'>
+      <CoppyRightWrapper>
         <Text>2022 - Khoa Luan Team</Text>
-      </section>
+      </CoppyRightWrapper>
     );
   }
 }

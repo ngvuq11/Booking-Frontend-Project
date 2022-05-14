@@ -6,7 +6,6 @@ import Specialty from './components/Section/Specialty/index';
 import Clinic from './components/Section/Clinic/index';
 import Doctor from './components/Section/Doctor/index';
 import About from './components/Section/About/index';
-import CopyRight from './components/Section/CoppyRight/index';
 import Footer from './components/Section/Footer/index';
 
 // import Slider from 'react-slick';
@@ -14,7 +13,18 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import HeroSlider from './components/Section/Slider/index';
 
+
+
 class HomePage extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSpin : false
+    };
+  }
+  
+  componentDidUpdate
   render() {
     let settings = {
       dots: false,
@@ -25,7 +35,7 @@ class HomePage extends Component {
     };
 
     return (
-      <div>
+      <>
         <HomeHeader isShowBanner={true} />
         <HeroSlider />
         <Specialty settings={settings} />
@@ -33,8 +43,7 @@ class HomePage extends Component {
         <Doctor settings={settings} />
         <About />
         <Footer />
-        <CopyRight />
-      </div>
+      </>
     );
   }
 }
@@ -50,3 +59,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+
+
+

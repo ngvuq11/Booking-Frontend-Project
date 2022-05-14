@@ -2,24 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import moment from 'moment';
 import { Modal } from 'reactstrap';
-// import { toast } from 'react-toastify';
-// import { CommonUtils } from '../../../utils';
-
 import './PatientDetail.scss';
 
 class PatientDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenModal: false
+      isOpenModal: false,
     };
   }
 
-  async componentDidMount() {
-  }
+  async componentDidMount() {}
 
-  async componentDidUpdate(prevProps, prevState) {
-  }
+  async componentDidUpdate(prevProps, prevState) {}
 
   render() {
     let { isOpenModal, closeDetailPatientModal, detailPatient } = this.props;
@@ -36,8 +31,7 @@ class PatientDetail extends Component {
         </div>
         <div className='modal-body'>
           <div className='row'>
-            {
-              detailPatient && patientInfor ?
+            {detailPatient && patientInfor ? (
               <div>
                 <span>{detailPatient.email}</span>
                 <span>{patientInfor.fullName}</span>
@@ -46,9 +40,10 @@ class PatientDetail extends Component {
                 <span>{patientInfor.gender}</span>
                 <span>{detailPatient.diagnose}</span>
                 <span>{detailPatient.createdAt}</span>
-              </div> : <div>No data!</div>
-            }
-            
+              </div>
+            ) : (
+              <div>No data!</div>
+            )}
           </div>
         </div>
         <div className='modal-footer'>

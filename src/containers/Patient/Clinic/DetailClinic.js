@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 
 import _ from 'lodash';
 import './DetailClinic.scss';
+import Footer from '../../HomePage/components/Section/Footer';
 
 class DetailClinic extends Component {
   constructor(props) {
@@ -86,7 +87,7 @@ class DetailClinic extends Component {
             })}
         </section>
 
-        <section className='footer'></section>
+        <Footer />
       </div>
     );
   }

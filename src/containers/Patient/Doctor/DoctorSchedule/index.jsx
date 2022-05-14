@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { LANGUAGES } from '../../../utils';
+import { LANGUAGES } from '../../../../utils';
 // import localizattion from 'moment/locale/vi';
 import { FormattedMessage } from 'react-intl';
-import BookingModal from './Modal/BookingModal';
-import { getScheduleDoctorByDate } from '../../../services/userService';
+import BookingModal from '../Modal/index';
+import { getScheduleDoctorByDate } from '../../../../services/userService';
 
 import './DoctorSchedule.scss';
 

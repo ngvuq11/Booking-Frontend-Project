@@ -5,8 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import NumberFormat from 'react-number-format';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getProfileDoctor } from '../../../services/userService';
-import { LANGUAGES } from '../../../utils';
+import { getProfileDoctor } from '../../../../services/userService';
+import { LANGUAGES } from '../../../../utils';
 import './ProfileDoctor.scss';
 
 class ProfileDoctor extends Component {
