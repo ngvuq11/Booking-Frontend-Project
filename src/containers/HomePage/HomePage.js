@@ -24,7 +24,7 @@ class HomePage extends Component {
     };
 
     return (
-      <div>
+      <>
         <HomeHeader isShowBanner={true} />
         <HeroSlider />
         <Specialty settings={settings} />
@@ -32,7 +32,7 @@ class HomePage extends Component {
         <Doctor settings={settings} />
         <About />
         <Footer />
-      </div>
+      </>
     );
   }
 }
