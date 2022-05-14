@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import { getAllClinic } from '../../../../../services/userService';
+import { getTopClinic } from '../../../../../services/userService';
 import Titles from '../../../../../components/Title';
 import { Container } from '../../../../../components/Container/Container.styles';
 
@@ -13,12 +13,12 @@ class Clinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataClinic: [],
+      dataClinic: []
     };
   }
 
   async componentDidMount() {
-    let res = await getAllClinic();
+    let res = await getTopClinic();
     if (res && res.errCode === 0) {
       this.setState({
         dataClinic: res.data ? res.data : [],

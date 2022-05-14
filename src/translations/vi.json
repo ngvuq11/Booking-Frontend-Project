@@ -34,7 +34,18 @@
     "doctor": {
       "manage-schedule": "Quản lý kế hoạch khám bệnh",
       "manage-patient": "Quản lý bệnh nhân khám bệnh",
-      "manage-medical-record": "Quản lý hồ sơ bệnh án"
+      "manage-medical-record": "Quản lý hồ sơ bệnh án",
+      "medical-record": {
+        "list-medical-record": "Danh sách bệnh nhân khám bệnh",
+        "see-more": "Xem thêm"
+      },
+      "patient": {
+        "choose-date": "Chọn ngày khám",
+        "list-patient": "Danh sách bệnh nhân khám bệnh"
+      },
+      "schedule" : {
+
+      }
     }
   },
   "manage-user": {
@@ -57,7 +68,21 @@
     "see-more": "Xem thêm",
     "outstanding-doctor": "Bác sĩ nổi bật",
     "specialty-popular": "Chuyên khoa phổ biến",
-    "clinic": "Phòng khám"
+    "clinic": "Phòng khám",
+    "covid-19": {
+      "viet-nam": "Việt Nam",
+      "the-world": "Thế giới",
+      "total-cases": "Tổng số ca mắc",
+      "death": "Tử vong",
+      "recovered": "Đã khỏi",
+      "treating": "Đang điều trị",
+      "today": "Hôm nay",
+      "national-epidemic-situation": "Tình hình dịch cả nước",
+      "province-city": "Tỉnh/TP",
+      "average": "Trung bình 7 ngày",
+      "number-of-infections": "Số ca nhiễm"
+
+    }
   },
   "manage-schedule": {
     "title": "Quản lý kế hoạch khám bệnh",

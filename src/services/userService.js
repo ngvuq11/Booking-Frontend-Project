@@ -68,6 +68,10 @@ const getMedicalRecordForDoctor = (doctorId) => {
   return axios.get(`/api/get-medical-record-for-doctor?doctorId=${doctorId}`);
 }
 
+const getPatientforDoctorById = (patientId) => {
+  return axios.get(`/api/get-patient-for-doctor-by-id?patientId=${patientId}`);
+}
+
 // ---------------- Email ----------------
 
 const postVerifyEmail = (data) => {
@@ -78,6 +82,10 @@ const postVerifyEmail = (data) => {
 
 const getAllSpecialty = () => {
   return axios.get(`/api/get-all-specialty`);
+};
+
+const getTopSpecialty = () => {
+  return axios.get(`/api/get-top-specialty`);
 };
 
 const createNewSpecialty = (data) => {
@@ -106,6 +114,10 @@ const createNewClinic = (data) => {
 
 const getAllClinic = () => {
   return axios.get(`/api/get-all-clinic`);
+};
+
+const getTopClinic = () => {
+  return axios.get(`/api/get-top-clinic`);
 };
 
 const getAllDetailClinicById = (data) => {
@@ -169,9 +181,11 @@ export {
   postVerifyEmail,
   createNewSpecialty,
   getAllSpecialty,
+  getTopSpecialty,
   getAllDetailSpecialtyById,
   createNewClinic,
   getAllClinic,
+  getTopClinic,
   getAllDetailClinicById,
   getAllPatientForDoctor,
   postSendRemedy,
@@ -184,4 +198,5 @@ export {
   getAllPatient,
   getApiCovid19,
   getMedicalRecordForDoctor,
+  getPatientforDoctorById
 };

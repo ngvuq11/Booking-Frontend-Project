@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import { getAllSpecialty } from '../../../../../services/userService';
+import { getTopSpecialty } from '../../../../../services/userService';
 
 import '../../../HomePage.scss';
 import Titles from '../../../../../components/Title';
@@ -18,7 +18,7 @@ class Specialty extends Component {
   }
 
   async componentDidMount() {
-    let res = await getAllSpecialty();
+    let res = await getTopSpecialty();
     if (res && res.errCode === 0) {
       this.setState({
         dataSpecialty: res.data ? res.data : [],

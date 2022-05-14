@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import NumberFormat from 'react-number-format';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -85,7 +86,7 @@ class Covid19 extends Component {
                 onClick={() => this.showVietNam(true)}
               >
                 <i className='fa fa-star' aria-hidden='true'></i>
-                Việt Nam
+                <FormattedMessage id='home-page.covid-19.viet-nam' />
               </div>
               <div className='space'>/</div>
               <div
@@ -93,14 +94,16 @@ class Covid19 extends Component {
                 onClick={() => this.showWorld(false)}
               >
                 <i className='fa fa-globe' aria-hidden='true'></i>
-                Thế giới
+                <FormattedMessage id='home-page.covid-19.the-world' />
               </div>
             </div>
             <>
               {isShowVn === true ? (
                 <div className='list'>
                   <div className='box cases'>
-                    <div className='title'>Tổng số ca mắc</div>
+                    <div className='title'>
+                      <FormattedMessage id='home-page.covid-19.total-cases' />
+                    </div>
                     <div className='value'>
                       <NumberFormat
                         value={totalInternal.cases}
@@ -109,7 +112,7 @@ class Covid19 extends Component {
                       />
                     </div>
                     <div className='today'>
-                      Hôm nay: +
+                      <FormattedMessage id='home-page.covid-19.today' />: +
                       <NumberFormat
                         value={todayInternal.cases}
                         displayType={'text'}
@@ -118,7 +121,9 @@ class Covid19 extends Component {
                     </div>
                   </div>
                   <div className='box treating'>
-                    <div className='title'>Đang điều trị</div>
+                    <div className='title'>
+                      <FormattedMessage id='home-page.covid-19.treating' />
+                    </div>
                     <div className='value'>
                       <NumberFormat
                         value={totalInternal.treating}
@@ -127,7 +132,7 @@ class Covid19 extends Component {
                       />
                     </div>
                     <div className='today'>
-                      Hôm nay: +
+                      <FormattedMessage id='home-page.covid-19.today' />: 
                       <NumberFormat
                         value={todayInternal.treating}
                         displayType={'text'}
@@ -136,7 +141,9 @@ class Covid19 extends Component {
                     </div>
                   </div>
                   <div className='box recovered'>
-                    <div className='title'>Đã khỏi</div>
+                    <div className='title'>
+                      <FormattedMessage id='home-page.covid-19.recovered' />
+                    </div>
                     <div className='value'>
                       <NumberFormat
                         value={totalInternal.recovered}
@@ -145,7 +152,7 @@ class Covid19 extends Component {
                       />
                     </div>
                     <div className='today'>
-                      Hôm nay: +
+                      <FormattedMessage id='home-page.covid-19.today' />: +
                       <NumberFormat
                         value={todayInternal.recovered}
                         displayType={'text'}
@@ -154,7 +161,9 @@ class Covid19 extends Component {
                     </div>
                   </div>
                   <div className='box death'>
-                    <div className='title'>Tử vong</div>
+                    <div className='title'>
+                      <FormattedMessage id='home-page.covid-19.death' />
+                    </div>
                     <div className='value'>
                       <NumberFormat
                         value={totalInternal.death}
@@ -163,7 +172,7 @@ class Covid19 extends Component {
                       />
                     </div>
                     <div className='today'>
-                      Hôm nay: +
+                      <FormattedMessage id='home-page.covid-19.today' />: +
                       <NumberFormat
                         value={todayInternal.death}
                         displayType={'text'}
@@ -180,7 +189,9 @@ class Covid19 extends Component {
               {isShowGl === true ? (
                 <div className='list'>
                   <div className='box cases'>
-                    <div className='title'>Tổng số ca mắc</div>
+                    <div className='title'>
+                      <FormattedMessage id='home-page.covid-19.total-cases' />
+                    </div>
                     <div className='value'>
                       <NumberFormat
                         value={totalWorld.cases}
@@ -190,7 +201,9 @@ class Covid19 extends Component {
                     </div>
                   </div>
                   <div className='box treating'>
-                    <div className='title'>Đang điều trị</div>
+                    <div className='title'>
+                      <FormattedMessage id='home-page.covid-19.treating' />
+                    </div>
                     <div className='value'>
                       <NumberFormat
                         value={totalWorld.treating}
@@ -200,7 +213,9 @@ class Covid19 extends Component {
                     </div>
                   </div>
                   <div className='box recovered'>
-                    <div className='title'>Đã khỏi</div>
+                    <div className='title'>
+                      <FormattedMessage id='home-page.covid-19.recovered' />
+                    </div>
                     <div className='value'>
                       <NumberFormat
                         value={totalWorld.recovered}
@@ -210,7 +225,9 @@ class Covid19 extends Component {
                     </div>
                   </div>
                   <div className='box death'>
-                    <div className='title'>Tử vong</div>
+                    <div className='title'>
+                      <FormattedMessage id='home-page.covid-19.death' />
+                    </div>
                     <div className='value'>
                       <NumberFormat
                         value={totalWorld.death}
@@ -227,14 +244,24 @@ class Covid19 extends Component {
           </div>
           <div className='content'>
             <div className='locations'>
-              <div className='title'>Tình hình dịch cả nước</div>
+              <div className='title'>
+                <FormattedMessage id='home-page.covid-19.national-epidemic-situation' />
+              </div>
               <div className='table'>
                 <div className='header-table'>
                   <span className='colums-table0'>STT</span>
-                  <span className='colums-table1'>Tỉnh/TP</span>
-                  <span className='colums-table2'>Tổng số ca</span>
-                  <span className='colums-table3'>Hôm nay</span>
-                  <span className='colums-table4'>Tử vong</span>
+                  <span className='colums-table1'>
+                    <FormattedMessage id='home-page.covid-19.province-city' />
+                  </span>
+                  <span className='colums-table2'>
+                    <FormattedMessage id='home-page.covid-19.total-cases' />
+                  </span>
+                  <span className='colums-table3'>
+                    <FormattedMessage id='home-page.covid-19.today' />
+                  </span>
+                  <span className='colums-table4'>
+                    <FormattedMessage id='home-page.covid-19.death' />
+                  </span>
                 </div>
                 <div className='content-table'>
                   {locations.map((item, index) => (
@@ -279,13 +306,15 @@ class Covid19 extends Component {
                   dataKey='cases'
                   barSize={30}
                   fill='#2980b9'
-                  name='Số ca nhiễm'
+                  name={
+                    <FormattedMessage id='home-page.covid-19.number-of-infections' />
+                  }
                 />
                 <Line
                   type='monotone'
                   dataKey='avgCases7day'
                   stroke='#e74c3c'
-                  name='Trung bình 7 ngày'
+                  name={<FormattedMessage id='home-page.covid-19.average' />}
                 />
               </ComposedChart>
             </div>

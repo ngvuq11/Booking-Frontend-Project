@@ -54,7 +54,9 @@ class ListDoctor extends Component {
         return listDoctors;
       } else if (
         doctor.firstName.toLowerCase().includes(keyword.toLowerCase()) ||
-        doctor.lastName.toLowerCase().includes(keyword.toLowerCase())
+        doctor.lastName.toLowerCase().includes(keyword.toLowerCase()) ||
+        doctor.address.toLowerCase().includes(keyword.toLowerCase()) ||
+        doctor.gender.toLowerCase().includes(keyword.toLowerCase())
       ) {
         return listDoctors;
       }

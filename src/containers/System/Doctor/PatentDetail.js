@@ -8,19 +8,19 @@ class PatientDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenModal: false,
+      isOpenModal: false
     };
   }
 
   async componentDidMount() {}
 
-  async componentDidUpdate(prevProps, prevState) {}
+  async componentDidUpdate(prevProps, prevState) {
+
+  }
 
   render() {
     let { isOpenModal, closeDetailPatientModal, detailPatient } = this.props;
-    let patientInfor = detailPatient.patientInfor;
-    console.log(patientInfor);
-    console.log(this.props);
+
     return (
       <Modal isOpen={isOpenModal} size='md' centered className={'remedy-modal'}>
         <div className='modal-header'>
@@ -30,17 +30,24 @@ class PatientDetail extends Component {
           </span>
         </div>
         <div className='modal-body'>
+          <div>Tổng số lần khám: {detailPatient.length}</div>
           <div className='row'>
-            {detailPatient && patientInfor ? (
-              <div>
-                <span>{detailPatient.email}</span>
-                <span>{patientInfor.fullName}</span>
-                <span>{patientInfor.phoneNumber}</span>
-                <span>{patientInfor.address}</span>
-                <span>{patientInfor.gender}</span>
-                <span>{detailPatient.diagnose}</span>
-                <span>{detailPatient.createdAt}</span>
-              </div>
+            {detailPatient ? (
+              detailPatient.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <span>Lần khám thứ: {index + 1}</span>
+                    <span>Email: {item.email}</span>
+                    <span>Full name: {item.patientInfor.fullName}</span>
+                    <span>Phone number: {item.patientInfor.phoneNumber}</span>
+                    <span>Address: {item.patientInfor.address}</span>
+                    <span>Gender: {item.patientInfor.gender === 'M' ? 'Male' : 'Famale'}</span>
+                    <span>Diagnose: {item.diagnose}</span>
+                    <span>Clinic hours: {item.createdAt.slice(12, 19)}</span>
+                    <span>Day of the examination: {item.createdAt.slice(0, 10)}</span>
+                  </div>
+                );
+              })
             ) : (
               <div>No data!</div>
             )}
