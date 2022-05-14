@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LANGUAGES } from '../../../../../utils';
+import { LANGUAGES } from '../../../../utils';
 import DoctorSchedule from '../DoctorSchedule/index';
 import DoctorExtraInfor from '../DoctorExtraInfor/index';
 import HomeHeader from '../../../../components/Header/HomeHeader';
