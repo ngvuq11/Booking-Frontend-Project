@@ -12,6 +12,7 @@ import Footer from './components/Section/Footer/index';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import HeroSlider from './components/Section/Slider/index';
+import Maps from '../../components/Maps';
 import Banner from './components/Banner';
 
 class HomePage extends Component {
@@ -41,6 +42,7 @@ class HomePage extends Component {
         <Clinic settings={settings} />
         <Doctor />
         <About />
+        <Maps/>
         <Footer />
       </>
     );
