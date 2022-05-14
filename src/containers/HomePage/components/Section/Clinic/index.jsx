@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import { getAllClinic } from '../../../../../services/userService';
 import Titles from '../../../../../components/Title';
+import { Container } from '../../../../../components/Container/Container.styles';
 
 // import '../../HomePage.scss';
 
@@ -37,7 +38,7 @@ class Clinic extends Component {
     let { dataClinic } = this.state;
     return (
       <section className='section-container section-facility'>
-        <div className='container'>
+        <Container>
           <div className='section-content'>
             <Titles title={<FormattedMessage id='home-page.clinic' />} />
             <div className='section-list'>
@@ -64,7 +65,7 @@ class Clinic extends Component {
               </Slider>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     );
   }

@@ -7,6 +7,7 @@ import { getAllSpecialty } from '../../../../../services/userService';
 
 import '../../../HomePage.scss';
 import Titles from '../../../../../components/Title';
+import { Container } from '../../../../../components/Container/Container.styles';
 
 class Specialty extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class Specialty extends Component {
     let { dataSpecialty } = this.state;
     return (
       <section className='section-container section-specialty'>
-        <div className='container'>
+        <Container>
           <div className='section-content'>
             <Titles
               title={<FormattedMessage id='home-page.specialty-popular' />}
@@ -62,7 +63,7 @@ class Specialty extends Component {
                 })}
             </Slider>
           </div>
-        </div>
+        </Container>
       </section>
     );
   }
