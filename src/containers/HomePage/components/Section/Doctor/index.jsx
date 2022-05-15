@@ -114,7 +114,7 @@ class Specialty extends Component {
           </Section>
         ) : (
           <Spin
-            tip='Loading...'
+            tip='Plese wait...'
             size='large'
             style={{
               width: '100vw',

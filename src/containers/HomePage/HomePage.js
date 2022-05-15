@@ -30,7 +30,7 @@ function HomePage(props) {
           <Experience />
           <Doctor />
           <About />
-          <Maps />
+          <Maps address='254 Nguyen Van Linh' />
           <Footer />
         </>
       ) : (

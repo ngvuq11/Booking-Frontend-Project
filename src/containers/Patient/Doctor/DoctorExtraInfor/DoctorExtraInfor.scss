@@ -1,12 +1,11 @@
 .doctor-extra-infor {
-  padding: 2rem 0 0 2rem;
+  padding-left: 15px;
   border-left: 1px solid rgb(200, 200, 200);
   .infor-clinic {
     width: 100%;
     display: inline-block;
     border-bottom: 1px solid rgb(201, 201, 201);
-    padding: 0 0 1rem 0;
-
+    margin-bottom: 10px;
     &-title {
       font-weight: bold;
       text-transform: uppercase;
@@ -16,14 +15,10 @@
     &-name {
       font-weight: bold;
     }
-
-    &-address {
-    }
   }
 
   .infor-price {
     color: rgb(102, 105, 112);
-    padding: 1rem 0 0 0;
 
     &-title {
       text-transform: uppercase;
