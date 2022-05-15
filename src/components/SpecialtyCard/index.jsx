@@ -2,7 +2,7 @@ import { Image, Typography } from 'antd';
 import React from 'react';
 import './SpecialtyCard.scss';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 function SpecialtyCard(props) {
   const { onClick, image, description, name } = props;
@@ -11,12 +11,7 @@ function SpecialtyCard(props) {
       <Image src={image} preview={false} style={{ width: '100%' }} />
       <div className='specialty__card--bottom'>
         <Title level={3}>{name}</Title>
-        <div
-          className='specialty__card--description'
-          dangerouslySetInnerHTML={{
-            __html: { description },
-          }}
-        ></div>
+        <Text>{description}</Text>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import Doctor from './components/Section/Doctor/index';
 import Experience from './components/Section/Experience';
 import Footer from './components/Section/Footer/index';
 import Specialty from './components/Section/Specialty/index';
+import './HomePage.scss';
 
 function HomePage(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +35,7 @@ function HomePage(props) {
         </>
       ) : (
         <Spin
-          tip='Loading...'
+          tip='Plese wait...'
           size='large'
           style={{
             width: '100vw',
