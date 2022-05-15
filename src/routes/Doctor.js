@@ -4,6 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
 import ManagePatient from '../containers/System/Doctor/ManagePatient';
 import ManageMedicalRecord from '../containers/System/Doctor/ManageMedicalRecord';
+import DashBoardDoctor from '../containers/System/Doctor/DashBoardDoctor';
+
 import Header from '../containers/Header/Header';
 
 class Doctor extends Component {
@@ -15,6 +17,10 @@ class Doctor extends Component {
         <div className='system-container'>
           <div className='system-list'>
             <Switch>
+              <Route
+                path='/doctor/dashboard-doctor'
+                component={DashBoardDoctor}
+              />
               <Route
                 path='/doctor/manage-schedule'
                 component={ManageSchedule}

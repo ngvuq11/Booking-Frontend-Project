@@ -55,7 +55,7 @@ class DetailClinic extends Component {
     let { dataDetailClinic, isLoading } = this.state;
     // let { language } = this.props;
     let listSpecialty = dataDetailClinic.specialtyClinic;
-    console.log(listSpecialty);
+
     return (
       <>
         {isLoading ? (
