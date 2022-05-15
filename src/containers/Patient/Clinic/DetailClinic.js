@@ -5,10 +5,13 @@ import { getAllDetailClinicById } from '../../../services/userService';
 import { withRouter } from 'react-router';
 
 import _ from 'lodash';
-import './DetailClinic.scss';
 import Footer from '../../HomePage/components/Section/Footer';
-import { Spin } from 'antd';
-
+import { Breadcrumb, Spin, Typography } from 'antd';
+import Maps from '../../../components/Maps';
+import { Section } from '../../../components/Secction/Section.styleds';
+import { Container } from '../../../components/Container/Container.styles';
+// import './DetailClinic.scss';
+const { Text } = Typography;
 class DetailClinic extends Component {
   constructor(props) {
     super(props);
@@ -53,6 +56,7 @@ class DetailClinic extends Component {
 
   render() {
     let { dataDetailClinic, isLoading } = this.state;
+    console.log('dsds', dataDetailClinic);
     // let { language } = this.props;
     let listSpecialty = dataDetailClinic.specialtyClinic;
 
@@ -60,9 +64,37 @@ class DetailClinic extends Component {
       <>
         {isLoading ? (
           <>
-            <div className='detail-clinic'>
-              <HomeHeader />
-              <section className='banner'>
+            <HomeHeader />
+            <Section>
+              <Container>
+                <Breadcrumb
+                  style={{
+                    marginBottom: '20px',
+                    background: '#fff',
+                    padding: '10px 0',
+                    borderBottom: '1px solid #ccc',
+                  }}
+                >
+                  <Breadcrumb.Item>
+                    <Text
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.history.push('/home')}
+                    >
+                      Home
+                    </Text>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Text
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.history.push('/list-doctor')}
+                    >
+                      Danh sách các phòng khám
+                    </Text>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Text>{dataDetailClinic.name}</Text>
+                  </Breadcrumb.Item>
+                </Breadcrumb>
                 {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
                   <>
                     <div className='name-clinic'>{dataDetailClinic.name}</div>
@@ -76,8 +108,6 @@ class DetailClinic extends Component {
                     ></div>
                   </>
                 )}
-              </section>
-              <section className='specialty-list'>
                 {listSpecialty &&
                   listSpecialty.length > 0 &&
                   listSpecialty.map((item, index) => {
@@ -99,10 +129,11 @@ class DetailClinic extends Component {
                       </div>
                     );
                   })}
-              </section>
+              </Container>
+            </Section>
+            <Maps address={dataDetailClinic.address} />
 
-              <Footer />
-            </div>{' '}
+            <Footer />
           </>
         ) : (
           <Spin

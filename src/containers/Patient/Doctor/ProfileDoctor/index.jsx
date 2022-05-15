@@ -1,3 +1,4 @@
+import { Button, Col, Image, Row, Space, Typography } from 'antd';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { Component } from 'react';
@@ -7,8 +8,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getProfileDoctor } from '../../../../services/userService';
 import { LANGUAGES } from '../../../../utils';
+import DoctorExtraInfor from '../DoctorExtraInfor';
+import DoctorSchedule from '../DoctorSchedule';
 import './ProfileDoctor.scss';
 
+const { Title, Text } = Typography;
 class ProfileDoctor extends Component {
   constructor(props) {
     super(props);
@@ -80,6 +84,7 @@ class ProfileDoctor extends Component {
       isShowLinkDetail,
       isShowPrice,
       doctorId,
+      isShowCalendarDoctor,
       // doctorName,
     } = this.props;
     let nameVi = '',
@@ -89,60 +94,64 @@ class ProfileDoctor extends Component {
       nameEn = `${dataProfile.positionData.valueEn}, ${dataProfile.firstName} ${dataProfile.lastName}`;
     }
     return (
-      <>
-        <section className='intro-doctor'>
-          <div
-            className='intro-doctor-image'
-            style={{
-              backgroundImage: `url(${
-                dataProfile && dataProfile.image ? dataProfile.image : ''
-              })`,
-            }}
-          ></div>
-          <div className='intro-doctor-content'>
-            <div className='doctor-title'>
-              <h2>{language === LANGUAGES.VI ? nameVi : nameEn}</h2>
-            </div>
+      <div className='doctor__suggest--card'>
+        <Row className='doctor__suggest'>
+          <Col span={6}>
+            <Image
+              preview={false}
+              src={dataProfile && dataProfile.image ? dataProfile.image : ''}
+            />
+          </Col>
+          <Col span={18}>
+            <Space direction='vertical' size={15} style={{ display: 'flex' }}>
+              <Title level={4}>
+                {language === LANGUAGES.VI ? nameVi : nameEn}
+              </Title>
+              <Text>
+                {isShowDescDoctor === true ? (
+                  <>
+                    {dataProfile &&
+                      dataProfile.Markdown &&
+                      dataProfile.Markdown.description && (
+                        <span>{dataProfile.Markdown.description}</span>
+                      )}
+                  </>
+                ) : (
+                  <>{this.renderTimeBooking(dataTime)}</>
+                )}
+              </Text>
 
-            <div className='doctor-intro'>
-              {isShowDescDoctor === true ? (
-                <>
-                  {dataProfile &&
-                    dataProfile.Markdown &&
-                    dataProfile.Markdown.description && (
-                      <span>{dataProfile.Markdown.description}</span>
-                    )}
-                </>
-              ) : (
-                <>{this.renderTimeBooking(dataTime)}</>
-              )}
-              <div>
-                <i className='fas fa-map-marker-alt'></i>
-                {dataProfile &&
-                  dataProfile.Doctor_Infor &&
-                  dataProfile.Doctor_Infor.provinceIdData &&
-                  language === LANGUAGES.VI && (
-                    <span className='address'>
-                      {dataProfile.Doctor_Infor.provinceIdData.valueVi}
-                    </span>
-                  )}
-                {dataProfile &&
-                  dataProfile.Doctor_Infor &&
-                  dataProfile.Doctor_Infor.provinceIdData &&
-                  language === LANGUAGES.EN && (
-                    <span className='address'>
-                      {dataProfile.Doctor_Infor.provinceIdData.valueEn}
-                    </span>
-                  )}
+              <div className='intro-doctor-content'>
+                <div className='doctor-intro'>
+                  <div>
+                    <i className='fas fa-map-marker-alt'></i>
+                    {dataProfile &&
+                      dataProfile.Doctor_Infor &&
+                      dataProfile.Doctor_Infor.provinceIdData &&
+                      language === LANGUAGES.VI && (
+                        <span className='address'>
+                          {dataProfile.Doctor_Infor.provinceIdData.valueVi}
+                        </span>
+                      )}
+                    {dataProfile &&
+                      dataProfile.Doctor_Infor &&
+                      dataProfile.Doctor_Infor.provinceIdData &&
+                      language === LANGUAGES.EN && (
+                        <span className='address'>
+                          {dataProfile.Doctor_Infor.provinceIdData.valueEn}
+                        </span>
+                      )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </section>
-        {isShowLinkDetail === true && (
-          <div className='view-detail-doctor'>
-            <Link to={`/detail-doctor/${doctorId}`}>Xem thêm</Link>
-          </div>
-        )}
+              {isShowLinkDetail === true && (
+                <Button type='primary' ghost>
+                  <Link to={`/detail-doctor/${doctorId}`}>Xem thêm</Link>
+                </Button>
+              )}
+            </Space>
+          </Col>
+        </Row>
         {isShowPrice === true && (
           <div className='doctor-price'>
             <FormattedMessage id='patient.extra-infor-doctor.examination-price' />
@@ -172,7 +181,19 @@ class ProfileDoctor extends Component {
             </span>
           </div>
         )}
-      </>
+        {isShowCalendarDoctor ? (
+          <Row>
+            <Col span={12}>
+              <DoctorSchedule doctorIdFromParent={dataProfile.id} />
+            </Col>
+            <Col span={12}>
+              <DoctorExtraInfor doctorIdFromParent={dataProfile.id} />
+            </Col>
+          </Row>
+        ) : (
+          <DoctorExtraInfor doctorIdFromParent={dataProfile.id} />
+        )}
+      </div>
     );
   }
 }

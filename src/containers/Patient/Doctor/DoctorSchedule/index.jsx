@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import { Space, Typography } from 'antd';
 import moment from 'moment';
-import { connect } from 'react-redux';
-import { LANGUAGES } from '../../../../utils';
+import React, { Component } from 'react';
 // import localizattion from 'moment/locale/vi';
 import { FormattedMessage } from 'react-intl';
-import BookingModal from '../Modal/index';
+import { connect } from 'react-redux';
 import { getScheduleDoctorByDate } from '../../../../services/userService';
-
+import { LANGUAGES } from '../../../../utils';
+import BookingModal from '../Modal/index';
 import './DoctorSchedule.scss';
 
+const { Text } = Typography;
 class DoctorSchedule extends Component {
   constructor(props) {
     super(props);
@@ -137,7 +138,13 @@ class DoctorSchedule extends Component {
     return (
       <>
         <div className='doctor-schedule'>
-          <div className='select-date'>
+          <Space className='select-date'>
+            <Text span={6} className='calendar'>
+              <i className='fas fa-calendar-alt'></i>
+              <span>
+                <FormattedMessage id='patient.detail-doctor.schedule' />
+              </span>
+            </Text>
             <select onChange={(event) => this.handleOnChangeSelect(event)}>
               {allDays &&
                 allDays.length > 0 &&
@@ -153,14 +160,8 @@ class DoctorSchedule extends Component {
                   );
                 })}
             </select>
-          </div>
+          </Space>
           <div className='select-time-list'>
-            <div className='calendar'>
-              <i className='fas fa-calendar-alt'></i>
-              <span>
-                <FormattedMessage id='patient.detail-doctor.schedule' />
-              </span>
-            </div>
             <div className='book-schedule'>
               {allAvalableTime && allAvalableTime.length > 0 ? (
                 <>
