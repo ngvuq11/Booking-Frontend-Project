@@ -22,6 +22,7 @@ class ManageSpecialty extends Component {
     this.state = {
       id: '',
       name: '',
+      description: '',
       imageBase64: '',
       descriptionHTML: '',
       descriptionMarkdown: '',
@@ -33,7 +34,6 @@ class ManageSpecialty extends Component {
   }
 
   async componentDidMount() {
-    // this.props.fetchAllClinic();
     this.props.getRequireDoctorInfor();
   }
 
@@ -45,6 +45,7 @@ class ManageSpecialty extends Component {
     if (prevProps.data !== this.props.data) {
       this.setState({
         name: '',
+        description: '',
         imageBase64: '',
         descriptionHTML: '',
         descriptionMarkdown: '',
@@ -56,9 +57,7 @@ class ManageSpecialty extends Component {
 
     if (prevProps.allRequireDoctorInfor !== this.props.allRequireDoctorInfor) {
       let { resClinic } = this.props.allRequireDoctorInfor;
-
       let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC');
-
       this.setState({
         listClinic: dataSelectClinic,
       });
@@ -115,6 +114,7 @@ class ManageSpecialty extends Component {
       if (res && res.errCode === 0) {
         this.setState({
           name: '',
+          description: '',
           imageBase64: '',
           descriptionHTML: '',
           descriptionMarkdown: '',
@@ -127,6 +127,7 @@ class ManageSpecialty extends Component {
       let res = await this.props.editSpecialty({
         id: this.state.id,
         name: this.state.name,
+        description: this.state.description,
         imageBase64: this.state.imageBase64,
         descriptionHTML: this.state.descriptionHTML,
         descriptionMarkdown: this.state.descriptionMarkdown,
@@ -136,6 +137,7 @@ class ManageSpecialty extends Component {
         this.setState({
           id: '',
           name: '',
+          description: '',
           imageBase64: '',
           descriptionHTML: '',
           descriptionMarkdown: '',
@@ -149,13 +151,13 @@ class ManageSpecialty extends Component {
     let imageBase64 = '';
     if (specialty.image) {
       imageBase64 = Buffer.from(specialty.image, 'base64').toString('binary');
-      console.log(imageBase64);
     }
 
     this.setState({
       id: specialty.id,
       name: specialty.name,
-      image: specialty.imageBase64,
+      description: specialty.description,
+      imageBase64: specialty.imageBase64,
       descriptionHTML: specialty.descriptionHTML,
       descriptionMarkdown: specialty.descriptionMarkdown,
       clinicId: specialty.clinicId,
@@ -178,8 +180,9 @@ class ManageSpecialty extends Component {
   };
 
   render() {
-    let { name, descriptionMarkdown, listClinic } = this.state;
-    console.log('list: ', listClinic);
+    let { name, description, descriptionMarkdown, listClinic, action } =
+      this.state;
+
     return (
       <div className='manage-specialty'>
         <h2 className='title'>
@@ -222,6 +225,19 @@ class ManageSpecialty extends Component {
               onChange={(event) => this.handleOnChangeImage(event)}
             />
           </div>
+          <div className='col-12 form-group'>
+            <label>
+              <FormattedMessage id='admin.manage-specialty.specialty-description' />
+            </label>
+            <textarea
+              className='form-control'
+              rows='5'
+              onChange={(event) =>
+                this.handleOnChangeInput(event, 'description')
+              }
+              value={description}
+            />
+          </div>
           <div className='col-12'>
             <MdEditor
               style={{ height: '300px' }}
@@ -233,13 +249,13 @@ class ManageSpecialty extends Component {
           <div className='col-12'>
             <button
               className={
-                this.state.action === CRUD_ACTIONS.EDIT
+                action === CRUD_ACTIONS.EDIT
                   ? 'btn-edit-specialty'
                   : 'btn-add-specialty'
               }
               onClick={() => this.handleSaveSpecialty()}
             >
-              {this.state.action === CRUD_ACTIONS.EDIT ? (
+              {action === CRUD_ACTIONS.EDIT ? (
                 <FormattedMessage id='admin.manage-specialty.edit' />
               ) : (
                 <FormattedMessage id='admin.manage-specialty.save' />
@@ -250,7 +266,7 @@ class ManageSpecialty extends Component {
 
         <TableManageSpecialty
           handleEditSpecialty={this.handleEditSpecialty}
-          action={this.state.action}
+          action={action}
         />
       </div>
     );
