@@ -39,7 +39,7 @@ const saveDetailDoctorService = (data) => {
 };
 
 const getDetailInforDoctor = (id) => {
-  return axios.get(`/api/get/detail-doctor-by-id?id=${id}`);
+  return axios.get(`/api/get-detail-doctor-by-id?id=${id}`);
 };
 
 const saveBulkScheduleDoctor = (data) => {
@@ -64,6 +64,14 @@ const postBookAppointment = (data) => {
   return axios.post('/api/patient-book-appointment', data);
 };
 
+const getMedicalRecordForDoctor = (doctorId) => {
+  return axios.get(`/api/get-medical-record-for-doctor?doctorId=${doctorId}`);
+}
+
+const getPatientforDoctorById = (patientId) => {
+  return axios.get(`/api/get-patient-for-doctor-by-id?patientId=${patientId}`);
+}
+
 // ---------------- Email ----------------
 
 const postVerifyEmail = (data) => {
@@ -74,6 +82,10 @@ const postVerifyEmail = (data) => {
 
 const getAllSpecialty = () => {
   return axios.get(`/api/get-all-specialty`);
+};
+
+const getTopSpecialty = () => {
+  return axios.get(`/api/get-top-specialty`);
 };
 
 const createNewSpecialty = (data) => {
@@ -102,6 +114,10 @@ const createNewClinic = (data) => {
 
 const getAllClinic = () => {
   return axios.get(`/api/get-all-clinic`);
+};
+
+const getTopClinic = () => {
+  return axios.get(`/api/get-top-clinic`);
 };
 
 const getAllDetailClinicById = (data) => {
@@ -165,9 +181,11 @@ export {
   postVerifyEmail,
   createNewSpecialty,
   getAllSpecialty,
+  getTopSpecialty,
   getAllDetailSpecialtyById,
   createNewClinic,
   getAllClinic,
+  getTopClinic,
   getAllDetailClinicById,
   getAllPatientForDoctor,
   postSendRemedy,
@@ -179,4 +197,6 @@ export {
   postSendBlockedNotification,
   getAllPatient,
   getApiCovid19,
+  getMedicalRecordForDoctor,
+  getPatientforDoctorById
 };

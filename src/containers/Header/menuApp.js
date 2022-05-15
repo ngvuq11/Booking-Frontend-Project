@@ -50,6 +50,11 @@ export const doctorMenu = [
         name: 'menu.doctor.manage-patient',
         link: '/doctor/manage-patient',
       },
+      {
+        // Quản lý bệnh nhân khám bệnh của bác sĩ
+        name: 'menu.doctor.manage-medical-record',
+        link: '/doctor/manage-medical-record',
+      },
     ],
   },
 ];

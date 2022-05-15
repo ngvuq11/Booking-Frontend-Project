@@ -33,7 +33,19 @@
     },
     "doctor": {
       "manage-schedule": "Manage Doctor Schedule",
-      "manage-patient": "Manage Doctor Patient"
+      "manage-patient": "Manage Doctor Patient",
+      "manage-medical-record": "Manage Medical Record",
+      "medical-record": {
+        "list-medical-record": "List of patients examined",
+        "see-more": "See more"
+      },
+      "patient": {
+        "choose-date": "Choose a date of examination",
+        "list-patient": "List of patients examined"
+      },
+      "schedule" : {
+        
+      }
     }
   },
   "manage-user": {
@@ -56,7 +68,20 @@
     "see-more": "See more",
     "outstanding-doctor": "Outstanding Doctor",
     "specialty-popular": "Popular Specialty",
-    "clinic": "Clinic"
+    "clinic": "Clinic",
+    "covid-19": {
+      "viet-nam": "Vietnam",
+      "the-world": "The world",
+      "total-cases": "Total cases",
+      "death": "Death",
+      "recovered": "Recovered",
+      "treating": "Treating",
+      "today": "Today",
+      "national-epidemic-situation": "National epidemic situation",
+      "province-city": "Province/City",
+      "average": "7 days on average",
+      "number-of-infections": "Number of infections"
+    }
   },
   "manage-schedule": {
     "title": "Manage medical examination plan",

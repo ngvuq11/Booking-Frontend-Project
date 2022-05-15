@@ -1,0 +1,32 @@
+.search__wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  .search-bar {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .input-search {
+      border: none;
+      outline: none;
+      padding: 8px 12px;
+      border: 1px solid #00a8ff;
+      width: 100%;
+    }
+    .btn-search {
+      border: 1px solid #00a8ff;
+      outline: none;
+      padding: 8px 12px;
+      background-color: #00a8ff;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+    }
+  }
+}

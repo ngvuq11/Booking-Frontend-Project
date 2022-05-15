@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './StatusCard.scss';
 
 class StatusCard extends Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }

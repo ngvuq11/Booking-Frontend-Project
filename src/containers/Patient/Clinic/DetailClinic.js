@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import HomeHeader from '../../HomePage/HomeHeader';
-import {
-  getAllDetailClinicById,
-} from '../../../services/userService';
+import HomeHeader from '../../../components/Header/HomeHeader';
+import { getAllDetailClinicById } from '../../../services/userService';
 import { withRouter } from 'react-router';
 
 import _ from 'lodash';
 import './DetailClinic.scss';
+import Footer from '../../HomePage/components/Section/Footer';
 
 class DetailClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataDetailClinic: {}
+      dataDetailClinic: {},
     };
   }
 
@@ -31,7 +30,7 @@ class DetailClinic extends Component {
 
       if (res && res.errCode === 0) {
         this.setState({
-          dataDetailClinic: res.data
+          dataDetailClinic: res.data,
         });
       }
     }
@@ -77,21 +76,18 @@ class DetailClinic extends Component {
               return (
                 <div className='specialty-item' key={index}>
                   <div className='infor-specialty'>
-                    <div className='specialty-name'>
-                      {item.name}
-                    </div>
-                    <img 
-                      className='specialty-image'
-                      src={item.image} 
-                    />
-                    <span onClick={() => this.handleViewDetailSpecialty(item)}>Xem thêm</span>
+                    <div className='specialty-name'>{item.name}</div>
+                    <img className='specialty-image' src={item.image} alt='' />
+                    <span onClick={() => this.handleViewDetailSpecialty(item)}>
+                      Xem thêm
+                    </span>
                   </div>
                 </div>
               );
             })}
         </section>
 
-        <section className='footer'></section>
+        <Footer />
       </div>
     );
   }
@@ -107,4 +103,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailClinic));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(DetailClinic)
+);

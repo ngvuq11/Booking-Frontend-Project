@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions';
-import Navigator from '../../components/Navigator';
+import Navigator from '../../components/Navigator/Navigator';
 import { adminMenu, doctorMenu } from './menuApp';
 import { LANGUAGES, USER_ROLE } from '../../utils';
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
-import logo from '../../assets/logo.jpg';
+import Logo from '../../components/Logo'
 
 import './Header.scss';
 
@@ -45,7 +45,7 @@ class Header extends Component {
     return (
       <div className='header-container'>
         <div className='header-container-logo'>
-          <img src={logo} alt="logo" />
+          <Logo/>
         </div>
 
         <div className='languages'>
