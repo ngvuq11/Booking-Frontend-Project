@@ -58,7 +58,6 @@ class ListSpecialty extends Component {
   render() {
     // let { language } = this.props;
     let { listSpecialty, keyword, isLoading } = this.state;
-    console.log('data', listSpecialty);
 
     // eslint-disable-next-line array-callback-return
     listSpecialty = listSpecialty.filter((clinic) => {
@@ -72,16 +71,6 @@ class ListSpecialty extends Component {
     const newsPerPage = this.state.newsPerPage;
     const indexOfLastNews = currentPage * newsPerPage;
     const indexOfFirstNews = indexOfLastNews - newsPerPage;
-    const currentTodos = listSpecialty.slice(indexOfFirstNews, indexOfLastNews);
-    const renderTodos = currentTodos.map((item, index) => {
-      return (
-        <SpecialtyCard
-          onClick={() => this.handleViewDetailSpecialty(item)}
-          image={item.image}
-          name={item.name}
-        />
-      );
-    });
 
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(listSpecialty.length / newsPerPage); i++) {
@@ -105,7 +94,7 @@ class ListSpecialty extends Component {
                     </Text>
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>
-                    <Text>Danh sách các phòng khám</Text>
+                    <Text>Danh sách các chuyên khoa</Text>
                   </Breadcrumb.Item>
                 </Breadcrumb>
                 <Search
@@ -113,25 +102,27 @@ class ListSpecialty extends Component {
                   keyword={keyword}
                   handleSearchSpecialty={this.handleSearchSpecialty}
                 />
+                {listSpecialty.length <= 0 ? (
+                  <div style={{ textAlign: 'center', padding: '10px 0' }}>
+                    Không tìm thấy các chuyên khoa...
+                  </div>
+                ) : (
+                  ''
+                )}
                 <div className='list__specialty--all'>
-                  {renderTodos}
-                  {listSpecialty.length <= 0
-                    ? 'Không tìm thấy các phòng khám...'
-                    : ''}
-                  {/* {listSpecialty &&
-                    listSpecialty.length > 0 &&
-                    listSpecialty.map((item, index) => {
+                  {listSpecialty
+                    .slice(indexOfFirstNews, indexOfLastNews)
+                    .map((item, index) => {
                       return (
                         <SpecialtyCard
+                          key={index}
                           onClick={() => this.handleViewDetailSpecialty(item)}
                           image={item.image}
                           name={item.name}
+                          description={item.description}
                         />
                       );
                     })}
-                  {listSpecialty.length <= 0
-                    ? 'Không tìm thấy các phòng khám...'
-                    : ''} */}
                 </div>
                 <div className='pagination-custom'>
                   <ul id='page-numbers'>
@@ -158,7 +149,7 @@ class ListSpecialty extends Component {
           </>
         ) : (
           <Spin
-            tip='Loading...'
+            tip='Plese wait...'
             size='large'
             style={{
               width: '100vw',

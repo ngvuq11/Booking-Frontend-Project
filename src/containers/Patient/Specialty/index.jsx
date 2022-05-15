@@ -14,6 +14,7 @@ import './DetailSpecialty.scss';
 import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
 import Footer from '../../HomePage/components/Section/Footer';
+import { Space, Spin } from 'antd';
 
 class DetailSpecialty extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class DetailSpecialty extends Component {
       arrDoctorId: [],
       dataDetailSpecialty: {},
       listProvince: [],
+      isLoading: false,
     };
   }
 
@@ -73,6 +75,7 @@ class DetailSpecialty extends Component {
           dataDetailSpecialty: res.data,
           arrDoctorId: arrDoctorId,
           listProvince: dataProvince ? dataProvince : [],
+          isLoading: true,
         });
       }
     }
@@ -120,66 +123,91 @@ class DetailSpecialty extends Component {
   };
 
   render() {
-    let { arrDoctorId, dataDetailSpecialty, listProvince } = this.state;
+    let { arrDoctorId, dataDetailSpecialty, listProvince, isLoading } =
+      this.state;
     let { language } = this.props;
     console.log('x: ', arrDoctorId);
     return (
-      <div className='detail-specialty'>
-        <HomeHeader />
-        <section className='banner'>
-          {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty) && (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: dataDetailSpecialty.descriptionHTML,
-              }}
-            ></div>
-          )}
-        </section>
-        <section className='search-location'>
-          <select onChange={(event) => this.handleOnChangeSelect(event)}>
-            {listProvince &&
-              listProvince.length > 0 &&
-              listProvince.map((item, index) => {
-                return (
-                  <option key={index} value={item.keymap}>
-                    {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                  </option>
-                );
-              })}
-          </select>
-        </section>
-        <section className='specialty-list'>
-          {arrDoctorId &&
-            arrDoctorId.length > 0 &&
-            arrDoctorId.map((item, index) => {
-              return (
-                <div className='specialty-item' key={index}>
-                  <div className='intro'>
-                    <div className='profile-doctor'>
-                      <ProfileDoctor
-                        doctorId={item}
-                        isShowDescDoctor={true}
-                        isShowLinkDetail={true}
-                        isShowPrice={false}
-                        // dataTime={dataTime}
-                      />
-                    </div>
-                  </div>
-                  <div className='schedule'>
-                    <div className='schedule-infor'>
-                      <DoctorSchedule doctorIdFromParent={item} />
-                    </div>
-                    <div className='schedule-price'>
-                      <DoctorExtraInfor doctorIdFromParent={item} />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-        </section>
+      <>
+        {isLoading ? (
+          <>
+            <div className='detail-specialty'>
+              <HomeHeader />
+              <section className='banner'>
+                {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty) && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: dataDetailSpecialty.descriptionHTML,
+                    }}
+                  ></div>
+                )}
+              </section>
+              <section className='search-location'>
+                <select onChange={(event) => this.handleOnChangeSelect(event)}>
+                  {listProvince &&
+                    listProvince.length > 0 &&
+                    listProvince.map((item, index) => {
+                      return (
+                        <option key={index} value={item.keymap}>
+                          {language === LANGUAGES.VI
+                            ? item.valueVi
+                            : item.valueEn}
+                        </option>
+                      );
+                    })}
+                </select>
+              </section>
+              <section className='specialty-list'>
+                {arrDoctorId &&
+                  arrDoctorId.length > 0 &&
+                  arrDoctorId.map((item, index) => {
+                    return (
+                      <div className='specialty-item' key={index}>
+                        <div className='intro'>
+                          <div className='profile-doctor'>
+                            <ProfileDoctor
+                              doctorId={item}
+                              isShowDescDoctor={true}
+                              isShowLinkDetail={true}
+                              isShowPrice={false}
+                              // dataTime={dataTime}
+                            />
+                          </div>
+                        </div>
+                        <Space
+                          direction='vertical'
+                          size={15}
+                          style={{ display: 'flex' }}
+                          className='schedule'
+                        >
+                          <DoctorSchedule doctorIdFromParent={item} />
+                          <DoctorExtraInfor doctorIdFromParent={item} />
+                        </Space>
+                      </div>
+                    );
+                  })}
+              </section>
 
-        <Footer />
-      </div>
+              <Footer />
+            </div>
+          </>
+        ) : (
+          <Spin
+            tip='Plese wait...'
+            size='large'
+            style={{
+              width: '100vw',
+              height: '100vh',
+              maxHeight: 'unset',
+              display: 'flex',
+              gap: '20px',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+        )}
+      </>
     );
   }
 }

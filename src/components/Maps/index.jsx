@@ -10,7 +10,6 @@ function Maps() {
         <Titles level={2} style={{ textAlign: 'center' }} title='Locations' />
         <iframe
           style={{ width: '100%', height: 500 }}
-          frameborder='0'
           scrolling='no'
           src='https://maps.google.com/maps?width=975&amp;height=431&amp;hl=en&amp;q=254 Nguyễn Văn Linh&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'
           title='map'

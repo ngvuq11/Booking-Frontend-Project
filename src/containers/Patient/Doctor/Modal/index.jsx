@@ -185,7 +185,11 @@ class BookingModal extends Component {
         dataTime.doctorIdData.lastName + ' ' + dataTime.doctorIdData.firstName;
     }
     return (
-      <LoadingOverlay active={this.state.isLoading} spinner text='Loading...'>
+      <LoadingOverlay
+        active={this.state.isLoading}
+        spinner
+        text='Plese wait...'
+      >
         <Modal
           isOpen={isOpenModalBooking}
           size='lg'

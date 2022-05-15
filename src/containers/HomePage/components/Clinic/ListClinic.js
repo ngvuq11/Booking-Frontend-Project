@@ -78,17 +78,6 @@ class ListClinic extends Component {
     const newsPerPage = this.state.newsPerPage;
     const indexOfLastNews = currentPage * newsPerPage;
     const indexOfFirstNews = indexOfLastNews - newsPerPage;
-    const currentTodos = listClinic.slice(indexOfFirstNews, indexOfLastNews);
-    const renderTodos = currentTodos.map((item, index) => {
-      return (
-        <ClinicCard
-          image={item.image}
-          onClick={() => this.handleViewDetailClinic(item)}
-          name={item.name}
-          address={item.address}
-        />
-      );
-    });
 
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(listClinic.length / newsPerPage); i++) {
@@ -119,7 +108,21 @@ class ListClinic extends Component {
                   keyword={keyword}
                   handleSearchClinic={this.handleSearchClinic}
                 />
-                <div className='list__clinic--all'>{renderTodos}</div>
+                <div className='list__clinic--all'>
+                  {listClinic
+                    .slice(indexOfFirstNews, indexOfLastNews)
+                    .map((item, index) => {
+                      return (
+                        <ClinicCard
+                          key={index}
+                          image={item.image}
+                          onClick={() => this.handleViewDetailClinic(item)}
+                          name={item.name}
+                          address={item.address}
+                        />
+                      );
+                    })}
+                </div>
                 <div className='pagination-custom'>
                   <ul id='page-numbers'>
                     {pageNumbers.map((number) => {
@@ -145,7 +148,7 @@ class ListClinic extends Component {
           </>
         ) : (
           <Spin
-            tip='Loading...'
+            tip='Plese wait...'
             size='large'
             style={{
               width: '100vw',
