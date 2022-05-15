@@ -74,7 +74,7 @@ function About(props) {
 
               <Row>
                 <Col span={24}>
-                  <Title>Watching</Title>
+                  <Title level={4}>WATCHING</Title>
                 </Col>
                 <div className='section-about-item'>
                   <div className='section-about-item-video'>

@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import LoadingOverlay from 'react-loading-overlay';
 import { connect } from 'react-redux';
-import { getMedicalRecordForDoctor, getPatientforDoctorById } from '../../../services/userService';
+import {
+  getMedicalRecordForDoctor,
+  getPatientforDoctorById,
+} from '../../../services/userService';
 import './ManageMedicalRecord.scss';
 import PatientDetail from './PatentDetail';
 
@@ -42,10 +45,10 @@ class ManageMedicalRecord extends Component {
   handleShowDetailPatientModal = async (item) => {
     let id = item.patientId;
     let res = await getPatientforDoctorById(id);
-    if(res && res.errCode === 0) {
+    if (res && res.errCode === 0) {
       this.setState({
         isOpenModal: true,
-        detailPatient: res.data
+        detailPatient: res.data,
       });
     }
   };
@@ -61,8 +64,8 @@ class ManageMedicalRecord extends Component {
     let { dataPatient, isOpenModal, detailPatient, newDataPatient } =
       this.state;
 
-      // filter email
-      newDataPatient = dataPatient
+    // filter email
+    newDataPatient = dataPatient
       .map((e) => e['email'])
       .map((e, i, final) => final.indexOf(e) === i && i)
       .filter((e) => dataPatient[e])
@@ -70,7 +73,11 @@ class ManageMedicalRecord extends Component {
 
     return (
       <>
-        <LoadingOverlay active={this.state.isLoading} spinner text='Loading...'>
+        <LoadingOverlay
+          active={this.state.isLoading}
+          spinner
+          text='Plese wait...'
+        >
           <div className='manage-patient'>
             <h2 className='title'>
               <FormattedMessage id='menu.doctor.manage-medical-record' />
