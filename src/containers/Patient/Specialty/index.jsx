@@ -131,11 +131,6 @@ class DetailSpecialty extends Component {
     let { arrDoctorId, dataDetailSpecialty, listProvince, isLoading } =
       this.state;
     let { language } = this.props;
-<<<<<<< HEAD
-=======
-    console.log('x: ', arrDoctorId);
-
->>>>>>> 237e04abc0b773dc4169fbdfb03d936c891abe07
     return (
       <>
         {isLoading ? (
