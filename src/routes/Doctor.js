@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
-import ManagePatient from '../containers/System/Doctor/ManagePatient';
-import ManageMedicalRecord from '../containers/System/Doctor/ManageMedicalRecord';
-import DashBoardDoctor from '../containers/System/Doctor/DashBoardDoctor';
-
 import Header from '../containers/Header/Header';
+import DashBoardDoctor from '../containers/System/Doctor/DashBoardDoctor';
+import ManageMedicalRecord from '../containers/System/Doctor/ManageMedicalRecord';
+import ManagePatient from '../containers/System/Doctor/ManagePatient';
+import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
 
 class Doctor extends Component {
   render() {
     const { isLoggedIn } = this.props;
+
     return (
-      <React.Fragment>
-        {isLoggedIn && <Header />}
-        <div className='system-container'>
-          <div className='system-list'>
+      <>
+        {isLoggedIn && (
+          <Header>
             <Switch>
               <Route
                 path='/doctor/dashboard-doctor'
@@ -26,11 +25,14 @@ class Doctor extends Component {
                 component={ManageSchedule}
               />
               <Route path='/doctor/manage-patient' component={ManagePatient} />
-              <Route path='/doctor/manage-medical-record' component={ManageMedicalRecord} />
+              <Route
+                path='/doctor/manage-medical-record'
+                component={ManageMedicalRecord}
+              />
             </Switch>
-          </div>
-        </div>
-      </React.Fragment>
+          </Header>
+        )}
+      </>
     );
   }
 }
