@@ -20,6 +20,7 @@ import {
   createNewHandBook,
   editHandBookService,
   deleteHandBookService,
+  getAllPatientPayment,
 } from '../../services/userService';
 
 import { toast } from 'react-toastify';
@@ -721,3 +722,29 @@ export const deleteHandBookSuccess = () => ({
 export const deleteHandBookFailed = () => ({
   type: actionTypes.DELETE_HAND_BOOK_FAILED,
 });
+
+
+// ----------------- ACTIONS PAYMENT -------------------
+export const fetchAllPaymentStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllPatientPayment();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_PAYMENT_SUCCESS,
+          data: res.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_PAYMENT_FAILED,
+        });
+      }
+    } catch (e) {
+      toast.error('Fetch a payment error !');
+      dispatch({
+        type: actionTypes.FETCH_ALL_PAYMENT_FAILED,
+      });
+      console.log('fetch All payment Failed error: ', e);
+    }
+  };
+};

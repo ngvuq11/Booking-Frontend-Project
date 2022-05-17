@@ -56,10 +56,9 @@ class DetailClinic extends Component {
 
   render() {
     let { dataDetailClinic, isLoading } = this.state;
-    console.log('dsds', dataDetailClinic);
     // let { language } = this.props;
     let listSpecialty = dataDetailClinic.specialtyClinic;
-
+      
     return (
       <>
         {isLoading ? (

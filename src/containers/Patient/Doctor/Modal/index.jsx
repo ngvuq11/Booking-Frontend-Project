@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import moment from 'moment';
 import Select from 'react-select';
-// import { Modal } from 'reactstrap';
 import { connect } from 'react-redux';
 import ProfileDoctor from '../ProfileDoctor/index';
 import { LANGUAGES } from '../../../../utils';
@@ -10,7 +9,10 @@ import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../../store/actions';
 import LoadingOverlay from 'react-loading-overlay';
 import DatePicker from '../../../../components/Input/DatePicker';
-import { postBookAppointment } from '../../../../services/userService';
+import {
+  postBookAppointment,
+  patientPayment,
+} from '../../../../services/userService';
 import { Row, Col, Form, Input, Modal, Space, Typography, Button } from 'antd';
 import { toast } from 'react-toastify';
 import './BookingModal.scss';
@@ -38,7 +40,93 @@ class BookingModal extends Component {
   }
 
   async componentDidMount() {
+    let { price } = this.props;
+    let newPrice = price.valueEn;
+
     this.props.getGenders();
+
+    window.paypal
+      .Buttons({
+        createOrder: (data, actions, err) => {
+          return actions.order.create({
+            intent: 'CAPTURE',
+            purchase_units: [
+              {
+                description: 'Cool looking table',
+                amount: {
+                  currency_code: 'USD',
+                  value: +newPrice,
+                },
+              },
+            ],
+          });
+        },
+        onApprove: async (data, actions) => {
+          const order = await actions.order.capture();
+          let { dataTime, language } = this.props;
+          let doctorId = dataTime.doctorId;
+          let timeType = dataTime.timeType;
+          await patientPayment({
+            paymentId: order.purchase_units[0].payments.captures[0].id,
+            email: this.state.email,
+            email_address: order.purchase_units[0].payee.email_address,
+            name: this.state.fullName,
+            address: this.state.address,
+            value: order.purchase_units[0].amount.value,
+            currency_code: order.purchase_units[0].amount.currency_code,
+            doctorId: doctorId,
+            timeType: timeType,
+          });
+
+
+
+          let date = new Date(this.state.birthday).getTime();
+
+          let timeString = this.buildTimeBooking(dataTime);
+
+          let doctorName = this.buildDoctorName(dataTime);
+
+          let res = await postBookAppointment({
+            fullName: this.state.fullName,
+            phoneNumber: this.state.phoneNumber,
+            email: this.state.email,
+            address: this.state.address,
+            reason: this.state.reason,
+            date: this.props.dataTime.date,
+            birthDay: date,
+            doctorId: doctorId,
+            selectedGenders: this.state.selectedGenders.value,
+            timeType: timeType,
+            language: language,
+            timeString: timeString,
+            doctorName: doctorName,
+          });
+
+          if (res && res.errCode === 0) {
+            this.setState({
+              isLoading: false,
+            });
+            toast.success('Booking a new appointment success !');
+            this.props.closeBookingModal();
+          } else {
+            this.setState({
+              isLoading: false,
+            });
+            toast.error('Booking a new appointment error !');
+            this.props.closeBookingModal();
+          }
+
+
+          toast.success('Payment success !');
+        },
+        onError: (err) => {
+          toast.error('Payment error !', err);
+        },
+        style: {
+          layout: 'horizontal',
+        },
+      })
+      .render('.payment-root');
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -164,6 +252,7 @@ class BookingModal extends Component {
     }
     return '';
   };
+
   buildDoctorName = (dataTime) => {
     let { language } = this.props;
     if (dataTime && !_.isEmpty(dataTime)) {
@@ -187,6 +276,10 @@ class BookingModal extends Component {
       doctorName =
         dataTime.doctorIdData.lastName + ' ' + dataTime.doctorIdData.firstName;
     }
+    let { paymentMethods } = this.props;
+    let valueVi = paymentMethods.valueVi;
+    let valueEn = paymentMethods.valueEn;
+
     return (
       <LoadingOverlay
         active={this.state.isLoading}
@@ -208,6 +301,9 @@ class BookingModal extends Component {
             >
               Submit
             </Button>,
+            <>
+              {valueVi || valueEn ? <div className='payment-root'></div> : ''}
+            </>,
           ]}
         >
           <Space direction='vertical' size={15} style={{ display: 'flex' }}>

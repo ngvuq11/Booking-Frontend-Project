@@ -2,7 +2,6 @@ import MarkdownIt from 'markdown-it';
 
 import React, { Component } from 'react';
 
-import Select from 'react-select';
 import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
 
 import { FormattedMessage } from 'react-intl';
@@ -113,7 +112,6 @@ class ManageHandBook extends Component {
     let imageBase64 = '';
     if (handBook.image) {
       imageBase64 = Buffer.from(handBook.image, 'base64').toString('binary');
-      console.log(imageBase64);
     }
 
     this.setState({
