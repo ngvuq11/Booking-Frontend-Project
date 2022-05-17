@@ -88,6 +88,10 @@ const actionTypes = Object.freeze({
 
   DELETE_HAND_BOOK_SUCCESS: 'DELETE_HAND_BOOK_SUCCESS',
   DELETE_HAND_BOOK_FAILED: 'DELETE_HAND_BOOK_FAILED',
+
+  // ---------------- PAYMENT ----------------
+  FETCH_ALL_PAYMENT_SUCCESS: 'FETCH_ALL_PAYMENT_SUCCESS',
+  FETCH_ALL_PAYMENT_FAILED: 'FETCH_ALL_PAYMENT_FAILED',
 });
 
 export default actionTypes;

@@ -94,7 +94,6 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
 
-
     // ----------------- ACTIONS TIME -------------------
     case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS:
       state.allScheduleTime = action.data;
@@ -106,7 +105,6 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-
 
     // ----------------- ACTIONS DOCTOR INFOR -------------------
     case actionTypes.FETCH_REQUIRE_DOCTOR_INFOR_SUCCESS:
@@ -150,6 +148,18 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
     case actionTypes.FETCH_ALL_HAND_BOOK_FAILED:
+      state.data = [];
+      return {
+        ...state,
+      };
+
+    // ----------------- ACTIONS HAND BOOK -------------------
+    case actionTypes.FETCH_ALL_PAYMENT_SUCCESS:
+      state.data = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_PAYMENT_FAILED:
       state.data = [];
       return {
         ...state,

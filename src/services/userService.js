@@ -1,6 +1,5 @@
 import axios from '../axios';
 
-
 // ---------------- API ADMIN ----------------
 const getAllUsers = (inputId) => {
   return axios.get(`/api/get-all-users?id=${inputId}`, {
@@ -55,7 +54,6 @@ const getScheduleDoctorByDate = (doctorId, date) => {
 const getExtraInforDoctor = (doctorId) => {
   return axios.get(`/api/get-extra_infor-doctor-by-id?doctorId=${doctorId}`);
 };
-
 
 const getProfileDoctor = (doctorId) => {
   return axios.get(`/api/get-profile-doctor-by-id?doctorId=${doctorId}`);
@@ -151,6 +149,14 @@ const getAllPatient = () => {
   return axios.get(`/api/get-all-patient`);
 };
 
+const getAllPatientPayment = () => {
+  return axios.get(`/api/get-all-patient-payment`);
+};
+
+const patientPayment = (data) => {
+  return axios.post('/api/patient-payment', data);
+};
+
 const postBookAppointment = (data) => {
   return axios.post('/api/patient-book-appointment', data);
 };
@@ -231,8 +237,10 @@ export {
   getAllDetailClinicById,
   // ---------------- API PATIENT ----------------
   getAllPatient,
+  patientPayment,
   postVerifyEmail,
   postBookAppointment,
+  getAllPatientPayment,
   // ---------------- API COVID-19 ----------------
   getApiCovid19,
   // ---------------- API HAND BOOK ----------------

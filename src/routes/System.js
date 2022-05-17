@@ -9,6 +9,7 @@ import ManageDoctor from '../containers/System/Admin/ManageDoctor';
 import ManageClinic from '../containers/System/Clinic/ManageClinic';
 import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageHandBook from '../containers/System/HandBook/ManageHandBook';
+import ManagePayment from '../containers/System/Payment/ManagePayment';
 
 class System extends Component {
   render() {
@@ -32,6 +33,7 @@ class System extends Component {
                 path='/system/manage-handbook'
                 component={ManageHandBook}
               />
+              <Route path='/system/manage-payment' component={ManagePayment} />
               <Route
                 component={() => {
                   return <Redirect to={systemMenuPath} />;

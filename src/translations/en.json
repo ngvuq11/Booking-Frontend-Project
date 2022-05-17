@@ -30,7 +30,8 @@
       "manage-clinic": "Clinic Management",
       "specialty": "Specialist",
       "manage-specialty": "Specialized management",
-      "manage-handbook": "Handbooks management"
+      "manage-handbook": "Handbooks management",
+      "manage-payment": "Payments management"
     },
     "doctor": {
       "manage-schedule": "Manage Doctor Schedule",
@@ -156,6 +157,9 @@
       "handbook-image": "Handbook image",
       "save": "Save infor",
       "edit": "Update infor"
+    },
+    "manage-payment": {
+
     }
   }
 }

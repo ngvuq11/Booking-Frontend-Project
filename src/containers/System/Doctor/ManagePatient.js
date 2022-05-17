@@ -155,7 +155,6 @@ class ManagePatient extends Component {
         isLoading: false,
       });
       toast.error('Something wrong... !');
-      console.log('Check error: ', res);
     }
   };
 
@@ -187,7 +186,6 @@ class ManagePatient extends Component {
         isLoading: false,
       });
       toast.error('Something wrong... !');
-      console.log('Check error: ', res);
     }
   };
 
@@ -219,7 +217,6 @@ class ManagePatient extends Component {
         isLoading: false,
       });
       toast.error('Something wrong... !');
-      console.log('Check error: ', res);
     }
   };
 
