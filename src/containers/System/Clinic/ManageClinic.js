@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
 import MarkdownIt from 'markdown-it';
-import Select from 'react-select';
-import { connect } from 'react-redux';
-import { CommonUtils } from '../../../utils';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { CRUD_ACTIONS } from '../../../utils';
-import * as actions from '../../../store/actions';
 import MdEditor from 'react-markdown-editor-lite';
-import TableManageClinic from './TableManageClinic';
-
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions';
+import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
 import './ManageClinic.scss';
+import TableManageClinic from './TableManageClinic';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -20,20 +17,14 @@ class ManageClinic extends Component {
       id: '',
       name: '',
       address: '',
-      specialtyId: '',
       imageBase64: '',
       descriptionHTML: '',
       descriptionMarkdown: '',
       action: '',
-
-      selectedSpecialty: '',
-      listSpecialty: [],
     };
   }
 
-  async componentDidMount() {
-
-  }
+  async componentDidMount() {}
 
   async componentDidUpdate(prevProps, prevState) {
     let { language } = this.props;
@@ -44,7 +35,6 @@ class ManageClinic extends Component {
       this.setState({
         name: '',
         address: '',
-        specialtyId: '',
         imageBase64: '',
         descriptionHTML: '',
         descriptionMarkdown: '',
@@ -54,7 +44,6 @@ class ManageClinic extends Component {
 
     if (prevProps.allRequireDoctorInfor !== this.props.allRequireDoctorInfor) {
       let { resSpecialty } = this.props.allRequireDoctorInfor;
-
 
       let dataSelectSpecialty = this.buildDataInputSelect(
         resSpecialty,
@@ -103,7 +92,6 @@ class ManageClinic extends Component {
           name: '',
           address: '',
           imageBase64: '',
-          specialtyId: '',
           descriptionHTML: '',
           descriptionMarkdown: '',
         });
@@ -116,7 +104,6 @@ class ManageClinic extends Component {
         name: this.state.name,
         address: this.state.address,
         imageBase64: this.state.imageBase64,
-        specialtyId: this.state.specialtyId,
         descriptionHTML: this.state.descriptionHTML,
         descriptionMarkdown: this.state.descriptionMarkdown,
       });
@@ -125,7 +112,6 @@ class ManageClinic extends Component {
           id: '',
           name: '',
           address: '',
-          specialtyId: '',
           imageBase64: '',
           descriptionHTML: '',
           descriptionMarkdown: '',
@@ -138,6 +124,7 @@ class ManageClinic extends Component {
     let imageBase64 = '';
     if (clinic.image) {
       imageBase64 = Buffer.from(clinic.image, 'base64').toString('binary');
+      console.log(imageBase64);
     }
 
     this.setState({
@@ -152,8 +139,7 @@ class ManageClinic extends Component {
   };
 
   render() {
-    let { name, address, descriptionMarkdown, listSpecialty } = this.state;
-    console.log(listSpecialty);
+    let { name, address, descriptionMarkdown } = this.state;
     return (
       <div className='manage-clinic'>
         <h2 className='title'>
@@ -161,7 +147,7 @@ class ManageClinic extends Component {
         </h2>
 
         <div className='clinic-list row'>
-          <div className='col-6 form-group'>
+          <div className='col-4 form-group'>
             <label>
               <FormattedMessage id='admin.manage-clinic.clinic-name' />
             </label>
@@ -173,22 +159,7 @@ class ManageClinic extends Component {
               onChange={(event) => this.handleOnChangeInput(event, 'name')}
             />
           </div>
-          <div className='col-6 form-group'>
-            <label>
-              <FormattedMessage id='admin.manage-doctor.specialty' />
-            </label>
-            <Select
-              className='choose-doctor-select'
-              value={this.state.selectedSpecialty}
-              onChange={this.handleOnChangeSelectDoctorInfor}
-              options={this.state.listSpecialty}
-              placeholder={
-                <FormattedMessage id='admin.manage-doctor.specialty' />
-              }
-              name='selectedSpecialty'
-            />
-          </div>
-          <div className='col-6 form-group'>
+          <div className='col-4 form-group'>
             <label>
               <FormattedMessage id='admin.manage-clinic.clinic-address' />
             </label>
@@ -200,7 +171,7 @@ class ManageClinic extends Component {
               onChange={(event) => this.handleOnChangeInput(event, 'address')}
             />
           </div>
-          <div className='col-6 form-group'>
+          <div className='col-4 form-group'>
             <label>
               <FormattedMessage id='admin.manage-clinic.clinic-image' />
             </label>

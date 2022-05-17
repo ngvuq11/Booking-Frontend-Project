@@ -1,0 +1,44 @@
+.section__banner {
+  margin-top: 10px;
+  .ant-image {
+    width: 100%;
+    height: 100%;
+    .banner__image {
+      border-radius: 10px;
+      width: 100%;
+      height: 100%;
+      // aspect-ratio: 21/ 9;
+      max-height: 370px;
+      object-fit: cover;
+    }
+  }
+  .banner__right--space {
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    .ant-space-item {
+      height: calc(100% / 3 - 10px);
+      .banner__item {
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10px;
+        border: 10px;
+        //   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        border-radius: 10px;
+        background-color: #ecf0f4;
+      }
+    }
+  }
+  .slick-dots li {
+    background-color: #ccc;
+    border-radius: 100rem;
+    width: 10px;
+    height: 10px;
+  }
+  .slick-dots li.slick-active {
+    background-color: #00a8ff;
+  }
+}

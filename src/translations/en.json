@@ -29,11 +29,22 @@
       "clinic": "Clinic",
       "manage-clinic": "Clinic Management",
       "specialty": "Specialist",
-      "manage-specialty": "Specialized management"
+      "manage-specialty": "Specialized management",
+      "manage-handbook": "Handbooks management"
     },
     "doctor": {
-      "manage-schedule": "Manage Doctor Schedule",
-      "manage-patient": "Manage Doctor Patient"
+      "manage-schedule": "Doctor Schedule",
+      "manage-patient": "Doctor Patient",
+      "manage-medical-record": "Medical Record",
+      "medical-record": {
+        "list-medical-record": "List of patients examined",
+        "see-more": "See more"
+      },
+      "patient": {
+        "choose-date": "Choose a date of examination",
+        "list-patient": "List of patients examined"
+      },
+      "schedule": {}
     }
   },
   "manage-user": {
@@ -56,7 +67,20 @@
     "see-more": "See more",
     "outstanding-doctor": "Outstanding Doctor",
     "specialty-popular": "Popular Specialty",
-    "clinic": "Clinic"
+    "clinic": "Clinic",
+    "covid-19": {
+      "viet-nam": "Vietnam",
+      "the-world": "The world",
+      "total-cases": "Total cases",
+      "death": "Death",
+      "recovered": "Recovered",
+      "treating": "Treating",
+      "today": "Today",
+      "national-epidemic-situation": "National epidemic situation",
+      "province-city": "Province/City",
+      "average": "7 days on average",
+      "number-of-infections": "Number of infections"
+    }
   },
   "manage-schedule": {
     "title": "Manage medical examination plan",
@@ -111,14 +135,23 @@
       "specialty-title": "Manage Specialty",
       "specialty-name": "Name Specialty",
       "specialty-image": "Specialty image",
+      "specialty-description": "Specialty description",
       "save": "Save infor",
       "edit": "Update infor"
     },
     "manage-clinic": {
-      "clinic-title": "Manage Specialty",
+      "clinic-title": "Manage Clinic",
       "clinic-name": "Clinic Name",
       "clinic-address": "Clinic Address",
       "clinic-image": "Clinic image",
+      "save": "Save infor",
+      "edit": "Update infor"
+    },
+    "manage-handbook": {
+      "handbook-title": "Manage Handbook",
+      "handbook-name": "Handbook Name",
+      "handbook-address": "Handbook Address",
+      "handbook-image": "Handbook image",
       "save": "Save infor",
       "edit": "Update infor"
     }

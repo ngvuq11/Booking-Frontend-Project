@@ -4,7 +4,7 @@ import * as actions from '../../../store/actions';
 
 import './TableManageClinic.scss';
 
-class TableManageUser extends Component {
+class TableManageClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -96,4 +96,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableManageUser);
+export default connect(mapStateToProps, mapDispatchToProps)(TableManageClinic);

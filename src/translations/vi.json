@@ -29,11 +29,22 @@
       "clinic": "Phòng khám",
       "manage-clinic": "Quản lý phòng khám",
       "specialty": "Chuyên khoa",
-      "manage-specialty": "Quản lý chuyên khoa"
+      "manage-specialty": "Quản lý chuyên khoa",
+      "manage-handbook": "Quản lý cẩm nang"
     },
     "doctor": {
-      "manage-schedule": "Quản lý kế hoạch khám bệnh",
-      "manage-patient": "Quản lý bệnh nhân khám bệnh"
+      "manage-schedule": "Kế hoạch",
+      "manage-patient": "Bệnh nhân",
+      "manage-medical-record": "Bệnh án",
+      "medical-record": {
+        "list-medical-record": "Danh sách bệnh nhân khám bệnh",
+        "see-more": "Xem thêm"
+      },
+      "patient": {
+        "choose-date": "Chọn ngày khám",
+        "list-patient": "Danh sách bệnh nhân khám bệnh"
+      },
+      "schedule": {}
     }
   },
   "manage-user": {
@@ -56,7 +67,20 @@
     "see-more": "Xem thêm",
     "outstanding-doctor": "Bác sĩ nổi bật",
     "specialty-popular": "Chuyên khoa phổ biến",
-    "clinic": "Phòng khám"
+    "clinic": "Phòng khám",
+    "covid-19": {
+      "viet-nam": "Việt Nam",
+      "the-world": "Thế giới",
+      "total-cases": "Tổng số ca mắc",
+      "death": "Tử vong",
+      "recovered": "Đã khỏi",
+      "treating": "Đang điều trị",
+      "today": "Hôm nay",
+      "national-epidemic-situation": "Tình hình dịch cả nước",
+      "province-city": "Tỉnh/TP",
+      "average": "Trung bình 7 ngày",
+      "number-of-infections": "Số ca nhiễm"
+    }
   },
   "manage-schedule": {
     "title": "Quản lý kế hoạch khám bệnh",
@@ -112,6 +136,7 @@
       "specialty-title": "Quản lý chuyên khoa",
       "specialty-name": "Tên chuyên khoa",
       "specialty-image": "Ảnh chuyên khoa",
+      "specialty-description": "Mô tả chuyên khoa",
       "save": "Lưu thông tin",
       "edit": "Cập nhật thông tin"
     },
@@ -120,6 +145,14 @@
       "clinic-name": "Tên phòng khám",
       "clinic-address": "Địa chỉ phòng khám",
       "clinic-image": "Ảnh phòng khám",
+      "save": "Lưu thông tin",
+      "edit": "Cập nhật thông tin"
+    },
+    "manage-handbook": {
+      "handbook-title": "Quản lý phòng khám",
+      "handbook-name": "Tên phòng khám",
+      "handbook-address": "Địa chỉ phòng khám",
+      "handbook-image": "Ảnh phòng khám",
       "save": "Lưu thông tin",
       "edit": "Cập nhật thông tin"
     }

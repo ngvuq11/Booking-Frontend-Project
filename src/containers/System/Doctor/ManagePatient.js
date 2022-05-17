@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import RemedyModal from './RemedyModal';
 import { LANGUAGES } from '../../../utils';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import LoadingOverlay from 'react-loading-overlay';
 import RemedyModalOnlineClinic from './RemedyModalOnlineClinic';
 import RemedyModalBlocked from './RemedyModalBlocked';
@@ -234,14 +234,22 @@ class ManagePatient extends Component {
     let { language } = this.props;
     return (
       <>
-        <LoadingOverlay active={this.state.isLoading} spinner text='Loading...'>
+        <LoadingOverlay
+          active={this.state.isLoading}
+          spinner
+          text='Plese wait...'
+        >
           <div className='manage-patient'>
-            <h2 className='title'>Quản lý bệnh nhân khám bệnh</h2>
+            <h2 className='title'>
+              <FormattedMessage id='menu.doctor.manage-patient' />
+            </h2>
 
             <div className='manage-patient-body'>
               <div className='row'>
                 <div className='col-4 form-group'>
-                  <label>Chọn ngày khám</label>
+                  <label>
+                    <FormattedMessage id='menu.doctor.patient.choose-date' />
+                  </label>
                   <DatePicker
                     onChange={this.handleOnChangeDatePicker}
                     className='form-control doctor-date'
@@ -249,7 +257,9 @@ class ManagePatient extends Component {
                   />
                 </div>
                 <div className='col-12 form-group patient-list'>
-                  <label>Danh sách bệnh nhân khám bệnh</label>
+                  <label>
+                    <FormattedMessage id='menu.doctor.patient.list-patient' />
+                  </label>
                   <table>
                     <tbody>
                       <tr>

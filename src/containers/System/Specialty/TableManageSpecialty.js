@@ -4,7 +4,7 @@ import * as actions from '../../../store/actions';
 
 import './TableManageSpecialty.scss';
 
-class TableManageUser extends Component {
+class TableManageSpecialty extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,4 +94,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableManageUser);
+export default connect(mapStateToProps, mapDispatchToProps)(TableManageSpecialty);

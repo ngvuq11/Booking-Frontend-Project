@@ -1,0 +1,24 @@
+.section__specialty {
+  // background-color: azure;
+
+  .home__specialty--list {
+    --f-columns: 2;
+    --f-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(-1 * var(--f-gap));
+    margin-bottom: calc(-1 * var(--f-gap));
+    > * {
+      margin-left: var(--f-gap);
+      margin-bottom: var(--f-gap);
+      width: calc((100% / var(--f-columns) - var(--f-gap)));
+    }
+    @media screen and (max-width: 767px) {
+      --f-columns: 1;
+      --f-gap: 10px;
+      > * {
+        width: 100%;
+      }
+    }
+  }
+}

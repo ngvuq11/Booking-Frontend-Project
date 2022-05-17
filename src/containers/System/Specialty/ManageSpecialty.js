@@ -1,13 +1,17 @@
-import React, { Component } from 'react';
 import MarkdownIt from 'markdown-it';
-import { connect } from 'react-redux';
-import { CommonUtils } from '../../../utils';
-import { FormattedMessage } from 'react-intl';
-import { CRUD_ACTIONS } from '../../../utils';
-import * as actions from '../../../store/actions';
-import MdEditor from 'react-markdown-editor-lite';
-import TableManageSpecialty from './TableManageSpecialty';
 
+import React, { Component } from 'react';
+
+import Select from 'react-select';
+import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
+
+import { FormattedMessage } from 'react-intl';
+import MdEditor from 'react-markdown-editor-lite';
+
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions';
+
+import TableManageSpecialty from './TableManageSpecialty';
 import './ManageSpecialty.scss';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -18,14 +22,20 @@ class ManageSpecialty extends Component {
     this.state = {
       id: '',
       name: '',
+      description: '',
       imageBase64: '',
       descriptionHTML: '',
       descriptionMarkdown: '',
       action: '',
+
+      clinicId: '',
+      listClinic: [],
     };
   }
 
-  async componentDidMount() {}
+  async componentDidMount() {
+    this.props.getRequireDoctorInfor();
+  }
 
   async componentDidUpdate(prevProps, prevState) {
     let { language } = this.props;
@@ -35,13 +45,40 @@ class ManageSpecialty extends Component {
     if (prevProps.data !== this.props.data) {
       this.setState({
         name: '',
+        description: '',
         imageBase64: '',
         descriptionHTML: '',
         descriptionMarkdown: '',
+        clinicId: '',
+        listClinic: this.props.data,
         action: CRUD_ACTIONS.CREATE,
       });
     }
+
+    if (prevProps.allRequireDoctorInfor !== this.props.allRequireDoctorInfor) {
+      let { resClinic } = this.props.allRequireDoctorInfor;
+      let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC');
+      this.setState({
+        listClinic: dataSelectClinic,
+      });
+    }
   }
+
+  buildDataInputSelect = (data, type) => {
+    let result = [];
+    if (data && data.length > 0) {
+      if (type === 'CLINIC') {
+        // eslint-disable-next-line array-callback-return
+        data.map((item) => {
+          let object = {};
+          object.label = item.name;
+          object.value = item.id;
+          result.push(object);
+        });
+      }
+    }
+    return result;
+  };
 
   handleOnChangeInput = (event, id) => {
     let stateCopy = { ...this.state };
@@ -77,9 +114,11 @@ class ManageSpecialty extends Component {
       if (res && res.errCode === 0) {
         this.setState({
           name: '',
+          description: '',
           imageBase64: '',
           descriptionHTML: '',
           descriptionMarkdown: '',
+          clinicId: '',
         });
       }
     }
@@ -88,17 +127,21 @@ class ManageSpecialty extends Component {
       let res = await this.props.editSpecialty({
         id: this.state.id,
         name: this.state.name,
+        description: this.state.description,
         imageBase64: this.state.imageBase64,
         descriptionHTML: this.state.descriptionHTML,
         descriptionMarkdown: this.state.descriptionMarkdown,
+        clinicId: this.state.clinicId,
       });
       if (res && res.errCode === 0) {
         this.setState({
           id: '',
           name: '',
+          description: '',
           imageBase64: '',
           descriptionHTML: '',
           descriptionMarkdown: '',
+          clinicId: '',
         });
       }
     }
@@ -113,15 +156,33 @@ class ManageSpecialty extends Component {
     this.setState({
       id: specialty.id,
       name: specialty.name,
-      image: specialty.imageBase64,
+      description: specialty.description,
+      imageBase64: specialty.imageBase64,
       descriptionHTML: specialty.descriptionHTML,
       descriptionMarkdown: specialty.descriptionMarkdown,
+      clinicId: specialty.clinicId,
       action: CRUD_ACTIONS.EDIT,
     });
   };
 
+  handleOnChangeSelect = async (selectedOption) => {
+    let { listClinic } = this.state;
+
+    if (listClinic && listClinic.length > 0) {
+      this.setState({
+        clinicId: selectedOption.value,
+      });
+    } else {
+      this.setState({
+        clinicId: '',
+      });
+    }
+  };
+
   render() {
-    let { name, descriptionMarkdown } = this.state;
+    let { name, description, descriptionMarkdown, listClinic, action } =
+      this.state;
+
     return (
       <div className='manage-specialty'>
         <h2 className='title'>
@@ -129,7 +190,7 @@ class ManageSpecialty extends Component {
         </h2>
 
         <div className='specialty-list row'>
-          <div className='col-6 form-group'>
+          <div className='col-4 form-group'>
             <label>
               <FormattedMessage id='admin.manage-specialty.specialty-name' />
             </label>
@@ -141,7 +202,20 @@ class ManageSpecialty extends Component {
               onChange={(event) => this.handleOnChangeInput(event, 'name')}
             />
           </div>
-          <div className='col-6 form-group'>
+          <div className='col-4 form-group'>
+            <label>
+              <FormattedMessage id='admin.manage-doctor.clinic' />
+            </label>
+            <Select
+              className='choose-doctor-select'
+              // value={this.state}
+              onChange={this.handleOnChangeSelect}
+              options={listClinic}
+              placeholder={<FormattedMessage id='admin.manage-doctor.clinic' />}
+              name='selectedClinic'
+            />
+          </div>
+          <div className='col-4 form-group'>
             <label>
               <FormattedMessage id='admin.manage-specialty.specialty-image' />
             </label>
@@ -149,6 +223,19 @@ class ManageSpecialty extends Component {
               className='form-control-file'
               type='file'
               onChange={(event) => this.handleOnChangeImage(event)}
+            />
+          </div>
+          <div className='col-12 form-group'>
+            <label>
+              <FormattedMessage id='admin.manage-specialty.specialty-description' />
+            </label>
+            <textarea
+              className='form-control'
+              rows='5'
+              onChange={(event) =>
+                this.handleOnChangeInput(event, 'description')
+              }
+              value={description}
             />
           </div>
           <div className='col-12'>
@@ -162,13 +249,13 @@ class ManageSpecialty extends Component {
           <div className='col-12'>
             <button
               className={
-                this.state.action === CRUD_ACTIONS.EDIT
+                action === CRUD_ACTIONS.EDIT
                   ? 'btn-edit-specialty'
                   : 'btn-add-specialty'
               }
               onClick={() => this.handleSaveSpecialty()}
             >
-              {this.state.action === CRUD_ACTIONS.EDIT ? (
+              {action === CRUD_ACTIONS.EDIT ? (
                 <FormattedMessage id='admin.manage-specialty.edit' />
               ) : (
                 <FormattedMessage id='admin.manage-specialty.save' />
@@ -179,7 +266,7 @@ class ManageSpecialty extends Component {
 
         <TableManageSpecialty
           handleEditSpecialty={this.handleEditSpecialty}
-          action={this.state.action}
+          action={action}
         />
       </div>
     );
@@ -190,6 +277,7 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     data: state.admin.data,
+    allRequireDoctorInfor: state.admin.allRequireDoctorInfor,
   };
 };
 
@@ -198,6 +286,7 @@ const mapDispatchToProps = (dispatch) => {
     createNewSpecialty: (data) =>
       dispatch(actions.fetchCreateNewSpecialty(data)),
     editSpecialty: (data) => dispatch(actions.editSpecialty(data)),
+    getRequireDoctorInfor: () => dispatch(actions.getRequireDoctorInfor()),
   };
 };
 

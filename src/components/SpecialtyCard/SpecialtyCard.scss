@@ -1,0 +1,25 @@
+.specialty__card {
+  background-color: #fff;
+  transition: all 0.25s linear;
+  display: flex;
+  gap: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid seagreen;
+  > .ant-image {
+    width: 50%;
+    > img {
+      width: 100%;
+      object-fit: cover;
+      aspect-ratio: 4 / 3;
+    }
+  }
+  .specialty__card--bottom {
+    width: calc(50% - 10px);
+    padding: 15px 10px;
+  }
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  }
+}
