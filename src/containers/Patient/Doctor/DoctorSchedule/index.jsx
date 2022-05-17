@@ -134,7 +134,10 @@ class DoctorSchedule extends Component {
       isOpenModalBooking,
       dataModalScheduleTime,
     } = this.state;
-    let { language } = this.props;
+    let { language, doctorInfor } = this.props;
+
+    let paymentMethods = doctorInfor.paymentIdData;
+    let price = doctorInfor.priceIdData;
     return (
       <>
         <div className='doctor-schedule'>
@@ -205,6 +208,8 @@ class DoctorSchedule extends Component {
           </div>
         </div>
         <BookingModal
+          paymentMethods={paymentMethods}
+          price={price}
           isOpenModalBooking={isOpenModalBooking}
           closeBookingModal={this.closeBookingModal}
           dataTime={dataModalScheduleTime}

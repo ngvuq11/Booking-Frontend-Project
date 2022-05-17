@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LANGUAGES } from '../../../utils';
 
 class LikeAndShare extends Component {
   constructor(props) {
@@ -20,7 +19,7 @@ class LikeAndShare extends Component {
         // the session
         xfbml: true, // parse social plugins on this page
         version: 'v13.0',
-        autoLogAppEvents: 1
+        autoLogAppEvents: 1,
       });
     };
     // Load the SDK asynchronously
