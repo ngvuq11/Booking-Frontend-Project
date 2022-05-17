@@ -1,11 +1,11 @@
 import { LoginOutlined } from '@ant-design/icons';
-import { Button, Layout, Row, Typography } from 'antd';
+import { Avatar, Button, Layout, Typography, Select, Space } from 'antd';
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import { AiOutlineUser } from 'react-icons/ai';
 import Logo from '../../components/Logo';
-import ManagerLayout from '../../layouts/Manager';
 import * as actions from '../../store/actions';
 import { LANGUAGES, USER_ROLE } from '../../utils';
 import AdminMenu from './AdminMenu';
@@ -13,6 +13,7 @@ import DoctorMenu from './DoctorMenu';
 import './Header.scss';
 
 const { Header, Content, Sider, Footer } = Layout;
+const { Option } = Select;
 const { Text } = Typography;
 class Headers extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Headers extends Component {
     this.state = {
       menuApp: [],
       collapsed: false,
+      language: LANGUAGES.VI,
     };
   }
   onCollapse = (collapsed) => {
@@ -29,6 +31,7 @@ class Headers extends Component {
   };
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
+    language = language === LANGUAGES.VI ? LANGUAGES.EN : LANGUAGES.VI;
   };
 
   componentDidMount() {
@@ -51,8 +54,9 @@ class Headers extends Component {
     this.props.changeLanguageAppRedux(language);
   };
   render() {
-    const { processLogout, language, userInfo, children } = this.props;
-    const { collapsed, menuApp } = this.state;
+    const { processLogout, userInfo, children } = this.props;
+    const { collapsed, menuApp, language } = this.state;
+    console.log('language', language);
     return (
       <>
         <Layout
@@ -69,30 +73,20 @@ class Headers extends Component {
             }}
           >
             <Logo />
-            <Row>
-              <FormattedMessage id='header.welcome' />
-              {userInfo && userInfo.firstName ? userInfo.firstName : ''}
-              <Text>Language: </Text>
-              <Text
-                className={
-                  language === LANGUAGES.VI
-                    ? 'language-vi active'
-                    : 'language-vi'
-                }
-                onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}
+            <Space size={'large'}>
+              <Select
+                defaultValue={language}
+                style={{ width: 120 }}
+                onChange={(value) => this.handleChangeLanguage(value)}
               >
-                VN
+                <Option value={LANGUAGES.VI}>Việt Nam</Option>
+                <Option value={LANGUAGES.EN}>English</Option>
+              </Select>
+              <Text style={{ color: '#fff' }}>
+                <FormattedMessage id='header.welcome' />
+                {userInfo && userInfo.firstName ? userInfo.firstName : ''}
               </Text>
-              <Text
-                className={
-                  language === LANGUAGES.EN
-                    ? 'language-en active'
-                    : 'language-en'
-                }
-                onClick={() => this.handleChangeLanguage(LANGUAGES.EN)}
-              >
-                EN
-              </Text>
+              <Avatar size={45} icon={userInfo.image || <AiOutlineUser />} />
               <Button
                 type='danger'
                 ghost
@@ -102,7 +96,7 @@ class Headers extends Component {
               >
                 Log out
               </Button>
-            </Row>
+            </Space>
           </Header>
 
           <Layout>
@@ -133,45 +127,6 @@ class Headers extends Component {
           </Layout>
         </Layout>
       </>
-      // <div className='header-container'>
-      //   <Logo />
-
-      //   <div className='languages'>
-      //     <div className='welcome'>
-      //       <FormattedMessage id='header.welcome' />
-      //       {userInfo && userInfo.firstName ? userInfo.firstName : ''}
-      //     </div>
-      //     <span>Language: </span>
-      //     <span
-      //       className={
-      //         language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'
-      //       }
-      //       onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}
-      //     >
-      //       VN
-      //     </span>
-      //     <span
-      //       className={
-      //         language === LANGUAGES.EN ? 'language-en active' : 'language-en'
-      //       }
-      //       onClick={() => this.handleChangeLanguage(LANGUAGES.EN)}
-      //     >
-      //       EN
-      //     </span>
-      //   </div>
-
-      //   <div className='header-tabs-container'>
-      //     {/* <Navigator menus={menuApp} /> */}
-      //     {menuApp}
-      //   </div>
-
-      //   <div className='logout'>
-      //     <button className='btn-logout' onClick={processLogout} title='Logout'>
-      //       Log out
-      //       <i className='fas fa-sign-out-alt'></i>
-      //     </button>
-      //   </div>
-      // </div>
     );
   }
 }
