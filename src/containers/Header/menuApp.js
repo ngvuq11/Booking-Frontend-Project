@@ -36,6 +36,10 @@ export const adminMenu = [
         name: 'menu.admin.manage-handbook',
         link: '/system/manage-handbook',
       },
+      {
+        name: 'menu.admin.manage-payment',
+        link: '/system/manage-payment',
+      },
     ],
   },
 ];

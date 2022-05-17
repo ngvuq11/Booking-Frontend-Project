@@ -62,8 +62,12 @@ class DetailDoctor extends Component {
 
     let currentURL =
       +process.env.REACT_APP_IS_LOCALHOST === 1
-        ? 'https://client-reactjs-datn.herokuapp.com/' : window.location.href;
-    console.log(process.env.REACT_APP_IS_LOCALHOST);
+        ? 'https://client-reactjs-datn.herokuapp.com/'
+        : window.location.href;
+
+        let doctorInfor = detailDoctor.Doctor_infor;
+      //   let doctorInfor = detailDoctor.Doctor_infor;
+        console.log(detailDoctor);
     return (
       <>
         {this.state.isLoading ? (
@@ -132,6 +136,7 @@ class DetailDoctor extends Component {
                   <Row>
                     <Col xs={24} sm={24} md={24} lg={12}>
                       <DoctorSchedule
+                        doctorInfor={doctorInfor}
                         doctorIdFromParent={this.state.currentDoctorId}
                       />
                     </Col>

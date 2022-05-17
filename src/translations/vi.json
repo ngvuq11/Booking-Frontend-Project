@@ -30,7 +30,8 @@
       "manage-clinic": "Quản lý phòng khám",
       "specialty": "Chuyên khoa",
       "manage-specialty": "Quản lý chuyên khoa",
-      "manage-handbook": "Quản lý cẩm nang"
+      "manage-handbook": "Quản lý cẩm nang",
+      "manage-payment": "Quản lý thanh toán"
     },
     "doctor": {
       "manage-schedule": "Quản lý kế hoạch khám bệnh",
