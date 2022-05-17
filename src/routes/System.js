@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from '../containers/Header/Header';
 // import UserManage from '../containers/System/UserManage';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import Header from '../containers/Header/Header';
 import DashBoard from '../containers/System/Admin/DashBoard';
-import UserRedux from '../containers/System/Admin/UserRedux';
 import ManageDoctor from '../containers/System/Admin/ManageDoctor';
+import UserRedux from '../containers/System/Admin/UserRedux';
 import ManageClinic from '../containers/System/Clinic/ManageClinic';
-import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageHandBook from '../containers/System/HandBook/ManageHandBook';
+
+import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
+
 import ManagePayment from '../containers/System/Payment/ManagePayment';
+
 
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
+
     return (
       <>
-        {isLoggedIn && <Header />}
-        <div className='system-container'>
-          <div className='system-list'>
+        {isLoggedIn && (
+          <Header>
             <Switch>
               <Route path='/system/dashboard' component={DashBoard} />
               {/* <Route path="/system/user-manage" component={UserManage} /> */}
@@ -40,8 +43,8 @@ class System extends Component {
                 }}
               />
             </Switch>
-          </div>
-        </div>
+          </Header>
+        )}
       </>
     );
   }

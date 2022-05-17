@@ -34,9 +34,9 @@
       "manage-payment": "Quản lý thanh toán"
     },
     "doctor": {
-      "manage-schedule": "Quản lý kế hoạch khám bệnh",
-      "manage-patient": "Quản lý bệnh nhân khám bệnh",
-      "manage-medical-record": "Quản lý hồ sơ bệnh án",
+      "manage-schedule": "Kế hoạch",
+      "manage-patient": "Bệnh nhân",
+      "manage-medical-record": "Bệnh án",
       "medical-record": {
         "list-medical-record": "Danh sách bệnh nhân khám bệnh",
         "see-more": "Xem thêm"
@@ -45,9 +45,7 @@
         "choose-date": "Chọn ngày khám",
         "list-patient": "Danh sách bệnh nhân khám bệnh"
       },
-      "schedule" : {
-
-      }
+      "schedule": {}
     }
   },
   "manage-user": {
@@ -83,7 +81,6 @@
       "province-city": "Tỉnh/TP",
       "average": "Trung bình 7 ngày",
       "number-of-infections": "Số ca nhiễm"
-
     }
   },
   "manage-schedule": {
