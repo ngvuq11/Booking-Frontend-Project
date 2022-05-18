@@ -5,7 +5,6 @@ import { Menu } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import { useHistory, useLocation } from 'react-router';
-import { split } from 'lodash';
 
 function AdminMenu(props) {
   const history = useHistory();
