@@ -12,6 +12,7 @@ import DatePicker from '../../../../components/Input/DatePicker';
 import {
   postBookAppointment,
   patientPayment,
+  postPaymentPatient,
 } from '../../../../services/userService';
 import { Row, Col, Form, Input, Modal, Space, Typography, Button } from 'antd';
 import { toast } from 'react-toastify';
@@ -40,10 +41,16 @@ class BookingModal extends Component {
   }
 
   async componentDidMount() {
-    let { price } = this.props;
-    let newPrice = price.valueEn;
-
     this.props.getGenders();
+
+    let { price, dataTime, language } = this.props;
+
+    let newPrice = price.valueEn;
+    let doctorId = dataTime.doctorId;
+    let timeType = dataTime.timeType;
+    let date = new Date(this.state.birthday).getTime();
+    let timeString = this.buildTimeBooking(dataTime);
+    let doctorName = this.buildDoctorName(dataTime);
 
     window.paypal
       .Buttons({
@@ -63,43 +70,26 @@ class BookingModal extends Component {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
-          let { dataTime, language } = this.props;
-          let doctorId = dataTime.doctorId;
-          let timeType = dataTime.timeType;
-          await patientPayment({
-            paymentId: order.purchase_units[0].payments.captures[0].id,
-            email: this.state.email,
-            email_address: order.purchase_units[0].payee.email_address,
-            name: this.state.fullName,
-            address: this.state.address,
-            value: order.purchase_units[0].amount.value,
-            currency_code: order.purchase_units[0].amount.currency_code,
-            doctorId: doctorId,
-            timeType: timeType,
-          });
 
-
-
-          let date = new Date(this.state.birthday).getTime();
-
-          let timeString = this.buildTimeBooking(dataTime);
-
-          let doctorName = this.buildDoctorName(dataTime);
-
-          let res = await postBookAppointment({
-            fullName: this.state.fullName,
-            phoneNumber: this.state.phoneNumber,
-            email: this.state.email,
-            address: this.state.address,
-            reason: this.state.reason,
-            date: this.props.dataTime.date,
+          let res = await postPaymentPatient({
             birthDay: date,
             doctorId: doctorId,
-            selectedGenders: this.state.selectedGenders.value,
             timeType: timeType,
             language: language,
             timeString: timeString,
             doctorName: doctorName,
+            email: this.state.email,
+            reason: this.state.reason,
+            address: this.state.address,
+            fullName: this.state.fullName,
+            date: this.props.dataTime.date,
+            phoneNumber: this.state.phoneNumber,
+            selectedGenders: this.state.selectedGenders.value,
+
+            value: order.purchase_units[0].amount.value,
+            paymentId: order.purchase_units[0].payments.captures[0].id,
+            email_address: order.purchase_units[0].payee.email_address,
+            currency_code: order.purchase_units[0].amount.currency_code,
           });
 
           if (res && res.errCode === 0) {
@@ -115,8 +105,7 @@ class BookingModal extends Component {
             toast.error('Booking a new appointment error !');
             this.props.closeBookingModal();
           }
-
-
+          this.props.closeBookingModal();
           toast.success('Payment success !');
         },
         onError: (err) => {
