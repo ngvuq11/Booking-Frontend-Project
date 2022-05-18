@@ -1,18 +1,15 @@
+import { ContainerOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
 import React from 'react';
 import { BsFillCalendarDateFill, BsFillPersonFill } from 'react-icons/bs';
 import { MdDashboard } from 'react-icons/md';
-import { Menu } from 'antd';
-import { ContainerOutlined } from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
-import { split } from 'lodash';
 import { useHistory, useLocation } from 'react-router';
 
 function DoctorMenu(props) {
   const history = useHistory();
   const location = useLocation();
-  const isActive = (menuItem) => {
-    return location.pathname / split('/doctor')[1] === menuItem.path;
-  };
+
   const menu = [
     {
       key: 1,
@@ -45,41 +42,20 @@ function DoctorMenu(props) {
   ];
 
   return (
-    <Menu theme='dark' mode='inline' defaultSelectedKeys={['1']}>
+    <Menu
+      theme='dark'
+      mode='inline'
+      defaultSelectedKeys={[location.pathname.split('/')[2]]}
+    >
       {menu.map((item) => (
         <Menu.Item
-          key={item.key}
+          key={item.pathName}
           icon={item.icon}
           onClick={() => history.push(item.to)}
         >
           {item.text}
         </Menu.Item>
       ))}
-      {/* <Menu.Item
-        key={[1]}
-        // onClick={() => this.props.history.push('/doctor/dashboard-doctor')}
-        icon={<MdDashboard />}
-      >
-        Dashboard
-      </Menu.Item>
-      <Menu.Item
-        // onClick={() => this.props.history.push('/doctor/manage-schedule')}
-        icon={<BsFillCalendarDateFill />}
-      >
-        <FormattedMessage id='menu.doctor.manage-schedule' />
-      </Menu.Item>
-      <Menu.Item
-        // onClick={() => this.props.history.push('/doctor/manage-patient')}
-        icon={<BsFillPersonFill />}
-      >
-        <FormattedMessage id='menu.doctor.manage-patient' />
-      </Menu.Item>
-      <Menu.Item
-        // onClick={() => this.props.history.push('/doctor/manage-medical-record')}
-        icon={<ContainerOutlined />}
-      >
-        <FormattedMessage id='menu.doctor.manage-medical-record' />
-      </Menu.Item> */}
     </Menu>
   );
 }

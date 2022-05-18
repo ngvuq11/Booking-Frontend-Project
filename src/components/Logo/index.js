@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const { Text } = Typography;
 
 const LogoWrapper = styled.div`
+  width: fit-content;
   .logo__content {
     font-size: 30px;
     font-weight: bold;
@@ -26,7 +27,7 @@ class Logo extends React.Component {
     return (
       <LogoWrapper>
         <Text className='logo__content' onClick={() => this.returnToHome()}>
-          Booking.
+          BCARE.vn
         </Text>
       </LogoWrapper>
     );

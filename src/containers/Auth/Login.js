@@ -1,12 +1,12 @@
+import { Button, Form, Input, Space } from 'antd';
+import { push } from 'connected-react-router';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
-
-import * as actions from '../../store/actions';
-
-import './Login.scss';
+import Logo from '../../components/Logo';
 // import { FormattedMessage } from 'react-intl';
 import { handleLoginApi } from '../../services/userService';
+import * as actions from '../../store/actions';
+import './Login.scss';
 
 class Login extends Component {
   constructor(props) {
@@ -71,93 +71,78 @@ class Login extends Component {
 
   render() {
     return (
-      <div className='login-background'>
-        <div className='login-container'>
-          <div className='login-content row'>
-            <div className='login-title col-12 text-center'>
-              <h1>LOGIN</h1>
-            </div>
-            <div className='col-12 login-username'>
-              <label>
-                <i className='fas fa-envelope icon-input'></i>Email
-              </label>
-
-              <input
-                type='text'
-                autoComplete='off'
-                value={this.state.username}
-                onChange={(event) => {
-                  this.handleOnChangeUsername(event);
-                }}
-              />
-            </div>
-            <div className='col-12 login-password'>
-              <label>
-                <i className='fas fa-lock icon-input'></i>Password
-              </label>
-
-              <input
-                type={this.state.isShowPassword ? 'text' : 'password'}
-                autoComplete='off'
-                value={this.state.password}
-                onChange={(event) => {
-                  this.handleOnChangePassword(event);
-                }}
-                onKeyDown={(event) => this.handleKeyDown(event)}
-              />
-              <span
-                onClick={() => {
-                  this.handleShowHidePassword();
-                }}
-              >
-                <i
-                  className={
-                    this.state.isShowPassword
-                      ? 'fas fa-eye'
-                      : 'fas fa-eye-slash'
-                  }
-                ></i>
-              </span>
-            </div>
-            <div
-              className='col-12'
-              style={{
-                color: 'red',
-                fontSize: '1.3rem',
-                fontStyle: 'italic',
-                letterSpacing: '0.5px',
+      <div className='login__page'>
+        <Space direction='vertical' size={20} className='login__form'>
+          <Logo />
+          <Space
+            direction='vertical'
+            size={10}
+            style={{ display: 'flex', width: '100%' }}
+          >
+            <Form
+              layout='vertical'
+              name='basic'
+              initialValues={{
+                remember: true,
               }}
             >
-              {this.state.errMessage}
-            </div>
-            <div className='col-12'>
-              <button
-                className='btn-login'
-                onClick={() => {
-                  this.handleLogin();
-                }}
+              <Form.Item
+                label='Email'
+                required
+                tooltip='This is a required field'
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your email!',
+                  },
+                ]}
               >
-                Login
-              </button>
-            </div>
-            <div className='col-12'>
-              <span className='login-forgot-password'>
-                Forgot your password?
-              </span>
-            </div>
-            <div className='col-12 other-login'>
-              <span>Or login with </span>
-            </div>
-            <div className='col-12 social-login'>
-              <div className='google'>
-                <i className='fab fa-google-plus-g'></i>
-              </div>
-              <div className='facebook'>
-                <i className='fab fa-facebook-f'></i>
-              </div>
-            </div>
-          </div>
-        </div>
+                <Input
+                  placeholder='Type your email'
+                  value={this.state.username}
+                  onChange={(event) => {
+                    this.handleOnChangeUsername(event);
+                  }}
+                />
+              </Form.Item>
+
+              <Form.Item
+                label='Password'
+                name='password'
+                required
+                tooltip='This is a required field'
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your password!',
+                  },
+                ]}
+              >
+                <Input.Password
+                  value={this.state.password}
+                  onChange={(event) => {
+                    this.handleOnChangePassword(event);
+                  }}
+                  onKeyDown={(event) => this.handleKeyDown(event)}
+                />
+              </Form.Item>
+
+              <Form.Item
+                style={{ display: 'flex', justifyContent: 'flex-end' }}
+              >
+                <Button
+                  type='primary'
+                  htmlType='submit'
+                  onClick={() => {
+                    this.handleLogin();
+                  }}
+                >
+                  Login
+                </Button>
+              </Form.Item>
+            </Form>
+          </Space>
+        </Space>
       </div>
     );
   }

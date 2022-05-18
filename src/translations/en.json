@@ -23,15 +23,15 @@
       "manage": "User System",
       "dashboard": "Dashboard",
       "crud": "User CRUD",
-      "manage-doctor": "Doctor management",
-      "manage-admin": "Admin Management",
-      "manage-user": "Manage User",
+      "manage-doctor": "Doctors",
+      "manage-admin": "Admins",
+      "manage-user": "Users",
       "clinic": "Clinic",
-      "manage-clinic": "Clinic Management",
+      "manage-clinic": "Clinics",
       "specialty": "Specialist",
-      "manage-specialty": "Specialized management",
-      "manage-handbook": "Handbooks management",
-      "manage-payment": "Payments management"
+      "manage-specialty": "Specialized",
+      "manage-handbook": "Handbooks",
+      "manage-payment": "Payments"
     },
     "doctor": {
       "manage-schedule": "Doctor Schedule",
@@ -156,8 +156,6 @@
       "save": "Save infor",
       "edit": "Update infor"
     },
-    "manage-payment": {
-
-    }
+    "manage-payment": {}
   }
 }
