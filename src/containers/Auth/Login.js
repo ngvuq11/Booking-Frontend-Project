@@ -1,4 +1,4 @@
-import { Button, Form, Input, Space } from 'antd';
+import { Button, Form, Input, Space, Spin } from 'antd';
 import { push } from 'connected-react-router';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -16,6 +16,7 @@ class Login extends Component {
       password: '',
       isShowPassword: false,
       errMessage: '',
+      isLoading: false,
     };
   }
   // componentDidUpdate(prevProps, prevState) {
@@ -37,6 +38,7 @@ class Login extends Component {
   handleLogin = async () => {
     this.setState({
       errMessage: '',
+      isLoading: true,
     });
     try {
       let data = await handleLoginApi(this.state.username, this.state.password);
@@ -71,79 +73,81 @@ class Login extends Component {
 
   render() {
     return (
-      <div className='login__page'>
-        <Space direction='vertical' size={20} className='login__form'>
-          <Logo />
-          <Space
-            direction='vertical'
-            size={10}
-            style={{ display: 'flex', width: '100%' }}
-          >
-            <Form
-              layout='vertical'
-              name='basic'
-              initialValues={{
-                remember: true,
-              }}
+      <Spin spinning={this.state.isLoading}>
+        <div className='login__page'>
+          <Space direction='vertical' size={20} className='login__form'>
+            <Logo />
+            <Space
+              direction='vertical'
+              size={10}
+              style={{ display: 'flex', width: '100%' }}
             >
-              <Form.Item
-                label='Email'
-                required
-                tooltip='This is a required field'
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input your email!',
-                  },
-                ]}
+              <Form
+                layout='vertical'
+                name='basic'
+                initialValues={{
+                  remember: true,
+                }}
               >
-                <Input
-                  placeholder='Type your email'
-                  value={this.state.username}
-                  onChange={(event) => {
-                    this.handleOnChangeUsername(event);
-                  }}
-                />
-              </Form.Item>
-
-              <Form.Item
-                label='Password'
-                name='password'
-                required
-                tooltip='This is a required field'
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input your password!',
-                  },
-                ]}
-              >
-                <Input.Password
-                  value={this.state.password}
-                  onChange={(event) => {
-                    this.handleOnChangePassword(event);
-                  }}
-                  onKeyDown={(event) => this.handleKeyDown(event)}
-                />
-              </Form.Item>
-
-              <Form.Item
-                style={{ display: 'flex', justifyContent: 'flex-end' }}
-              >
-                <Button
-                  type='primary'
-                  htmlType='submit'
-                  onClick={() => {
-                    this.handleLogin();
-                  }}
+                <Form.Item
+                  label='Email'
+                  required
+                  tooltip='This is a required field'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your email!',
+                    },
+                  ]}
                 >
-                  Login
-                </Button>
-              </Form.Item>
-            </Form>
+                  <Input
+                    placeholder='Type your email'
+                    value={this.state.username}
+                    onChange={(event) => {
+                      this.handleOnChangeUsername(event);
+                    }}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  label='Password'
+                  name='password'
+                  required
+                  tooltip='This is a required field'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your password!',
+                    },
+                  ]}
+                >
+                  <Input.Password
+                    value={this.state.password}
+                    onChange={(event) => {
+                      this.handleOnChangePassword(event);
+                    }}
+                    onKeyDown={(event) => this.handleKeyDown(event)}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  style={{ display: 'flex', justifyContent: 'flex-end' }}
+                >
+                  <Button
+                    type='primary'
+                    htmlType='submit'
+                    onClick={() => {
+                      this.handleLogin();
+                    }}
+                  >
+                    Login
+                  </Button>
+                </Form.Item>
+              </Form>
+            </Space>
           </Space>
-        </Space>
-      </div>
+        </div>
+      </Spin>
     );
   }
 }
