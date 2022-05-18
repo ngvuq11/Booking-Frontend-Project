@@ -1,10 +1,9 @@
+import { ContainerOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
 import React from 'react';
 import { BsFillCalendarDateFill, BsFillPersonFill } from 'react-icons/bs';
 import { MdDashboard } from 'react-icons/md';
-import { Menu } from 'antd';
-import { ContainerOutlined } from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
-import { split } from 'lodash';
 import { useHistory, useLocation } from 'react-router';
 
 function DoctorMenu(props) {
