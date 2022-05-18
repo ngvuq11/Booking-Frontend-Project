@@ -51,9 +51,9 @@ class DetailDoctor extends Component {
 
   render() {
     let { language } = this.props;
+    let { detailDoctor } = this.state;
     let nameVi = '',
       nameEn = '';
-    let { detailDoctor } = this.state;
 
     if (detailDoctor && detailDoctor.positionData) {
       nameVi = `${detailDoctor.positionData.valueVi}, ${detailDoctor.lastName} ${detailDoctor.firstName}`;
@@ -65,9 +65,8 @@ class DetailDoctor extends Component {
         ? 'https://client-reactjs-datn.herokuapp.com/'
         : window.location.href;
 
-        let doctorInfor = detailDoctor.Doctor_infor;
-      //   let doctorInfor = detailDoctor.Doctor_infor;
-        console.log(detailDoctor);
+    let doctorInfor = detailDoctor.Doctor_infor;
+
     return (
       <>
         {this.state.isLoading ? (

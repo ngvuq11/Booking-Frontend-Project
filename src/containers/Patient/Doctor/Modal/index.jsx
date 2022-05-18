@@ -24,27 +24,27 @@ class BookingModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullName: '',
-      phoneNumber: '',
       email: '',
-      address: '',
       reason: '',
+      genders: '',
+      address: '',
+      fullName: '',
       birthday: '',
       doctorId: '',
-      selectedGenders: '',
       timeType: '',
+      phoneNumber: '',
+      selectedGenders: '',
 
-      genders: '',
       isLoading: false,
     };
   }
 
   async componentDidMount() {
     this.props.getGenders();
-
-    let { price, dataTime, language } = this.props;
+    let { dataTime, language, price } = this.props;
 
     let newPrice = price.valueEn;
+
     let doctorId = dataTime.doctorId;
     let timeType = dataTime.timeType;
     let date = new Date(this.state.birthday).getTime();
@@ -71,42 +71,44 @@ class BookingModal extends Component {
           onApprove: async (data, actions) => {
             const order = await actions.order.capture();
 
-            let res = await postPaymentPatient({
-              birthDay: date,
-              doctorId: doctorId,
-              timeType: timeType,
-              language: language,
-              timeString: timeString,
-              doctorName: doctorName,
-              email: this.state.email,
-              reason: this.state.reason,
-              address: this.state.address,
-              fullName: this.state.fullName,
-              date: this.props.dataTime.date,
-              phoneNumber: this.state.phoneNumber,
-              selectedGenders: this.state.selectedGenders.value,
+            if (order && order.status === 'COMPLETED') {
+              setTimeout(async () => {
+                let res = await postPaymentPatient({
+                  birthDay: date,
+                  doctorId: doctorId,
+                  timeType: timeType,
+                  language: language,
+                  timeString: timeString,
+                  doctorName: doctorName,
+                  email: this.state.email,
+                  reason: this.state.reason,
+                  address: this.state.address,
+                  fullName: this.state.fullName,
+                  date: this.props.dataTime.date,
+                  phoneNumber: this.state.phoneNumber,
+                  selectedGenders: this.state.selectedGenders.value,
 
-              value: order.purchase_units[0].amount.value,
-              paymentId: order.purchase_units[0].payments.captures[0].id,
-              email_address: order.purchase_units[0].payee.email_address,
-              currency_code: order.purchase_units[0].amount.currency_code,
-            });
+                  value: order.purchase_units[0].amount.value,
+                  paymentId: order.purchase_units[0].payments.captures[0].id,
+                  email_address: order.purchase_units[0].payee.email_address,
+                  currency_code: order.purchase_units[0].amount.currency_code,
+                });
 
-            if (res && res.errCode === 0) {
-              this.setState({
-                isLoading: false,
-              });
-              toast.success('Booking a new appointment success !');
-              this.props.closeBookingModal();
-            } else {
-              this.setState({
-                isLoading: false,
-              });
-              toast.error('Booking a new appointment error !');
-              this.props.closeBookingModal();
+                if (res && res.errCode === 0) {
+                  this.setState({
+                    isLoading: false,
+                  });
+                  toast.success('Booking a new appointment success !');
+                  toast.success('Payment success !');
+                  this.props.closeBookingModal();
+                } else {
+                  this.setState({
+                    isLoading: false,
+                  });
+                  toast.error('Booking a new appointment error !');
+                }
+              }, 3000);
             }
-            this.props.closeBookingModal();
-            toast.success('Payment success !');
           },
           onError: (err) => {
             toast.error('Payment error !', err);
@@ -116,7 +118,7 @@ class BookingModal extends Component {
           },
         })
         .render('.payment-root');
-    }, 5000);
+    }, 20000);
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -143,6 +145,8 @@ class BookingModal extends Component {
       }
     }
   }
+
+  handlePayment = async (order) => {};
 
   buildGenders = (data) => {
     let { language } = this.props;
@@ -281,6 +285,7 @@ class BookingModal extends Component {
             <Button type='danger' ghost onClick={closeBookingModal}>
               Cancel
             </Button>,
+            // <div className='payment-root'></div>,
             <>
               {paymentMethods.valueVi === 'Thẻ ATM' ? (
                 <div className='payment-root'></div>
