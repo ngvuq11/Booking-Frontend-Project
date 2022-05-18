@@ -10,9 +10,7 @@ import { split } from 'lodash';
 function AdminMenu(props) {
   const history = useHistory();
   const location = useLocation();
-  const isActive = (menuItem) => {
-    return location.pathname / split('/doctor')[1] === menuItem.path;
-  };
+
   const menu = [
     {
       key: 1,
@@ -58,10 +56,14 @@ function AdminMenu(props) {
     },
   ];
   return (
-    <Menu theme='dark' mode='inline' defaultSelectedKeys={['1']}>
+    <Menu
+      theme='dark'
+      mode='inline'
+      defaultSelectedKeys={[location.pathname.split('/')[2]]}
+    >
       {menu.map((item) => (
         <Menu.Item
-          key={item.key}
+          key={item.pathName}
           icon={item.icon}
           onClick={() => history.push(item.to)}
         >

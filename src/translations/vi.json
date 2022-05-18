@@ -23,15 +23,15 @@
       "manage": "User System",
       "dashboard": "Dashboard",
       "crud": "User CRUD",
-      "manage-doctor": "Quản lý bác sĩ",
-      "manage-admin": "Quản lý admin",
-      "manage-user": "Quản lý người dùng",
+      "manage-doctor": "Bác sĩ",
+      "manage-admin": "Admin",
+      "manage-user": "Người dùng",
       "clinic": "Phòng khám",
-      "manage-clinic": "Quản lý phòng khám",
+      "manage-clinic": "Phòng khám",
       "specialty": "Chuyên khoa",
-      "manage-specialty": "Quản lý chuyên khoa",
-      "manage-handbook": "Quản lý cẩm nang",
-      "manage-payment": "Quản lý thanh toán"
+      "manage-specialty": "Chuyên khoa",
+      "manage-handbook": "Cẩm nang",
+      "manage-payment": "Thanh toán"
     },
     "doctor": {
       "manage-schedule": "Kế hoạch",

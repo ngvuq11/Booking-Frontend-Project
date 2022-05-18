@@ -78,8 +78,6 @@ class BookingModal extends Component {
             timeType: timeType,
           });
 
-
-
           let date = new Date(this.state.birthday).getTime();
 
           let timeString = this.buildTimeBooking(dataTime);
@@ -115,7 +113,6 @@ class BookingModal extends Component {
             toast.error('Booking a new appointment error !');
             this.props.closeBookingModal();
           }
-
 
           toast.success('Payment success !');
         },
@@ -289,16 +286,17 @@ class BookingModal extends Component {
         <Modal
           visible={isOpenModalBooking}
           className={'booking-modal'}
+          onCancel={closeBookingModal}
+          okButtonProps={{
+            form: 'form-booking-modal',
+            key: 'submit',
+            htmlType: 'submit',
+          }}
           footer={[
             <Button type='danger' ghost onClick={closeBookingModal}>
               Cancel
             </Button>,
-            <Button
-              form='myForm'
-              type='primary'
-              htmlType='submit'
-              onClick={() => this.handleConfirmBooking()}
-            >
+            <Button form='form-booking-modal' type='primary' htmlType='submit'>
               Submit
             </Button>,
             <>
@@ -327,7 +325,7 @@ class BookingModal extends Component {
                 wrapperCol={{ span: 16 }}
                 initialValues={{ remember: true }}
                 autoComplete='off'
-                id='myForm'
+                id='form-booking-modal'
                 onFinish={() => this.handleConfirmBooking()}
               >
                 <Row gutter={[15, 15]}>
