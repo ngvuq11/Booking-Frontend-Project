@@ -1,40 +1,41 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
-import moment from 'moment';
-import Select from 'react-select';
-import { connect } from 'react-redux';
-import ProfileDoctor from '../ProfileDoctor/index';
-import { LANGUAGES } from '../../../../utils';
-import { FormattedMessage } from 'react-intl';
-import * as actions from '../../../../store/actions';
-import LoadingOverlay from 'react-loading-overlay';
-import DatePicker from '../../../../components/Input/DatePicker';
+import React, { Component } from "react";
+import _ from "lodash";
+import moment from "moment";
+import Select from "react-select";
+import { connect } from "react-redux";
+import ProfileDoctor from "../ProfileDoctor/index";
+import { LANGUAGES } from "../../../../utils";
+import { FormattedMessage } from "react-intl";
+import * as actions from "../../../../store/actions";
+import LoadingOverlay from "react-loading-overlay";
+import DatePicker from "../../../../components/Input/DatePicker";
 import {
   postBookAppointment,
   postPaymentPatient,
-} from '../../../../services/userService';
-import { Row, Col, Form, Input, Modal, Space, Typography, Button } from 'antd';
-import { toast } from 'react-toastify';
-import './BookingModal.scss';
+} from "../../../../services/userService";
+import { Row, Col, Form, Input, Modal, Space, Typography, Button } from "antd";
+import { toast } from "react-toastify";
+import "./BookingModal.scss";
 
 const { Title } = Typography;
 const { TextArea } = Input;
+
 
 class BookingModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullName: '',
-      phoneNumber: '',
-      email: '',
-      address: '',
-      reason: '',
-      birthday: '',
-      doctorId: '',
-      selectedGenders: '',
-      timeType: '',
+      fullName: "",
+      phoneNumber: "",
+      email: "",
+      address: "",
+      reason: "",
+      birthday: "",
+      doctorId: "",
+      selectedGenders: "",
+      timeType: "",
 
-      genders: '',
+      genders: "",
       isLoading: false,
     };
   }
@@ -56,12 +57,12 @@ class BookingModal extends Component {
         .Buttons({
           createOrder: (data, actions, err) => {
             return actions.order.create({
-              intent: 'CAPTURE',
+              intent: "CAPTURE",
               purchase_units: [
                 {
-                  description: 'Cool looking table',
+                  description: "Cool looking table",
                   amount: {
-                    currency_code: 'USD',
+                    currency_code: "USD",
                     value: +newPrice,
                   },
                 },
@@ -96,26 +97,26 @@ class BookingModal extends Component {
               this.setState({
                 isLoading: false,
               });
-              toast.success('Booking a new appointment success !');
+              toast.success("Booking a new appointment success !");
               this.props.closeBookingModal();
             } else {
               this.setState({
                 isLoading: false,
               });
-              toast.error('Booking a new appointment error !');
+              toast.error("Booking a new appointment error !");
               this.props.closeBookingModal();
             }
             this.props.closeBookingModal();
-            toast.success('Payment success !');
+            toast.success("Payment success !");
           },
           onError: (err) => {
-            toast.error('Payment error !', err);
+            toast.error("Payment error !", err);
           },
           style: {
-            layout: 'horizontal',
+            layout: "horizontal",
           },
         })
-        .render('.payment-root');
+        .render(".payment-root");
     }, 5000);
   }
 
@@ -212,13 +213,13 @@ class BookingModal extends Component {
       this.setState({
         isLoading: false,
       });
-      toast.success('Booking a new appointment success !');
+      toast.success("Booking a new appointment success !");
       this.props.closeBookingModal();
     } else {
       this.setState({
         isLoading: false,
       });
-      toast.error('Booking a new appointment error !');
+      toast.error("Booking a new appointment error !");
       this.props.closeBookingModal();
     }
   };
@@ -233,14 +234,14 @@ class BookingModal extends Component {
 
       let date =
         language === LANGUAGES.VI
-          ? moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
+          ? moment.unix(+dataTime.date / 1000).format("dddd - DD/MM/YYYY")
           : moment
               .unix(+dataTime.date / 1000)
-              .locale('en')
-              .format('dddd - MM/DD/YYYY');
+              .locale("en")
+              .format("dddd - MM/DD/YYYY");
       return `${time} - ${date}`;
     }
-    return '';
+    return "";
   };
 
   buildDoctorName = (dataTime) => {
@@ -252,8 +253,21 @@ class BookingModal extends Component {
           : `${dataTime.doctorIdData.firstName} ${dataTime.doctorIdData.lastName}`;
       return name;
     }
-    return '';
+    return "";
   };
+
+  render() {
+    let { isOpenModalBooking, closeBookingModal, dataTime, paymentMethods } =
+      this.props;
+    let doctorId = "";
+    let doctorName = "";
+    if (dataTime && !_.isEmpty(dataTime)) {
+      doctorId = dataTime.doctorId;
+    }
+    if (dataTime && !_.isEmpty(dataTime)) {
+      doctorName =
+        dataTime.doctorIdData.lastName + " " + dataTime.doctorIdData.firstName;
+    }
 
   render() {
     let { isOpenModalBooking, closeBookingModal, dataTime } = this.props;
