@@ -161,6 +161,10 @@ const postBookAppointment = (data) => {
   return axios.post('/api/patient-book-appointment', data);
 };
 
+const postPaymentPatient = (data) => {
+  return axios.post('/api/send-payment-patient', data);
+};
+
 const postVerifyEmail = (data) => {
   return axios.post('/api/verify-book-appointment', data);
 };
@@ -239,6 +243,7 @@ export {
   getAllPatient,
   patientPayment,
   postVerifyEmail,
+  postPaymentPatient,
   postBookAppointment,
   getAllPatientPayment,
   // ---------------- API COVID-19 ----------------
