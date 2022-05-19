@@ -93,6 +93,8 @@ class ProfileDoctor extends Component {
       nameVi = `${dataProfile.positionData.valueVi}, ${dataProfile.lastName} ${dataProfile.firstName}`;
       nameEn = `${dataProfile.positionData.valueEn}, ${dataProfile.firstName} ${dataProfile.lastName}`;
     }
+
+    
     return (
       <div className='doctor__suggest--card'>
         <Row className='doctor__suggest'>
