@@ -55,7 +55,7 @@ class Headers extends Component {
   render() {
     const { processLogout, userInfo, children } = this.props;
     const { collapsed, menuApp, language } = this.state;
-    console.log('language', userInfo);
+    
     return (
       <>
         <Layout

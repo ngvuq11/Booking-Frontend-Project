@@ -66,8 +66,9 @@ class DetailDoctor extends Component {
         : window.location.href;
 
     let doctorInfor = detailDoctor.Doctor_infor;
-
+    
     return (
+       
       <>
         {this.state.isLoading ? (
           <>
