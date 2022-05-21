@@ -13,13 +13,13 @@ class TableManageClinic extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchClinic();
+    this.props.fetchAllClinic();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allClinics !== this.props.allClinics) {
       this.setState({
-        clinicArray: this.props.data,
+        clinicArray: this.props.allClinics,
       });
     }
   }
@@ -34,7 +34,7 @@ class TableManageClinic extends Component {
 
   render() {
     let listClinic = this.state.clinicArray;
-    
+
     return (
       <div className='user-container'>
         <h1 className='title-user'>TABLE SPECIALTY</h1>
@@ -85,13 +85,13 @@ class TableManageClinic extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.admin.data,
+    allClinics: state.admin.allClinics,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchClinic: () => dispatch(actions.fetchAllClinicStart()),
+    fetchAllClinic: () => dispatch(actions.fetchAllClinic()),
     deleteClinic: (id) => dispatch(actions.deleteClinic(id)),
   };
 };

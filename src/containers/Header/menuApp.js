@@ -8,9 +8,6 @@ export const adminMenu = [
         name: 'menu.admin.dashboard',
         link: '/system/dashboard',
       },
-      // {// Quản lý Users CRUD
-      //     name: 'menu.admin.crud', link: '/system/user-manage'
-      // },
       {
         // Quản lý Users
         name: 'menu.admin.manage-user',
@@ -21,22 +18,23 @@ export const adminMenu = [
         name: 'menu.admin.manage-doctor',
         link: '/system/manage-doctor',
       },
-      // { // Quản lý kế hoạch khám bệnh của bác sĩ
-      //      name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule'
-      // },
       {
+        // Quản lý chuyên khoa
         name: 'menu.admin.manage-specialty',
         link: '/system/manage-specialty',
       },
       {
+        // Quản lý phòng khám
         name: 'menu.admin.manage-clinic',
         link: '/system/manage-clinic',
       },
       {
+        // Quản lý cẩm nang
         name: 'menu.admin.manage-handbook',
         link: '/system/manage-handbook',
       },
       {
+        // Quản lý thanh toán - thống kê
         name: 'menu.admin.manage-payment',
         link: '/system/manage-payment',
       },

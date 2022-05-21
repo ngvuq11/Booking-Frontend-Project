@@ -17,9 +17,9 @@ class TableManageHandBook extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allHandBooks !== this.props.allHandBooks) {
       this.setState({
-        handBookArray: this.props.data,
+        handBookArray: this.props.allHandBooks,
       });
     }
   }
@@ -83,15 +83,18 @@ class TableManageHandBook extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.admin.data,
+    allHandBooks: state.admin.allHandBooks,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAllHandBook: () => dispatch(actions.fetchAllHandBookStart()),
+    fetchAllHandBook: () => dispatch(actions.fetchAllHandBook()),
     deleteHandBook: (id) => dispatch(actions.deleteHandBook(id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableManageHandBook);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TableManageHandBook);

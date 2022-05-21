@@ -265,8 +265,8 @@ class ManagePatient extends Component {
                         <th>Full Name</th>
                         <th>address</th>
                         <th>Phone number</th>
-                        <th>gender</th>
                         <th>Time</th>
+                        <th>Status</th>
                         <th>Actions</th>
                       </tr>
                       {dataPatient && dataPatient.length > 0 ? (
@@ -275,10 +275,6 @@ class ManagePatient extends Component {
                             language === LANGUAGES.VI
                               ? item.timeTypeDataPatient.valueVi
                               : item.timeTypeDataPatient.valueEn;
-                          let gender =
-                            language === LANGUAGES.VI
-                              ? item.patientIdData.genderIdData.valueVi
-                              : item.patientIdData.genderIdData.valueEn;
                           return (
                             <tr key={index}>
                               <td>{index + 1}</td>
@@ -286,8 +282,14 @@ class ManagePatient extends Component {
                               <td>{item.patientIdData.fullName}</td>
                               <td>{item.patientIdData.address}</td>
                               <td>{item.patientIdData.phoneNumber}</td>
-                              <td>{gender}</td>
                               <td>{time}</td>
+                              {item.statusPayment === 'Paid' ? (
+                                <td className='paid'>
+                                  <span>{item.statusPayment}</span>
+                                </td>
+                              ) : (
+                                <td className='unpaid'>{item.statusPayment}</td>
+                              )}
                               <td className='actions'>
                                 <div className='btn-container'>
                                   <button

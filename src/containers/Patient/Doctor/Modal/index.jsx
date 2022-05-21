@@ -45,7 +45,7 @@ class BookingModal extends Component {
     let { doctorIdFromParent } = this.props;
     let id = doctorIdFromParent;
     if (id) {
-      let res = await getDetailInforDoctor(id);
+      let res = await this.props.fetchDetailInforDoctor(id);
       if (res && res.errCode === 0) {
         this.setState({
           paymentIdData: res.data.Doctor_infor.paymentIdData,
@@ -514,6 +514,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getGenders: () => dispatch(actions.fetchGenderStart()),
+    fetchDetailInforDoctor: (id) => dispatch(actions.fetchDetailInforDoctor(id)),
   };
 };
 

@@ -2,7 +2,6 @@ import { LoginOutlined } from '@ant-design/icons';
 import { Avatar, Button, Layout, Select, Space, Typography } from 'antd';
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { AiOutlineUser } from 'react-icons/ai';
 import { connect } from 'react-redux';
 import Logo from '../../components/Logo';
 import * as actions from '../../store/actions';
@@ -20,7 +19,7 @@ class Headers extends Component {
     this.state = {
       menuApp: [],
       collapsed: false,
-      language: LANGUAGES.VI,
+      // language: LANGUAGES.VI,
     };
   }
   onCollapse = (collapsed) => {
@@ -30,7 +29,7 @@ class Headers extends Component {
   };
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
-    language = language === LANGUAGES.VI ? LANGUAGES.EN : LANGUAGES.VI;
+    language = language === LANGUAGES.VI ? LANGUAGES.VI : LANGUAGES.EN;
   };
 
   componentDidMount() {
@@ -53,9 +52,12 @@ class Headers extends Component {
     this.props.changeLanguageAppRedux(language);
   };
   render() {
-    const { processLogout, userInfo, children } = this.props;
-    const { collapsed, menuApp, language } = this.state;
-    
+    const { processLogout, userInfo, children, language } = this.props;
+    const { collapsed, menuApp } = this.state;
+
+    let defaultLanguage =
+      language === LANGUAGES.VI ? LANGUAGES.VI : LANGUAGES.EN;
+
     return (
       <>
         <Layout
@@ -85,7 +87,7 @@ class Headers extends Component {
               <Space>
                 <Text style={{ color: '#fff' }}>Select language:</Text>
                 <Select
-                  defaultValue={language}
+                  defaultValue={defaultLanguage}
                   style={{ width: 90 }}
                   onChange={(value) => this.handleChangeLanguage(value)}
                 >
@@ -97,11 +99,15 @@ class Headers extends Component {
                 size={10}
                 // style={{ background: '#fff', padding: '0 15px' }}
               >
-                <Avatar size={40} icon={userInfo.image || <AiOutlineUser />} />
+                <Avatar size={40} src={userInfo.image} />
+
                 <Text level={5} style={{ color: '#fff', width: '200px' }}>
-                  {userInfo && userInfo.firstName + +userInfo.lastName
+                  {language && language === LANGUAGES.VI
+                    ? userInfo.lastName + ' ' + userInfo.firstName
+                    : userInfo.firstName + ' ' + userInfo.lastName}
+                  {/* {userInfo && userInfo.firstName + +userInfo.lastName
                     ? userInfo.firstName + ' ' + userInfo.lastName
-                    : 'Error'}
+                    : 'Error'} */}
                 </Text>
                 <Button
                   type='danger'

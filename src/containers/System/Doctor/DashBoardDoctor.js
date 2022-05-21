@@ -1,12 +1,11 @@
 import { Component } from 'react';
-import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
-
+import { connect } from 'react-redux';
 import {
   getMedicalRecordForDoctor,
   getProfileDoctor,
 } from '../../../services/userService';
-import { LANGUAGES } from '../../../utils';
+import StatusCard from '../Admin/StatusCard';
 
 // import './DashBoardDoctor.scss';
 
@@ -53,9 +52,8 @@ class DashBoardDoctor extends Component {
 
   render() {
     let { dataPatient, newDataPatient, price } = this.state;
-    let { language } = this.props;
 
-    let priceData = language === LANGUAGES.VI ? price.valueVi : price.valueEn;
+    let priceData = price.valueEn;
 
     // filter email
     newDataPatient = dataPatient
@@ -68,13 +66,21 @@ class DashBoardDoctor extends Component {
       <div className='manage-dashboard'>
         <div className='dashboard-top'>
           <div className='dashboard-top-left'>
-            Patient:
-            {newDataPatient.length}
-            Total money:
+            <StatusCard
+              name='Patient'
+              icon='fas fa-procedures'
+              count={newDataPatient.length}
+            />
+            <StatusCard
+              name='Total money'
+              icon='fas fa-dollar-sign'
+              count={'$' + newDataPatient.length * priceData + '.00'}
+            />
             <NumberFormat
-              value={newDataPatient.length * priceData}
+              value={newDataPatient.length * priceData + '.00'}
               displayType={'text'}
               thousandSeparator={true}
+              prefix={'$'}
             />
           </div>
           <div className='dashboard-top-right'></div>

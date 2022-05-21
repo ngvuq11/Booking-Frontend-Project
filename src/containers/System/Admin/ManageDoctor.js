@@ -29,19 +29,16 @@ class ManageDoctor extends Component {
       listPrice: [],
       listPayment: [],
       listProvince: [],
-      // listClinic: [],
       listSpecialty: [],
 
       selectedPrice: '',
       selectedPayment: '',
       selectedProvince: '',
-      // selectedClinic: '',
       selectedSpecialty: '',
 
       nameClinic: '',
       addressClinic: '',
       note: '',
-      // clinicId: '',
       specialtyId: '',
     };
   }
@@ -63,7 +60,7 @@ class ManageDoctor extends Component {
     }
 
     if (prevProps.allRequireDoctorInfor !== this.props.allRequireDoctorInfor) {
-      let { resPrice, resPayment, resProvince, resSpecialty, /*resClinic*/ } =
+      let { resPrice, resPayment, resProvince, resSpecialty /*resClinic*/ } =
         this.props.allRequireDoctorInfor;
 
       let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
@@ -76,14 +73,12 @@ class ManageDoctor extends Component {
         resSpecialty,
         'SPECIALTY'
       );
-      // let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC');
 
       this.setState({
         listPrice: dataSelectPrice,
         listPayment: dataSelectPayment,
         listProvince: dataSelectProvince,
         listSpecialty: dataSelectSpecialty,
-      //   listClinic: dataSelectClinic,
       });
     }
 
@@ -158,15 +153,6 @@ class ManageDoctor extends Component {
           result.push(object);
         });
       }
-      // if (type === 'CLINIC') {
-      //   // eslint-disable-next-line array-callback-return
-      //   data.map((item) => {
-      //     let object = {};
-      //     object.label = item.name;
-      //     object.value = item.id;
-      //     result.push(object);
-      //   });
-      // }
     }
     return result;
   };
@@ -194,7 +180,6 @@ class ManageDoctor extends Component {
       nameClinic: this.state.nameClinic,
       addressClinic: this.state.addressClinic,
       note: this.state.note,
-      // clinicId: this.state.selectedClinic.value,
       specialtyId: this.state.selectedSpecialty.value,
     });
   };
@@ -209,17 +194,15 @@ class ManageDoctor extends Component {
 
       let addressClinic = '',
         note = '',
-        nameClinic = '',
         priceId = '',
         paymentId = '',
+        nameClinic = '',
         provinceId = '',
         specialtyId = '',
-      //   clinicId = '',
         selectedPrice = '',
         selectedPayment = '',
         selectedProvince = '',
         selectedSpecialty = '';
-      //   selectedClinic = '';
 
       if (res.data.Doctor_infor) {
         addressClinic = res.data.Doctor_infor.addressClinic;
@@ -233,7 +216,6 @@ class ManageDoctor extends Component {
         paymentId = res.data.Doctor_infor.paymentId;
         provinceId = res.data.Doctor_infor.provinceId;
         specialtyId = res.data.Doctor_infor.specialtyId;
-      //   clinicId = res.data.Doctor_infor.clinicId;
 
         selectedPrice = listPrice.find((item) => {
           return item && item.value === priceId;
@@ -247,9 +229,6 @@ class ManageDoctor extends Component {
         selectedSpecialty = listSpecialty.find((item) => {
           return item && item.value === specialtyId;
         });
-      //   selectedClinic = listClinic.find((item) => {
-      //     return item && item.value === clinicId;
-      //   });
       }
 
       this.setState({
@@ -270,7 +249,6 @@ class ManageDoctor extends Component {
         selectedPayment: selectedPayment,
         selectedProvince: selectedProvince,
         selectedSpecialty: selectedSpecialty,
-      //   selectedClinic: selectedClinic,
       });
     } else {
       this.setState({
@@ -291,7 +269,6 @@ class ManageDoctor extends Component {
         selectedPayment: '',
         selectedProvince: '',
         selectedSpecialty: '',
-      //   selectedClinic: '',
       });
     }
   };
@@ -305,7 +282,7 @@ class ManageDoctor extends Component {
       ...stateCopy,
     });
   };
-  
+
   handleOnChangeText = (event, id) => {
     let stateCopy = { ...this.state };
     stateCopy[id] = event.target.value;
@@ -414,21 +391,19 @@ class ManageDoctor extends Component {
                   name='selectedSpecialty'
                 />
               </div>
-              {/* <div className='col-6 form-group'>
+              <div className='col-6 form-group'>
                 <label>
-                  <FormattedMessage id='admin.manage-doctor.clinic' />
+                  <FormattedMessage id='admin.manage-doctor.address' />
                 </label>
-                <Select
-                  className='choose-doctor-select'
-                  value={this.state.selectedClinic}
-                  onChange={this.handleOnChangeSelectDoctorInfor}
-                  options={this.state.listClinic}
-                  placeholder={
-                    <FormattedMessage id='admin.manage-doctor.clinic' />
+                <input
+                  className='form-control'
+                  onChange={(event) =>
+                    this.handleOnChangeText(event, 'addressClinic')
                   }
-                  name='selectedClinic'
+                  value={this.state.addressClinic}
+                  placeholder='Address...'
                 />
-              </div> */}
+              </div>
             </div>
           </div>
           <div className='more-infor-right'>
@@ -455,19 +430,6 @@ class ManageDoctor extends Component {
                 onChange={(event) => this.handleOnChangeText(event, 'note')}
                 value={this.state.note}
                 placeholder='Note...'
-              />
-            </div>
-            <div className='col-12'>
-              <label>
-                <FormattedMessage id='admin.manage-doctor.address' />
-              </label>
-              <input
-                className='form-control'
-                onChange={(event) =>
-                  this.handleOnChangeText(event, 'addressClinic')
-                }
-                value={this.state.addressClinic}
-                placeholder='Address...'
               />
             </div>
           </div>
