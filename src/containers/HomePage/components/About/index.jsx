@@ -1,4 +1,4 @@
-import { Col, Image, Row, Space, Typography } from 'antd';
+import { Button, Col, Image, Row, Space, Typography } from 'antd';
 import React from 'react';
 import { Container } from '../../../../components/Container/Container.styles';
 import Logo from '../../../../components/Logo';
@@ -21,12 +21,12 @@ function About(props) {
             className='about__booking--content'
           >
             <Space direction='vertical' size={30} style={{ display: 'flex' }}>
-              <Row>
+              <Row gutter={[50, 20]}>
                 <Col span={24} style={{ marginBottom: '20px' }}>
                   <Logo />
                 </Col>
                 <Col span={12}>
-                  <Title level={4}>TẦM NHÌN & SỨ MỆNH:</Title>
+                  <Title level={4}>TẦM NHÌN &amp; SỨ MỆNH:</Title>
                   <Text style={{ textAlign: 'justify' }}>
                     “Sự đổi mới các phương diện chất lượng y tế từ quản lý bệnh
                     nhân đến tiêu chuẩn dịch vụ khách hàng nhằm mang lại dịch vụ
@@ -37,18 +37,21 @@ function About(props) {
                   <Title level={4} style={{ textTransform: 'uppercase' }}>
                     Thông tin hữu ích
                   </Title>
-                  <div>
-                    <Text>Hotline : 1900.63.3579</Text>
-                  </div>
-                  <div>
-                    <Text>Contact : datn2022@gmail.com</Text>
-                  </div>
-                  <div>
-                    <Text>Address : 254 Nguyen Van Linh</Text>
-                  </div>
-                  <div>
-                    <Text>Phone : 0883391971</Text>
-                  </div>
+                  <Space
+                    direction='vertical'
+                    style={{ display: 'flex', width: '100%' }}
+                  >
+                    <Button type='primary' ghost color='#55acee'>
+                      Hotline: 1900.63.3579
+                    </Button>
+
+                    <Button type='primary' ghost color='#55acee'>
+                      Emmail: Tdatn2022@gmail.com
+                    </Button>
+                    <Button type='primary' ghost color='#55acee'>
+                      Address: 254 Nguyen Van Linh
+                    </Button>
+                  </Space>
                 </Col>
                 <Col span={12} style={{ padding: '0 10px' }}>
                   <Title level={4}>GIÁ TRỊ CỦA CHÚNG TÔI</Title>
