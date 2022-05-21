@@ -50,48 +50,48 @@ class Footer extends Component {
                 <div className='category__list--col'>
                   <ul>
                     <li>
-                      <a href='!#'>New in</a>
+                      <Link to='!#'>New in</Link>
                     </li>
                     <li>
-                      <a href='!#'>Collections</a>
+                      <Link to='!#'>Collections</Link>
                     </li>
                     <li>
-                      <a href='!#'>Author</a>
+                      <Link to='!#'>Author</Link>
                     </li>
                     <li>
-                      <a href='!#'>Community</a>
-                    </li>
-                  </ul>
-                </div>
-                <div className='category__list--col'>
-                  <ul>
-                    <li>
-                      <a href='!#'>Products</a>
-                    </li>
-                    <li>
-                      <a href='!#'>Gift Vouchers</a>
-                    </li>
-                    <li>
-                      <a href='!#'>Brand</a>
-                    </li>
-                    <li>
-                      <a href='!#'>Stories</a>
+                      <Link to='!#'>Community</Link>
                     </li>
                   </ul>
                 </div>
                 <div className='category__list--col'>
                   <ul>
                     <li>
-                      <a href='!#'>Track Orders</a>
+                      <Link to='!#'>Products</Link>
                     </li>
                     <li>
-                      <a href='!#'>Delivery & Returns</a>
+                      <Link to='!#'>Gift Vouchers</Link>
                     </li>
                     <li>
-                      <a href='!#'>Sale</a>
+                      <Link to='!#'>Brand</Link>
                     </li>
                     <li>
-                      <a href='!#'>Contact</a>
+                      <Link to='!#'>Stories</Link>
+                    </li>
+                  </ul>
+                </div>
+                <div className='category__list--col'>
+                  <ul>
+                    <li>
+                      <Link to='!#'>Track Orders</Link>
+                    </li>
+                    <li>
+                      <Link to='!#'>Delivery & Returns</Link>
+                    </li>
+                    <li>
+                      <Link to='!#'>Sale</Link>
+                    </li>
+                    <li>
+                      <Link to='!#'>Contact</Link>
                     </li>
                   </ul>
                 </div>
@@ -104,13 +104,13 @@ class Footer extends Component {
               <div className='footer__bottom--policy'>
                 <ul>
                   <li>
-                    <a href='!#'>Privacy policy</a>
+                    <Link to='!#'>Privacy policy</Link>
                   </li>
                   <li>
-                    <a href='!#'>Terms of use</a>
+                    <Link to='!#'>Terms of use</Link>
                   </li>
                   <li>
-                    <a href='!#'>Cookies</a>
+                    <Link to='!#'>Cookies</Link>
                   </li>
                 </ul>
               </div>

@@ -55,7 +55,7 @@ class Headers extends Component {
   render() {
     const { processLogout, userInfo, children } = this.props;
     const { collapsed, menuApp, language } = this.state;
-    
+
     return (
       <>
         <Layout
@@ -139,7 +139,7 @@ class Headers extends Component {
                 {children}
               </Content>
               <Footer style={{ textAlign: 'center', padding: '10px 0' }}>
-                ©2022 Created by Ngvuq
+                Copyright © Design by Khoa Luan - Booking
               </Footer>
             </Layout>
           </Layout>
