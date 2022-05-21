@@ -121,11 +121,11 @@ class DetailSpecialty extends Component {
       }
     }
   };
-  chosePage = (event) => {
-    this.setState({
-      currentPage: Number(event.target.id),
-    });
-  };
+  // chosePage = (event) => {
+  //   this.setState({
+  //     currentPage: Number(event.target.id),
+  //   });
+  // };
 
   render() {
     let { arrDoctorId, dataDetailSpecialty, listProvince, isLoading } =
