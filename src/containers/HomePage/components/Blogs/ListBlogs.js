@@ -83,7 +83,7 @@ class ListBlogs extends Component {
                     </Text>
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>
-                    <Text>Danh sách các Blogs</Text>
+                    <Text>Blogs</Text>
                   </Breadcrumb.Item>
                 </Breadcrumb>
                 <SearchBlogs
@@ -93,13 +93,6 @@ class ListBlogs extends Component {
                 />
                 <div className='list-doctor'>
                   {listBlogs.length <= 0 ? 'Không tìm thấy blogs...' : ''}
-                  {/* {listBlogs
-                    .slice(indexOfFirstNews, indexOfLastNews)
-                    .map((item, index) => {
-                      return (
-                        
-                      );
-                    })} */}
                   {listBlogs.map(
                     (item, index) =>
                       index >= this.state.minIndex &&
@@ -125,7 +118,7 @@ class ListBlogs extends Component {
                   onChange={this.handleChangePageNumber}
                   pageSize={pageSize}
                   total={listBlogs.length}
-                  style={{marginTop: '30px', textAlign:'end'}}
+                  style={{ marginTop: '30px', textAlign: 'end' }}
                 />
               </Container>
             </Section>

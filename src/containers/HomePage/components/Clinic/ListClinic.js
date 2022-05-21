@@ -120,6 +120,7 @@ class ListClinic extends Component {
                   onChange={this.handleChangePageNumber}
                   pageSize={pageSize}
                   total={listClinic.length}
+                  style={{ marginTop: '30px', textAlign: 'end' }}
                 />
               </Container>
             </Section>

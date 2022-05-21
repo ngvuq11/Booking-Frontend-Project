@@ -123,6 +123,7 @@ class ListSpecialty extends Component {
                   onChange={this.handleChangePageNumber}
                   pageSize={pageSize}
                   total={listSpecialty.length}
+                  style={{ marginTop: '30px', textAlign: 'end' }}
                 />
               </Container>
             </Section>

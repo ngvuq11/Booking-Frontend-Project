@@ -1,18 +1,17 @@
+import { Breadcrumb, Col, Image, Row, Space, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LANGUAGES } from '../../../../utils';
-import DoctorSchedule from '../DoctorSchedule/index';
-import DoctorExtraInfor from '../DoctorExtraInfor/index';
+import { Container } from '../../../../components/Container/Container.styles';
 import HomeHeader from '../../../../components/Header/HomeHeader';
+import { Section } from '../../../../components/Secction/Section.styleds';
+import { getDetailInforDoctor } from '../../../../services/userService';
+import { LANGUAGES } from '../../../../utils';
+import Footer from '../../../HomePage/components/Section/Footer';
 import Comment from '../../SocialPlugin/Comment';
 import LikeAndShare from '../../SocialPlugin/LikeAndShare';
-import { getDetailInforDoctor } from '../../../../services/userService';
-
+import DoctorExtraInfor from '../DoctorExtraInfor/index';
+import DoctorSchedule from '../DoctorSchedule/index';
 import './DetailDoctor.scss';
-import { Section } from '../../../../components/Secction/Section.styleds';
-import Footer from '../../../HomePage/components/Section/Footer';
-import { Container } from '../../../../components/Container/Container.styles';
-import { Breadcrumb, Col, Image, Row, Space, Spin, Typography } from 'antd';
 
 const { Title, Text } = Typography;
 class DetailDoctor extends Component {
@@ -66,9 +65,8 @@ class DetailDoctor extends Component {
         : window.location.href;
 
     let doctorInfor = detailDoctor.Doctor_infor;
-    
+
     return (
-       
       <>
         {this.state.isLoading ? (
           <>
@@ -133,6 +131,7 @@ class DetailDoctor extends Component {
                       </Space>
                     </Col>
                   </Row>
+
                   <Row>
                     <Col xs={24} sm={24} md={24} lg={12}>
                       <DoctorSchedule

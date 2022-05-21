@@ -6,20 +6,24 @@ import { withRouter } from 'react-router';
 
 import _ from 'lodash';
 import Footer from '../../HomePage/components/Section/Footer';
-import { Breadcrumb, Spin, Typography } from 'antd';
+import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
 import Maps from '../../../components/Maps';
 import { Section } from '../../../components/Secction/Section.styleds';
 import { Container } from '../../../components/Container/Container.styles';
 import SpecialtyCard from '../../../components/SpecialtyCard';
 import './DetailClinic.scss';
+import Titles from '../../../components/Title';
 
 const { Text } = Typography;
+
+const pageSize = 4;
 class DetailClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataDetailClinic: {},
       isLoading: false,
+      current: 1,
     };
   }
 
@@ -39,6 +43,8 @@ class DetailClinic extends Component {
         this.setState({
           dataDetailClinic: res.data,
           isLoading: true,
+          minIndex: 0,
+          maxIndex: pageSize,
         });
       }
     }
@@ -54,6 +60,15 @@ class DetailClinic extends Component {
     if (this.props.history) {
       this.props.history.push(`/detail-specialty/${item.id}`);
     }
+  };
+
+  handleChangePageNumber = (page) => {
+    console.log(page);
+    this.setState({
+      current: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize,
+    });
   };
 
   render() {
@@ -107,39 +122,31 @@ class DetailClinic extends Component {
                     ></div>
                   </>
                 )}
-              <div className='special-flex'>
-                {listSpecialty &&
-                  listSpecialty.length > 0 &&
-                  listSpecialty.map((item, index) => {
-                    return (
-                      <>
-                        {/* <h3 className='clinic-title'>
-                          Chuyên khoa thuộc phòng khám{' '}
-                          <span className='clinic-name'>{item.name}</span>
-                        </h3> */}
-                        <div className='special-card'>
+                <Titles title={'Các chuyên khoa'} />
+                <div className='special-flex'>
+                  {listSpecialty &&
+                    listSpecialty.length > 0 &&
+                    listSpecialty.map(
+                      (item, index) =>
+                        index >= this.state.minIndex &&
+                        index < this.state.maxIndex && (
                           <SpecialtyCard
                             key={index}
                             onClick={() => this.handleViewDetailSpecialty(item)}
                             image={item.image}
-                            description={item.description}
-                            link={
-                              <span
-                                className='btn-link-item'
-                                onClick={() =>
-                                  this.handleViewDetailSpecialty(item)
-                                }
-                              >
-                                Xem thêm
-                              </span>
-                            }
                             name={item.name}
+                            description={item.description}
                           />
-                        </div>
-                          </>
-                    );
-                  })}
-                  </div>
+                        )
+                    )}
+                </div>
+                <Pagination
+                  current={this.state.current}
+                  onChange={this.handleChangePageNumber}
+                  pageSize={pageSize}
+                  total={listSpecialty.length}
+                  style={{ marginTop: '30px', textAlign: 'end' }}
+                />
               </Container>
             </Section>
             <Maps address={dataDetailClinic.address} />
