@@ -120,6 +120,7 @@ class ListDoctor extends Component {
                   onChange={this.handleChangePageNumber}
                   pageSize={pageSize}
                   total={listDoctors.length}
+                  style={{ marginTop: '30px', textAlign: 'end' }}
                 />
               </Container>
             </Section>
