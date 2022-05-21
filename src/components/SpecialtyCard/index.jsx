@@ -5,15 +5,14 @@ import './SpecialtyCard.scss';
 const { Title, Text } = Typography;
 
 function SpecialtyCard(props) {
-  const { onClick, image, description, name, link } = props;
+  const { onClick, image, description, name } = props;
   return (
     <div onClick={onClick} className='specialty__card'>
       <Image src={image} preview={false} style={{ width: '100%' }} />
       <div className='specialty__card--bottom'>
         <Title level={3}>{name}</Title>
-        <Text>{description}</Text>
+        <Text className='specialty__card--desc'>{description}</Text>
         <br />
-        <Text>{link}</Text>
       </div>
     </div>
   );

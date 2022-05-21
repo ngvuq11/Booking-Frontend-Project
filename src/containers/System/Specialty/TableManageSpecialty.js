@@ -1,14 +1,17 @@
+import { Pagination } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 
 import './TableManageSpecialty.scss';
 
+const pageSize = 10;
 class TableManageSpecialty extends Component {
   constructor(props) {
     super(props);
     this.state = {
       specialtyArray: [],
+      current: 1,
     };
   }
 
@@ -20,6 +23,8 @@ class TableManageSpecialty extends Component {
     if (prevProps.allSpecialties !== this.props.allSpecialties) {
       this.setState({
         specialtyArray: this.props.allSpecialties,
+        minIndex: 0,
+        maxIndex: pageSize,
       });
     }
   }
@@ -30,6 +35,15 @@ class TableManageSpecialty extends Component {
 
   handleEditSpecialty = (specialty) => {
     this.props.handleEditSpecialty(specialty);
+  };
+
+  handleChangePageNumber = (page) => {
+    console.log(page);
+    this.setState({
+      current: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize,
+    });
   };
 
   render() {
@@ -49,10 +63,10 @@ class TableManageSpecialty extends Component {
             </thead>
 
             <tbody>
-              {listSpecialty &&
-                listSpecialty.length > 0 &&
-                listSpecialty.map((item, index) => {
-                  return (
+              {listSpecialty.map(
+                (item, index) =>
+                  index >= this.state.minIndex &&
+                  index < this.state.maxIndex && (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{item.name}</td>
@@ -71,11 +85,17 @@ class TableManageSpecialty extends Component {
                         </button>
                       </td>
                     </tr>
-                  );
-                })}
+                  )
+              )}
             </tbody>
           </table>
         </div>
+        <Pagination
+          current={this.state.current}
+          onChange={this.handleChangePageNumber}
+          pageSize={pageSize}
+          total={listSpecialty.length}
+        />
       </div>
     );
   }

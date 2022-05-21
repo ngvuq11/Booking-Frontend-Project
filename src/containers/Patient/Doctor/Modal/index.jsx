@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
+import { Button, Col, Form, Input, Modal, Row, Space, Typography } from 'antd';
 import _ from 'lodash';
 import moment from 'moment';
-import Select from 'react-select';
-import { connect } from 'react-redux';
-import ProfileDoctor from '../ProfileDoctor/index';
-import { LANGUAGES } from '../../../../utils';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import * as actions from '../../../../store/actions';
 import LoadingOverlay from 'react-loading-overlay';
+import { connect } from 'react-redux';
+import Select from 'react-select';
+import { toast } from 'react-toastify';
 import DatePicker from '../../../../components/Input/DatePicker';
 import {
-  postBookAppointment,
-  postPaymentPatient,
-  getDetailInforDoctor,
+   postBookAppointment,
+   postPaymentPatient
 } from '../../../../services/userService';
-import { Row, Col, Form, Input, Modal, Space, Typography, Button } from 'antd';
-import { toast } from 'react-toastify';
+import * as actions from '../../../../store/actions';
+import { LANGUAGES } from '../../../../utils';
+import ProfileDoctor from '../ProfileDoctor/index';
 import './BookingModal.scss';
 
 const { Title } = Typography;

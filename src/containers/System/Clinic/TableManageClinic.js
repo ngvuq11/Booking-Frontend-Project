@@ -1,14 +1,17 @@
+import { Pagination } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 
 import './TableManageClinic.scss';
 
+const pageSize = 10;
 class TableManageClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
       clinicArray: [],
+      current: 1,
     };
   }
 
@@ -20,6 +23,8 @@ class TableManageClinic extends Component {
     if (prevProps.allClinics !== this.props.allClinics) {
       this.setState({
         clinicArray: this.props.allClinics,
+        minIndex: 0,
+        maxIndex: pageSize,
       });
     }
   }
@@ -30,6 +35,15 @@ class TableManageClinic extends Component {
 
   handleEditClinic = (clinic) => {
     this.props.handleEditClinic(clinic);
+  };
+
+  handleChangePageNumber = (page) => {
+    console.log(page);
+    this.setState({
+      current: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize,
+    });
   };
 
   render() {
@@ -50,10 +64,10 @@ class TableManageClinic extends Component {
             </thead>
 
             <tbody>
-              {listClinic &&
-                listClinic.length > 0 &&
-                listClinic.map((item, index) => {
-                  return (
+              {listClinic.map(
+                (item, index) =>
+                  index >= this.state.minIndex &&
+                  index < this.state.maxIndex && (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{item.name}</td>
@@ -73,11 +87,17 @@ class TableManageClinic extends Component {
                         </button>
                       </td>
                     </tr>
-                  );
-                })}
+                  )
+              )}
             </tbody>
           </table>
         </div>
+        <Pagination
+          current={this.state.current}
+          onChange={this.handleChangePageNumber}
+          pageSize={pageSize}
+          total={listClinic.length}
+        />
       </div>
     );
   }

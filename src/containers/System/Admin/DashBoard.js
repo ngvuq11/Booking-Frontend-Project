@@ -37,7 +37,6 @@ class DashBoard extends Component {
       dataSpecialties,
       dataPatients,
       dataHandBooks,
-      dataPayment,
     } = this.state;
     let {
       allDoctors,

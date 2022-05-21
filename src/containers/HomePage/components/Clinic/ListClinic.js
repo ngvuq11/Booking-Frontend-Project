@@ -1,4 +1,4 @@
-import { Breadcrumb, Spin, Typography } from 'antd';
+import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -12,6 +12,7 @@ import './ListClinic.scss';
 import Search from './SearchClinic';
 
 const { Text } = Typography;
+const pageSize = 6;
 class ListClinic extends Component {
   constructor(props) {
     super(props);
@@ -19,9 +20,7 @@ class ListClinic extends Component {
       listClinic: [],
       keyword: '',
       isLoading: false,
-      currentPage: 1,
-      newsPerPage: 3,
-      pageNumberss: 0,
+      current: 1,
     };
   }
 
@@ -34,9 +33,8 @@ class ListClinic extends Component {
       this.setState({
         listClinic: this.props.allClinics,
         isLoading: true,
-        pageNumberss: Math.ceil(
-          this.props.allClinics.length / this.state.newsPerPage
-        ),
+        minIndex: 0,
+        maxIndex: pageSize,
       });
     }
   }
@@ -52,9 +50,12 @@ class ListClinic extends Component {
       keyword: keyword,
     });
   };
-  chosePage = (event) => {
+  handleChangePageNumber = (page) => {
+    console.log(page);
     this.setState({
-      currentPage: Number(event.target.id),
+      current: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize,
     });
   };
 
@@ -74,15 +75,6 @@ class ListClinic extends Component {
       }
     });
 
-    const currentPage = this.state.currentPage;
-    const newsPerPage = this.state.newsPerPage;
-    const indexOfLastNews = currentPage * newsPerPage;
-    const indexOfFirstNews = indexOfLastNews - newsPerPage;
-
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(listClinic.length / newsPerPage); i++) {
-      pageNumbers.push(i);
-    }
     return (
       <>
         {isLoading ? (
@@ -109,10 +101,10 @@ class ListClinic extends Component {
                   handleSearchClinic={this.handleSearchClinic}
                 />
                 <div className='list__clinic--all'>
-                  {listClinic
-                    .slice(indexOfFirstNews, indexOfLastNews)
-                    .map((item, index) => {
-                      return (
+                  {listClinic.map(
+                    (item, index) =>
+                      index >= this.state.minIndex &&
+                      index < this.state.maxIndex && (
                         <ClinicCard
                           key={index}
                           image={item.image}
@@ -120,28 +112,15 @@ class ListClinic extends Component {
                           name={item.name}
                           address={item.address}
                         />
-                      );
-                    })}
+                      )
+                  )}
                 </div>
-                <div className='pagination-custom'>
-                  <ul id='page-numbers'>
-                    {pageNumbers.map((number) => {
-                      if (this.state.currentPage === number) {
-                        return (
-                          <li key={number} id={number} className='active'>
-                            {number}
-                          </li>
-                        );
-                      } else {
-                        return (
-                          <li key={number} id={number} onClick={this.chosePage}>
-                            {number}
-                          </li>
-                        );
-                      }
-                    })}
-                  </ul>
-                </div>
+                <Pagination
+                  current={this.state.current}
+                  onChange={this.handleChangePageNumber}
+                  pageSize={pageSize}
+                  total={listClinic.length}
+                />
               </Container>
             </Section>
             <Footer />

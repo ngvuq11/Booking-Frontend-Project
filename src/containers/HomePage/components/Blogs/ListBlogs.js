@@ -1,4 +1,4 @@
-import { Breadcrumb, Button, Spin, Typography } from 'antd';
+import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -6,12 +6,12 @@ import { Container } from '../../../../components/Container/Container.styles';
 import HomeHeader from '../../../../components/Header/HomeHeader';
 import { Section } from '../../../../components/Secction/Section.styleds';
 import * as actions from '../../../../store/actions';
-import { LANGUAGES } from '../../../../utils';
 import Footer from '../Section/Footer/index';
-import SearchBlogs from './SearchBlogs';
 import './ListBlogs.scss';
+import SearchBlogs from './SearchBlogs';
 
 const { Text } = Typography;
+const pageSize = 4;
 class ListBlogs extends Component {
   constructor(props) {
     super(props);
@@ -19,9 +19,7 @@ class ListBlogs extends Component {
       listBlogs: [],
       keyword: '',
       isLoading: false,
-      currentPage: 1,
-      newsPerPage: 4,
-      pageNumberss: 0,
+      current: 1,
     };
   }
 
@@ -34,6 +32,8 @@ class ListBlogs extends Component {
       this.setState({
         listBlogs: this.props.allBlogs,
         isLoading: true,
+        minIndex: 0,
+        maxIndex: pageSize,
       });
     }
   }
@@ -49,9 +49,12 @@ class ListBlogs extends Component {
       keyword: keyword,
     });
   };
-  chosePage = (event) => {
+  handleChangePageNumber = (page) => {
+    console.log(page);
     this.setState({
-      currentPage: Number(event.target.id),
+      current: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize,
     });
   };
 
@@ -66,18 +69,6 @@ class ListBlogs extends Component {
         return listBlogs;
       }
     });
-
-    const currentPage = this.state.currentPage;
-    const newsPerPage = this.state.newsPerPage;
-    const indexOfLastNews = currentPage * newsPerPage;
-    const indexOfFirstNews = indexOfLastNews - newsPerPage;
-
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(listBlogs.length / newsPerPage); i++) {
-      pageNumbers.push(i);
-    }
-
-    
     return (
       <>
         {isLoading ? (
@@ -102,55 +93,40 @@ class ListBlogs extends Component {
                 />
                 <div className='list-doctor'>
                   {listBlogs.length <= 0 ? 'Không tìm thấy blogs...' : ''}
-                  {listBlogs
+                  {/* {listBlogs
                     .slice(indexOfFirstNews, indexOfLastNews)
                     .map((item, index) => {
                       return (
+                        
+                      );
+                    })} */}
+                  {listBlogs.map(
+                    (item, index) =>
+                      index >= this.state.minIndex &&
+                      index < this.state.maxIndex && (
                         <div className='doctor-item' key={index}>
                           <div
                             className='doctor-item-image'
                             style={{ backgroundImage: `url(${item.image})` }}
                           ></div>
                           <div className='doctor-item-infor'>
-                            <div>
-                              <span>Name: </span>
-                              {item.name}
-                            </div>
-                            <div>
-                              <span>Description: </span>
-                              {item.description}
-                            </div>
-                            <Button
-                              type='primary'
-                              ghost
+                            <span
                               onClick={() => this.handleViewDetailBlog(item)}
                             >
-                              Xem thêm
-                            </Button>
+                              {item.name}
+                            </span>
                           </div>
                         </div>
-                      );
-                    })}
+                      )
+                  )}
                 </div>
-                <div className='pagination-custom'>
-                  <ul id='page-numbers'>
-                    {pageNumbers.map((number) => {
-                      if (this.state.currentPage === number) {
-                        return (
-                          <li key={number} id={number} className='active'>
-                            {number}
-                          </li>
-                        );
-                      } else {
-                        return (
-                          <li key={number} id={number} onClick={this.chosePage}>
-                            {number}
-                          </li>
-                        );
-                      }
-                    })}
-                  </ul>
-                </div>
+                <Pagination
+                  current={this.state.current}
+                  onChange={this.handleChangePageNumber}
+                  pageSize={pageSize}
+                  total={listBlogs.length}
+                  style={{marginTop: '30px', textAlign:'end'}}
+                />
               </Container>
             </Section>
             <Footer />
