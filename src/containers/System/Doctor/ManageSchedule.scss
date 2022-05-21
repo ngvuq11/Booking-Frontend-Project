@@ -65,6 +65,11 @@
         padding: 1rem 2rem;
         margin: auto;
         margin-top: 3rem;
+        background-color: #0076ad;
+        transition: all 0.2s linear;
+        &:hover {
+          background-color: #310ae0;
+        }
       }
     }
   }

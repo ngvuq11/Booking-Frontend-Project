@@ -91,7 +91,7 @@ class ListDoctor extends Component {
                     </Text>
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>
-                    <Text>Danh sách các phòng khám</Text>
+                    <Text>Danh sách bác sĩ</Text>
                   </Breadcrumb.Item>
                 </Breadcrumb>
                 <Search

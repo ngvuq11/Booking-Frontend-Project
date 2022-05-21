@@ -34,7 +34,10 @@ function About(props) {
                     nhân sẽ là mục tiêu và sứ mệnh mà phòng khám Pasteur theo
                     đuổi.”
                   </Text>
-                  <Title level={4} style={{ textTransform: 'uppercase' }}>
+                  <Title
+                    level={4}
+                    style={{ textTransform: 'uppercase', marginBottom: 10 }}
+                  >
                     Thông tin hữu ích
                   </Title>
                   <Space

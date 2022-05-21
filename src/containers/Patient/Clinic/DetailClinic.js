@@ -113,7 +113,10 @@ class DetailClinic extends Component {
                     listSpecialty.map((item, index) => {
                       return (
                         <>
-                          <h3 className="clinic-title">Chuyên khoa thuộc phòng khám {item.name} </h3>
+                          <h3 className='clinic-title'>
+                            Chuyên khoa thuộc phòng khám{' '}
+                            <span className='clinic-name'>{item.name}</span>
+                          </h3>
                           <SpecialtyCard
                             key={index}
                             onClick={() => this.handleViewDetailSpecialty(item)}
