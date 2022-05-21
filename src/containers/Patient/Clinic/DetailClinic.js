@@ -10,7 +10,9 @@ import { Breadcrumb, Spin, Typography } from 'antd';
 import Maps from '../../../components/Maps';
 import { Section } from '../../../components/Secction/Section.styleds';
 import { Container } from '../../../components/Container/Container.styles';
-// import './DetailClinic.scss';
+import SpecialtyCard from '../../../components/SpecialtyCard';
+import './DetailClinic.scss';
+
 const { Text } = Typography;
 class DetailClinic extends Component {
   constructor(props) {
@@ -58,7 +60,7 @@ class DetailClinic extends Component {
     let { dataDetailClinic, isLoading } = this.state;
     // let { language } = this.props;
     let listSpecialty = dataDetailClinic.specialtyClinic;
-      
+
     return (
       <>
         {isLoading ? (
@@ -97,37 +99,42 @@ class DetailClinic extends Component {
                 {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
                   <>
                     <div className='name-clinic'>{dataDetailClinic.name}</div>
-                    <div className='address-clinic'>
-                      {dataDetailClinic.address}
-                    </div>
                     <div
+                      className='content-clinic'
                       dangerouslySetInnerHTML={{
                         __html: dataDetailClinic.descriptionHTML,
                       }}
                     ></div>
                   </>
                 )}
-                {listSpecialty &&
-                  listSpecialty.length > 0 &&
-                  listSpecialty.map((item, index) => {
-                    return (
-                      <div className='specialty-item' key={index}>
-                        <div className='infor-specialty'>
-                          <div className='specialty-name'>{item.name}</div>
-                          <img
-                            className='specialty-image'
-                            src={item.image}
-                            alt=''
-                          />
-                          <span
+                <div className='special-card'>
+                  {listSpecialty &&
+                    listSpecialty.length > 0 &&
+                    listSpecialty.map((item, index) => {
+                      return (
+                        <>
+                          <h3 className="clinic-title">Chuyên khoa thuộc phòng khám {item.name} </h3>
+                          <SpecialtyCard
+                            key={index}
                             onClick={() => this.handleViewDetailSpecialty(item)}
-                          >
-                            Xem thêm
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
+                            image={item.image}
+                            description={item.description}
+                            link={
+                              <span
+                                className='btn-link-item'
+                                onClick={() =>
+                                  this.handleViewDetailSpecialty(item)
+                                }
+                              >
+                                Xem thêm
+                              </span>
+                            }
+                            name={item.name}
+                          />
+                        </>
+                      );
+                    })}
+                </div>
               </Container>
             </Section>
             <Maps address={dataDetailClinic.address} />
