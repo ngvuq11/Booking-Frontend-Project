@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { Container } from '../../../../../components/Container/Container.styles';
 import Logo from '../../../../../components/Logo';
 import CoppyRight from '../CoppyRight';
+import { Link } from 'react-router-dom';
 
 import './Footer.scss';
 
