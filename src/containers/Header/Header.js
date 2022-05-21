@@ -139,7 +139,7 @@ class Headers extends Component {
                 {children}
               </Content>
               <Footer style={{ textAlign: 'center', padding: '10px 0' }}>
-                ©2022 Created by Ngvuq
+                ©2022 Created by Bcare
               </Footer>
             </Layout>
           </Layout>
