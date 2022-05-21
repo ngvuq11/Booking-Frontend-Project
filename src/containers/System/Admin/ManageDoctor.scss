@@ -1,13 +1,12 @@
 .manage-doctor {
   margin-bottom: 50rem !important;
-  padding: 5rem 3rem;
   .title {
     text-transform: uppercase;
     text-align: center;
     font-weight: bold;
     color: #00ad00;
     font-size: 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
   }
 
   &-more-infor {
@@ -30,7 +29,6 @@
 
     .more-infor-left {
       width: 50%;
-      padding: 0.2rem 1rem;
 
       .choose-doctor {
         &-select {

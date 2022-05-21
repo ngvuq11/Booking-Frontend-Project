@@ -1,6 +1,5 @@
 .manage-clinic {
   font-size: 1.8rem;
-  padding: 5rem 3rem;
   .title {
     text-align: center;
     font-weight: bold;
@@ -8,6 +7,12 @@
     font-size: 3rem;
     text-transform: uppercase;
     margin-bottom: 2rem;
+  }
+  label{
+    margin: 0.5rem 0 0 0.5rem;
+    color: rgb(85, 85, 85);
+    font-size: 1.6rem;
+    font-weight: 600;
   }
 
   .btn-add-clinic {
