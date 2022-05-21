@@ -1,17 +1,18 @@
-import { Breadcrumb, Button, Spin, Typography } from 'antd';
+import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Container } from '../../../../components/Container/Container.styles';
+import DoctorInfor from '../../../../components/DoctorInfor';
 import HomeHeader from '../../../../components/Header/HomeHeader';
 import { Section } from '../../../../components/Secction/Section.styleds';
 import * as actions from '../../../../store/actions';
-import { LANGUAGES } from '../../../../utils';
 import Footer from '../../components/Section/Footer/index';
 import './ListDoctor.scss';
 import Search from './Search';
 
 const { Text } = Typography;
+const pageSize = 4;
 class ListDoctor extends Component {
   constructor(props) {
     super(props);
@@ -19,9 +20,7 @@ class ListDoctor extends Component {
       listDoctors: [],
       keyword: '',
       isLoading: false,
-      currentPage: 1,
-      newsPerPage: 4,
-      pageNumberss: 0,
+      current: 1,
     };
   }
 
@@ -34,6 +33,8 @@ class ListDoctor extends Component {
       this.setState({
         listDoctors: this.props.allDoctors,
         isLoading: true,
+        minIndex: 0,
+        maxIndex: pageSize,
       });
     }
   }
@@ -49,9 +50,12 @@ class ListDoctor extends Component {
       keyword: keyword,
     });
   };
-  chosePage = (event) => {
+  handleChangePageNumber = (page) => {
+    console.log(page);
     this.setState({
-      currentPage: Number(event.target.id),
+      current: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize,
     });
   };
 
@@ -72,16 +76,6 @@ class ListDoctor extends Component {
         return listDoctors;
       }
     });
-
-    const currentPage = this.state.currentPage;
-    const newsPerPage = this.state.newsPerPage;
-    const indexOfLastNews = currentPage * newsPerPage;
-    const indexOfFirstNews = indexOfLastNews - newsPerPage;
-
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(listDoctors.length / newsPerPage); i++) {
-      pageNumbers.push(i);
-    }
 
     return (
       <>
@@ -109,72 +103,24 @@ class ListDoctor extends Component {
                   {listDoctors.length <= 0
                     ? 'Không tìm thấy tên bác sĩ...'
                     : ''}
-                  {listDoctors
-                    .slice(indexOfFirstNews, indexOfLastNews)
-                    .map((item, index) => {
-                      let imageBase64 = '';
-                      if (item.image) {
-                        imageBase64 = Buffer.from(
-                          item.image,
-                          'base64'
-                        ).toString('binary');
-                      }
-                      let nameVi = `${item.lastName} ${item.firstName}`;
-                      let nameEn = `${item.firstName} ${item.lastName}`;
-                      return (
-                        <div className='doctor-item' key={index}>
-                          <div
-                            className='doctor-item-image'
-                            style={{ backgroundImage: `url(${imageBase64})` }}
-                          ></div>
-                          <div className='doctor-item-infor'>
-                            <div className='name'>
-                              <span>Doctor: </span>
-                              {language === LANGUAGES.VI ? nameVi : nameEn}
-                            </div>
-                            <div>
-                              <span>Email: </span>
-                              {item.email}
-                            </div>
-                            <div>
-                              <span>Phone number: </span>
-                              {item.phoneNumber}
-                            </div>
-                            <div>
-                              <span>Address: </span>
-                              {item.address}
-                            </div>
-                            <Button
-                              type='primary'
-                              ghost
-                              onClick={() => this.handleViewDetailDoctor(item)}
-                            >
-                              Xem thêm
-                            </Button>
-                          </div>
-                        </div>
-                      );
-                    })}
+                  {listDoctors.map(
+                    (item, index) =>
+                      index >= this.state.minIndex &&
+                      index < this.state.maxIndex && (
+                        <DoctorInfor
+                          index={index}
+                          item={item}
+                          language={language}
+                        />
+                      )
+                  )}
                 </div>
-                <div className='pagination-custom'>
-                  <ul id='page-numbers'>
-                    {pageNumbers.map((number) => {
-                      if (this.state.currentPage === number) {
-                        return (
-                          <li key={number} id={number} className='active'>
-                            {number}
-                          </li>
-                        );
-                      } else {
-                        return (
-                          <li key={number} id={number} onClick={this.chosePage}>
-                            {number}
-                          </li>
-                        );
-                      }
-                    })}
-                  </ul>
-                </div>
+                <Pagination
+                  current={this.state.current}
+                  onChange={this.handleChangePageNumber}
+                  pageSize={pageSize}
+                  total={listDoctors.length}
+                />
               </Container>
             </Section>
             <Footer />

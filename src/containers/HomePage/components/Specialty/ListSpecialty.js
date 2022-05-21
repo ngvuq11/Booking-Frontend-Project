@@ -1,4 +1,4 @@
-import { Breadcrumb, Spin, Typography } from 'antd';
+import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -12,6 +12,7 @@ import './ListSpecialty.scss';
 import Search from './SearchSpecialty';
 
 const { Text } = Typography;
+const pageSize = 4;
 class ListSpecialty extends Component {
   constructor(props) {
     super(props);
@@ -19,9 +20,9 @@ class ListSpecialty extends Component {
       listSpecialty: [],
       keyword: '',
       isLoading: false,
+      current: 1,
     };
   }
-
   componentDidMount() {
     this.props.fetchAllSpecialty();
   }
@@ -31,9 +32,8 @@ class ListSpecialty extends Component {
       this.setState({
         listSpecialty: this.props.data,
         isLoading: true,
-        currentPage: 1,
-        newsPerPage: 4,
-        pageNumberss: 0,
+        minIndex: 0,
+        maxIndex: pageSize,
       });
     }
   }
@@ -49,14 +49,17 @@ class ListSpecialty extends Component {
       keyword: keyword,
     });
   };
-  chosePage = (event) => {
+
+  handleChangePageNumber = (page) => {
+    console.log(page);
     this.setState({
-      currentPage: Number(event.target.id),
+      current: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize,
     });
   };
 
   render() {
-    // let { language } = this.props;
     let { listSpecialty, keyword, isLoading } = this.state;
 
     // eslint-disable-next-line array-callback-return
@@ -67,15 +70,6 @@ class ListSpecialty extends Component {
         return listSpecialty;
       }
     });
-    const currentPage = this.state.currentPage;
-    const newsPerPage = this.state.newsPerPage;
-    const indexOfLastNews = currentPage * newsPerPage;
-    const indexOfFirstNews = indexOfLastNews - newsPerPage;
-
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(listSpecialty.length / newsPerPage); i++) {
-      pageNumbers.push(i);
-    }
 
     return (
       <>
@@ -110,10 +104,10 @@ class ListSpecialty extends Component {
                   ''
                 )}
                 <div className='list__specialty--all'>
-                  {listSpecialty
-                    .slice(indexOfFirstNews, indexOfLastNews)
-                    .map((item, index) => {
-                      return (
+                  {listSpecialty.map(
+                    (item, index) =>
+                      index >= this.state.minIndex &&
+                      index < this.state.maxIndex && (
                         <SpecialtyCard
                           key={index}
                           onClick={() => this.handleViewDetailSpecialty(item)}
@@ -121,28 +115,15 @@ class ListSpecialty extends Component {
                           name={item.name}
                           description={item.description}
                         />
-                      );
-                    })}
+                      )
+                  )}
                 </div>
-                <div className='pagination-custom'>
-                  <ul id='page-numbers'>
-                    {pageNumbers.map((number) => {
-                      if (this.state.currentPage === number) {
-                        return (
-                          <li key={number} id={number} className='active'>
-                            {number}
-                          </li>
-                        );
-                      } else {
-                        return (
-                          <li key={number} id={number} onClick={this.chosePage}>
-                            {number}
-                          </li>
-                        );
-                      }
-                    })}
-                  </ul>
-                </div>
+                <Pagination
+                  current={this.state.current}
+                  onChange={this.handleChangePageNumber}
+                  pageSize={pageSize}
+                  total={listSpecialty.length}
+                />
               </Container>
             </Section>
             <Footer />
