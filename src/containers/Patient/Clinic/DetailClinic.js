@@ -107,16 +107,17 @@ class DetailClinic extends Component {
                     ></div>
                   </>
                 )}
-                <div className='special-card'>
-                  {listSpecialty &&
-                    listSpecialty.length > 0 &&
-                    listSpecialty.map((item, index) => {
-                      return (
-                        <>
-                          <h3 className='clinic-title'>
-                            Chuyên khoa thuộc phòng khám{' '}
-                            <span className='clinic-name'>{item.name}</span>
-                          </h3>
+              <div className='special-flex'>
+                {listSpecialty &&
+                  listSpecialty.length > 0 &&
+                  listSpecialty.map((item, index) => {
+                    return (
+                      <>
+                        {/* <h3 className='clinic-title'>
+                          Chuyên khoa thuộc phòng khám{' '}
+                          <span className='clinic-name'>{item.name}</span>
+                        </h3> */}
+                        <div className='special-card'>
                           <SpecialtyCard
                             key={index}
                             onClick={() => this.handleViewDetailSpecialty(item)}
@@ -134,10 +135,11 @@ class DetailClinic extends Component {
                             }
                             name={item.name}
                           />
-                        </>
-                      );
-                    })}
-                </div>
+                        </div>
+                          </>
+                    );
+                  })}
+                  </div>
               </Container>
             </Section>
             <Maps address={dataDetailClinic.address} />

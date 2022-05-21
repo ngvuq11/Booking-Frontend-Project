@@ -66,11 +66,10 @@
 }
 .special-card {
   border-radius: 0.8rem;
-  display: flex;
-  width: 100%;
-  gap: 2rem;
   flex-wrap: wrap;
   box-shadow: none;
+  display: flex;
+  flex-wrap: wrap;
 }
 .clinic-title {
   font-style: italic;
@@ -97,4 +96,17 @@
 }
 ul {
   padding-left: 30px;
+}
+.special-flex {
+  --f-columns: 2;
+  --f-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(-1 * var(--f-gap));
+  margin-bottom: calc(-1 * var(--f-gap));
+  > * {
+    margin-left: var(--f-gap);
+    margin-bottom: var(--f-gap);
+    width: calc((100% / var(--f-columns) - var(--f-gap)));
+  }
 }
