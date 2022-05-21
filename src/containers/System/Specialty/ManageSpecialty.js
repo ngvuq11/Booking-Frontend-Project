@@ -151,6 +151,7 @@ class ManageSpecialty extends Component {
     let imageBase64 = '';
     if (specialty.image) {
       imageBase64 = Buffer.from(specialty.image, 'base64').toString('binary');
+      console.log(imageBase64);
     }
 
     this.setState({

@@ -1,4 +1,4 @@
-import { Select, Space, Typography } from 'antd';
+import { Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -9,17 +9,12 @@ import phoneIcon from '../../assets/icon/phone-h.png';
 import { Container } from '../../components/Container/Container.styles';
 import Logo from '../../components/Logo';
 import { changeLanguageApp } from '../../store/actions';
-import { LANGUAGES } from '../../utils';
+import Language from '../Language';
 import './HomeHeader.scss';
 
 const { Text } = Typography;
-const { Option } = Select;
 
 class HomeHeader extends Component {
-  handleChangeLanguage = (value) => {
-    this.props.changeLanguageAppRedux(value);
-  };
-
   handleListSpecialty = () => {
     if (this.props.history) {
       this.props.history.push(`/list-specialty`);
@@ -48,7 +43,7 @@ class HomeHeader extends Component {
     if (this.props.history) {
       this.props.history.push(`/login`);
     }
-  }
+  };
   render() {
     return (
       <div className='header'>
@@ -88,14 +83,7 @@ class HomeHeader extends Component {
                 </div>
               </div>
             </div>
-            <Select
-              defaultValue={LANGUAGES.VI}
-              style={{ width: 120 }}
-              onChange={(value) => this.handleChangeLanguage(value)}
-            >
-              <Option value={LANGUAGES.VI}>Việt Nam</Option>
-              <Option value={LANGUAGES.EN}>English</Option>
-            </Select>
+            <Language />
           </div>
           <div className='navigation__wrap'>
             <Space size={'large'}>
@@ -112,14 +100,7 @@ class HomeHeader extends Component {
                 <FormattedMessage id='header.covid-19' />
               </Text>
             </Space>
-            <Select
-              defaultValue={LANGUAGES.VI}
-              style={{ width: 120 }}
-              onChange={(value) => this.handleChangeLanguage(value)}
-            >
-              <Option value={LANGUAGES.VI}>Việt Nam</Option>
-              <Option value={LANGUAGES.EN}>English</Option>
-            </Select>
+            <Language />
           </div>
         </Container>
       </div>

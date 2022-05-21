@@ -112,6 +112,7 @@ class ManageHandBook extends Component {
     let imageBase64 = '';
     if (handBook.image) {
       imageBase64 = Buffer.from(handBook.image, 'base64').toString('binary');
+      console.log(imageBase64);
     }
 
     this.setState({

@@ -1,18 +1,18 @@
 import { LoginOutlined } from '@ant-design/icons';
-import { Avatar, Button, Layout, Select, Space, Typography } from 'antd';
+import { Avatar, Button, Layout, Space, Typography } from 'antd';
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
 import { connect } from 'react-redux';
+import Language from '../../components/Language';
 import Logo from '../../components/Logo';
 import * as actions from '../../store/actions';
-import { LANGUAGES, USER_ROLE } from '../../utils';
+import { USER_ROLE } from '../../utils';
 import AdminMenu from './AdminMenu';
 import DoctorMenu from './DoctorMenu';
 import './Header.scss';
 
 const { Header, Content, Sider, Footer } = Layout;
-const { Option } = Select;
 const { Text } = Typography;
 class Headers extends Component {
   constructor(props) {
@@ -20,17 +20,12 @@ class Headers extends Component {
     this.state = {
       menuApp: [],
       collapsed: false,
-      language: LANGUAGES.VI,
     };
   }
   onCollapse = (collapsed) => {
     this.setState({
       collapsed,
     });
-  };
-  handleChangeLanguage = (language) => {
-    this.props.changeLanguageAppRedux(language);
-    language = language === LANGUAGES.VI ? LANGUAGES.EN : LANGUAGES.VI;
   };
 
   componentDidMount() {
@@ -49,13 +44,10 @@ class Headers extends Component {
       menuApp: menu,
     });
   }
-  handleChangeLanguage = (language) => {
-    this.props.changeLanguageAppRedux(language);
-  };
   render() {
     const { processLogout, userInfo, children } = this.props;
-    const { collapsed, menuApp, language } = this.state;
-    console.log('language', userInfo);
+    const { collapsed, menuApp } = this.state;
+
     return (
       <>
         <Layout
@@ -84,14 +76,7 @@ class Headers extends Component {
             >
               <Space>
                 <Text style={{ color: '#fff' }}>Select language:</Text>
-                <Select
-                  defaultValue={language}
-                  style={{ width: 90 }}
-                  onChange={(value) => this.handleChangeLanguage(value)}
-                >
-                  <Option value={LANGUAGES.VI}>VIE</Option>
-                  <Option value={LANGUAGES.EN}>ENG</Option>
-                </Select>
+                <Language />
               </Space>
               <Space
                 size={10}
