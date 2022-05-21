@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HomeHeader from '../../../components/Header/HomeHeader';
-import { getAllDetailClinicById } from '../../../services/userService';
+import { getAllDetailBlogById } from '../../../services/userService';
 import { withRouter } from 'react-router';
 
 import _ from 'lodash';
 import Footer from '../../HomePage/components/Section/Footer';
 import { Breadcrumb, Spin, Typography } from 'antd';
-import Maps from '../../../components/Maps';
 import { Section } from '../../../components/Secction/Section.styleds';
 import { Container } from '../../../components/Container/Container.styles';
-import SpecialtyCard from '../../../components/SpecialtyCard';
-import './DetailClinic.scss';
+import './DetailBlog.scss';
 
 const { Text } = Typography;
-class DetailClinic extends Component {
+class DetailBlog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataDetailClinic: {},
+       dataBlog: {},
       isLoading: false,
     };
   }
@@ -31,13 +29,13 @@ class DetailClinic extends Component {
     ) {
       let id = this.props.match.params.id;
 
-      let res = await getAllDetailClinicById({
+      let res = await getAllDetailBlogById({
         id: id,
       });
 
       if (res && res.errCode === 0) {
         this.setState({
-          dataDetailClinic: res.data,
+          dataBlog: res.data,
           isLoading: true,
         });
       }
@@ -50,16 +48,10 @@ class DetailClinic extends Component {
     }
   }
 
-  handleViewDetailSpecialty = (item) => {
-    if (this.props.history) {
-      this.props.history.push(`/detail-specialty/${item.id}`);
-    }
-  };
-
   render() {
-    let { dataDetailClinic, isLoading } = this.state;
+    let { dataBlog, isLoading } = this.state;
     // let { language } = this.props;
-    let listSpecialty = dataDetailClinic.specialtyClinic;
+   console.log(dataBlog);
 
     return (
       <>
@@ -93,52 +85,22 @@ class DetailClinic extends Component {
                     </Text>
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>
-                    <Text>{dataDetailClinic.name}</Text>
+                    <Text>{dataBlog.name}</Text>
                   </Breadcrumb.Item>
                 </Breadcrumb>
-                {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
+                {dataBlog && !_.isEmpty(dataBlog) && (
                   <>
-                    <div className='name-clinic'>{dataDetailClinic.name}</div>
+                    <div className='name-clinic'>{dataBlog.name}</div>
                     <div
                       className='content-clinic'
                       dangerouslySetInnerHTML={{
-                        __html: dataDetailClinic.descriptionHTML,
+                        __html: dataBlog.descriptionHTML,
                       }}
                     ></div>
                   </>
                 )}
-                <div className='special-card'>
-                  {listSpecialty &&
-                    listSpecialty.length > 0 &&
-                    listSpecialty.map((item, index) => {
-                      return (
-                        <>
-                          <h3 className="clinic-title">Chuyên khoa thuộc phòng khám {item.name} </h3>
-                          <SpecialtyCard
-                            key={index}
-                            onClick={() => this.handleViewDetailSpecialty(item)}
-                            image={item.image}
-                            description={item.description}
-                            link={
-                              <span
-                                className='btn-link-item'
-                                onClick={() =>
-                                  this.handleViewDetailSpecialty(item)
-                                }
-                              >
-                                Xem thêm
-                              </span>
-                            }
-                            name={item.name}
-                          />
-                        </>
-                      );
-                    })}
-                </div>
               </Container>
             </Section>
-            <Maps address={dataDetailClinic.address} />
-
             <Footer />
           </>
         ) : (
@@ -173,5 +135,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(DetailClinic)
+  connect(mapStateToProps, mapDispatchToProps)(DetailBlog)
 );

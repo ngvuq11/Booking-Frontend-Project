@@ -31,7 +31,7 @@ class ManageClinic extends Component {
     if (language !== prevProps.language) {
     }
 
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allClinics !== this.props.allClinics) {
       this.setState({
         name: '',
         address: '',
@@ -219,7 +219,7 @@ class ManageClinic extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    data: state.admin.data,
+    allClinics: state.admin.allClinics,
   };
 };
 

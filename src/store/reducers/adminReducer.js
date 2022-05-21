@@ -11,7 +11,7 @@ const initialState = {
   allDoctors: [],
   allClinics: [],
   allSpecialties: [],
-  allHandBooks: [],
+  allBlogs: [],
   allPayments: [],
   allPatients: [],
   allScheduleTime: [],
@@ -148,12 +148,12 @@ const adminReducer = (state = initialState, action) => {
       };
     // ----------------- ACTIONS HAND BOOK -------------------
     case actionTypes.FETCH_ALL_HAND_BOOK_SUCCESS:
-      state.allHandBooks = action.data;
+      state.allBlogs = action.data;
       return {
         ...state,
       };
     case actionTypes.FETCH_ALL_HAND_BOOK_FAILED:
-      state.allHandBooks = [];
+      state.allBlogs = [];
       return {
         ...state,
       };

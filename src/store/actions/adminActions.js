@@ -16,10 +16,10 @@ import {
   createNewClinic,
   deleteClinicService,
   editClinicService,
-  getAllHandBook,
-  createNewHandBook,
-  editHandBookService,
-  deleteHandBookService,
+  getAllBlogs,
+  createNewBlogs,
+  editBlogsService,
+  deleteBlogsService,
   getAllPatientPayment,
   getAllPatient,
   getDetailInforDoctor,
@@ -392,10 +392,10 @@ export const fetchDetailInforDoctor = (id) => {
         });
       }
     } catch (e) {
-       console.log('FETCH_DETAIL_DOCTOR_FAILED: ', e);
-       dispatch({
-         type: actionTypes.FETCH_DETAIL_DOCTOR_FAILED,
-       });
+      console.log('FETCH_DETAIL_DOCTOR_FAILED: ', e);
+      dispatch({
+        type: actionTypes.FETCH_DETAIL_DOCTOR_FAILED,
+      });
     }
   };
 };
@@ -633,10 +633,10 @@ export const deleteClinicFailed = () => ({
 });
 
 // ----------------- ACTIONS HAND BOOK -------------------
-export const fetchAllHandBook = () => {
+export const fetchAllBlogs = () => {
   return async (dispatch, getState) => {
     try {
-      let res = await getAllHandBook();
+      let res = await getAllBlogs();
       if (res && res.errCode === 0) {
         dispatch({
           type: actionTypes.FETCH_ALL_HAND_BOOK_SUCCESS,
@@ -662,11 +662,11 @@ export const fetchAllHandBook = () => {
 export const fetchCreateNewHandBook = (data) => {
   return async (dispatch, getState) => {
     try {
-      let res = await createNewHandBook(data);
+      let res = await createNewBlogs(data);
       if (res && res.errCode === 0) {
         toast.success('Create a new hand book success !');
         dispatch(fetchCreateHandBookSuccess());
-        dispatch(fetchAllHandBook());
+        dispatch(fetchAllBlogs());
       } else {
         toast.error('Create a new hand book error !');
         dispatch(fetchCreateHandBookFailed());
@@ -692,11 +692,11 @@ export const fetchCreateHandBookFailed = () => ({
 export const editHandBook = (data) => {
   return async (dispatch, getState) => {
     try {
-      let res = await editHandBookService(data);
+      let res = await editBlogsService(data);
       if (res && res.errCode === 0) {
         toast.success('Update the hand book success !');
         dispatch(editHandBookSuccess());
-        dispatch(fetchAllHandBook());
+        dispatch(fetchAllBlogs());
       } else {
         toast.error('Update the hand book error !');
         dispatch(editHandBookFailed());
@@ -722,11 +722,11 @@ export const editHandBookFailed = () => ({
 export const deleteHandBook = (id) => {
   return async (dispatch, getState) => {
     try {
-      let res = await deleteHandBookService(id);
+      let res = await deleteBlogsService(id);
       if (res && res.errCode === 0) {
         toast.success('Delete the hand book success !');
         dispatch(deleteHandBookSuccess());
-        dispatch(fetchAllHandBook());
+        dispatch(fetchAllBlogs());
       } else {
         toast.error('Delete the hand book error !');
         dispatch(deleteHandBookFailed());

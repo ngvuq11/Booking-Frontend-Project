@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import statusCard from '../../../assets/JsonData/dashboard.json';
 import * as actions from '../../../store/actions';
-import Chart from './Chart';
 import './DashBoard.scss';
 import StatusCard from './StatusCard';
 
@@ -25,7 +24,7 @@ class DashBoard extends Component {
     this.props.fetchAllClinic();
     this.props.fetchAllPatient();
     this.props.fetchAllPayment();
-    this.props.fetchAllHandBook();
+    this.props.fetchAllBlogs();
     this.props.fetchAllSpecialty();
   }
 
@@ -46,13 +45,13 @@ class DashBoard extends Component {
       allPayments,
       allPatients,
       allSpecialties,
-      allHandBooks,
+      allBlogs,
     } = this.props;
 
     dataClinics = allClinics.length;
     dataDoctors = allDoctors.length;
     dataSpecialties = allSpecialties.length;
-    dataHandBooks = allHandBooks.length;
+    dataHandBooks = allBlogs.length;
     dataPatients = allPatients.length;
 
     let newMoney = 0;
@@ -93,9 +92,6 @@ class DashBoard extends Component {
           </div>
           <div className='dashboard-top-right'></div>
         </div>
-        <div className='dashboard-bottom'>
-          <Chart listData={allDoctors} />
-        </div>
       </div>
     );
   }
@@ -108,7 +104,7 @@ const mapStateToProps = (state) => {
     allPayments: state.admin.allPayments,
     allClinics: state.admin.allClinics,
     allPatients: state.admin.allPatients,
-    allHandBooks: state.admin.allHandBooks,
+    allBlogs: state.admin.allBlogs,
     allSpecialties: state.admin.allSpecialties,
     allRequireDoctorInfor: state.admin.allRequireDoctorInfor,
   };
@@ -120,7 +116,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchAllClinic: () => dispatch(actions.fetchAllClinic()),
     fetchAllPatient: () => dispatch(actions.fetchAllPatient()),
     fetchAllPayment: () => dispatch(actions.fetchAllPayment()),
-    fetchAllHandBook: () => dispatch(actions.fetchAllHandBook()),
+    fetchAllBlogs: () => dispatch(actions.fetchAllBlogs()),
     fetchAllSpecialty: () => dispatch(actions.fetchAllSpecialty()),
   };
 };
