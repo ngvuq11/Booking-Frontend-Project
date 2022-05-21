@@ -17,7 +17,7 @@ class DoctorSchedule extends Component {
       allDays: [],
       allAvalableTime: [],
       isOpenModalBooking: false,
-      dataModalScheduleTime: {},
+      dataModalScheduleTime: {}
     };
   }
 
@@ -35,7 +35,7 @@ class DoctorSchedule extends Component {
     }
 
     this.setState({
-      allDays: allDays,
+      allDays: allDays
     });
   }
 
@@ -132,12 +132,11 @@ class DoctorSchedule extends Component {
       allDays,
       allAvalableTime,
       isOpenModalBooking,
-      dataModalScheduleTime,
+      dataModalScheduleTime
     } = this.state;
-    let { language, doctorInfor } = this.props;
+    let { language, doctorIdFromParent } = this.props;
 
-    let paymentMethods = doctorInfor.paymentIdData;
-    let price = doctorInfor.priceIdData;
+
     return (
       <>
         <div className='doctor-schedule'>
@@ -208,8 +207,7 @@ class DoctorSchedule extends Component {
           </div>
         </div>
         <BookingModal
-          paymentMethods={paymentMethods}
-          price={price}
+          doctorIdFromParent={doctorIdFromParent}
           isOpenModalBooking={isOpenModalBooking}
           closeBookingModal={this.closeBookingModal}
           dataTime={dataModalScheduleTime}

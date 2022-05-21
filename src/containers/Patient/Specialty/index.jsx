@@ -131,6 +131,7 @@ class DetailSpecialty extends Component {
     let { arrDoctorId, dataDetailSpecialty, listProvince, isLoading } =
       this.state;
     let { language } = this.props;
+
     return (
       <>
         {isLoading ? (
@@ -206,12 +207,12 @@ class DetailSpecialty extends Component {
                         arrDoctorId.map((item, index) => {
                           return (
                             <ProfileDoctor
+                              key={index}
                               doctorId={item}
                               isShowDescDoctor={true}
                               isShowLinkDetail={true}
-                              isShowPrice={false}
                               isShowCalendarDoctor={true}
-                              // dataTime={dataTime}
+                              isShowPrice={true}
                             />
                           );
                         })}

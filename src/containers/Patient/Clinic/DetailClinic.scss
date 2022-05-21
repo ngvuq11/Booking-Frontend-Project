@@ -19,13 +19,7 @@
     li {
       margin-left: 2rem;
     }
-    .name-clinic {
-    }
-
-    .address-clinic {
-    }
   }
-
   .specialty-list {
     padding: 0 15rem;
 
@@ -54,4 +48,44 @@
       }
     }
   }
+}
+.name-clinic {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+.content-clinic {
+  img {
+    height: 50rem;
+    border-radius: 0.8rem;
+  }
+}
+.btn-link-item {
+  color: blue;
+  border-bottom: 1px solid blue;
+}
+.special-card {
+  border-radius: 0.8rem;
+  display: flex;
+  width: 100%;
+  gap: 2rem;
+  flex-wrap: wrap;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  .clinic-title {
+    text-transform: uppercase;
+    padding: 0 0.3rem;
+    font-style: oblique;
+  }
+}
+.ant-image {
+  height: 100%;
+  .ant-image-img {
+    height: 100%;
+    border-radius: 0.8rem;
+  }
+}
+.specialty__card {
+  height: 28rem;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
