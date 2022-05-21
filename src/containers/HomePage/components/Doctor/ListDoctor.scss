@@ -51,8 +51,7 @@
 
     .doctor-item {
       display: flex;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
       &-image {
         width: 30rem;
         height: 20rem;
@@ -63,9 +62,12 @@
       &-infor {
         margin-left: 1rem;
         display: inline-block;
-
+        border-bottom: 1px solid rgb(221, 221, 221);
         span {
           font-weight: bold;
+        }
+        div {
+          padding-bottom: 4px;
         }
 
         .name {
@@ -117,4 +119,7 @@
       }
     }
   }
+}
+.doctor-item-image {
+  border-radius: 8px;
 }

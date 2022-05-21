@@ -70,12 +70,17 @@
   width: 100%;
   gap: 2rem;
   flex-wrap: wrap;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  .clinic-title {
-    text-transform: uppercase;
-    padding: 0 0.3rem;
-    font-style: oblique;
-  }
+  box-shadow: none;
+}
+.clinic-title {
+  font-style: italic;
+  font-weight: 100;
+  font-size: 20px;
+}
+.clinic-name {
+  font-weight: 500;
+  font-size: 20px;
+  text-transform: uppercase;
 }
 .ant-image {
   height: 100%;
@@ -87,5 +92,9 @@
 .specialty__card {
   height: 28rem;
   border: none;
+  padding: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+ul {
+  padding-left: 30px;
 }

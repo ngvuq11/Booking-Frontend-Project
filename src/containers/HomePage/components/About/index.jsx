@@ -4,6 +4,7 @@ import { Container } from '../../../../components/Container/Container.styles';
 import Logo from '../../../../components/Logo';
 import { Section } from '../../../../components/Secction/Section.styleds';
 import './About.scss';
+import { Timeline } from 'antd';
 
 About.propTypes = {};
 const { Title, Text } = Typography;
@@ -34,21 +35,18 @@ function About(props) {
                     nhân sẽ là mục tiêu và sứ mệnh mà phòng khám Pasteur theo
                     đuổi.”
                   </Text>
-                  <Title level={4} style={{ textTransform: 'uppercase' }}>
+                  <Title
+                    level={4}
+                    style={{ textTransform: 'uppercase', marginBottom: 10 }}
+                  >
                     Thông tin hữu ích
                   </Title>
-                  <div>
-                    <Text>Hotline : 1900.63.3579</Text>
-                  </div>
-                  <div>
-                    <Text>Contact : datn2022@gmail.com</Text>
-                  </div>
-                  <div>
-                    <Text>Address : 254 Nguyen Van Linh</Text>
-                  </div>
-                  <div>
-                    <Text>Phone : 0883391971</Text>
-                  </div>
+                  <Timeline>
+                    <Timeline.Item>Hotline : 1900.63.3579</Timeline.Item>
+                    <Timeline.Item>Contact : datn2022@gmail.com</Timeline.Item>
+                    <Timeline.Item>Address : 254 Nguyen Van Linh</Timeline.Item>
+                    <Timeline.Item>Phone : 0883391971</Timeline.Item>
+                  </Timeline>
                 </Col>
                 <Col span={12} style={{ padding: '0 10px' }}>
                   <Title level={4}>GIÁ TRỊ CỦA CHÚNG TÔI</Title>

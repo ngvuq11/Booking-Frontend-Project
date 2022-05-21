@@ -97,7 +97,7 @@ class ListDoctor extends Component {
                     </Text>
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>
-                    <Text>Danh sách các phòng khám</Text>
+                    <Text>Danh sách các bác sĩ</Text>
                   </Breadcrumb.Item>
                 </Breadcrumb>
                 <Search
@@ -145,6 +145,7 @@ class ListDoctor extends Component {
                               {item.address}
                             </div>
                             <Button
+                              className='btn-add-clinic'
                               type='primary'
                               ghost
                               onClick={() => this.handleViewDetailDoctor(item)}
