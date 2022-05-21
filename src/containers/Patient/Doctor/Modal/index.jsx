@@ -11,7 +11,8 @@ import LoadingOverlay from 'react-loading-overlay';
 import DatePicker from '../../../../components/Input/DatePicker';
 import {
   postBookAppointment,
-  patientPayment,
+  postPaymentPatient,
+  getDetailInforDoctor,
 } from '../../../../services/userService';
 import { Row, Col, Form, Input, Modal, Space, Typography, Button } from 'antd';
 import { toast } from 'react-toastify';
@@ -24,109 +25,71 @@ class BookingModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullName: '',
-      phoneNumber: '',
       email: '',
-      address: '',
       reason: '',
+      genders: '',
+      address: '',
+      fullName: '',
       birthday: '',
       doctorId: '',
-      selectedGenders: '',
       timeType: '',
-
-      genders: '',
+      phoneNumber: '',
+      selectedGenders: '',
+      paymentIdData: {},
+      price: {},
       isLoading: false,
     };
   }
 
   async componentDidMount() {
-    let { price } = this.props;
-    let newPrice = price.valueEn;
-
+    let { doctorIdFromParent } = this.props;
+    let id = doctorIdFromParent;
+    if (id) {
+      let res = await getDetailInforDoctor(id);
+      if (res && res.errCode === 0) {
+        this.setState({
+          paymentIdData: res.data.Doctor_infor.paymentIdData,
+          price: res.data.Doctor_infor.priceIdData,
+        });
+      }
+    }
     this.props.getGenders();
-
-    window.paypal
-      .Buttons({
-        createOrder: (data, actions, err) => {
-          return actions.order.create({
-            intent: 'CAPTURE',
-            purchase_units: [
-              {
-                description: 'Cool looking table',
-                amount: {
-                  currency_code: 'USD',
-                  value: +newPrice,
+    
+    setTimeout(() => {
+      window.paypal
+        .Buttons({
+          createOrder: (data, actions, err) => {
+            return actions.order.create({
+              intent: 'CAPTURE',
+              purchase_units: [
+                {
+                  description: 'Cool looking table',
+                  amount: {
+                    currency_code: 'USD',
+                    value: +this.state.price.valueEn,
+                  },
                 },
-              },
-            ],
-          });
-        },
-        onApprove: async (data, actions) => {
-          const order = await actions.order.capture();
-          let { dataTime, language } = this.props;
-          let doctorId = dataTime.doctorId;
-          let timeType = dataTime.timeType;
-          await patientPayment({
-            paymentId: order.purchase_units[0].payments.captures[0].id,
-            email: this.state.email,
-            email_address: order.purchase_units[0].payee.email_address,
-            name: this.state.fullName,
-            address: this.state.address,
-            value: order.purchase_units[0].amount.value,
-            currency_code: order.purchase_units[0].amount.currency_code,
-            doctorId: doctorId,
-            timeType: timeType,
-          });
-
-
-
-          let date = new Date(this.state.birthday).getTime();
-
-          let timeString = this.buildTimeBooking(dataTime);
-
-          let doctorName = this.buildDoctorName(dataTime);
-
-          let res = await postBookAppointment({
-            fullName: this.state.fullName,
-            phoneNumber: this.state.phoneNumber,
-            email: this.state.email,
-            address: this.state.address,
-            reason: this.state.reason,
-            date: this.props.dataTime.date,
-            birthDay: date,
-            doctorId: doctorId,
-            selectedGenders: this.state.selectedGenders.value,
-            timeType: timeType,
-            language: language,
-            timeString: timeString,
-            doctorName: doctorName,
-          });
-
-          if (res && res.errCode === 0) {
-            this.setState({
-              isLoading: false,
+              ],
             });
-            toast.success('Booking a new appointment success !');
-            this.props.closeBookingModal();
-          } else {
-            this.setState({
-              isLoading: false,
-            });
-            toast.error('Booking a new appointment error !');
-            this.props.closeBookingModal();
-          }
+          },
+          onApprove: async (data, actions) => {
+            const order = await actions.order.capture();
 
-
-          toast.success('Payment success !');
-        },
-        onError: (err) => {
-          toast.error('Payment error !', err);
-        },
-        style: {
-          layout: 'horizontal',
-        },
-      })
-      .render('.payment-root');
+            if (order && order.status === 'COMPLETED') {
+              setTimeout(async () => {
+                this.handlePayment(order);
+              }, 3000);
+            }
+          },
+          onError: (err) => {
+            console.log(err);
+          },
+          style: {
+            layout: 'horizontal',
+          },
+        })
+        .render('.payment-root');
+    }, 20000);
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -153,6 +116,50 @@ class BookingModal extends Component {
       }
     }
   }
+
+  handlePayment = async (order) => {
+    let { dataTime, language } = this.props;
+
+    let doctorId = dataTime.doctorId;
+    let timeType = dataTime.timeType;
+    let date = new Date(this.state.birthday).getTime();
+    let timeString = this.buildTimeBooking(dataTime);
+    let doctorName = this.buildDoctorName(dataTime);
+
+    let res = await postPaymentPatient({
+      birthDay: date,
+      doctorId: doctorId,
+      timeType: timeType,
+      language: language,
+      timeString: timeString,
+      doctorName: doctorName,
+      email: this.state.email,
+      reason: this.state.reason,
+      address: this.state.address,
+      fullName: this.state.fullName,
+      date: this.props.dataTime.date,
+      phoneNumber: this.state.phoneNumber,
+      selectedGenders: this.state.selectedGenders.value,
+
+      value: order.purchase_units[0].amount.value,
+      paymentId: order.purchase_units[0].payments.captures[0].id,
+      email_address: order.purchase_units[0].payee.email_address,
+      currency_code: order.purchase_units[0].amount.currency_code,
+    });
+
+    if (res && res.errCode === 0) {
+      this.setState({
+        isLoading: false,
+      });
+      toast.success('Booking a new appointment success !');
+      this.props.closeBookingModal();
+    } else {
+      this.setState({
+        isLoading: false,
+      });
+      toast.error('Booking a new appointment error !');
+    }
+  };
 
   buildGenders = (data) => {
     let { language } = this.props;
@@ -267,6 +274,7 @@ class BookingModal extends Component {
 
   render() {
     let { isOpenModalBooking, closeBookingModal, dataTime } = this.props;
+    let { paymentIdData } = this.state;
     let doctorId = '';
     let doctorName = '';
     if (dataTime && !_.isEmpty(dataTime)) {
@@ -276,9 +284,8 @@ class BookingModal extends Component {
       doctorName =
         dataTime.doctorIdData.lastName + ' ' + dataTime.doctorIdData.firstName;
     }
-    let { paymentMethods } = this.props;
-    let valueVi = paymentMethods.valueVi;
-    let valueEn = paymentMethods.valueEn;
+
+    let paymentVi = paymentIdData.valueVi;
 
     return (
       <LoadingOverlay
@@ -293,16 +300,19 @@ class BookingModal extends Component {
             <Button type='danger' ghost onClick={closeBookingModal}>
               Cancel
             </Button>,
-            <Button
-              form='myForm'
-              type='primary'
-              htmlType='submit'
-              onClick={() => this.handleConfirmBooking()}
-            >
-              Submit
-            </Button>,
             <>
-              {valueVi || valueEn ? <div className='payment-root'></div> : ''}
+              {paymentVi === 'Thẻ ATM' ? (
+                <div className='payment-root'></div>
+              ) : (
+                <Button
+                  form='myForm'
+                  type='primary'
+                  htmlType='submit'
+                  onClick={() => this.handleConfirmBooking()}
+                >
+                  Submit
+                </Button>
+              )}
             </>,
           ]}
         >

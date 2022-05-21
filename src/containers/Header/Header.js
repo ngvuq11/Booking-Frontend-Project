@@ -1,10 +1,9 @@
 import { LoginOutlined } from '@ant-design/icons';
-import { Avatar, Button, Layout, Typography, Select, Space } from 'antd';
+import { Avatar, Button, Layout, Select, Space, Typography } from 'antd';
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
 import { AiOutlineUser } from 'react-icons/ai';
+import { connect } from 'react-redux';
 import Logo from '../../components/Logo';
 import * as actions from '../../store/actions';
 import { LANGUAGES, USER_ROLE } from '../../utils';
@@ -56,46 +55,64 @@ class Headers extends Component {
   render() {
     const { processLogout, userInfo, children } = this.props;
     const { collapsed, menuApp, language } = this.state;
-    console.log('language', language);
+
     return (
       <>
         <Layout
           style={{
-            minHeight: '100vh',
+            width: '100vw',
+            height: '100vh',
+            overflow: 'hidden',
           }}
         >
           <Header
             className='header'
             style={{
               display: 'flex',
-              justifyContent: 'space-between',
+              gap: '50px',
               background: '#001529',
             }}
           >
             <Logo />
-            <Space size={'large'}>
-              <Select
-                defaultValue={language}
-                style={{ width: 120 }}
-                onChange={(value) => this.handleChangeLanguage(value)}
+            <Space
+              size={'large'}
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Space>
+                <Text style={{ color: '#fff' }}>Select language:</Text>
+                <Select
+                  defaultValue={language}
+                  style={{ width: 90 }}
+                  onChange={(value) => this.handleChangeLanguage(value)}
+                >
+                  <Option value={LANGUAGES.VI}>VIE</Option>
+                  <Option value={LANGUAGES.EN}>ENG</Option>
+                </Select>
+              </Space>
+              <Space
+                size={10}
+                // style={{ background: '#fff', padding: '0 15px' }}
               >
-                <Option value={LANGUAGES.VI}>Việt Nam</Option>
-                <Option value={LANGUAGES.EN}>English</Option>
-              </Select>
-              <Text style={{ color: '#fff' }}>
-                <FormattedMessage id='header.welcome' />
-                {userInfo && userInfo.firstName ? userInfo.firstName : ''}
-              </Text>
-              <Avatar size={45} icon={userInfo.image || <AiOutlineUser />} />
-              <Button
-                type='danger'
-                ghost
-                onClick={processLogout}
-                title='Logout'
-                icon={<LoginOutlined />}
-              >
-                Log out
-              </Button>
+                <Avatar size={40} icon={userInfo.image || <AiOutlineUser />} />
+                <Text level={5} style={{ color: '#fff', width: '200px' }}>
+                  {userInfo && userInfo.firstName + +userInfo.lastName
+                    ? userInfo.firstName + ' ' + userInfo.lastName
+                    : 'Error'}
+                </Text>
+                <Button
+                  type='danger'
+                  ghost
+                  onClick={processLogout}
+                  title='Logout'
+                  icon={<LoginOutlined />}
+                >
+                  Log out
+                </Button>
+              </Space>
             </Space>
           </Header>
 
@@ -116,12 +133,13 @@ class Headers extends Component {
                   margin: '24px 16px',
                   padding: 24,
                   minHeight: 280,
+                  overflow: 'scroll',
                 }}
               >
                 {children}
               </Content>
-              <Footer style={{ textAlign: 'center' }}>
-                ©2022 Created by Ngvuq
+              <Footer style={{ textAlign: 'center', padding: '10px 0' }}>
+                Copyright © Design by Khoa Luan - Booking
               </Footer>
             </Layout>
           </Layout>
