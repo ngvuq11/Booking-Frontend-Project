@@ -19,13 +19,7 @@
     li {
       margin-left: 2rem;
     }
-    .name-clinic {
-    }
-
-    .address-clinic {
-    }
   }
-
   .specialty-list {
     padding: 0 15rem;
 
@@ -53,5 +47,66 @@
         }
       }
     }
+  }
+}
+.name-clinic {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+.content-clinic {
+  img {
+    height: 50rem;
+    border-radius: 0.8rem;
+  }
+}
+.btn-link-item {
+  color: blue;
+  border-bottom: 1px solid blue;
+}
+.special-card {
+  border-radius: 0.8rem;
+  flex-wrap: wrap;
+  box-shadow: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+.clinic-title {
+  font-style: italic;
+  font-weight: 100;
+  font-size: 20px;
+}
+.clinic-name {
+  font-weight: 500;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.ant-image {
+  height: 100%;
+  .ant-image-img {
+    height: 100%;
+    border-radius: 0.8rem;
+  }
+}
+.specialty__card {
+  height: 28rem;
+  border: none;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+ul {
+  padding-left: 30px;
+}
+.special-flex {
+  --f-columns: 2;
+  --f-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(-1 * var(--f-gap));
+  margin-bottom: calc(-1 * var(--f-gap));
+  > * {
+    margin-left: var(--f-gap);
+    margin-bottom: var(--f-gap);
+    width: calc((100% / var(--f-columns) - var(--f-gap)));
   }
 }

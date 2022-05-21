@@ -6,18 +6,24 @@ import { withRouter } from 'react-router';
 
 import _ from 'lodash';
 import Footer from '../../HomePage/components/Section/Footer';
-import { Breadcrumb, Spin, Typography } from 'antd';
+import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
 import Maps from '../../../components/Maps';
 import { Section } from '../../../components/Secction/Section.styleds';
 import { Container } from '../../../components/Container/Container.styles';
-// import './DetailClinic.scss';
+import SpecialtyCard from '../../../components/SpecialtyCard';
+import './DetailClinic.scss';
+import Titles from '../../../components/Title';
+
 const { Text } = Typography;
+
+const pageSize = 4;
 class DetailClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataDetailClinic: {},
       isLoading: false,
+      current: 1,
     };
   }
 
@@ -37,6 +43,8 @@ class DetailClinic extends Component {
         this.setState({
           dataDetailClinic: res.data,
           isLoading: true,
+          minIndex: 0,
+          maxIndex: pageSize,
         });
       }
     }
@@ -54,11 +62,20 @@ class DetailClinic extends Component {
     }
   };
 
+  handleChangePageNumber = (page) => {
+    console.log(page);
+    this.setState({
+      current: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize,
+    });
+  };
+
   render() {
     let { dataDetailClinic, isLoading } = this.state;
     // let { language } = this.props;
     let listSpecialty = dataDetailClinic.specialtyClinic;
-      
+
     return (
       <>
         {isLoading ? (
@@ -97,37 +114,39 @@ class DetailClinic extends Component {
                 {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
                   <>
                     <div className='name-clinic'>{dataDetailClinic.name}</div>
-                    <div className='address-clinic'>
-                      {dataDetailClinic.address}
-                    </div>
                     <div
+                      className='content-clinic'
                       dangerouslySetInnerHTML={{
                         __html: dataDetailClinic.descriptionHTML,
                       }}
                     ></div>
                   </>
                 )}
-                {listSpecialty &&
-                  listSpecialty.length > 0 &&
-                  listSpecialty.map((item, index) => {
-                    return (
-                      <div className='specialty-item' key={index}>
-                        <div className='infor-specialty'>
-                          <div className='specialty-name'>{item.name}</div>
-                          <img
-                            className='specialty-image'
-                            src={item.image}
-                            alt=''
-                          />
-                          <span
+                <Titles title={'Các chuyên khoa'} />
+                <div className='special-flex'>
+                  {listSpecialty &&
+                    listSpecialty.length > 0 &&
+                    listSpecialty.map(
+                      (item, index) =>
+                        index >= this.state.minIndex &&
+                        index < this.state.maxIndex && (
+                          <SpecialtyCard
+                            key={index}
                             onClick={() => this.handleViewDetailSpecialty(item)}
-                          >
-                            Xem thêm
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
+                            image={item.image}
+                            name={item.name}
+                            description={item.description}
+                          />
+                        )
+                    )}
+                </div>
+                <Pagination
+                  current={this.state.current}
+                  onChange={this.handleChangePageNumber}
+                  pageSize={pageSize}
+                  total={listSpecialty.length}
+                  style={{ marginTop: '30px', textAlign: 'end' }}
+                />
               </Container>
             </Section>
             <Maps address={dataDetailClinic.address} />

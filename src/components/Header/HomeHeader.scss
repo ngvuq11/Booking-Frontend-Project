@@ -35,9 +35,13 @@
         display: none;
       }
     }
-
-    .ant-select {
+    .ant-switch {
       display: none;
+    }
+    @media screen and (max-width: 767px) {
+      .ant-switch {
+        display: block;
+      }
     }
   }
   .navigation__wrap {
@@ -76,7 +80,7 @@
     @media screen and (max-width: 767px) {
       padding: 20px 10px;
       justify-content: center;
-      .ant-select {
+      .ant-switch {
         display: none;
       }
     }

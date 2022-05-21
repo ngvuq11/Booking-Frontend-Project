@@ -177,28 +177,28 @@ const getApiCovid19 = () => {
 
 // ---------------- API HAND BOOK ----------------
 
-const getAllHandBook = () => {
+const getAllBlogs = () => {
   return axios.get(`/api/get-all-hand-book`);
 };
 
-const getTopHandBook = () => {
+const getTopBlogs = () => {
   return axios.get(`/api/get-top-hand-book`);
 };
 
-const createNewHandBook = (data) => {
+const createNewBlogs = (data) => {
   return axios.post('/api/create-new-hand-book', data);
 };
 
-const getAllDetailHandBookById = (data) => {
+const getAllDetailBlogById = (data) => {
   return axios.get(`/api/get-detail-hand-book-by-id?id=${data.id}`);
 };
 
-const deleteHandBookService = (handBookId) => {
-  return axios.delete('/api/delete-hand-book', { data: { id: handBookId } });
+const deleteBlogsService = (blogId) => {
+  return axios.delete('/api/delete-hand-book', { data: { id: blogId } });
 };
 
-const editHandBookService = (inputData) => {
-  return axios.put('/api/edit-hand-book', inputData);
+const editBlogsService = (data) => {
+  return axios.put('/api/edit-hand-book', data);
 };
 
 export {
@@ -249,10 +249,10 @@ export {
   // ---------------- API COVID-19 ----------------
   getApiCovid19,
   // ---------------- API HAND BOOK ----------------
-  getAllHandBook,
-  getTopHandBook,
-  createNewHandBook,
-  editHandBookService,
-  deleteHandBookService,
-  getAllDetailHandBookById,
+  getAllBlogs,
+  getTopBlogs,
+  createNewBlogs,
+  editBlogsService,
+  deleteBlogsService,
+  getAllDetailBlogById,
 };

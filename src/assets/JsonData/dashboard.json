@@ -1,18 +1,26 @@
 [
-    {
-        "name": "Doctor",
-        "icon": "fa fa-user-md"
-    },
-    {
-        "name": "Patient",
-        "icon": "fas fa-procedures"
-    },
-    {
-        "name": "Clinic",
-        "icon": "fa fa-hospital"
-    },
-    {
-        "name": "Specialty",
-        "icon": "fa fa-address-card"
-    }
+  {
+    "name": "Doctor",
+    "icon": "fa fa-user-md"
+  },
+  {
+    "name": "Patient",
+    "icon": "fas fa-procedures"
+  },
+  {
+    "name": "Clinic",
+    "icon": "fa fa-hospital"
+  },
+  {
+    "name": "Specialty",
+    "icon": "fa fa-address-card"
+  },
+  {
+    "name": "Hand Book",
+    "icon": "fa fa-book"
+  },
+  {
+    "name": "Total Money",
+    "icon": "fas fa-dollar-sign"
+  }
 ]

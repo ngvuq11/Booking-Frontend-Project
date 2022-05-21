@@ -42,7 +42,7 @@ class ManageSpecialty extends Component {
     if (language !== prevProps.language) {
     }
 
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allSpecialties !== this.props.allSpecialties) {
       this.setState({
         name: '',
         description: '',
@@ -50,7 +50,7 @@ class ManageSpecialty extends Component {
         descriptionHTML: '',
         descriptionMarkdown: '',
         clinicId: '',
-        listClinic: this.props.data,
+        listClinic: this.props.allSpecialties,
         action: CRUD_ACTIONS.CREATE,
       });
     }
@@ -151,6 +151,7 @@ class ManageSpecialty extends Component {
     let imageBase64 = '';
     if (specialty.image) {
       imageBase64 = Buffer.from(specialty.image, 'base64').toString('binary');
+      console.log(imageBase64);
     }
 
     this.setState({
@@ -182,6 +183,8 @@ class ManageSpecialty extends Component {
   render() {
     let { name, description, descriptionMarkdown, listClinic, action } =
       this.state;
+
+      console.log(this.props);
 
     return (
       <div className='manage-specialty'>
@@ -276,7 +279,7 @@ class ManageSpecialty extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    data: state.admin.data,
+    allSpecialties: state.admin.allSpecialties,
     allRequireDoctorInfor: state.admin.allRequireDoctorInfor,
   };
 };

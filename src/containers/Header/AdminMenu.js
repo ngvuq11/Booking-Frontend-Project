@@ -1,10 +1,10 @@
 import React from 'react';
-import { BsFillCalendarDateFill, BsFillPersonFill } from 'react-icons/bs';
-import { MdDashboard } from 'react-icons/md';
 import { Menu } from 'antd';
-import { ContainerOutlined } from '@ant-design/icons';
+import { MdDashboard } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { ContainerOutlined } from '@ant-design/icons';
 import { useHistory, useLocation } from 'react-router';
+import { BsFillCalendarDateFill, BsFillPersonFill } from 'react-icons/bs';
 
 function AdminMenu(props) {
   const history = useHistory();
@@ -52,6 +52,13 @@ function AdminMenu(props) {
       text: <FormattedMessage id='menu.admin.manage-handbook' />,
       pathName: 'manage-handbook',
       to: '/system/manage-handbook',
+    },
+    {
+      key: 7,
+      icon: <ContainerOutlined />,
+      text: <FormattedMessage id='menu.admin.manage-payment' />,
+      pathName: 'manage-payment',
+      to: '/system/manage-payment',
     },
   ];
   return (

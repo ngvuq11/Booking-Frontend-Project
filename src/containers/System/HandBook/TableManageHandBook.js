@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
+import { Pagination } from 'antd';
 
 import './TableManageHandBook.scss';
 
+const pageSize = 10;
 class TableManageHandBook extends Component {
   constructor(props) {
     super(props);
     this.state = {
       handBookArray: [],
+      current: 1,
     };
   }
 
   componentDidMount() {
-    this.props.fetchAllHandBook();
+    this.props.fetchAllBlogs();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allBlogs !== this.props.allBlogs) {
       this.setState({
-        handBookArray: this.props.data,
+        handBookArray: this.props.allBlogs,
+        minIndex: 0,
+        maxIndex: pageSize,
       });
     }
   }
@@ -30,6 +35,15 @@ class TableManageHandBook extends Component {
 
   handleEditHandBook = (handBook) => {
     this.props.handleEditHandBook(handBook);
+  };
+
+  handleChangePageNumber = (page) => {
+    console.log(page);
+    this.setState({
+      current: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize,
+    });
   };
 
   render() {
@@ -51,31 +65,39 @@ class TableManageHandBook extends Component {
             <tbody>
               {handBookArray &&
                 handBookArray.length > 0 &&
-                handBookArray.map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>
-                        <button
-                          className='btn-edit'
-                          onClick={() => this.handleEditHandBook(item)}
-                        >
-                          <i className='fas fa-pencil-alt'></i>
-                        </button>
-                        <button
-                          className='btn-delete'
-                          onClick={() => this.handleDeleteHandBook(item)}
-                        >
-                          <i className='fas fa-trash-alt'></i>
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+                handBookArray.map(
+                  (item, index) =>
+                    index >= this.state.minIndex &&
+                    index < this.state.maxIndex && (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.name}</td>
+                        <td>
+                          <button
+                            className='btn-edit'
+                            onClick={() => this.handleEditHandBook(item)}
+                          >
+                            <i className='fas fa-pencil-alt'></i>
+                          </button>
+                          <button
+                            className='btn-delete'
+                            onClick={() => this.handleDeleteHandBook(item)}
+                          >
+                            <i className='fas fa-trash-alt'></i>
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                )}
             </tbody>
           </table>
         </div>
+        <Pagination
+          current={this.state.current}
+          onChange={this.handleChangePageNumber}
+          pageSize={pageSize}
+          total={handBookArray.length}
+        />
       </div>
     );
   }
@@ -83,15 +105,18 @@ class TableManageHandBook extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.admin.data,
+    allBlogs: state.admin.allBlogs,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAllHandBook: () => dispatch(actions.fetchAllHandBookStart()),
+    fetchAllBlogs: () => dispatch(actions.fetchAllBlogs()),
     deleteHandBook: (id) => dispatch(actions.deleteHandBook(id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableManageHandBook);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TableManageHandBook);
