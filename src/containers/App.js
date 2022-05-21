@@ -18,11 +18,13 @@ import HomePage from './HomePage/HomePage.js';
 import ListSpecialty from './HomePage/components/Specialty/ListSpecialty';
 import ListClinic from './HomePage/components/Clinic/ListClinic';
 import ListDoctor from './HomePage/components/Doctor/ListDoctor';
+import ListBlogs from './HomePage/components/Blogs/ListBlogs';
 import VerifyEmail from './Patient/VerifyEmail';
 import DetailDoctor from './Patient/Doctor/DetailDoctor/index';
 import DetailClinic from './Patient/Clinic/DetailClinic';
 import CustomScrollbars from '../components/CustomScrollbar/CustomScrollbars';
-import DetailSpecialty from './Patient/Specialty';
+import DetailSpecialty from './Patient/Specialty/index';
+import DetailBlog from './Patient/Blog/DetailBlog';
 import Covid19 from '../containers/HomePage/components/Covid19/Covid19';
 
 class App extends Component {
@@ -69,11 +71,13 @@ class App extends Component {
               <Route path={path.LIST_SPECIALTY} component={ListSpecialty} />
               <Route path={path.LIST_CLINIC} component={ListClinic} />
               <Route path={path.LIST_DOCTOR} component={ListDoctor} />
+              <Route path={path.LIST_BLOGS} component={ListBlogs} />
               <Route path={path.COVID_19} component={Covid19} />
 
+              <Route path={path.DETAIL_BLOG} component={DetailBlog} />
               <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
-              <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
               <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+              <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
               <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
             </Switch>
           </CustomScrollbars>

@@ -16,13 +16,13 @@ class TableManageClinic extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchClinic();
+    this.props.fetchAllClinic();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allClinics !== this.props.allClinics) {
       this.setState({
-        clinicArray: this.props.data,
+        clinicArray: this.props.allClinics,
         minIndex: 0,
         maxIndex: pageSize,
       });
@@ -105,13 +105,13 @@ class TableManageClinic extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.admin.data,
+    allClinics: state.admin.allClinics,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchClinic: () => dispatch(actions.fetchAllClinicStart()),
+    fetchAllClinic: () => dispatch(actions.fetchAllClinic()),
     deleteClinic: (id) => dispatch(actions.deleteClinic(id)),
   };
 };

@@ -29,9 +29,9 @@ class ListClinic extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allClinics !== this.props.allClinics) {
       this.setState({
-        listClinic: this.props.data,
+        listClinic: this.props.allClinics,
         isLoading: true,
         minIndex: 0,
         maxIndex: pageSize,
@@ -150,13 +150,13 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
-    data: state.admin.data,
+    allClinics: state.admin.allClinics,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAllClinic: () => dispatch(actions.fetchAllClinicStart()),
+    fetchAllClinic: () => dispatch(actions.fetchAllClinic()),
   };
 };
 

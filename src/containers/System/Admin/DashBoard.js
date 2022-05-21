@@ -1,65 +1,76 @@
 import { Component } from 'react';
-import './DashBoard.scss';
-import Chart from './Chart';
-import StatusCard from './StatusCard';
+import { connect } from 'react-redux';
 import statusCard from '../../../assets/JsonData/dashboard.json';
-import {
-  getAllClinic,
-  getAllDoctors,
-  getAllSpecialty,
-  getAllPatient,
-} from '../../../services/userService';
+import * as actions from '../../../store/actions';
+import './DashBoard.scss';
+import StatusCard from './StatusCard';
 
 class DashBoard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      dataDoctors: [],
       dataClinics: [],
+      dataDoctors: [],
+      dataPayment: [],
       dataPatients: [],
+      dataHandBooks: [],
       dataSpecialties: [],
     };
   }
 
   async componentDidMount() {
-    let resClinic = await getAllClinic();
-    let resDoctor = await getAllDoctors();
-    let resSpecialty = await getAllSpecialty();
-    let resPatient = await getAllPatient();
-
-    if (resClinic && resClinic.errCode === 0) {
-      this.setState({
-        dataClinics: resClinic.data ? resClinic.data : [],
-      });
-    }
-    if (resDoctor && resDoctor.errCode === 0) {
-      this.setState({
-        dataDoctors: resDoctor.data ? resDoctor.data : [],
-      });
-    }
-    if (resSpecialty && resSpecialty.errCode === 0) {
-      this.setState({
-        dataSpecialties: resSpecialty.data ? resSpecialty.data : [],
-      });
-    }
-    if (resPatient && resPatient.errCode === 0) {
-      this.setState({
-        dataPatients: resPatient.data ? resPatient.data : [],
-      });
-    }
+    this.props.fetchAllDoctor();
+    this.props.fetchAllClinic();
+    this.props.fetchAllPatient();
+    this.props.fetchAllPayment();
+    this.props.fetchAllBlogs();
+    this.props.fetchAllSpecialty();
   }
 
+  componentDidUpdate(prevProps, prevState) {}
+
   render() {
-    let { dataClinics, dataDoctors, dataSpecialties, dataPatients } =
-      this.state;
+    let {
+      dataClinics,
+      dataDoctors,
+      dataSpecialties,
+      dataPatients,
+      dataHandBooks,
+    } = this.state;
+    let {
+      allDoctors,
+      allClinics,
+      allPayments,
+      allPatients,
+      allSpecialties,
+      allBlogs,
+    } = this.props;
 
-    const countClinic = dataClinics.length;
-    const countDoctor = dataDoctors.length;
-    const countSpecialty = dataSpecialties.length;
-    const countPatient = dataPatients.length;
+    dataClinics = allClinics.length;
+    dataDoctors = allDoctors.length;
+    dataSpecialties = allSpecialties.length;
+    dataHandBooks = allBlogs.length;
+    dataPatients = allPatients.length;
 
-    const array = [countDoctor, countPatient, countClinic, countSpecialty];
+    let newMoney = 0;
+    allPayments.map((money) => {
+      return (newMoney += +money.value);
+    });
+
+    let totalMoney = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(newMoney);
+
+    const array = [
+      dataDoctors,
+      dataPatients,
+      dataClinics,
+      dataSpecialties,
+      dataHandBooks,
+      totalMoney,
+    ];
 
     for (let i = 0; i < statusCard.length; i++) {
       statusCard[i].count = array[i];
@@ -80,12 +91,33 @@ class DashBoard extends Component {
           </div>
           <div className='dashboard-top-right'></div>
         </div>
-        <div className='dashboard-bottom'>
-          <Chart listData={dataDoctors} />
-        </div>
       </div>
     );
   }
 }
 
-export default DashBoard;
+const mapStateToProps = (state) => {
+  return {
+    language: state.app.language,
+    allDoctors: state.admin.allDoctors,
+    allPayments: state.admin.allPayments,
+    allClinics: state.admin.allClinics,
+    allPatients: state.admin.allPatients,
+    allBlogs: state.admin.allBlogs,
+    allSpecialties: state.admin.allSpecialties,
+    allRequireDoctorInfor: state.admin.allRequireDoctorInfor,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAllDoctor: () => dispatch(actions.fetchAllDoctor()),
+    fetchAllClinic: () => dispatch(actions.fetchAllClinic()),
+    fetchAllPatient: () => dispatch(actions.fetchAllPatient()),
+    fetchAllPayment: () => dispatch(actions.fetchAllPayment()),
+    fetchAllBlogs: () => dispatch(actions.fetchAllBlogs()),
+    fetchAllSpecialty: () => dispatch(actions.fetchAllSpecialty()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashBoard);

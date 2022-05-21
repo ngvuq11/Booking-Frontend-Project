@@ -33,6 +33,12 @@ class HomeHeader extends Component {
     }
   };
 
+  handleBlogs = () => {
+    if (this.props.history) {
+      this.props.history.push(`/list-blogs`);
+    }
+  };
+
   handleCovid19 = () => {
     if (this.props.history) {
       this.props.history.push(`/covid-19`);
@@ -95,6 +101,9 @@ class HomeHeader extends Component {
               </Text>
               <Text onClick={() => this.handleListDoctor()}>
                 <FormattedMessage id='header.doctor-menu' />
+              </Text>
+              <Text onClick={() => this.handleBlogs()}>
+                <FormattedMessage id='header.blogs-menu' />
               </Text>
               <Text onClick={() => this.handleCovid19()}>
                 <FormattedMessage id='header.covid-19' />

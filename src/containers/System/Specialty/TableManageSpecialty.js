@@ -16,13 +16,13 @@ class TableManageSpecialty extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchSpecialty();
+    this.props.fetchAllSpecialty();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allSpecialties !== this.props.allSpecialties) {
       this.setState({
-        specialtyArray: this.props.data,
+        specialtyArray: this.props.allSpecialties,
         minIndex: 0,
         maxIndex: pageSize,
       });
@@ -103,13 +103,13 @@ class TableManageSpecialty extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.admin.data,
+    allSpecialties: state.admin.allSpecialties,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchSpecialty: () => dispatch(actions.fetchAllSpecialtyStart()),
+    fetchAllSpecialty: () => dispatch(actions.fetchAllSpecialty()),
     deleteSpecialty: (id) => dispatch(actions.deleteSpecialty(id)),
   };
 };

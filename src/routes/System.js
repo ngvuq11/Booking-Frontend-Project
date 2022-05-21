@@ -3,16 +3,13 @@ import { connect } from 'react-redux';
 // import UserManage from '../containers/System/UserManage';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Header from '../containers/Header/Header';
+import UserRedux from '../containers/System/Admin/UserRedux';
 import DashBoard from '../containers/System/Admin/DashBoard';
 import ManageDoctor from '../containers/System/Admin/ManageDoctor';
-import UserRedux from '../containers/System/Admin/UserRedux';
 import ManageClinic from '../containers/System/Clinic/ManageClinic';
-import ManageHandBook from '../containers/System/HandBook/ManageHandBook';
-
-import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
-
 import ManagePayment from '../containers/System/Payment/ManagePayment';
-
+import ManageHandBook from '../containers/System/HandBook/ManageHandBook';
+import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 
 class System extends Component {
   render() {

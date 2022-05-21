@@ -36,7 +36,7 @@ class ManageHandBook extends Component {
     if (language !== prevProps.language) {
     }
 
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allBlogs !== this.props.allBlogs) {
       this.setState({
         name: '',
         imageBase64: '',
@@ -77,7 +77,7 @@ class ManageHandBook extends Component {
     let { action } = this.state;
 
     if (action === CRUD_ACTIONS.CREATE) {
-      let res = await this.props.createNewHandBook(this.state);
+      let res = await this.props.createNewBlogs(this.state);
       if (res && res.errCode === 0) {
         this.setState({
           name: '',
@@ -195,13 +195,13 @@ class ManageHandBook extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    data: state.admin.data,
+    allBlogs: state.admin.allBlogs,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createNewHandBook: (data) => dispatch(actions.fetchCreateNewHandBook(data)),
+    createNewBlogs: (data) => dispatch(actions.fetchCreateNewHandBook(data)),
     editHandBook: (data) => dispatch(actions.editHandBook(data)),
   };
 };

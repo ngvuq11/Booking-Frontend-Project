@@ -30,7 +30,6 @@ class Chart extends Component {
   }
 
   render() {
-    // let { dataDoctors } = this.state;
     let { listData } = this.props;
 
     return (

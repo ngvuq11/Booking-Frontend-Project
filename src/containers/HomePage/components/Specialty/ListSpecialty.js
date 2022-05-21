@@ -28,9 +28,9 @@ class ListSpecialty extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allSpecialties !== this.props.allSpecialties) {
       this.setState({
-        listSpecialty: this.props.data,
+        listSpecialty: this.props.allSpecialties,
         isLoading: true,
         minIndex: 0,
         maxIndex: pageSize,
@@ -153,13 +153,13 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
-    data: state.admin.data,
+    allSpecialties: state.admin.allSpecialties,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAllSpecialty: () => dispatch(actions.fetchAllSpecialtyStart()),
+    fetchAllSpecialty: () => dispatch(actions.fetchAllSpecialty()),
   };
 };
 

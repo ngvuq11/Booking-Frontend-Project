@@ -32,8 +32,7 @@ class ManagePayment extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    language: state.app.language,
-    data: state.admin.data,
+    language: state.app.language
   };
 };
 

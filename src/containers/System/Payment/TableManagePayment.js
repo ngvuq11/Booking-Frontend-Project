@@ -17,15 +17,15 @@ class TableManagePayment extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.data !== this.props.data) {
+    if (prevProps.allPayments !== this.props.allPayments) {
       this.setState({
-        paymentArray: this.props.data,
+        paymentArray: this.props.allPayments,
       });
     }
   }
   render() {
     let { paymentArray } = this.state;
-    
+
     return (
       <div className='user-container'>
         <h1 className='title-user'>TABLE PAYMENTS</h1>
@@ -51,7 +51,7 @@ class TableManagePayment extends Component {
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{item.paymentId}</td>
-                      <td>{item.name}</td>
+                      <td>{item.fullName}</td>
                       <td>{item.email}</td>
                       <td>{item.value}</td>
                       <td>{item.currency_code}</td>
@@ -69,17 +69,14 @@ class TableManagePayment extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.admin.data,
+    allPayments: state.admin.allPayments,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAllPayment: () => dispatch(actions.fetchAllPaymentStart()),
+    fetchAllPayment: () => dispatch(actions.fetchAllPayment()),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TableManagePayment);
+export default connect(mapStateToProps, mapDispatchToProps)(TableManagePayment);
