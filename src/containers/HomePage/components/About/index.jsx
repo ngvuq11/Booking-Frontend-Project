@@ -38,16 +38,16 @@ function About(props) {
                     Thông tin hữu ích
                   </Title>
                   <div>
-                    <Text>Hotline: 1900.63.3579</Text>
+                    <Text>Hotline : 1900.63.3579</Text>
                   </div>
                   <div>
-                    <Text>Hotline: 1900.63.3579</Text>
+                    <Text>Contact : datn2022@gmail.com</Text>
                   </div>
                   <div>
-                    <Text>Hotline: 1900.63.3579</Text>
+                    <Text>Address : 254 Nguyen Van Linh</Text>
                   </div>
                   <div>
-                    <Text>Hotline: 1900.63.3579</Text>
+                    <Text>Phone : 0883391971</Text>
                   </div>
                 </Col>
                 <Col span={12} style={{ padding: '0 10px' }}>
