@@ -47,7 +47,6 @@ class BookingModal extends Component {
     if (res.data && res.errCode === 0) {
       this.setState({
         paymentIdData: res.data.Doctor_infor.paymentIdData,
-        price: res.data.Doctor_infor.priceIdData,
       });
     }
     let price = res.data.Doctor_infor.priceIdData;
@@ -509,16 +508,13 @@ class BookingModal extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    genders: state.admin.genders,
-    detailDoctor: state.admin.detailDoctor,
+    genders: state.admin.genders
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getGenders: () => dispatch(actions.fetchGenderStart()),
-    fetchDetailInforDoctor: (id) =>
-      dispatch(actions.fetchDetailInforDoctor(id)),
+    getGenders: () => dispatch(actions.fetchGenderStart())
   };
 };
 
