@@ -9,8 +9,9 @@ import Select from 'react-select';
 import { toast } from 'react-toastify';
 import DatePicker from '../../../../components/Input/DatePicker';
 import {
-   postBookAppointment,
-   postPaymentPatient
+  postBookAppointment,
+  postPaymentPatient,
+  getDetailInforDoctor,
 } from '../../../../services/userService';
 import * as actions from '../../../../store/actions';
 import { LANGUAGES } from '../../../../utils';
@@ -35,7 +36,6 @@ class BookingModal extends Component {
       phoneNumber: '',
       selectedGenders: '',
       paymentIdData: {},
-      price: {},
       isLoading: false,
     };
   }
@@ -43,17 +43,18 @@ class BookingModal extends Component {
   async componentDidMount() {
     let { doctorIdFromParent } = this.props;
     let id = doctorIdFromParent;
-    if (id) {
-      let res = await this.props.fetchDetailInforDoctor(id);
-      if (res && res.errCode === 0) {
-        this.setState({
-          paymentIdData: res.data.Doctor_infor.paymentIdData,
-          price: res.data.Doctor_infor.priceIdData,
-        });
-      }
+    let res = await getDetailInforDoctor(id);
+    if (res.data && res.errCode === 0) {
+      this.setState({
+        paymentIdData: res.data.Doctor_infor.paymentIdData,
+        price: res.data.Doctor_infor.priceIdData,
+      });
     }
+    let price = res.data.Doctor_infor.priceIdData;
+
     this.props.getGenders();
-    
+    console.log(price);
+
     setTimeout(() => {
       window.paypal
         .Buttons({
@@ -65,7 +66,7 @@ class BookingModal extends Component {
                   description: 'Cool looking table',
                   amount: {
                     currency_code: 'USD',
-                    value: +this.state.price.valueEn,
+                    value: +price.valueEn,
                   },
                 },
               ],
@@ -284,7 +285,9 @@ class BookingModal extends Component {
         dataTime.doctorIdData.lastName + ' ' + dataTime.doctorIdData.firstName;
     }
 
-    let paymentVi = paymentIdData.valueVi;
+    let paymentMethod = paymentIdData;
+
+    console.log(paymentMethod);
 
     return (
       <LoadingOverlay
@@ -300,7 +303,8 @@ class BookingModal extends Component {
               Cancel
             </Button>,
             <>
-              {paymentVi === 'Thẻ ATM' ? (
+              {(paymentMethod && paymentMethod.valueEn === 'Credit card') ||
+              paymentMethod.valueVi === 'Thẻ ATM' ? (
                 <div className='payment-root'></div>
               ) : (
                 <Button
@@ -507,13 +511,15 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     genders: state.admin.genders,
+    detailDoctor: state.admin.detailDoctor,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getGenders: () => dispatch(actions.fetchGenderStart()),
-    fetchDetailInforDoctor: (id) => dispatch(actions.fetchDetailInforDoctor(id)),
+    fetchDetailInforDoctor: (id) =>
+      dispatch(actions.fetchDetailInforDoctor(id)),
   };
 };
 
