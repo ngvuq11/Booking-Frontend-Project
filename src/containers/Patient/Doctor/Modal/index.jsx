@@ -53,7 +53,6 @@ class BookingModal extends Component {
     let price = res.data.Doctor_infor.priceIdData;
 
     this.props.getGenders();
-    console.log(price);
 
     setTimeout(() => {
       window.paypal
