@@ -5,6 +5,8 @@ import { FormattedMessage } from 'react-intl';
 
 import './TableManageUser.scss';
 import { Pagination } from 'antd';
+import Titles from '../../../components/Title';
+import { Section } from '../../../components/Secction/Section.styleds';
 
 const pageSize = 10;
 class TableManageUser extends Component {
@@ -50,10 +52,8 @@ class TableManageUser extends Component {
   render() {
     let listUsers = this.state.userArray;
     return (
-      <div className='user-container'>
-        <h1 className='title-user'>
-          <FormattedMessage id='manage-user.user-list' />
-        </h1>
+      <Section>
+        <Titles title={<FormattedMessage id='manage-user.user-list' />} />
         <div className='users-table'>
           <table id='customers'>
             <thead>
@@ -103,8 +103,9 @@ class TableManageUser extends Component {
           onChange={this.handleChangePageNumber}
           pageSize={pageSize}
           total={listUsers.length}
+          style={{ marginTop: '20px', textAlign: 'end' }}
         />
-      </div>
+      </Section>
     );
   }
 }

@@ -1,6 +1,8 @@
 import { Pagination } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title';
 import * as actions from '../../../store/actions';
 
 import './TableManageSpecialty.scss';
@@ -50,8 +52,8 @@ class TableManageSpecialty extends Component {
     let listSpecialty = this.state.specialtyArray;
 
     return (
-      <div className='user-container'>
-        <h1 className='title-user'>TABLE SPECIALTY</h1>
+      <Section className='user-container'>
+        <Titles title='TABLE SPECIALTY' />
         <div className='users-table'>
           <table id='customers'>
             <thead>
@@ -95,8 +97,9 @@ class TableManageSpecialty extends Component {
           onChange={this.handleChangePageNumber}
           pageSize={pageSize}
           total={listSpecialty.length}
+          style={{ marginTop: '30px', textAlign: 'end' }}
         />
-      </div>
+      </Section>
     );
   }
 }
