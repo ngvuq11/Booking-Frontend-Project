@@ -1,18 +1,17 @@
+import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import HomeHeader from '../../../components/Header/HomeHeader';
-import { getAllDetailClinicById } from '../../../services/userService';
 import { withRouter } from 'react-router';
-
-import _ from 'lodash';
-import Footer from '../../HomePage/components/Section/Footer';
-import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
+import { Container } from '../../../components/Container/Container.styles';
+import HomeHeader from '../../../components/Header/HomeHeader';
 import Maps from '../../../components/Maps';
 import { Section } from '../../../components/Secction/Section.styleds';
-import { Container } from '../../../components/Container/Container.styles';
 import SpecialtyCard from '../../../components/SpecialtyCard';
-import './DetailClinic.scss';
 import Titles from '../../../components/Title';
+import { getAllDetailClinicById } from '../../../services/userService';
+import Footer from '../../HomePage/components/Section/Footer';
+import './DetailClinic.scss';
 
 const { Text } = Typography;
 
@@ -73,7 +72,6 @@ class DetailClinic extends Component {
 
   render() {
     let { dataDetailClinic, isLoading } = this.state;
-    // let { language } = this.props;
     let listSpecialty = dataDetailClinic.specialtyClinic;
 
     return (
@@ -81,7 +79,7 @@ class DetailClinic extends Component {
         {isLoading ? (
           <>
             <HomeHeader />
-            <Section>
+            <Section className='page__detail--clinic'>
               <Container>
                 <Breadcrumb
                   style={{
@@ -113,7 +111,7 @@ class DetailClinic extends Component {
                 </Breadcrumb>
                 {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
                   <>
-                    <div className='name-clinic'>{dataDetailClinic.name}</div>
+                    <Titles title={dataDetailClinic.name} />
                     <div
                       className='content-clinic'
                       dangerouslySetInnerHTML={{
@@ -123,7 +121,7 @@ class DetailClinic extends Component {
                   </>
                 )}
                 <Titles title={'Các chuyên khoa'} />
-                <div className='special-flex'>
+                <div className='list__specialty--all'>
                   {listSpecialty &&
                     listSpecialty.length > 0 &&
                     listSpecialty.map(

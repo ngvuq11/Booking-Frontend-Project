@@ -3,10 +3,11 @@ import React from 'react';
 import { Container } from '../../../../components/Container/Container.styles';
 import Logo from '../../../../components/Logo';
 import { Section } from '../../../../components/Secction/Section.styleds';
+import Titles from '../../../../components/Title';
 import './About.scss';
 
 About.propTypes = {};
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 function About(props) {
   return (
@@ -21,12 +22,12 @@ function About(props) {
             className='about__booking--content'
           >
             <Space direction='vertical' size={30} style={{ display: 'flex' }}>
-              <Row gutter={[50, 20]}>
-                <Col span={24} style={{ marginBottom: '20px' }}>
+              <Row className='about__space'>
+                <Col span={24}>
                   <Logo />
                 </Col>
-                <Col span={12}>
-                  <Title level={4}>TẦM NHÌN &amp; SỨ MỆNH:</Title>
+                <Col xs={24} sm={24} md={12} lg={12}>
+                  <Titles title={'TẦM NHÌN & SỨ MỆNH:'} />
                   <Text style={{ textAlign: 'justify' }}>
                     “Sự đổi mới các phương diện chất lượng y tế từ quản lý bệnh
                     nhân đến tiêu chuẩn dịch vụ khách hàng nhằm mang lại dịch vụ
@@ -34,12 +35,7 @@ function About(props) {
                     nhân sẽ là mục tiêu và sứ mệnh mà phòng khám Pasteur theo
                     đuổi.”
                   </Text>
-                  <Title
-                    level={4}
-                    style={{ textTransform: 'uppercase', marginBottom: 10 }}
-                  >
-                    Thông tin hữu ích
-                  </Title>
+                  <Titles title={'THÔNG TIN HỮU ÍCH:'} />
                   <Space
                     direction='vertical'
                     style={{ display: 'flex', width: '100%' }}
@@ -56,8 +52,14 @@ function About(props) {
                     </Button>
                   </Space>
                 </Col>
-                <Col span={12} style={{ padding: '0 10px' }}>
-                  <Title level={4}>GIÁ TRỊ CỦA CHÚNG TÔI</Title>
+                <Col
+                  xs={24}
+                  sm={24}
+                  md={12}
+                  lg={12}
+                  style={{ padding: '0 10px' }}
+                >
+                  <Titles title={'GIÁ TRỊ CỦA CHÚNG TÔI:'} />
                   <Text style={{ textAlign: 'justify' }}>
                     – Là sự kết hợp giữa tiêu chuẩn dịch vụ, phục vụ cao và chất
                     lượng khám nhằm mang lại giá trị tốt nhất cho bệnh nhân.{' '}
@@ -76,29 +78,6 @@ function About(props) {
                     nghiệp”
                   </Text>
                 </Col>
-              </Row>
-
-              <Row>
-                <Col span={24}>
-                  <Title level={4}>WATCHING</Title>
-                </Col>
-                <div className='section-about-item'>
-                  <div className='section-about-item-video'>
-                    <iframe
-                      src='https://www.youtube.com/embed/x9WQdYJRDhI'
-                      title='YouTube video player'
-                      frameBorder='0'
-                      allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                  <div className='section-about-item-info'>
-                    <p>
-                      Mỗi người dân hãy là một chiến sĩ trong công cuộc chống
-                      dịch, Việt Nam sẽ chiến thắng đại dịch.
-                    </p>
-                  </div>
-                </div>
               </Row>
             </Space>
           </Col>

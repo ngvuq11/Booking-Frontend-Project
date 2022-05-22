@@ -1,6 +1,7 @@
-import { Button } from 'antd';
+import { Button, Image, Space } from 'antd';
 import React from 'react';
 import { LANGUAGES } from '../../utils';
+import Titles from '../Title';
 import './DoctorInfor.scss';
 
 DoctorInfor.propTypes = {};
@@ -16,15 +17,9 @@ function DoctorInfor(props) {
 
   return (
     <div className='doctor-item' key={index}>
-      <div
-        className='doctor-item-image'
-        style={{ backgroundImage: `url(${imageBase64})` }}
-      ></div>
-      <div className='doctor-item-infor'>
-        <div className='name'>
-          <span>Doctor: </span>
-          {language === LANGUAGES.VI ? nameVi : nameEn}
-        </div>
+      <Image src={imageBase64} preview={false} />
+      <Space direction='vertical' className='doctor-item-infor'>
+        <Titles title={`${language === LANGUAGES.VI ? nameVi : nameEn}`} />
         <div>
           <span>Email: </span>
           {item.email}
@@ -37,10 +32,10 @@ function DoctorInfor(props) {
           <span>Address: </span>
           {item.address}
         </div>
-        <Button type='primary' ghost onClick={onClick}>
+        <Button type='link' onClick={onClick}>
           Xem thêm
         </Button>
-      </div>
+      </Space>
     </div>
   );
 }

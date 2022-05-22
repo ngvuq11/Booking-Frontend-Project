@@ -1,31 +1,30 @@
-import React, { Component, Fragment } from 'react';
-import { path } from '../utils';
-import { history } from '../redux';
-import { connect } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
-import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import {
   userIsAuthenticated,
   userIsNotAuthenticated,
 } from '../auth/authentication';
-
-import Login from './Auth/Login';
+import CustomScrollbars from '../components/CustomScrollbar/CustomScrollbars';
+import Covid19 from '../containers/HomePage/components/Covid19/Covid19';
+import { history } from '../redux';
+import Doctor from '../routes/Doctor';
 import Home from '../routes/Home';
 import System from '../routes/System';
-import Doctor from '../routes/Doctor';
-import HomePage from './HomePage/HomePage.js';
-import ListSpecialty from './HomePage/components/Specialty/ListSpecialty';
+import { path } from '../utils';
+import Login from './Auth/Login';
+import ListBlogs from './HomePage/components/Blogs/ListBlogs';
 import ListClinic from './HomePage/components/Clinic/ListClinic';
 import ListDoctor from './HomePage/components/Doctor/ListDoctor';
-import ListBlogs from './HomePage/components/Blogs/ListBlogs';
-import VerifyEmail from './Patient/VerifyEmail';
-import DetailDoctor from './Patient/Doctor/DetailDoctor/index';
-import DetailClinic from './Patient/Clinic/DetailClinic';
-import CustomScrollbars from '../components/CustomScrollbar/CustomScrollbars';
-import DetailSpecialty from './Patient/Specialty/index';
+import ListSpecialty from './HomePage/components/Specialty/ListSpecialty';
+import HomePage from './HomePage/HomePage.js';
 import DetailBlog from './Patient/Blog/DetailBlog';
-import Covid19 from '../containers/HomePage/components/Covid19/Covid19';
+import DetailClinic from './Patient/Clinic/DetailClinic';
+import DetailDoctor from './Patient/Doctor/DetailDoctor/index';
+import DetailSpecialty from './Patient/Specialty/index';
+import VerifyEmail from './Patient/VerifyEmail';
 
 class App extends Component {
   handlePersistorState = () => {

@@ -1,12 +1,10 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-   getMedicalRecordForDoctor,
-   getProfileDoctor
+  getMedicalRecordForDoctor,
+  getProfileDoctor,
 } from '../../../services/userService';
 import StatusCard from '../Admin/StatusCard';
-
-// import './DashBoardDoctor.scss';
 
 class DashBoardDoctor extends Component {
   constructor(props) {

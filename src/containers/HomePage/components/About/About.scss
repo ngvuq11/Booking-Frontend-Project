@@ -20,4 +20,12 @@
     height: 100%;
     object-fit: cover;
   }
+  .about__space {
+    > * {
+      padding: 0 20px;
+      @media screen and (max-width: 767px) {
+        padding: 20px 0px;
+      }
+    }
+  }
 }

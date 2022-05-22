@@ -10,4 +10,7 @@
     margin-bottom: var(--f-gap);
     width: calc((100% / var(--f-columns) - var(--f-gap)));
   }
+  @media screen and (max-width: 480px) {
+    --f-columns: 1;
+  }
 }

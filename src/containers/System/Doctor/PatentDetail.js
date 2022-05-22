@@ -27,57 +27,59 @@ class PatientDetail extends Component {
 
     return (
       <Modal
-        title='Lịch sử khám bệnh'
+        title={<Titles title={`Tổng số lần khám: ${detailPatient.length}`} />}
         visible={isOpenModal}
         onCancel={closeDetailPatientModal}
         footer={[
-          <Button key='back' onClick={closeDetailPatientModal}>
+          <Button type='danger' key='back' onClick={closeDetailPatientModal}>
             Cancel
           </Button>,
         ]}
+        className='modal-patient-detail'
       >
-        <Titles title={`Tổng số lần khám: ${detailPatient.length}`} />
-
-        {detailPatient ? (
-          detailPatient.map((item, index) => {
-            return (
-              <div className='history__patient' key={index}>
-                <Title
-                  level={4}
-                  style={{
-                    color: '#e76f51',
-                    background: '#eee',
-                    padding: '6px 10px',
-                    borderRadius: '8px',
-                  }}
-                >
-                  Lần khám thứ: {index + 1}
-                </Title>
-                <Space
-                  direction='vertical'
-                  size={5}
-                  style={{ padding: '0 8px' }}
-                >
-                  <span>Email: {item.email}</span>
-                  <span>Full name: {item.patientInfor.fullName}</span>
-                  <span>Phone number: {item.patientInfor.phoneNumber}</span>
-                  <span>Address: {item.patientInfor.address}</span>
-                  <span>
-                    Gender:
-                    {item.patientInfor.gender === 'M' ? 'Male' : 'Famale'}
-                  </span>
-                  <span>Diagnose: {item.diagnose}</span>
-                  <span>Clinic hours: {item.createdAt.slice(12, 19)}</span>
-                  <span>
-                    Day of the examination: {item.createdAt.slice(0, 10)}
-                  </span>
-                </Space>
-              </div>
-            );
-          })
-        ) : (
-          <div>No data!</div>
-        )}
+        {/* <Titles title={`Tổng số lần khám: ${detailPatient.length}`} /> */}
+        <div className='patient-detail'>
+          {detailPatient ? (
+            detailPatient.map((item, index) => {
+              return (
+                <div className='history__patient' key={index}>
+                  <Title
+                    level={4}
+                    style={{
+                      color: '#e76f51',
+                      background: '#eee',
+                      padding: '6px 10px',
+                      borderRadius: '8px',
+                    }}
+                  >
+                    Lần khám thứ: {index + 1}
+                  </Title>
+                  <Space
+                    direction='vertical'
+                    size={5}
+                    style={{ padding: '0 8px' }}
+                  >
+                    <span>Email: {item.email}</span>
+                    <span>Full name: {item.patientInfor.fullName}</span>
+                    <span>Phone number: {item.patientInfor.phoneNumber}</span>
+                    <span>Address: {item.patientInfor.address}</span>
+                    <span>
+                      Gender:
+                      {item.patientInfor.gender === 'M' ? 'Male' : 'Famale'}
+                    </span>
+                    <span>Diagnose: {item.diagnose}</span>
+                    <span>Clinic hours: {item.createdAt.slice(12, 19)}</span>
+                    <span>
+                      Day of the examination: {item.createdAt.slice(0, 10)}
+                    </span>
+                  </Space>
+                </div>
+              );
+            })
+          ) : (
+            <div>No data!</div>
+          )}
+        </div>
       </Modal>
     );
   }
