@@ -456,23 +456,33 @@ class ManageDoctor extends Component {
             </span>
           )}
         </button> */}
-        <Button
-          type='primary'
-          shape='round'
-          onClick={() => this.handleSaveMarkdown()}
-          style={{ marginTop: '20px' }}
-          size='large'
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            width: '100%',
+            paddingRight: '50px',
+            marginTop: '20px',
+          }}
         >
-          {hasOldData === true ? (
-            <span>
-              <FormattedMessage id='admin.manage-doctor.update-infor' />
-            </span>
-          ) : (
-            <span>
-              <FormattedMessage id='admin.manage-doctor.create-infor' />
-            </span>
-          )}
-        </Button>
+          <Button
+            type='primary'
+            shape='round'
+            onClick={() => this.handleSaveMarkdown()}
+            style={{ marginTop: '20px' }}
+            size='large'
+          >
+            {hasOldData === true ? (
+              <span>
+                <FormattedMessage id='admin.manage-doctor.update-infor' />
+              </span>
+            ) : (
+              <span>
+                <FormattedMessage id='admin.manage-doctor.create-infor' />
+              </span>
+            )}
+          </Button>
+        </div>
       </Section>
     );
   }

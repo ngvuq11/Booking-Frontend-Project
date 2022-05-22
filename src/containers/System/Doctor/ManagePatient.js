@@ -17,6 +17,8 @@ import {
 } from '../../../services/userService';
 
 import './ManagePatient.scss';
+import Titles from '../../../components/Title';
+import { Section } from '../../../components/Secction/Section.styleds';
 
 class ManagePatient extends Component {
   constructor(props) {
@@ -236,10 +238,10 @@ class ManagePatient extends Component {
           spinner
           text='Plese wait...'
         >
-          <div className='manage-patient'>
-            <h2 className='title'>
-              <FormattedMessage id='menu.doctor.manage-patient' />
-            </h2>
+          <Section className='manage-patient'>
+            <Titles
+              title={<FormattedMessage id='menu.doctor.manage-patient' />}
+            />
 
             <div className='manage-patient-body'>
               <div className='row'>
@@ -327,7 +329,7 @@ class ManagePatient extends Component {
                 </div>
               </div>
             </div>
-          </div>
+          </Section>
           <RemedyModal
             dataModal={dataModal}
             sendRemedy={this.sendRemedy}

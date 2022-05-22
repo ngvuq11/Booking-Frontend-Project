@@ -1,8 +1,11 @@
+import { Button } from 'antd';
 import MarkdownIt from 'markdown-it';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import MdEditor from 'react-markdown-editor-lite';
 import { connect } from 'react-redux';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title';
 import * as actions from '../../../store/actions';
 import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
 import './ManageClinic.scss';
@@ -141,10 +144,10 @@ class ManageClinic extends Component {
   render() {
     let { name, address, descriptionMarkdown } = this.state;
     return (
-      <div className='manage-clinic'>
-        <h2 className='title'>
-          <FormattedMessage id='admin.manage-clinic.clinic-title' />
-        </h2>
+      <Section className='manage-clinic'>
+        <Titles
+          title={<FormattedMessage id='admin.manage-clinic.clinic-title' />}
+        />
 
         <div className='clinic-list row'>
           <div className='col-4 form-group'>
@@ -182,6 +185,7 @@ class ManageClinic extends Component {
             />
           </div>
           <div className='col-12'>
+            <label>Mô tả phòng khám</label>
             <MdEditor
               style={{ height: '300px' }}
               onChange={this.handleEditorChange}
@@ -189,21 +193,27 @@ class ManageClinic extends Component {
               renderHTML={(text) => mdParser.render(text)}
             />
           </div>
-          <div className='col-12'>
-            <button
-              className={
-                this.state.action === CRUD_ACTIONS.EDIT
-                  ? 'btn-edit-clinic'
-                  : 'btn-add-clinic'
-              }
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              width: '100%',
+              paddingRight: '50px',
+            }}
+          >
+            <Button
+              type='primary'
+              shape='round'
+              size='large'
               onClick={() => this.handleSaveClinic()}
+              style={{ marginTop: '20px' }}
             >
               {this.state.action === CRUD_ACTIONS.EDIT ? (
                 <FormattedMessage id='admin.manage-clinic.edit' />
               ) : (
                 <FormattedMessage id='admin.manage-clinic.save' />
               )}
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -211,7 +221,7 @@ class ManageClinic extends Component {
           handleEditClinic={this.handleEditClinic}
           action={this.state.action}
         />
-      </div>
+      </Section>
     );
   }
 }

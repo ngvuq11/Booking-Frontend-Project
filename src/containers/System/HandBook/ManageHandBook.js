@@ -13,6 +13,8 @@ import * as actions from '../../../store/actions';
 import TableManageHandBook from './TableManageHandBook';
 
 import './ManageHandBook.scss';
+import Titles from '../../../components/Title';
+import { Button } from 'antd';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -130,9 +132,9 @@ class ManageHandBook extends Component {
 
     return (
       <div className='manage-specialty'>
-        <h2 className='title'>
-          <FormattedMessage id='admin.manage-handbook.handbook-title' />
-        </h2>
+        <Titles
+          title={<FormattedMessage id='admin.manage-handbook.handbook-title' />}
+        />
 
         <div className='specialty-list row'>
           <div className='col-6 form-group'>
@@ -165,13 +167,19 @@ class ManageHandBook extends Component {
               renderHTML={(text) => mdParser.render(text)}
             />
           </div>
-          <div className='col-12'>
-            <button
-              className={
-                this.state.action === CRUD_ACTIONS.EDIT
-                  ? 'btn-edit-handbook'
-                  : 'btn-add-handbook'
-              }
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              width: '100%',
+              paddingRight: '50px',
+              marginTop: '20px',
+            }}
+          >
+            <Button
+              type='primary'
+              shape='round'
+              size='large'
               onClick={() => this.handleSaveHandBook()}
             >
               {this.state.action === CRUD_ACTIONS.EDIT ? (
@@ -179,7 +187,7 @@ class ManageHandBook extends Component {
               ) : (
                 <FormattedMessage id='admin.manage-handbook.save' />
               )}
-            </button>
+            </Button>
           </div>
         </div>
 

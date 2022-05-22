@@ -4,7 +4,7 @@ import * as actions from '../../../store/actions';
 import { FormattedMessage } from 'react-intl';
 
 import './TableManageUser.scss';
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 import Titles from '../../../components/Title';
 import { Section } from '../../../components/Secction/Section.styleds';
 
@@ -15,6 +15,7 @@ class TableManageUser extends Component {
     this.state = {
       userArray: [],
       current: 1,
+      loading: true,
     };
   }
 
@@ -28,6 +29,7 @@ class TableManageUser extends Component {
         userArray: this.props.users,
         minIndex: 0,
         maxIndex: pageSize,
+        loading: false,
       });
     }
   }
@@ -55,7 +57,7 @@ class TableManageUser extends Component {
       <Section>
         <Titles title={<FormattedMessage id='manage-user.user-list' />} />
         <div className='users-table'>
-          <table id='customers'>
+          <table id='customers' style={{ position: 'relative' }}>
             <thead>
               <tr>
                 <th>Email</th>
@@ -65,37 +67,55 @@ class TableManageUser extends Component {
                 <th>Actions</th>
               </tr>
             </thead>
-
-            <tbody>
-              {listUsers &&
-                listUsers.length > 0 &&
-                listUsers.map(
-                  (item, index) =>
-                    index >= this.state.minIndex &&
-                    index < this.state.maxIndex && (
-                      <tr key={index}>
-                        <td>{item.email}</td>
-                        <td>{item.lastName}</td>
-                        <td>{item.firstName}</td>
-                        <td>{item.address}</td>
-                        <td>
-                          <button
-                            className='btn-edit'
-                            onClick={() => this.handleEditUser(item)}
-                          >
-                            <i className='fas fa-pencil-alt'></i>
-                          </button>
-                          <button
-                            className='btn-delete'
-                            onClick={() => this.handleDeleteUser(item)}
-                          >
-                            <i className='fas fa-trash-alt'></i>
-                          </button>
-                        </td>
-                      </tr>
-                    )
-                )}
-            </tbody>
+            {this.state.loading ? (
+              <Spin
+                tip='Plese wait...'
+                size='small'
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  gap: '20px',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  top: '80px',
+                  left: '50%',
+                  transform: 'translateX( -50%)',
+                }}
+              />
+            ) : (
+              <tbody>
+                {listUsers &&
+                  listUsers.length > 0 &&
+                  listUsers.map(
+                    (item, index) =>
+                      index >= this.state.minIndex &&
+                      index < this.state.maxIndex && (
+                        <tr key={index}>
+                          <td>{item.email}</td>
+                          <td>{item.lastName}</td>
+                          <td>{item.firstName}</td>
+                          <td>{item.address}</td>
+                          <td>
+                            <button
+                              className='btn-edit'
+                              onClick={() => this.handleEditUser(item)}
+                            >
+                              <i className='fas fa-pencil-alt'></i>
+                            </button>
+                            <button
+                              className='btn-delete'
+                              onClick={() => this.handleDeleteUser(item)}
+                            >
+                              <i className='fas fa-trash-alt'></i>
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                  )}
+              </tbody>
+            )}
           </table>
         </div>
         <Pagination

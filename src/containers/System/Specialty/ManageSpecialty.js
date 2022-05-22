@@ -1,4 +1,4 @@
-import { Button, Col, Input, Row, Select, Typography } from 'antd';
+import { Button, Input } from 'antd';
 import MarkdownIt from 'markdown-it';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -10,9 +10,7 @@ import * as actions from '../../../store/actions';
 import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
 import './ManageSpecialty.scss';
 import TableManageSpecialty from './TableManageSpecialty';
-const { Option } = Select;
-const { TextArea } = Input;
-const { Text } = Typography;
+import Select from 'react-select';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -193,72 +191,6 @@ class ManageSpecialty extends Component {
             <FormattedMessage id='admin.manage-specialty.specialty-title' />
           }
         />
-        <Row gutter={[20, 20]}>
-          <Col span={16}>
-            <Row gutter={[20, 20]}>
-              <Col span={12}>
-                <Text>
-                  <FormattedMessage id='admin.manage-specialty.specialty-name' />
-                </Text>
-                <Input
-                  size='large'
-                  value={name}
-                  placeholder='Specialty Name...'
-                  onChange={(event) => this.handleOnChangeInput(event, 'name')}
-                />
-              </Col>
-              <Col span={12}>
-                <Text>
-                  <FormattedMessage id='admin.manage-doctor.clinic' />
-                </Text>
-                <Select
-                  defaultValue='Select Clinic'
-                  style={{ width: '100%' }}
-                  onChange={this.handleOnChangeSelect}
-                  size='large'
-                >
-                  {listClinic &&
-                    listClinic.length > 0 &&
-                    listClinic.map((item, index) => {
-                      return <Option key={index} value={item.label} />;
-                    })}
-                </Select>
-              </Col>
-            </Row>
-            <Row gutter={20}>
-              <Col span={24}>
-                <label>
-                  <FormattedMessage id='admin.manage-specialty.specialty-description' />
-                </label>
-                {/* <textarea
-              className='form-control'
-              rows='5'
-              onChange={(event) =>
-                this.handleOnChangeInput(event, 'description')
-              }
-            /> */}
-                <TextArea
-                  value={description}
-                  placeholder='textarea with clear icon'
-                  allowClear
-                  onChange={(event) =>
-                    this.handleOnChangeInput(event, 'description')
-                  }
-                />
-              </Col>
-            </Row>
-          </Col>
-          <Col span={8}>
-            <label>
-              <FormattedMessage id='admin.manage-specialty.specialty-image' />
-            </label>
-            <input
-              className='form-control-file'
-              type='file'
-              onChange={(event) => this.handleOnChangeImage(event)}
-            />
-          </Col>
-        </Row>
         <div className='specialty-list row'>
           <div className='col-4 form-group'>
             <label>
@@ -276,26 +208,14 @@ class ManageSpecialty extends Component {
               <FormattedMessage id='admin.manage-doctor.clinic' />
             </label>
             <Select
-              defaultValue='Select Clinic'
-              style={{ width: '100%' }}
-              onChange={this.handleOnChangeSelect}
-              size='large'
-            >
-              {listClinic &&
-                listClinic.length > 0 &&
-                listClinic.map((item, index) => {
-                  return <Option key={index} value={item.label} />;
-                })}
-            </Select>
-
-            {/* <Select
               className='choose-doctor-select'
               // value={this.state}
               onChange={this.handleOnChangeSelect}
               options={listClinic}
               placeholder={<FormattedMessage id='admin.manage-doctor.clinic' />}
               name='selectedClinic'
-            /> */}
+              style={{ width: '100%' }}
+            />
           </div>
           <div className='col-4 form-group'>
             <label>
@@ -328,19 +248,29 @@ class ManageSpecialty extends Component {
               renderHTML={(text) => mdParser.render(text)}
             />
           </div>
-          <Button
-            type='primary'
-            shape='round'
-            onClick={() => this.handleSaveSpecialty()}
-            style={{ margin: '20px' }}
-            size='large'
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              width: '100%',
+              paddingRight: '50px',
+              marginTop: '20px',
+            }}
           >
-            {action === CRUD_ACTIONS.EDIT ? (
-              <FormattedMessage id='admin.manage-specialty.edit' />
-            ) : (
-              <FormattedMessage id='admin.manage-specialty.save' />
-            )}
-          </Button>
+            <Button
+              type='primary'
+              shape='round'
+              onClick={() => this.handleSaveSpecialty()}
+              style={{ margin: '20px' }}
+              size='large'
+            >
+              {action === CRUD_ACTIONS.EDIT ? (
+                <FormattedMessage id='admin.manage-specialty.edit' />
+              ) : (
+                <FormattedMessage id='admin.manage-specialty.save' />
+              )}
+            </Button>
+          </div>
         </div>
 
         <TableManageSpecialty

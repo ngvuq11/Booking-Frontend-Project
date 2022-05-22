@@ -111,7 +111,7 @@ class ListDoctor extends Component {
                           index={index}
                           item={item}
                           language={language}
-                          onClick={this.handleViewDetailDoctor}
+                          onClick={() => this.handleViewDetailDoctor(item)}
                         />
                       )
                   )}

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 
 import './TableManageHandBook.scss';
+import Titles from '../../../components/Title';
 
 const pageSize = 10;
 class TableManageHandBook extends Component {
@@ -12,6 +13,7 @@ class TableManageHandBook extends Component {
     this.state = {
       handBookArray: [],
       current: 1,
+      loading: true,
     };
   }
 
@@ -25,6 +27,7 @@ class TableManageHandBook extends Component {
         handBookArray: this.props.allBlogs,
         minIndex: 0,
         maxIndex: pageSize,
+        loading: false,
       });
     }
   }
@@ -51,9 +54,9 @@ class TableManageHandBook extends Component {
 
     return (
       <div className='user-container'>
-        <h1 className='title-user'>TABLE HAND BOOK</h1>
+        <Titles title={'TABLE HAND BOOK'} />
         <div className='users-table'>
-          <table id='customers'>
+          <table id='customers' style={{ position: 'relative' }}>
             <thead>
               <tr>
                 <th>STT</th>
@@ -61,35 +64,53 @@ class TableManageHandBook extends Component {
                 <th>Options</th>
               </tr>
             </thead>
-
-            <tbody>
-              {handBookArray &&
-                handBookArray.length > 0 &&
-                handBookArray.map(
-                  (item, index) =>
-                    index >= this.state.minIndex &&
-                    index < this.state.maxIndex && (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{item.name}</td>
-                        <td>
-                          <button
-                            className='btn-edit'
-                            onClick={() => this.handleEditHandBook(item)}
-                          >
-                            <i className='fas fa-pencil-alt'></i>
-                          </button>
-                          <button
-                            className='btn-delete'
-                            onClick={() => this.handleDeleteHandBook(item)}
-                          >
-                            <i className='fas fa-trash-alt'></i>
-                          </button>
-                        </td>
-                      </tr>
-                    )
-                )}
-            </tbody>
+            {this.state.loading ? (
+              <Spin
+                tip='Plese wait...'
+                size='small'
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  gap: '20px',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  top: '80px',
+                  left: '50%',
+                  transform: 'translateX( -50%)',
+                }}
+              />
+            ) : (
+              <tbody>
+                {handBookArray &&
+                  handBookArray.length > 0 &&
+                  handBookArray.map(
+                    (item, index) =>
+                      index >= this.state.minIndex &&
+                      index < this.state.maxIndex && (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{item.name}</td>
+                          <td>
+                            <button
+                              className='btn-edit'
+                              onClick={() => this.handleEditHandBook(item)}
+                            >
+                              <i className='fas fa-pencil-alt'></i>
+                            </button>
+                            <button
+                              className='btn-delete'
+                              onClick={() => this.handleDeleteHandBook(item)}
+                            >
+                              <i className='fas fa-trash-alt'></i>
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                  )}
+              </tbody>
+            )}
           </table>
         </div>
         <Pagination
@@ -97,6 +118,7 @@ class TableManageHandBook extends Component {
           onChange={this.handleChangePageNumber}
           pageSize={pageSize}
           total={handBookArray.length}
+          style={{ marginTop: '20px', textAlign: 'end' }}
         />
       </div>
     );
