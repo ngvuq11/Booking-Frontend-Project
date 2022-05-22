@@ -15,7 +15,7 @@ class CopyRight extends Component {
   render() {
     return (
       <CoppyRightWrapper>
-        <Text>2022 - Khoa Luan Team</Text>
+        <Text>Copyright © Design by Khoa Luan - Booking</Text>
       </CoppyRightWrapper>
     );
   }

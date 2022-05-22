@@ -16,7 +16,7 @@ class DetailBlog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-       dataBlog: {},
+      dataBlog: {},
       isLoading: false,
     };
   }
@@ -51,7 +51,7 @@ class DetailBlog extends Component {
   render() {
     let { dataBlog, isLoading } = this.state;
     // let { language } = this.props;
-   console.log(dataBlog);
+    console.log(dataBlog);
 
     return (
       <>
@@ -79,9 +79,9 @@ class DetailBlog extends Component {
                   <Breadcrumb.Item>
                     <Text
                       style={{ cursor: 'pointer' }}
-                      onClick={() => this.props.history.push('/list-doctor')}
+                      onClick={() => this.props.history.push('/list-blogs')}
                     >
-                      Danh sách các phòng khám
+                      Blogs
                     </Text>
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>
