@@ -6,7 +6,7 @@ import './DoctorInfor.scss';
 DoctorInfor.propTypes = {};
 
 function DoctorInfor(props) {
-  const { item, index, language } = props;
+  const { item, index, language, onClick } = props;
   let imageBase64 = '';
   if (item.image) {
     imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
@@ -37,11 +37,7 @@ function DoctorInfor(props) {
           <span>Address: </span>
           {item.address}
         </div>
-        <Button
-          type='primary'
-          ghost
-          onClick={() => this.handleViewDetailDoctor(item)}
-        >
+        <Button type='primary' ghost onClick={onClick}>
           Xem thêm
         </Button>
       </div>

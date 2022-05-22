@@ -5,6 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import { ContainerOutlined } from '@ant-design/icons';
 import { useHistory, useLocation } from 'react-router';
 import { BsFillCalendarDateFill, BsFillPersonFill } from 'react-icons/bs';
+import { GiMagnifyingGlass } from 'react-icons/gi';
+import { AiFillHome } from 'react-icons/ai';
+import { FaMoneyCheckAlt } from 'react-icons/fa';
 
 function AdminMenu(props) {
   const history = useHistory();
@@ -34,14 +37,14 @@ function AdminMenu(props) {
     },
     {
       key: 4,
-      icon: <ContainerOutlined />,
+      icon: <GiMagnifyingGlass />,
       text: <FormattedMessage id='menu.admin.manage-specialty' />,
       pathName: 'manage-specialty',
       to: '/system/manage-specialty',
     },
     {
       key: 5,
-      icon: <ContainerOutlined />,
+      icon: <AiFillHome />,
       text: <FormattedMessage id='menu.admin.manage-clinic' />,
       pathName: 'manage-clinic',
       to: '/system/manage-clinic',
@@ -55,7 +58,7 @@ function AdminMenu(props) {
     },
     {
       key: 7,
-      icon: <ContainerOutlined />,
+      icon: <FaMoneyCheckAlt />,
       text: <FormattedMessage id='menu.admin.manage-payment' />,
       pathName: 'manage-payment',
       to: '/system/manage-payment',

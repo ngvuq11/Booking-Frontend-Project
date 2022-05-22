@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import LoadingOverlay from 'react-loading-overlay';
 import { connect } from 'react-redux';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title';
 import {
   getMedicalRecordForDoctor,
   getPatientforDoctorById,
@@ -78,10 +80,12 @@ class ManageMedicalRecord extends Component {
           spinner
           text='Plese wait...'
         >
-          <div className='manage-patient'>
-            <h2 className='title'>
-              <FormattedMessage id='menu.doctor.manage-medical-record' />
-            </h2>
+          <Section className='manage-patient'>
+            <Titles
+              title={
+                <FormattedMessage id='menu.doctor.manage-medical-record' />
+              }
+            />
 
             <div className='manage-patient-body'>
               <div className='row'>
@@ -133,7 +137,7 @@ class ManageMedicalRecord extends Component {
                 </div>
               </div>
             </div>
-          </div>
+          </Section>
 
           <PatientDetail
             detailPatient={detailPatient}

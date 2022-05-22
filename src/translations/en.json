@@ -28,8 +28,8 @@
       "manage-payment": "Payments"
     },
     "doctor": {
-      "manage-schedule": "Doctor Schedule",
-      "manage-patient": "Doctor Patient",
+      "manage-schedule": "Schedule",
+      "manage-patient": "Patients",
       "manage-medical-record": "Medical Record",
       "medical-record": {
         "list-medical-record": "List of patients examined"
@@ -87,14 +87,15 @@
       "desc3": "High-quality medical services, serving patients wholeheartedly, anytime, anywhere"
     },
     "experience": {
-       "title": "Our Abilities",
-       "desc": "With a professional medical team, along with the most modern medical supplies, we are proud to bring the best care to our customers."
+      "title": "Our Abilities",
+      "desc": "With a professional medical team, along with the most modern medical supplies, we are proud to bring the best care to our customers."
     }
   },
   "manage-schedule": {
     "title": "Manage medical examination plan",
     "choose-doctor": "Choose doctor",
     "choose-date": "Choose day/month/year",
+    "choose-time": "Choose time",
     "btn-save": "Save information"
   },
   "patient": {
