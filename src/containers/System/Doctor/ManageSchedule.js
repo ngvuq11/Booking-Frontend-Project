@@ -145,7 +145,9 @@ class ManageSchedule extends Component {
               />
 
               <Space direction='vertical'>
-                <Title level={3}>Chọn khung giờ</Title>
+                <Title level={3}>
+                  <FormattedMessage id={'manage-schedule.choose-time'} />
+                </Title>
                 <Space wrap style={{ width: '824px' }}>
                   {rangeTime &&
                     rangeTime.length > 0 &&

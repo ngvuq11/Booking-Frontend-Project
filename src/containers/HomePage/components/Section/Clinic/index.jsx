@@ -74,7 +74,7 @@ class Clinic extends Component {
                 ghost
                 onClick={() => this.handleviewAllClinic()}
               >
-                Xem thêm
+                <FormattedMessage id='global.see-more' />
               </Button>
             </div>
           </Space>

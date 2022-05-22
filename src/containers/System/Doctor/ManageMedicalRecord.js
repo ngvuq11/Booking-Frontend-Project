@@ -120,7 +120,7 @@ class ManageMedicalRecord extends Component {
                                       this.handleShowDetailPatientModal(item)
                                     }
                                   >
-                                    <FormattedMessage id='menu.doctor.medical-record.see-more' />
+                                    <FormattedMessage id='global.see-more' />
                                   </button>
                                 </div>
                               </td>

@@ -48,7 +48,7 @@ class ManageSpecialty extends Component {
         descriptionHTML: '',
         descriptionMarkdown: '',
         clinicId: '',
-        listClinic: this.props.allSpecialties,
+        listClinic: '',
         action: CRUD_ACTIONS.CREATE,
       });
     }
@@ -146,6 +146,7 @@ class ManageSpecialty extends Component {
   };
 
   handleEditSpecialty = (specialty) => {
+    console.log(specialty.clinicId);
     let imageBase64 = '';
     if (specialty.image) {
       imageBase64 = Buffer.from(specialty.image, 'base64').toString('binary');
@@ -181,8 +182,6 @@ class ManageSpecialty extends Component {
   render() {
     let { name, description, descriptionMarkdown, listClinic, action } =
       this.state;
-
-    console.log(listClinic);
 
     return (
       <Section>
@@ -265,9 +264,9 @@ class ManageSpecialty extends Component {
               size='large'
             >
               {action === CRUD_ACTIONS.EDIT ? (
-                <FormattedMessage id='admin.manage-specialty.edit' />
+                <FormattedMessage id='global.btn-update' />
               ) : (
-                <FormattedMessage id='admin.manage-specialty.save' />
+                <FormattedMessage id='global.btn-create' />
               )}
             </Button>
           </div>

@@ -5,6 +5,7 @@ import { Pagination, Spin } from 'antd';
 
 import './TableManageHandBook.scss';
 import Titles from '../../../components/Title';
+import { FormattedMessage } from 'react-intl';
 
 const pageSize = 10;
 class TableManageHandBook extends Component {
@@ -54,7 +55,7 @@ class TableManageHandBook extends Component {
 
     return (
       <div className='user-container'>
-        <Titles title={'TABLE HAND BOOK'} />
+        <Titles title={<FormattedMessage id='admin.manage-handbook.table' />} />
         <div className='users-table'>
           <table id='customers' style={{ position: 'relative' }}>
             <thead>

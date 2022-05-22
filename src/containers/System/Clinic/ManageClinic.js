@@ -209,9 +209,9 @@ class ManageClinic extends Component {
               style={{ marginTop: '20px' }}
             >
               {this.state.action === CRUD_ACTIONS.EDIT ? (
-                <FormattedMessage id='admin.manage-clinic.edit' />
+                <FormattedMessage id='global.btn-update' />
               ) : (
-                <FormattedMessage id='admin.manage-clinic.save' />
+                <FormattedMessage id='global.btn-create' />
               )}
             </Button>
           </div>

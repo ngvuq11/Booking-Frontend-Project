@@ -1,5 +1,6 @@
 import { Pagination, Spin } from 'antd';
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Section } from '../../../components/Secction/Section.styleds';
 import Titles from '../../../components/Title';
@@ -55,7 +56,9 @@ class TableManageSpecialty extends Component {
 
     return (
       <Section className='user-container'>
-        <Titles title='TABLE SPECIALTY' />
+        <Titles
+          title={<FormattedMessage id='admin.manage-specialty.table' />}
+        />
         <div className='users-table'>
           <table id='customers' style={{ position: 'relative' }}>
             <thead>
