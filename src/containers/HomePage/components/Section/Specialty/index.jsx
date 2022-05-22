@@ -74,7 +74,7 @@ class Specialty extends Component {
                 ghost
                 onClick={() => this.handleViewAllSpecialty()}
               >
-                Xem tất cả
+                <FormattedMessage id='global.see-more' />
               </Button>
             </div>
           </Space>

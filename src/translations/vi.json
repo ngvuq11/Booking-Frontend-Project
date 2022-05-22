@@ -1,4 +1,9 @@
 {
+  "global": {
+    "btn-create": "Thêm mới",
+    "btn-update": "Cập nhật",
+    "see-more": "Xem thêm"
+  },
   "header": {
     "specialty-menu": "Chuyên khoa",
     "clinic-menu": "Cơ sở y tế",
@@ -9,16 +14,6 @@
     "language": "VN",
     "welcome": "Xin chào, "
   },
-  "banner": {
-    "basic": "Nền tảng y tế",
-    "title": "Chăm sóc sức khỏe toàn diện",
-    "examination1": "Khám chuyên khoa",
-    "examination2": "Khám từ xa",
-    "examination3": "Khám tổng quát",
-    "examination4": "Xét nghiệm y học",
-    "examination5": "Sức khỏe tinh thần",
-    "examination6": "Khám nha khoa"
-  },
   "menu": {
     "admin": {
       "manage": "User System",
@@ -27,9 +22,7 @@
       "manage-doctor": "Bác sĩ",
       "manage-admin": "Admin",
       "manage-user": "Người dùng",
-      "clinic": "Phòng khám",
       "manage-clinic": "Phòng khám",
-      "specialty": "Chuyên khoa",
       "manage-specialty": "Chuyên khoa",
       "manage-handbook": "Cẩm nang",
       "manage-payment": "Thanh toán"
@@ -39,8 +32,7 @@
       "manage-patient": "Bệnh nhân",
       "manage-medical-record": "Bệnh án",
       "medical-record": {
-        "list-medical-record": "Danh sách bệnh nhân khám bệnh",
-        "see-more": "Xem thêm"
+        "list-medical-record": "Danh sách bệnh nhân khám bệnh"
       },
       "patient": {
         "choose-date": "Chọn ngày khám",
@@ -66,7 +58,6 @@
     "user-list": "Danh sách người dùng"
   },
   "home-page": {
-    "see-more": "Xem thêm",
     "outstanding-doctor": "Bác sĩ nổi bật",
     "specialty-popular": "Chuyên khoa phổ biến",
     "clinic": "Phòng khám",
@@ -82,6 +73,25 @@
       "province-city": "Tỉnh/TP",
       "average": "Trung bình 7 ngày",
       "number-of-infections": "Số ca nhiễm"
+    },
+    "doctor": {
+      "title": "ĐỘI NGŨ CHUYÊN NGHIỆP",
+      "desc": "CÁC BÁC SĨ CÓ THÀNH TỰU THÀNH CÔNG TRONG NGHÀNH"
+    },
+    "banner": {
+      "title1": "Được Sở Y Tế cấp phép",
+      "title2": "Đội ngũ bác sĩ chuyên môn cao",
+      "title3": "Dịch vụ khám chữa chất lượng",
+      "desc1": "Phòng khám được Sở Y Tế cấp phép hoạt động, phê duyệt danh mục kỹ thuật khám chữa đảm bảo tính pháp lý",
+      "desc2": "Đội ngũ bác sĩ, thạc sĩ, tiến sĩ đầu ngành với hơn 20 năm kinh nghiệm và đội ngũ bác sĩ trẻ tài năng, nhiệt huyết với nghề",
+      "desc3": "Dịch vụ y tế chất lượng cao, phục vụ bệnh nhân khi đến khám chữa bệnh tận tình, mội lúc, mọi nơi"
+    },
+    "experience": {
+      "title": "Năng lực của chúng tôi",
+      "desc": "Với đội ngũ y tế chuyên nghiệp, cùng với vật tư y tế hiện đại bật nhất, chúng tôi tự hào mang lại dịch vụ chăm sóc tốt nhất đến khách hàng"
+    },
+    "about": {
+       
     }
   },
   "manage-schedule": {
@@ -139,6 +149,7 @@
       "specialty-name": "Tên chuyên khoa",
       "specialty-image": "Ảnh chuyên khoa",
       "specialty-description": "Mô tả chuyên khoa",
+      "table": "Danh sách chuyên khoa",
       "save": "Lưu thông tin",
       "edit": "Cập nhật thông tin"
     },
@@ -147,6 +158,7 @@
       "clinic-name": "Tên phòng khám",
       "clinic-address": "Địa chỉ phòng khám",
       "clinic-image": "Ảnh phòng khám",
+      "table": "Danh sách phòng khám",
       "save": "Lưu thông tin",
       "edit": "Cập nhật thông tin"
     },
@@ -155,6 +167,7 @@
       "handbook-name": "Tên phòng khám",
       "handbook-address": "Địa chỉ phòng khám",
       "handbook-image": "Ảnh phòng khám",
+      "table": "Danh sách Blog",
       "save": "Lưu thông tin",
       "edit": "Cập nhật thông tin"
     }

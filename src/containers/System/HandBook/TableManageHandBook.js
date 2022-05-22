@@ -4,6 +4,7 @@ import * as actions from '../../../store/actions';
 import { Pagination } from 'antd';
 
 import './TableManageHandBook.scss';
+import { FormattedMessage } from 'react-intl';
 
 const pageSize = 10;
 class TableManageHandBook extends Component {
@@ -51,7 +52,9 @@ class TableManageHandBook extends Component {
 
     return (
       <div className='user-container'>
-        <h1 className='title-user'>TABLE HAND BOOK</h1>
+        <h1 className='title-user'>
+          <FormattedMessage id='admin.manage-handbook.table' />
+        </h1>
         <div className='users-table'>
           <table id='customers'>
             <thead>

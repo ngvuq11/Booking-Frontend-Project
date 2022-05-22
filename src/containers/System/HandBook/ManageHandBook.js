@@ -175,9 +175,9 @@ class ManageHandBook extends Component {
               onClick={() => this.handleSaveHandBook()}
             >
               {this.state.action === CRUD_ACTIONS.EDIT ? (
-                <FormattedMessage id='admin.manage-handbook.edit' />
+                <FormattedMessage id='global.btn-update' />
               ) : (
-                <FormattedMessage id='admin.manage-handbook.save' />
+                <FormattedMessage id='global.btn-create' />
               )}
             </button>
           </div>

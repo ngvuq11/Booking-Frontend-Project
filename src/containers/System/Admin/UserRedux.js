@@ -437,9 +437,9 @@ class UserRedux extends Component {
                   onClick={() => this.handleSaveUser()}
                 >
                   {this.state.action === CRUD_ACTIONS.EDIT ? (
-                    <FormattedMessage id='manage-user.update' />
+                    <FormattedMessage id='global.btn-update' />
                   ) : (
-                    <FormattedMessage id='manage-user.create' />
+                    <FormattedMessage id='global.btn-create' />
                   )}
                 </button>
               </div>
