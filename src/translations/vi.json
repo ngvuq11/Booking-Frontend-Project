@@ -98,6 +98,7 @@
     "title": "Quản lý kế hoạch khám bệnh",
     "choose-doctor": "Chọn bác sĩ",
     "choose-date": "Chọn ngày/tháng/năm",
+    "choose-time": "Chọn giờ",
     "btn-save": "Lưu thông tin"
   },
   "patient": {

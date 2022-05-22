@@ -1,9 +1,8 @@
 import { Component } from 'react';
-import NumberFormat from 'react-number-format';
 import { connect } from 'react-redux';
 import {
-  getMedicalRecordForDoctor,
-  getProfileDoctor,
+   getMedicalRecordForDoctor,
+   getProfileDoctor
 } from '../../../services/userService';
 import StatusCard from '../Admin/StatusCard';
 

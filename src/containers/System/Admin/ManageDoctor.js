@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-import Select from 'react-select';
+import { Button } from 'antd';
 import MarkdownIt from 'markdown-it';
-import { connect } from 'react-redux';
-import MdEditor from 'react-markdown-editor-lite';
-import { CRUD_ACTIONS, LANGUAGES } from '../../../utils';
-import * as actions from '../../../store/actions';
-import { getDetailInforDoctor } from '../../../services/userService';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-
-import './ManageDoctor.scss';
+import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
+import { connect } from 'react-redux';
+import Select from 'react-select';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title';
+import { getDetailInforDoctor } from '../../../services/userService';
+import * as actions from '../../../store/actions';
+import { CRUD_ACTIONS, LANGUAGES } from '../../../utils';
+import './ManageDoctor.scss';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -295,10 +297,8 @@ class ManageDoctor extends Component {
     let { hasOldData } = this.state;
 
     return (
-      <div className='manage-doctor'>
-        <h2 className='title'>
-          <FormattedMessage id='admin.manage-doctor.title' />
-        </h2>
+      <Section>
+        <Titles title={<FormattedMessage id='admin.manage-doctor.title' />} />
         <div className='manage-doctor-more-infor'>
           <div className='more-infor-left'>
             <div className='choose-doctor form-group'>
@@ -442,7 +442,7 @@ class ManageDoctor extends Component {
             renderHTML={(text) => mdParser.render(text)}
           />
         </div>
-        <button
+        {/* <button
           className={hasOldData === true ? 'save-doctor' : 'create-doctor'}
           onClick={() => this.handleSaveMarkdown()}
         >
@@ -455,8 +455,35 @@ class ManageDoctor extends Component {
               <FormattedMessage id='global.btn-create' />
             </span>
           )}
-        </button>
-      </div>
+        </button> */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            width: '100%',
+            paddingRight: '50px',
+            marginTop: '20px',
+          }}
+        >
+          <Button
+            type='primary'
+            shape='round'
+            onClick={() => this.handleSaveMarkdown()}
+            style={{ marginTop: '20px' }}
+            size='large'
+          >
+            {hasOldData === true ? (
+              <span>
+                <FormattedMessage id='admin.manage-doctor.update-infor' />
+              </span>
+            ) : (
+              <span>
+                <FormattedMessage id='admin.manage-doctor.create-infor' />
+              </span>
+            )}
+          </Button>
+        </div>
+      </Section>
     );
   }
 }
