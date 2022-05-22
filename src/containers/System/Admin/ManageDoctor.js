@@ -448,11 +448,11 @@ class ManageDoctor extends Component {
         >
           {hasOldData === true ? (
             <span>
-              <FormattedMessage id='admin.manage-doctor.update-infor' />
+              <FormattedMessage id='global.btn-update' />
             </span>
           ) : (
             <span>
-              <FormattedMessage id='admin.manage-doctor.create-infor' />
+              <FormattedMessage id='global.btn-create' />
             </span>
           )}
         </button>

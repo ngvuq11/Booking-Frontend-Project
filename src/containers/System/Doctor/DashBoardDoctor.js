@@ -76,12 +76,6 @@ class DashBoardDoctor extends Component {
               icon='fas fa-dollar-sign'
               count={'$' + newDataPatient.length * priceData + '.00'}
             />
-            <NumberFormat
-              value={newDataPatient.length * priceData + '.00'}
-              displayType={'text'}
-              thousandSeparator={true}
-              prefix={'$'}
-            />
           </div>
           <div className='dashboard-top-right'></div>
         </div>

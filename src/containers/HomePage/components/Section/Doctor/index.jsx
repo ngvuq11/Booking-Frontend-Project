@@ -1,5 +1,6 @@
 import { Button, Space, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Container } from '../../../../../components/Container/Container.styles';
@@ -65,10 +66,10 @@ class Specialty extends Component {
                   level={3}
                   className='home__list--doctor--title title__green'
                 >
-                  ĐỘI NGŨ CHUYÊN NGHIỆP
+                  <FormattedMessage id='home-page.doctor.title' />
                 </Title>
                 <Title level={3} className='home__list--doctor--title'>
-                  CÁC BÁC SĨ CỦA PHÒNG KHÁM ĐA KHOA THÀNH CÔNG
+                  <FormattedMessage id='home-page.doctor.desc' />
                 </Title>
                 <div className='home__list--doctor'>
                   {arrDoctors &&
@@ -106,7 +107,7 @@ class Specialty extends Component {
                     ghost
                     onClick={() => this.handleViewAllDoctor()}
                   >
-                    Xem thêm
+                    <FormattedMessage id='global.see-more' />
                   </Button>
                 </div>
               </Space>

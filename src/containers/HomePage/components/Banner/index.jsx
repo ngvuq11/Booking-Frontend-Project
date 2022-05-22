@@ -5,6 +5,7 @@ import { Container } from '../../../../components/Container/Container.styles';
 import { Col, Image, Row, Space, Typography } from 'antd';
 import Slider from 'react-slick';
 import './Banner.scss';
+import { FormattedMessage } from 'react-intl';
 
 const bannerImage = [
   'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1191&q=80',
@@ -55,11 +56,10 @@ function Banner(props) {
                   level={5}
                   style={{ fontWeight: '900', color: '#ff6633' }}
                 >
-                  Được Sở Y Tế cấp phép
+                  <FormattedMessage id='home-page.banner.title1' />
                 </Title>
                 <Text>
-                  Phòng khám được Sở Y Tế cấp phép hoạt động, phê duyệt danh mục
-                  kỹ thuật khám chữa đảm bảo tính pháp lý
+                  <FormattedMessage id='home-page.banner.desc1' />
                 </Text>
               </div>
               <div className='banner__item'>
@@ -67,11 +67,10 @@ function Banner(props) {
                   level={5}
                   style={{ fontWeight: '900', color: '#ff6633' }}
                 >
-                  Đội ngũ bác sĩ chuyên môn cao
+                  <FormattedMessage id='home-page.banner.title2' />
                 </Title>
                 <Text>
-                  Đội ngũ bác sĩ, thạc sĩ, tiến sĩ đầu ngành với hơn 20 năm kinh
-                  nghiệm và đội ngũ bác sĩ trẻ tài năng, nhiệt huyết với nghề
+                  <FormattedMessage id='home-page.banner.desc2' />
                 </Text>
               </div>
               <div className='banner__item'>
@@ -80,11 +79,10 @@ function Banner(props) {
                   style={{ fontWeight: '900', color: '#ff6633' }}
                 >
                   {' '}
-                  Dịch vụ khám chữa chất lượng
+                  <FormattedMessage id='home-page.banner.title3' />
                 </Title>
                 <Text>
-                  Dịch vụ y tế chất lượng cao, phục vụ bệnh nhân khi đến khám
-                  chữa bệnh tận tình, mội lúc, mọi nơi
+                  <FormattedMessage id='home-page.banner.desc3' />
                 </Text>
               </div>
             </Space>

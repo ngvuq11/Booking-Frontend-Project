@@ -1,5 +1,6 @@
 import { Pagination } from 'antd';
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 
@@ -51,7 +52,9 @@ class TableManageClinic extends Component {
 
     return (
       <div className='user-container'>
-        <h1 className='title-user'>TABLE SPECIALTY</h1>
+        <h1 className='title-user'>
+          <FormattedMessage id='admin.manage-clinic.table' />
+        </h1>
         <div className='users-table'>
           <table id='customers'>
             <thead>

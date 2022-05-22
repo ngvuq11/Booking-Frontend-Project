@@ -1,5 +1,6 @@
 import { Space, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { Container } from '../../../../../components/Container/Container.styles';
 import {
@@ -81,13 +82,13 @@ function Experience(props) {
           }}
           className='experience__space'
         >
-          <Title style={{ color: '#fff' }}>Năng lực của chúng tôi</Title>
+          <Title style={{ color: '#fff' }}>
+            <FormattedMessage id='home-page.experience.title' />
+          </Title>
           <div
             style={{ fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}
           >
-            Với đội ngũ y tế chuyên nghiệp, cùng với vật tư y tế hiện đại bật
-            nhất, chúng tôi tự hào mang lại dịch vụ chăm sóc tốt nhất đến khách
-            hàng
+            <FormattedMessage id='home-page.experience.desc' />
           </div>
           <Space
             size={20}
