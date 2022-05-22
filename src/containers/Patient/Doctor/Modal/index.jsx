@@ -9,8 +9,8 @@ import Select from 'react-select';
 import { toast } from 'react-toastify';
 import DatePicker from '../../../../components/Input/DatePicker';
 import {
-   postBookAppointment,
-   postPaymentPatient
+  postBookAppointment,
+  postPaymentPatient,
 } from '../../../../services/userService';
 import * as actions from '../../../../store/actions';
 import { LANGUAGES } from '../../../../utils';
@@ -53,7 +53,7 @@ class BookingModal extends Component {
       }
     }
     this.props.getGenders();
-    
+
     setTimeout(() => {
       window.paypal
         .Buttons({
@@ -513,7 +513,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getGenders: () => dispatch(actions.fetchGenderStart()),
-    fetchDetailInforDoctor: (id) => dispatch(actions.fetchDetailInforDoctor(id)),
+    fetchDetailInforDoctor: (id) =>
+      dispatch(actions.fetchDetailInforDoctor(id)),
   };
 };
 

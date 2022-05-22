@@ -1,20 +1,13 @@
+import { Button } from 'antd';
 import MarkdownIt from 'markdown-it';
-
 import React, { Component } from 'react';
-
-import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
-
 import { FormattedMessage } from 'react-intl';
 import MdEditor from 'react-markdown-editor-lite';
-
 import { connect } from 'react-redux';
-import * as actions from '../../../store/actions';
-
-import TableManageHandBook from './TableManageHandBook';
-
-import './ManageHandBook.scss';
 import Titles from '../../../components/Title';
-import { Button } from 'antd';
+import * as actions from '../../../store/actions';
+import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
+import TableManageHandBook from './TableManageHandBook';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 

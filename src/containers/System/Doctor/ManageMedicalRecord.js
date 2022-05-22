@@ -8,7 +8,6 @@ import {
   getMedicalRecordForDoctor,
   getPatientforDoctorById,
 } from '../../../services/userService';
-import './ManageMedicalRecord.scss';
 import PatientDetail from './PatentDetail';
 
 class ManageMedicalRecord extends Component {

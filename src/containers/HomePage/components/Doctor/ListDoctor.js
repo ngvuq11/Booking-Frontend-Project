@@ -12,7 +12,7 @@ import './ListDoctor.scss';
 import Search from './Search';
 
 const { Text } = Typography;
-const pageSize = 4;
+const pageSize = 8;
 class ListDoctor extends Component {
   constructor(props) {
     super(props);

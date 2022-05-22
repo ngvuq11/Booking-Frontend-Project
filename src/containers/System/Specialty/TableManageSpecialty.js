@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Section } from '../../../components/Secction/Section.styleds';
 import Titles from '../../../components/Title';
 import * as actions from '../../../store/actions';
-
 import './TableManageSpecialty.scss';
 
 const pageSize = 10;

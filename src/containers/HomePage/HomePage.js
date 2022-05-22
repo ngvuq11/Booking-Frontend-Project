@@ -1,4 +1,5 @@
 import { Spin } from 'antd';
+import 'antd/dist/antd.css';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import 'slick-carousel/slick/slick-theme.css';

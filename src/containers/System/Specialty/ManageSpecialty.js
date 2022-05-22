@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import MdEditor from 'react-markdown-editor-lite';
 import { connect } from 'react-redux';
+import Select from 'react-select';
 import { Section } from '../../../components/Secction/Section.styleds';
 import Titles from '../../../components/Title';
 import * as actions from '../../../store/actions';
 import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
 import './ManageSpecialty.scss';
 import TableManageSpecialty from './TableManageSpecialty';
-import Select from 'react-select';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 

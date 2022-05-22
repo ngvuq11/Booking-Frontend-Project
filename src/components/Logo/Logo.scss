@@ -1,0 +1,11 @@
+.logo--main {
+  width: fit-content;
+  .logo__content {
+    font-size: 30px !important;
+    font-weight: bold;
+    color: #ff0707d9 !important;
+    letter-spacing: 1px;
+    cursor: pointer;
+    user-select: none;
+  }
+}

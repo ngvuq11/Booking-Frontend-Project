@@ -9,7 +9,6 @@ import Footer from '../../HomePage/components/Section/Footer';
 import { Breadcrumb, Spin, Typography } from 'antd';
 import { Section } from '../../../components/Secction/Section.styleds';
 import { Container } from '../../../components/Container/Container.styles';
-import './DetailBlog.scss';
 
 const { Text } = Typography;
 class DetailBlog extends Component {
