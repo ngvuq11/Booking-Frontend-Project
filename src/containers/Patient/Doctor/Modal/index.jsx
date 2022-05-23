@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Modal, Row, Space, Typography } from 'antd';
+import { Button, Col, Form, Input, Modal, Row, Space } from 'antd';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { Component } from 'react';
@@ -9,16 +9,16 @@ import Select from 'react-select';
 import { toast } from 'react-toastify';
 import DatePicker from '../../../../components/Input/DatePicker';
 import {
+  getDetailInforDoctor,
   postBookAppointment,
   postPaymentPatient,
-  getDetailInforDoctor,
 } from '../../../../services/userService';
 import * as actions from '../../../../store/actions';
 import { LANGUAGES } from '../../../../utils';
 import ProfileDoctor from '../ProfileDoctor/index';
+import Titles from '../../../../components/Title/index';
 import './BookingModal.scss';
 
-const { Title } = Typography;
 const { TextArea } = Input;
 
 class BookingModal extends Component {
@@ -296,31 +296,13 @@ class BookingModal extends Component {
         <Modal
           visible={isOpenModalBooking}
           className={'booking-modal'}
-          footer={[
-            <Button type='danger' ghost onClick={closeBookingModal}>
-              Cancel
-            </Button>,
-            <>
-              {(paymentMethod && paymentMethod.valueEn === 'Credit card') ||
-              paymentMethod.valueVi === 'Thẻ ATM' ? (
-                <div className='payment-root'></div>
-              ) : (
-                <Button
-                  form='myForm'
-                  type='primary'
-                  htmlType='submit'
-                  onClick={() => this.handleConfirmBooking()}
-                >
-                  Submit
-                </Button>
-              )}
-            </>,
-          ]}
+          onCancel={closeBookingModal}
+          footer={[]}
         >
           <Space direction='vertical' size={15} style={{ display: 'flex' }}>
-            <Title level={4}>
-              <FormattedMessage id='patient.booking-modal.title' />
-            </Title>
+            <Titles
+              title={<FormattedMessage id='patient.booking-modal.title' />}
+            />
 
             <ProfileDoctor
               doctorId={doctorId}
@@ -496,6 +478,29 @@ class BookingModal extends Component {
                     </Form.Item>
                   </Col>
                 </Row>
+                <Row gutter={[10, 10]}>
+                  <Col span={21}>
+                    {(paymentMethod &&
+                      paymentMethod.valueEn === 'Credit card') ||
+                    paymentMethod.valueVi === 'Thẻ ATM' ? (
+                      <div className='payment-root'></div>
+                    ) : (
+                      <Button
+                        form='myForm'
+                        type='primary'
+                        htmlType='submit'
+                        onClick={() => this.handleConfirmBooking()}
+                      >
+                        Submit
+                      </Button>
+                    )}
+                  </Col>
+                  <Col span={3}>
+                    <Button type='danger' onClick={closeBookingModal}>
+                      Cancel
+                    </Button>
+                  </Col>
+                </Row>
               </Form>
             </Row>
           </Space>
@@ -508,7 +513,7 @@ class BookingModal extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    genders: state.admin.genders
+    genders: state.admin.genders,
   };
 };
 
