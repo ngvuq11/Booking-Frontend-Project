@@ -28,7 +28,7 @@ function About(props) {
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12}>
                   <Titles title={'TẦM NHÌN & SỨ MỆNH:'} />
-                  <Text style={{ textAlign: 'justify' }}>
+                  <Text style={{ textAlign: 'justify', lineHeight: '1.5' }}>
                     “Sự đổi mới các phương diện chất lượng y tế từ quản lý bệnh
                     nhân đến tiêu chuẩn dịch vụ khách hàng nhằm mang lại dịch vụ
                     chăm sóc sức khỏe ban đầu tốt nhất cho tất cả tầng lớp bệnh
@@ -60,7 +60,7 @@ function About(props) {
                   style={{ padding: '0 10px' }}
                 >
                   <Titles title={'GIÁ TRỊ CỦA CHÚNG TÔI:'} />
-                  <Text style={{ textAlign: 'justify' }}>
+                  <Text style={{ textAlign: 'justify', lineHeight: '1.5' }}>
                     – Là sự kết hợp giữa tiêu chuẩn dịch vụ, phục vụ cao và chất
                     lượng khám nhằm mang lại giá trị tốt nhất cho bệnh nhân.{' '}
                     <br />– Là sự cân bằng giữa chất lượng trình độ chuyên môn
