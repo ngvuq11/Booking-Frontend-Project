@@ -276,11 +276,6 @@ class BookingModal extends Component {
       doctorName =
         dataTime.doctorIdData.lastName + ' ' + dataTime.doctorIdData.firstName;
     }
-
-    let paymentMethod = paymentIdData;
-
-    console.log('hihi', doctorName);
-
     return (
       <LoadingOverlay
         active={this.state.isLoading}
@@ -503,7 +498,7 @@ class BookingModal extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    genders: state.admin.genders
+    genders: state.admin.genders,
   };
 };
 
