@@ -31,6 +31,26 @@
           padding: 8px;
         }
 
+        td.paid {
+          span {
+            background-color: rgb(49, 187, 49);
+            color: white;
+            font-weight: bold;
+            padding: 5px 20px;
+            border-radius: 15px;
+          }
+        }
+
+        td.unpaid {
+          span {
+            background-color: rgb(187, 49, 49);
+            color: white;
+            font-weight: bold;
+            padding: 5px 20px;
+            border-radius: 15px;
+          }
+        }
+
         td.actions {
           .btn-container {
             width: 100%;

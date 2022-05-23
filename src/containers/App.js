@@ -1,29 +1,30 @@
-import React, { Component, Fragment } from 'react';
-import { path } from '../utils';
-import { history } from '../redux';
-import { connect } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
-import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import {
   userIsAuthenticated,
   userIsNotAuthenticated,
-} from '../hoc/authentication';
-
-import Login from './Auth/Login';
+} from '../auth/authentication';
+import CustomScrollbars from '../components/CustomScrollbar/CustomScrollbars';
+import Covid19 from '../containers/HomePage/components/Covid19/Covid19';
+import { history } from '../redux';
+import Doctor from '../routes/Doctor';
 import Home from '../routes/Home';
 import System from '../routes/System';
-import Doctor from '../routes/Doctor';
+import { path } from '../utils';
+import Login from './Auth/Login';
+import ListBlogs from './HomePage/components/Blogs/ListBlogs';
+import ListClinic from './HomePage/components/Clinic/ListClinic';
+import ListDoctor from './HomePage/components/Doctor/ListDoctor';
+import ListSpecialty from './HomePage/components/Specialty/ListSpecialty';
 import HomePage from './HomePage/HomePage.js';
-import ListDoctor from './HomePage/Doctor/ListDoctor';
-import VerifyEmail from './Patient/VerifyEmail';
-import DetailDoctor from './Patient/Doctor/DetailDoctor';
+import DetailBlog from './Patient/Blog/DetailBlog';
 import DetailClinic from './Patient/Clinic/DetailClinic';
-import CustomScrollbars from '../components/CustomScrollbars';
-import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
-import Covid19 from './HomePage/Covid19/Covid19';
-
-// import { CustomToastCloseButton } from '../components/CustomToast';
+import DetailDoctor from './Patient/Doctor/DetailDoctor/index';
+import DetailSpecialty from './Patient/Specialty/index';
+import VerifyEmail from './Patient/VerifyEmail';
 
 class App extends Component {
   handlePersistorState = () => {
@@ -48,57 +49,49 @@ class App extends Component {
     return (
       <Fragment>
         <Router history={history}>
-          <div className='main-container'>
-            <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
-              <Switch>
-                <div className='content-container'>
-                  <Route path={path.HOME} exact component={Home} />
-                  <Route
-                    path={path.LOGIN}
-                    component={userIsNotAuthenticated(Login)}
-                  />
-                  <Route
-                    path={path.SYSTEM}
-                    component={userIsAuthenticated(System)}
-                  />
-                  <Route
-                    path={path.DOCTOR}
-                    component={userIsAuthenticated(Doctor)}
-                  />
-                </div>
-              </Switch>
-              <Switch>
-                <div className='home-container'>
-                  <Route path={path.HOMEPAGE} component={HomePage} />
-                  <Route path={path.LIST_DOCTOR} component={ListDoctor} />
-                  <Route path={path.COVID_19} component={Covid19} />
-                  <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
-                  <Route
-                    path={path.DETAIL_SPECIALTY}
-                    component={DetailSpecialty}
-                  />
-                  <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+          <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
+            <Switch>
+              <Route path={path.HOME} exact component={Home} />
+              <Route
+                path={path.LOGIN}
+                component={userIsNotAuthenticated(Login)}
+              />
+              <Route
+                path={path.SYSTEM}
+                component={userIsAuthenticated(System)}
+              />
+              <Route
+                path={path.DOCTOR}
+                component={userIsAuthenticated(Doctor)}
+              />
+            </Switch>
+            <Switch>
+              <Route path={path.HOMEPAGE} component={HomePage} />
+              <Route path={path.LIST_SPECIALTY} component={ListSpecialty} />
+              <Route path={path.LIST_CLINIC} component={ListClinic} />
+              <Route path={path.LIST_DOCTOR} component={ListDoctor} />
+              <Route path={path.LIST_BLOGS} component={ListBlogs} />
+              <Route path={path.COVID_19} component={Covid19} />
 
-                  <Route
-                    path={path.VERIFY_EMAIL_BOOKING}
-                    component={VerifyEmail}
-                  />
-                </div>
-              </Switch>
-            </CustomScrollbars>
+              <Route path={path.DETAIL_BLOG} component={DetailBlog} />
+              <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+              <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+              <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
+              <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
+            </Switch>
+          </CustomScrollbars>
 
-            <ToastContainer
-              position='bottom-right'
-              autoClose={2000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
-          </div>
+          <ToastContainer
+            position='bottom-right'
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </Router>
       </Fragment>
     );

@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import moment from 'moment';
 import { Modal } from 'reactstrap';
-// import { toast } from 'react-toastify';
-import { CommonUtils } from '../../../utils';
-
 import './RemedyModalBlock.scss';
 
 class RemedyModalBlocked extends Component {

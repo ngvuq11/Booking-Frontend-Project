@@ -1,22 +1,24 @@
+import { Button, Space, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
-import _ from 'lodash';
-import moment from 'moment';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import { FormattedMessage } from 'react-intl';
-import * as actions from '../../../store/actions';
 import DatePicker from '../../../components/Input/DatePicker';
-import { LANGUAGES } from '../../../utils';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title';
 import { saveBulkScheduleDoctor } from '../../../services/userService';
-
+import * as actions from '../../../store/actions';
+import { LANGUAGES } from '../../../utils';
 import './ManageSchedule.scss';
 
+const { Title } = Typography;
 class ManageSchedule extends Component {
   constructor(props) {
     super(props);
     this.state = {
       date: '',
       rangeTime: [],
+      loading: true,
     };
   }
 
@@ -36,6 +38,7 @@ class ManageSchedule extends Component {
 
       this.setState({
         rangeTime: data,
+        loading: false,
       });
     }
   }
@@ -74,6 +77,7 @@ class ManageSchedule extends Component {
     if (rangeTime && rangeTime.length > 0) {
       let selectedTime = rangeTime.filter((item) => item.isActive === true);
       if (selectedTime && selectedTime.length > 0) {
+        // eslint-disable-next-line array-callback-return
         selectedTime.map((time) => {
           let object = {};
           object.doctorId = user.id;
@@ -103,55 +107,82 @@ class ManageSchedule extends Component {
     let { rangeTime } = this.state;
     let { language } = this.props;
     let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
-
     return (
-      <div className='manage-schedule'>
-        <h2 className='title'>
-          <FormattedMessage id='manage-schedule.title' />
-        </h2>
-        <div className='manage-schedule-content'>
-          <div className='row'>
-            <div className='col-4  doctor-option'>
-              <div className='col-12 form-group'>
-                <label>
-                  <FormattedMessage id='manage-schedule.choose-date' />
-                </label>
-                <DatePicker
-                  onChange={this.handleOnChangeDatePicker}
-                  className='form-control doctor-date'
-                  value={this.state.date}
-                  minDate={yesterday}
-                />
-              </div>
-            </div>
-            <div className='col-8 choose-time-list'>
-              {rangeTime &&
-                rangeTime.length > 0 &&
-                rangeTime.map((item, index) => {
-                  return (
-                    <button
-                      className={
-                        item.isActive
-                          ? 'choose-time-item active'
-                          : 'choose-time-item'
-                      }
-                      key={index}
-                      onClick={() => this.handleOnClickActive(item)}
-                    >
-                      {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                    </button>
-                  );
-                })}
-            </div>
-            <button
-              className='btn btn-success btn-save'
-              onClick={() => this.handleSaveSchedule()}
+      <>
+        {this.state.loading ? (
+          <Spin
+            tip='Plese wait...'
+            size='small'
+            style={{
+              width: '100%',
+              display: 'flex',
+              gap: '20px',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          />
+        ) : (
+          <Section className='manage-schedule'>
+            <Titles title={<FormattedMessage id='manage-schedule.title' />} />
+            <Space
+              direction='vertical'
+              style={{ display: 'flex', margin: '0 auto', maxWidth: '824px' }}
             >
-              <FormattedMessage id='manage-schedule.btn-save' />
-            </button>
-          </div>
-        </div>
-      </div>
+              <Title level={3}>
+                <FormattedMessage id='manage-schedule.choose-date' />
+              </Title>
+              <DatePicker
+                onChange={this.handleOnChangeDatePicker}
+                className='form-control doctor-date'
+                value={this.state.date}
+                minDate={yesterday}
+                style={{ width: '350px', padding: '20px', fontSize: '14px' }}
+              />
+
+              <Space direction='vertical'>
+                <Title level={3}>
+                  <FormattedMessage id={'manage-schedule.choose-time'} />
+                </Title>
+                <Space wrap style={{ width: '824px' }}>
+                  {rangeTime &&
+                    rangeTime.length > 0 &&
+                    rangeTime.map((item, index) => {
+                      return (
+                        <button
+                          className={
+                            item.isActive
+                              ? 'choose-time-item active'
+                              : 'choose-time-item'
+                          }
+                          key={index}
+                          onClick={() => this.handleOnClickActive(item)}
+                        >
+                          {language === LANGUAGES.VI
+                            ? item.valueVi
+                            : item.valueEn}
+                        </button>
+                      );
+                    })}
+                </Space>
+              </Space>
+              <Button
+                type='primary'
+                shape='round'
+                size='large'
+                onClick={() => this.handleSaveSchedule()}
+                style={{ marginTop: '30px' }}
+              >
+                <FormattedMessage id='manage-schedule.btn-save' />
+              </Button>
+            </Space>
+          </Section>
+        )}
+      </>
     );
   }
 }

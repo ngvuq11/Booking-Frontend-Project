@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { FormattedMessage } from 'react-intl';
-import HomeHeader from '../HomePage/HomeHeader';
+import HomeHeader from '../../components/Header/HomeHeader';
 import { postVerifyEmail } from '../../services/userService';
-
 import './VerifyEmail.scss';
 
 class VerifyEmail extends Component {

@@ -1,24 +1,28 @@
+import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { FormattedMessage } from 'react-intl';
-import HomeHeader from '../../HomePage/HomeHeader';
-import DoctorSchedule from '../Doctor/DoctorSchedule';
-import DoctorExtraInfor from '../Doctor/DoctorExtraInfor';
-import ProfileDoctor from '../Doctor/ProfileDoctor';
-import {
-  /*getAllCodeService, */ getAllDetailClinicById,
-} from '../../../services/userService';
-
+import { withRouter } from 'react-router';
+import { Container } from '../../../components/Container/Container.styles';
+import HomeHeader from '../../../components/Header/HomeHeader';
+import Maps from '../../../components/Maps';
+import { Section } from '../../../components/Secction/Section.styleds';
+import SpecialtyCard from '../../../components/SpecialtyCard';
+import Titles from '../../../components/Title';
+import { getAllDetailClinicById } from '../../../services/userService';
+import Footer from '../../HomePage/components/Section/Footer';
 import './DetailClinic.scss';
-import _ from 'lodash';
-// import { LANGUAGES } from '../../../utils';
 
+const { Text } = Typography;
+
+const pageSize = 4;
 class DetailClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrDoctorId: [],
       dataDetailClinic: {},
+      isLoading: false,
+      current: 1,
     };
   }
 
@@ -35,20 +39,11 @@ class DetailClinic extends Component {
       });
 
       if (res && res.errCode === 0) {
-        let data = res.data;
-        let arrDoctorId = [];
-        if (data && !_.isEmpty(res.data)) {
-          let arr = data.doctorClinic;
-          if (arr && arr.length > 0) {
-            arr.map((item) => {
-              arrDoctorId.push(item.doctorId);
-            });
-          }
-        }
-
         this.setState({
           dataDetailClinic: res.data,
-          arrDoctorId: arrDoctorId,
+          isLoading: true,
+          minIndex: 0,
+          maxIndex: pageSize,
         });
       }
     }
@@ -60,58 +55,119 @@ class DetailClinic extends Component {
     }
   }
 
-  render() {
-    let { arrDoctorId, dataDetailClinic } = this.state;
-    // let { language } = this.props;
-    console.log('arrdoc: ', arrDoctorId);
-    return (
-      <div className='detail-specialty'>
-        <HomeHeader />
-        <section className='banner'>
-          {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
-            <>
-              <div className='name-clinic'>{dataDetailClinic.name}</div>
-              <div className='address-clinic'>{dataDetailClinic.address}</div>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: dataDetailClinic.descriptionHTML,
-                }}
-              ></div>
-            </>
-          )}
-        </section>
-        <section className='specialty-list'>
-          {arrDoctorId &&
-            arrDoctorId.length > 0 &&
-            arrDoctorId.map((item, index) => {
-              return (
-                <div className='specialty-item' key={index}>
-                  <div className='intro'>
-                    <div className='profile-doctor'>
-                      <ProfileDoctor
-                        doctorId={item}
-                        isShowDescDoctor={true}
-                        isShowLinkDetail={true}
-                        isShowPrice={false}
-                        // dataTime={dataTime}
-                      />
-                    </div>
-                  </div>
-                  <div className='schedule'>
-                    <div className='schedule-infor'>
-                      <DoctorSchedule doctorIdFromParent={item} />
-                    </div>
-                    <div className='schedule-price'>
-                      <DoctorExtraInfor doctorIdFromParent={item} />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-        </section>
+  handleViewDetailSpecialty = (item) => {
+    if (this.props.history) {
+      this.props.history.push(`/detail-specialty/${item.id}`);
+    }
+  };
 
-        <section className='footer'></section>
-      </div>
+  handleChangePageNumber = (page) => {
+    console.log(page);
+    this.setState({
+      current: page,
+      minIndex: (page - 1) * pageSize,
+      maxIndex: page * pageSize,
+    });
+  };
+
+  render() {
+    let { dataDetailClinic, isLoading } = this.state;
+    let listSpecialty = dataDetailClinic.specialtyClinic;
+
+    return (
+      <>
+        {isLoading ? (
+          <>
+            <HomeHeader />
+            <Section className='page__detail--clinic'>
+              <Container>
+                <Breadcrumb
+                  style={{
+                    marginBottom: '20px',
+                    background: '#fff',
+                    padding: '10px 0',
+                    borderBottom: '1px solid #ccc',
+                  }}
+                >
+                  <Breadcrumb.Item>
+                    <Text
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.history.push('/home')}
+                    >
+                      Home
+                    </Text>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Text
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.history.push('/list-doctor')}
+                    >
+                      Danh sách các phòng khám
+                    </Text>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Text>{dataDetailClinic.name}</Text>
+                  </Breadcrumb.Item>
+                </Breadcrumb>
+                {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
+                  <>
+                    <Titles title={dataDetailClinic.name} />
+                    <div
+                      className='content-clinic'
+                      dangerouslySetInnerHTML={{
+                        __html: dataDetailClinic.descriptionHTML,
+                      }}
+                    ></div>
+                  </>
+                )}
+                <Titles title={'Các chuyên khoa'} />
+                <div className='list__specialty--all'>
+                  {listSpecialty &&
+                    listSpecialty.length > 0 &&
+                    listSpecialty.map(
+                      (item, index) =>
+                        index >= this.state.minIndex &&
+                        index < this.state.maxIndex && (
+                          <SpecialtyCard
+                            key={index}
+                            onClick={() => this.handleViewDetailSpecialty(item)}
+                            image={item.image}
+                            name={item.name}
+                            description={item.description}
+                          />
+                        )
+                    )}
+                </div>
+                <Pagination
+                  current={this.state.current}
+                  onChange={this.handleChangePageNumber}
+                  pageSize={pageSize}
+                  total={listSpecialty.length}
+                  style={{ marginTop: '30px', textAlign: 'end' }}
+                />
+              </Container>
+            </Section>
+            <Maps address={dataDetailClinic.address} />
+
+            <Footer />
+          </>
+        ) : (
+          <Spin
+            tip='Plese wait...'
+            size='large'
+            style={{
+              width: '100vw',
+              height: '100vh',
+              maxHeight: 'unset',
+              display: 'flex',
+              gap: '20px',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+        )}
+      </>
     );
   }
 }
@@ -126,4 +182,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailClinic);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(DetailClinic)
+);

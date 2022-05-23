@@ -5,11 +5,15 @@ export const path = {
   LOG_OUT: '/logout',
   SYSTEM: '/system',
   DOCTOR: '/doctor',
+  LIST_SPECIALTY: '/list-specialty',
+  LIST_CLINIC: '/list-clinic',
   LIST_DOCTOR: '/list-doctor',
+  LIST_BLOGS: '/list-blogs',
   COVID_19: '/covid-19',
   DETAIL_DOCTOR: '/detail-doctor/:id',
   DETAIL_SPECIALTY: '/detail-specialty/:id',
   DETAIL_CLINIC: '/detail-clinic/:id',
+  DETAIL_BLOG: '/detail-blog/:id',
   VERIFY_EMAIL_BOOKING: '/verify/booking',
 };
 

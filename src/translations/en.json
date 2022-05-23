@@ -1,39 +1,44 @@
 {
+  "global": {
+    "btn-create": "Create",
+    "btn-update": "Update",
+    "see-more": "See more"
+  },
   "header": {
     "specialty-menu": "Specialty",
-    "facility-menu": "Health facilities",
+    "clinic-menu": "Clinic",
     "doctor-menu": "Doctor",
+    "blogs-menu": "Blogs",
     "covid-19": "Covid-19",
     "support": "Support",
     "language": "EN",
     "welcome": "Welcome, "
-  },
-  "banner": {
-    "basic": "Medical Platform",
-    "title": "Comprehensive health care",
-    "examination1": "Khám chuyên khoa",
-    "examination2": "Specialized examination",
-    "examination3": "General examination",
-    "examination4": "Medical test",
-    "examination5": "Mental health",
-    "examination6": "Dental examination"
   },
   "menu": {
     "admin": {
       "manage": "User System",
       "dashboard": "Dashboard",
       "crud": "User CRUD",
-      "manage-doctor": "Doctor management",
-      "manage-admin": "Admin Management",
-      "manage-user": "Manage User",
-      "clinic": "Clinic",
-      "manage-clinic": "Clinic Management",
-      "specialty": "Specialist",
-      "manage-specialty": "Specialized management"
+      "manage-doctor": "Doctors",
+      "manage-admin": "Admins",
+      "manage-user": "Users",
+      "manage-clinic": "Clinics",
+      "manage-specialty": "Specialized",
+      "manage-handbook": "Handbooks",
+      "manage-payment": "Payments"
     },
     "doctor": {
-      "manage-schedule": "Manage Doctor Schedule",
-      "manage-patient": "Manage Doctor Patient"
+      "manage-schedule": "Schedule",
+      "manage-patient": "Patients",
+      "manage-medical-record": "Medical Record",
+      "medical-record": {
+        "list-medical-record": "List of patients examined"
+      },
+      "patient": {
+        "choose-date": "Choose a date of examination",
+        "list-patient": "List of patients examined"
+      },
+      "schedule": {}
     }
   },
   "manage-user": {
@@ -50,18 +55,47 @@
     "image": "Avatar",
     "create": "Create",
     "update": "Update",
-    "user-list": "User list"
+    "user-list": "List user"
   },
   "home-page": {
-    "see-more": "See more",
     "outstanding-doctor": "Outstanding Doctor",
     "specialty-popular": "Popular Specialty",
-    "clinic": "Clinic"
+    "clinic": "Clinic",
+    "covid-19": {
+      "viet-nam": "Vietnam",
+      "the-world": "The world",
+      "total-cases": "Total cases",
+      "death": "Death",
+      "recovered": "Recovered",
+      "treating": "Treating",
+      "today": "Today",
+      "national-epidemic-situation": "National epidemic situation",
+      "province-city": "Province/City",
+      "average": "7 days on average",
+      "number-of-infections": "Number of infections"
+    },
+    "doctor": {
+      "title": "PROFESSIONAL TEAM",
+      "desc": "DOCTORS WITH SUCCESSFUL INDUSTRY IN THE INDUSTRY"
+    },
+    "banner": {
+      "title1": "Licensed by the health department",
+      "title2": "Team of highly qualified doctors",
+      "title3": "Quality medical service",
+      "desc1": "The clinic is licensed by the Department of Health to operate, approved the list of medical examination and treatment techniques to ensure legality",
+      "desc2": "A team of leading doctors, masters and doctors with more than 20 years of experience and a team of young talented and enthusiastic doctors",
+      "desc3": "High-quality medical services, serving patients wholeheartedly, anytime, anywhere"
+    },
+    "experience": {
+      "title": "Our Abilities",
+      "desc": "With a professional medical team, along with the most modern medical supplies, we are proud to bring the best care to our customers."
+    }
   },
   "manage-schedule": {
     "title": "Manage medical examination plan",
     "choose-doctor": "Choose doctor",
     "choose-date": "Choose day/month/year",
+    "choose-time": "Choose time",
     "btn-save": "Save information"
   },
   "patient": {
@@ -96,8 +130,8 @@
       "title": "More doctor information",
       "choose-doctor": "Choose doctor",
       "intro-infor": "Introduction information",
-      "create-infor": "Create infor",
-      "update-infor": "Update infor",
+      "create": "Create",
+      "update": "Update",
       "price": "Medical examination price",
       "payment": "Payment methods",
       "province": "Province/city",
@@ -111,16 +145,29 @@
       "specialty-title": "Manage Specialty",
       "specialty-name": "Name Specialty",
       "specialty-image": "Specialty image",
+      "specialty-description": "Specialty description",
+      "table": "List specialty",
       "save": "Save infor",
       "edit": "Update infor"
     },
     "manage-clinic": {
-      "clinic-title": "Manage Specialty",
+      "clinic-title": "Manage Clinic",
       "clinic-name": "Clinic Name",
       "clinic-address": "Clinic Address",
       "clinic-image": "Clinic image",
+      "table": "List clinic",
       "save": "Save infor",
       "edit": "Update infor"
-    }
+    },
+    "manage-handbook": {
+      "handbook-title": "Manage Handbook",
+      "handbook-name": "Handbook Name",
+      "handbook-address": "Handbook Address",
+      "handbook-image": "Handbook image",
+      "table": "List Blog",
+      "save": "Save infor",
+      "edit": "Update infor"
+    },
+    "manage-payment": {}
   }
 }

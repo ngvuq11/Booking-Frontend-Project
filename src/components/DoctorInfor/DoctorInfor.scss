@@ -1,0 +1,40 @@
+.doctor-item {
+  display: flex;
+  transition: all 0.25s linear;
+  border-bottom: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #eee;
+  .ant-image {
+    width: 50%;
+    height: 100%;
+    > img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      aspect-ratio: 4 / 3;
+    }
+  }
+  .doctor-item-infor {
+    padding-left: 15px;
+    display: flex;
+    width: calc(50% - 15px);
+  }
+  .ant-typography {
+    font-size: 16px;
+  }
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 12px;
+  }
+  @media screen and (max-width: 490px) {
+    flex-direction: column;
+    .ant-image,
+    .doctor-item-infor {
+      width: 100%;
+    }
+    .doctor-item-infor {
+      padding: 0px 10px 10px 20px;
+    }
+  }
+}

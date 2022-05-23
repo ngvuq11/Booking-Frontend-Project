@@ -12,13 +12,13 @@
       display: grid;
       gap: 2rem;
       grid-template-columns: repeat(2, 1fr);
-
-      .dashboard-item {
-      }
     }
 
     &-right {
       width: 50%;
     }
+  }
+  .dashboard-bottom {
+    margin: 5rem 0;
   }
 }

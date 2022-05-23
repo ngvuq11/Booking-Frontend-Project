@@ -7,14 +7,21 @@ const initialState = {
   positions: [],
   users: [],
   data: [],
+  detailDoctor: [],
   topDoctors: [],
   allDoctors: [],
+  allClinics: [],
+  allSpecialties: [],
+  allBlogs: [],
+  allPayments: [],
+  allPatients: [],
   allScheduleTime: [],
   allRequireDoctorInfor: [],
 };
 
 const adminReducer = (state = initialState, action) => {
   switch (action.type) {
+    // ----------------- ACTIONS GENDER -------------------
     case actionTypes.FETCH_GENDER_START:
       let copyState = { ...state };
       copyState.isLoadingGender = true;
@@ -34,7 +41,7 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
 
-    // Position
+    // ----------------- ACTIONS POSITION -------------------
     case actionTypes.FETCH_POSITION_SUCCESS:
       state.positions = action.data;
       return {
@@ -45,7 +52,8 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    // Role
+
+    // ----------------- ACTIONS ROLE -------------------
     case actionTypes.FETCH_ROLE_SUCCESS:
       state.roles = action.data;
       return {
@@ -57,7 +65,7 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
 
-    //
+    // ----------------- ACTIONS USERS -------------------
     case actionTypes.FETCH_ALL_USERS_SUCCESS:
       state.users = action.users;
       return {
@@ -69,7 +77,7 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
 
-    // Top Doctors
+    // ----------------- ACTIONS TOP DOCTOR -------------------
     case actionTypes.FETCH_TOP_DOCTORS_SUCCESS:
       state.topDoctors = action.data;
       return {
@@ -80,6 +88,7 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    // ----------------- ACTIONS ALL DOCTOR -------------------
     case actionTypes.FETCH_ALL_DOCTORS_SUCCESS:
       state.allDoctors = action.data;
       return {
@@ -91,7 +100,7 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
 
-    // TIME
+    // ----------------- ACTIONS TIME -------------------
     case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS:
       state.allScheduleTime = action.data;
       return {
@@ -103,6 +112,7 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
 
+    // ----------------- ACTIONS DOCTOR INFOR -------------------
     case actionTypes.FETCH_REQUIRE_DOCTOR_INFOR_SUCCESS:
       state.allRequireDoctorInfor = action.data;
       return {
@@ -113,29 +123,75 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    // ----------------- ACTIONS DETAIL DOCTOR -------------------
+    case actionTypes.FETCH_DETAIL_DOCTOR_SUCCESS:
+      state.detailDoctor = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_DETAIL_DOCTOR_FAILED:
+      state.detailDoctor = [];
+      return {
+        ...state,
+      };
 
+    // ----------------- ACTIONS SPECIALTY -------------------
     case actionTypes.FETCH_ALL_SPECIALTY_SUCCESS:
-      state.data = action.data;
+      state.allSpecialties = action.data;
       return {
         ...state,
       };
     case actionTypes.FETCH_ALL_SPECIALTY_FAILED:
-      state.data = [];
+      state.allSpecialties = [];
       return {
         ...state,
       };
 
+    // ----------------- ACTIONS CLINIC -------------------
     case actionTypes.FETCH_ALL_CLINIC_SUCCESS:
-      state.data = action.data;
+      state.allClinics = action.data;
       return {
         ...state,
       };
     case actionTypes.FETCH_ALL_CLINIC_FAILED:
-      state.data = [];
+      state.allClinics = [];
+      return {
+        ...state,
+      };
+    // ----------------- ACTIONS HAND BOOK -------------------
+    case actionTypes.FETCH_ALL_HAND_BOOK_SUCCESS:
+      state.allBlogs = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_HAND_BOOK_FAILED:
+      state.allBlogs = [];
       return {
         ...state,
       };
 
+    // ----------------- ACTIONS PAYMENT -------------------
+    case actionTypes.FETCH_ALL_PAYMENT_SUCCESS:
+      state.allPayments = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_PAYMENT_FAILED:
+      state.allPayments = [];
+      return {
+        ...state,
+      };
+    // ----------------- ACTIONS PATIENT -------------------
+    case actionTypes.FETCH_ALL_PATIENT_SUCCESS:
+      state.allPatients = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_PATIENT_FAILED:
+      state.allPatients = [];
+      return {
+        ...state,
+      };
     default:
       return state;
   }

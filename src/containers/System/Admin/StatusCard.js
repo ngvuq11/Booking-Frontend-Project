@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 import './StatusCard.scss';
 
 class StatusCard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className='status-card'>

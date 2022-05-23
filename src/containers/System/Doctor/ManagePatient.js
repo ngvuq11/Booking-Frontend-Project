@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
 import moment from 'moment';
+import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
+import LoadingOverlay from 'react-loading-overlay';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import RemedyModal from './RemedyModal';
-import { LANGUAGES } from '../../../utils';
-// import { FormattedMessage } from 'react-intl';
-import LoadingOverlay from 'react-loading-overlay';
-import RemedyModalOnlineClinic from './RemedyModalOnlineClinic';
-import RemedyModalBlocked from './RemedyModalBlocked';
 import DatePicker from '../../../components/Input/DatePicker';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title';
 import {
   getAllPatientForDoctor,
+  postSendBlockedNotification,
   postSendRemedy,
   postSendRemedyOnlineClinic,
-  postSendBlockedNotification,
 } from '../../../services/userService';
-
+import { LANGUAGES } from '../../../utils';
 import './ManagePatient.scss';
+import RemedyModal from './RemedyModal';
+import RemedyModalBlocked from './RemedyModalBlocked';
+import RemedyModalOnlineClinic from './RemedyModalOnlineClinic';
 
 class ManagePatient extends Component {
   constructor(props) {
@@ -155,7 +156,6 @@ class ManagePatient extends Component {
         isLoading: false,
       });
       toast.error('Something wrong... !');
-      console.log('Check error: ', res);
     }
   };
 
@@ -187,7 +187,6 @@ class ManagePatient extends Component {
         isLoading: false,
       });
       toast.error('Something wrong... !');
-      console.log('Check error: ', res);
     }
   };
 
@@ -219,7 +218,6 @@ class ManagePatient extends Component {
         isLoading: false,
       });
       toast.error('Something wrong... !');
-      console.log('Check error: ', res);
     }
   };
 
@@ -234,14 +232,22 @@ class ManagePatient extends Component {
     let { language } = this.props;
     return (
       <>
-        <LoadingOverlay active={this.state.isLoading} spinner text='Loading...'>
-          <div className='manage-patient'>
-            <h2 className='title'>Quản lý bệnh nhân khám bệnh</h2>
+        <LoadingOverlay
+          active={this.state.isLoading}
+          spinner
+          text='Plese wait...'
+        >
+          <Section className='manage-patient'>
+            <Titles
+              title={<FormattedMessage id='menu.doctor.manage-patient' />}
+            />
 
             <div className='manage-patient-body'>
               <div className='row'>
                 <div className='col-4 form-group'>
-                  <label>Chọn ngày khám</label>
+                  <label>
+                    <FormattedMessage id='menu.doctor.patient.choose-date' />
+                  </label>
                   <DatePicker
                     onChange={this.handleOnChangeDatePicker}
                     className='form-control doctor-date'
@@ -249,7 +255,9 @@ class ManagePatient extends Component {
                   />
                 </div>
                 <div className='col-12 form-group patient-list'>
-                  <label>Danh sách bệnh nhân khám bệnh</label>
+                  <label>
+                    <FormattedMessage id='menu.doctor.patient.list-patient' />
+                  </label>
                   <table>
                     <tbody>
                       <tr>
@@ -258,8 +266,8 @@ class ManagePatient extends Component {
                         <th>Full Name</th>
                         <th>address</th>
                         <th>Phone number</th>
-                        <th>gender</th>
                         <th>Time</th>
+                        <th>Status</th>
                         <th>Actions</th>
                       </tr>
                       {dataPatient && dataPatient.length > 0 ? (
@@ -268,10 +276,6 @@ class ManagePatient extends Component {
                             language === LANGUAGES.VI
                               ? item.timeTypeDataPatient.valueVi
                               : item.timeTypeDataPatient.valueEn;
-                          let gender =
-                            language === LANGUAGES.VI
-                              ? item.patientIdData.genderIdData.valueVi
-                              : item.patientIdData.genderIdData.valueEn;
                           return (
                             <tr key={index}>
                               <td>{index + 1}</td>
@@ -279,8 +283,14 @@ class ManagePatient extends Component {
                               <td>{item.patientIdData.fullName}</td>
                               <td>{item.patientIdData.address}</td>
                               <td>{item.patientIdData.phoneNumber}</td>
-                              <td>{gender}</td>
                               <td>{time}</td>
+                              {item.statusPayment === 'Paid' ? (
+                                <td className='paid'>
+                                  <span>{item.statusPayment}</span>
+                                </td>
+                              ) : (
+                                <td className='unpaid'>{item.statusPayment}</td>
+                              )}
                               <td className='actions'>
                                 <div className='btn-container'>
                                   <button
@@ -318,7 +328,7 @@ class ManagePatient extends Component {
                 </div>
               </div>
             </div>
-          </div>
+          </Section>
           <RemedyModal
             dataModal={dataModal}
             sendRemedy={this.sendRemedy}

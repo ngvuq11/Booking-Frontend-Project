@@ -16,6 +16,13 @@ import {
   createNewClinic,
   deleteClinicService,
   editClinicService,
+  getAllBlogs,
+  createNewBlogs,
+  editBlogsService,
+  deleteBlogsService,
+  getAllPatientPayment,
+  getAllPatient,
+  getDetailInforDoctor,
 } from '../../services/userService';
 
 import { toast } from 'react-toastify';
@@ -370,9 +377,32 @@ export const fetchRequireDoctorInforFailed = () => ({
   type: actionTypes.FETCH_REQUIRE_DOCTOR_INFOR_FAILED,
 });
 
+export const fetchDetailInforDoctor = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getDetailInforDoctor(id);
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_DETAIL_DOCTOR_SUCCESS,
+          data: res.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_DETAIL_DOCTOR_FAILED,
+        });
+      }
+    } catch (e) {
+      console.log('FETCH_DETAIL_DOCTOR_FAILED: ', e);
+      dispatch({
+        type: actionTypes.FETCH_DETAIL_DOCTOR_FAILED,
+      });
+    }
+  };
+};
+
 // ------------------ ACTIONS SPECIALTY ------------------
 
-export const fetchAllSpecialtyStart = () => {
+export const fetchAllSpecialty = () => {
   return async (dispatch, getState) => {
     try {
       let res = await getAllSpecialty();
@@ -405,7 +435,7 @@ export const fetchCreateNewSpecialty = (data) => {
       if (res && res.errCode === 0) {
         toast.success('Create a new user success !');
         dispatch(fetchCreateSpecialtySuccess());
-        dispatch(fetchAllSpecialtyStart());
+        dispatch(fetchAllSpecialty());
       } else {
         toast.error('Create a new Specialty error !');
         dispatch(fetchCreateSpecialtyFailed());
@@ -435,7 +465,7 @@ export const editSpecialty = (data) => {
       if (res && res.errCode === 0) {
         toast.success('Update the specialty success !');
         dispatch(editSpecialtySuccess());
-        dispatch(fetchAllSpecialtyStart());
+        dispatch(fetchAllSpecialty());
       } else {
         toast.error('Update the specialty error !');
         dispatch(editSpecialtyFailed());
@@ -465,7 +495,7 @@ export const deleteSpecialty = (id) => {
       if (res && res.errCode === 0) {
         toast.success('Delete the specialty success !');
         dispatch(deleteSpecialtySuccess());
-        dispatch(fetchAllSpecialtyStart());
+        dispatch(fetchAllSpecialty());
       } else {
         toast.error('Delete the specialty error !');
         dispatch(deleteSpecialtyFailed());
@@ -488,7 +518,7 @@ export const deleteSpecialtyFailed = () => ({
 
 // ----------------- ACTIONS CLINIC -------------------
 
-export const fetchAllClinicStart = () => {
+export const fetchAllClinic = () => {
   return async (dispatch, getState) => {
     try {
       let res = await getAllClinic();
@@ -521,7 +551,7 @@ export const fetchCreateNewClinic = (data) => {
       if (res && res.errCode === 0) {
         toast.success('Create a new clinic success !');
         dispatch(fetchCreateClinicSuccess());
-        dispatch(fetchAllClinicStart());
+        dispatch(fetchAllClinic());
       } else {
         toast.error('Create a new clinic error !');
         dispatch(fetchCreateClinicFailed());
@@ -551,7 +581,7 @@ export const editClinic = (data) => {
       if (res && res.errCode === 0) {
         toast.success('Update the clinic success !');
         dispatch(editClinicSuccess());
-        dispatch(fetchAllClinicStart());
+        dispatch(fetchAllClinic());
       } else {
         toast.error('Update the clinic error !');
         dispatch(editClinicFailed());
@@ -581,7 +611,7 @@ export const deleteClinic = (id) => {
       if (res && res.errCode === 0) {
         toast.success('Delete the clinic success !');
         dispatch(deleteClinicSuccess());
-        dispatch(fetchAllClinicStart());
+        dispatch(fetchAllClinic());
       } else {
         toast.error('Delete the clinic error !');
         dispatch(deleteClinicFailed());
@@ -601,3 +631,167 @@ export const deleteClinicSuccess = () => ({
 export const deleteClinicFailed = () => ({
   type: actionTypes.DELETE_CLINIC_FAILED,
 });
+
+// ----------------- ACTIONS HAND BOOK -------------------
+export const fetchAllBlogs = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllBlogs();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_HAND_BOOK_SUCCESS,
+          data: res.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_HAND_BOOK_FAILED,
+        });
+      }
+    } catch (e) {
+      toast.error('Fetch a hand book error !');
+      dispatch({
+        type: actionTypes.FETCH_ALL_HAND_BOOK_FAILED,
+      });
+      console.log('fetch All hand book Failed error: ', e);
+    }
+  };
+};
+
+// ------------------ CREATE HAND BOOK ------------------
+
+export const fetchCreateNewHandBook = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await createNewBlogs(data);
+      if (res && res.errCode === 0) {
+        toast.success('Create a new hand book success !');
+        dispatch(fetchCreateHandBookSuccess());
+        dispatch(fetchAllBlogs());
+      } else {
+        toast.error('Create a new hand book error !');
+        dispatch(fetchCreateHandBookFailed());
+      }
+    } catch (e) {
+      toast.error('Create a new hand book error !');
+      dispatch(fetchCreateHandBookFailed());
+      console.log('create hand book Failed error: ', e);
+    }
+  };
+};
+
+export const fetchCreateHandBookSuccess = () => ({
+  type: actionTypes.CREATE_HAND_BOOK_SUCCESS,
+});
+
+export const fetchCreateHandBookFailed = () => ({
+  type: actionTypes.CREATE_HAND_BOOK_FAILED,
+});
+
+// ------------------ UPDATE HAND BOOK ------------------
+
+export const editHandBook = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await editBlogsService(data);
+      if (res && res.errCode === 0) {
+        toast.success('Update the hand book success !');
+        dispatch(editHandBookSuccess());
+        dispatch(fetchAllBlogs());
+      } else {
+        toast.error('Update the hand book error !');
+        dispatch(editHandBookFailed());
+      }
+    } catch (e) {
+      toast.error('Update the hand book error !');
+      dispatch(editHandBookFailed());
+      console.log('Update hand book Failed error: ', e);
+    }
+  };
+};
+
+export const editHandBookSuccess = () => ({
+  type: actionTypes.EDIT_HAND_BOOK_SUCCESS,
+});
+
+export const editHandBookFailed = () => ({
+  type: actionTypes.EDIT_HAND_BOOK_FAILED,
+});
+
+// ------------------ DELETE HAND BOOK ------------------
+
+export const deleteHandBook = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await deleteBlogsService(id);
+      if (res && res.errCode === 0) {
+        toast.success('Delete the hand book success !');
+        dispatch(deleteHandBookSuccess());
+        dispatch(fetchAllBlogs());
+      } else {
+        toast.error('Delete the hand book error !');
+        dispatch(deleteHandBookFailed());
+      }
+    } catch (e) {
+      toast.error('Delete the hand book error !');
+      dispatch(deleteHandBookFailed());
+      console.log('delete hand book Failed error: ', e);
+    }
+  };
+};
+
+export const deleteHandBookSuccess = () => ({
+  type: actionTypes.DELETE_HAND_BOOK_SUCCESS,
+});
+
+export const deleteHandBookFailed = () => ({
+  type: actionTypes.DELETE_HAND_BOOK_FAILED,
+});
+
+// ----------------- ACTIONS PAYMENT -------------------
+export const fetchAllPayment = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllPatientPayment();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_PAYMENT_SUCCESS,
+          data: res.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_PAYMENT_FAILED,
+        });
+      }
+    } catch (e) {
+      toast.error('Fetch a payment error !');
+      dispatch({
+        type: actionTypes.FETCH_ALL_PAYMENT_FAILED,
+      });
+      console.log('fetch All payment Failed error: ', e);
+    }
+  };
+};
+// ----------------- ACTIONS PATIENT -------------------
+export const fetchAllPatient = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllPatient();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_PATIENT_SUCCESS,
+          data: res.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_PATIENT_FAILED,
+        });
+      }
+    } catch (e) {
+      toast.error('Fetch a patient error !');
+      dispatch({
+        type: actionTypes.FETCH_ALL_PATIENT_FAILED,
+      });
+      console.log('fetch All patient Failed error: ', e);
+    }
+  };
+};

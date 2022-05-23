@@ -1,0 +1,74 @@
+.page__detail--clinic {
+  .detail-clinic {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(238, 238, 238);
+    font-size: 1.6rem;
+    .banner {
+      width: 100%;
+      height: auto;
+      padding: 1rem 15rem;
+      line-height: 2;
+      background-color: white;
+      min-height: 50rem;
+      margin-top: 2rem;
+
+      h2 {
+        font-size: 3rem;
+      }
+
+      li {
+        margin-left: 2rem;
+      }
+    }
+    .specialty-list {
+      padding: 0 15rem;
+
+      .specialty-item {
+        width: 100%;
+        min-height: 30rem;
+        height: auto;
+        display: flex;
+        background-color: white;
+        margin-top: 2rem;
+        box-sizing: border-box;
+        border-radius: 0.8rem;
+        box-shadow: 0 1px 6px rgb(175, 175, 175);
+
+        .infor-specialty {
+          width: 100%;
+          height: 100%;
+
+          .specialty-image {
+            width: 20rem;
+            height: auto;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+        }
+      }
+    }
+  }
+  .content-clinic {
+    padding: 0 20px;
+    ul {
+      padding-left: 30px;
+      list-style: none;
+    }
+  }
+
+  .list__specialty--clinic {
+    --f-columns: 2;
+    --f-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(-1 * var(--f-gap));
+    margin-bottom: calc(-1 * var(--f-gap));
+    > * {
+      margin-left: var(--f-gap);
+      margin-bottom: var(--f-gap);
+      width: calc((100% / var(--f-columns) - var(--f-gap)));
+    }
+  }
+}

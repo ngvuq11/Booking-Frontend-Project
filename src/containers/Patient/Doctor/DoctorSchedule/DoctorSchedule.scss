@@ -1,0 +1,67 @@
+.doctor-schedule {
+  .select-date {
+    select {
+      padding: 5px 10px;
+      border: none;
+      outline: none;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: rgb(72, 128, 184);
+      border-bottom: 1px solid gray;
+    }
+    .calendar {
+      font-size: 16px;
+      font-weight: bold;
+      color: rgb(51, 51, 51);
+
+      i {
+        margin-right: 10px;
+      }
+
+      span {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .select-time-list {
+    padding: 1rem 0rem;
+
+    .book-schedule {
+      .time-list {
+        align-items: center;
+        padding: 5px;
+        --f-columns: 4;
+        --f-gap: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: calc(-1 * var(--f-gap));
+        margin-bottom: calc(-1 * var(--f-gap));
+
+        .time-item-en,
+        .time-item-vi {
+          margin-left: var(--f-gap);
+          margin-bottom: var(--f-gap);
+          width: calc((100% / var(--f-columns) - var(--f-gap)));
+          font-size: 14px;
+          padding: 5px 10px;
+          font-weight: 600;
+          border: none;
+          transition: all 0.2s linear;
+          background: rgb(222, 222, 222);
+          &:hover {
+            background: rgb(69, 195, 210);
+            color: white;
+          }
+        }
+
+        .notification {
+          font-size: 1.6rem;
+          font-weight: 600;
+          color: rgb(255, 193, 7);
+          font-style: italic;
+        }
+      }
+    }
+  }
+}

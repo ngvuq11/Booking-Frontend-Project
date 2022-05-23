@@ -1,40 +1,57 @@
-import React, { Component } from 'react';
+import { Spin } from 'antd';
+import 'antd/dist/antd.css';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import HomeHeader from './HomeHeader';
-
-import Specialty from './Section/Specialty';
-import Clinic from './Section/Clinic';
-import Doctor from './Section/Doctor';
-import About from './Section/About';
-import Footer from './Section/Footer';
-import CopyRight from './Section/CopyRight';
-
-// import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
+import HomeHeader from '../../components/Header/HomeHeader';
+import Maps from '../../components/Maps';
+import About from './components/About/index';
+import Banner from './components/Banner';
+import Clinic from './components/Section/Clinic/index';
+import Doctor from './components/Section/Doctor/index';
+import Experience from './components/Section/Experience';
+import Footer from './components/Section/Footer/index';
+import Specialty from './components/Section/Specialty/index';
+import './HomePage.scss';
 
-class HomePage extends Component {
-  render() {
-    let settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 3,
-    };
-
-    return (
-      <div>
-        <HomeHeader isShowBanner={true} />
-        <Specialty settings={settings} />
-        <Clinic settings={settings} />
-        <Doctor settings={settings} />
-        <About />
-        <Footer />
-        <CopyRight />
-      </div>
-    );
-  }
+function HomePage(props) {
+  const [isLoading, setIsLoading] = useState(false);
+  setTimeout(() => {
+    setIsLoading(true);
+  }, 1000);
+  return (
+    <>
+      {isLoading ? (
+        <>
+          <HomeHeader />
+          <Banner />
+          <Specialty />
+          <Clinic />
+          <Experience />
+          <Doctor />
+          <About />
+          <Maps address='254 Nguyen Van Linh' />
+          <Footer />
+        </>
+      ) : (
+        <Spin
+          tip='Plese wait...'
+          size='large'
+          style={{
+            width: '100vw',
+            height: '100vh',
+            maxHeight: 'unset',
+            display: 'flex',
+            gap: '20px',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      )}
+    </>
+  );
 }
 
 const mapStateToProps = (state) => {

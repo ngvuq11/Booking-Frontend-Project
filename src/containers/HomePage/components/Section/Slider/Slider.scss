@@ -1,0 +1,45 @@
+.section__hero {
+  padding: 40px 0 30px;
+  .slick-slide {
+    > div > div {
+      display: flex !important;
+      background-color: #eee;
+      border-radius: 8px;
+      @media screen and (max-width: 767px) {
+        flex-direction: column;
+      }
+    }
+  }
+  .slider__image {
+    width: 50%;
+    aspect-ratio: 16/ 9;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
+  }
+  .slider__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    > p {
+      font-size: 22px;
+      @media screen and (max-width: 767px) {
+        font-size: 16px;
+      }
+    }
+  }
+  .slick-dots li {
+    background-color: #ccc;
+    border-radius: 100rem;
+    width: 10px;
+    height: 10px;
+  }
+  .slick-dots li.slick-active {
+    background-color: #00a8ff;
+  }
+}

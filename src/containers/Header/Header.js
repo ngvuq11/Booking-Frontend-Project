@@ -1,26 +1,30 @@
+import { LoginOutlined } from '@ant-design/icons';
+import { Avatar, Button, Layout, Space, Typography } from 'antd';
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import Language from '../../components/Language';
+import Logo from '../../components/Logo';
 import * as actions from '../../store/actions';
-import Navigator from '../../components/Navigator';
-import { adminMenu, doctorMenu } from './menuApp';
 import { LANGUAGES, USER_ROLE } from '../../utils';
-import { FormattedMessage } from 'react-intl';
-import _ from 'lodash';
-import logo from '../../assets/logo.jpg';
-
+import AdminMenu from './AdminMenu';
+import DoctorMenu from './DoctorMenu';
 import './Header.scss';
 
-class Header extends Component {
+const { Header, Content, Sider, Footer } = Layout;
+const { Text } = Typography;
+class Headers extends Component {
   constructor(props) {
     super(props);
     this.state = {
       menuApp: [],
+      collapsed: false,
     };
   }
-
-  handleChaneLanguage = (language) => {
-    this.props.changeLanguageAppRedux(language);
+  onCollapse = (collapsed) => {
+    this.setState({
+      collapsed,
+    });
   };
 
   componentDidMount() {
@@ -29,62 +33,113 @@ class Header extends Component {
     if (userInfo && !_.isEmpty(userInfo)) {
       let role = userInfo.roleId;
       if (role === USER_ROLE.ADMIN) {
-        menu = adminMenu;
+        menu = 'admin';
       }
       if (role === USER_ROLE.DOCTOR) {
-        menu = doctorMenu;
+        menu = 'doctor';
       }
     }
     this.setState({
       menuApp: menu,
     });
   }
-
   render() {
-    const { processLogout, language, userInfo } = this.props;
+    const { processLogout, userInfo, children, language } = this.props;
+    const { collapsed, menuApp } = this.state;
+
     return (
-      <div className='header-container'>
-        <div className='header-container-logo'>
-          <img src={logo} />
-        </div>
-
-        <div className='languages'>
-          <div className='welcome'>
-            <FormattedMessage id='header.welcome' />
-            {userInfo && userInfo.firstName ? userInfo.firstName : ''}
-          </div>
-          <span>Language: </span>
-          <span
-            className={
-              language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'
-            }
-            onClick={() => this.handleChaneLanguage(LANGUAGES.VI)}
+      <>
+        <Layout
+          style={{
+            width: '100vw',
+            height: '100vh',
+            overflow: 'hidden',
+          }}
+        >
+          <Header
+            className='header'
+            style={{
+              display: 'flex',
+              gap: '50px',
+              background: '#001529',
+              //   background: '#38A169',
+            }}
           >
-            VN
-          </span>
-          <span
-            className={
-              language === LANGUAGES.EN ? 'language-en active' : 'language-en'
-            }
-            onClick={() => this.handleChaneLanguage(LANGUAGES.EN)}
-          >
-            EN
-          </span>
-        </div>
+            <Logo />
+            <Space
+              size={'large'}
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Space>
+                <Text style={{ color: '#fff' }}>Select language:</Text>
+                <Language />
+              </Space>
+              <Space
+                size={10}
+                // style={{ background: '#fff', padding: '0 15px' }}
+              >
+                <Avatar size={40} src={userInfo.image} />
 
-        {/* thanh navigator */}
-        <div className='header-tabs-container'>
-          <Navigator menus={this.state.menuApp} />
-        </div>
+                <Text level={5} style={{ color: '#fff', width: '200px' }}>
+                  {language && language === LANGUAGES.VI
+                    ? userInfo.lastName + ' ' + userInfo.firstName
+                    : userInfo.firstName + ' ' + userInfo.lastName}
+                  {/* {userInfo && userInfo.firstName + +userInfo.lastName
+                    ? userInfo.firstName + ' ' + userInfo.lastName
+                    : 'Error'} */}
+                </Text>
+                <Button
+                  type='danger'
+                  ghost
+                  onClick={processLogout}
+                  title='Logout'
+                  icon={<LoginOutlined />}
+                >
+                  Log out
+                </Button>
+              </Space>
+            </Space>
+          </Header>
 
-        {/* nút logout */}
-        <div className='logout'>
-          <button className='btn-logout' onClick={processLogout} title='Logout'>
-            Log out
-            <i className='fas fa-sign-out-alt'></i>
-          </button>
-        </div>
-      </div>
+          <Layout>
+            <Sider
+              collapsible
+              collapsed={collapsed}
+              onCollapse={this.onCollapse}
+              style={{ paddingTop: '20px' }}
+            >
+              {(menuApp === 'admin' && <AdminMenu />) ||
+                (menuApp === 'doctor' && <DoctorMenu />)}
+            </Sider>
+            <Layout className='site-layout'>
+              <Content
+                className='site-layout-background'
+                style={{
+                  margin: '24px 16px',
+                  padding: 24,
+                  minHeight: 280,
+                  overflowY: 'scroll',
+                }}
+              >
+                {children}
+              </Content>
+              <Footer
+                style={{
+                  textAlign: 'center',
+                  padding: '10px 0',
+                  background: '#ccc',
+                }}
+              >
+                ©2022 Created by Bcare
+              </Footer>
+            </Layout>
+          </Layout>
+        </Layout>
+      </>
     );
   }
 }
@@ -105,4 +160,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Headers);

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
   Bar,
   BarChart,
+  CartesianGrid,
   Legend,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts';
 import { getAllDoctors } from '../../../services/userService';
 
@@ -30,7 +30,6 @@ class Chart extends Component {
   }
 
   render() {
-    // let { dataDoctors } = this.state;
     let { listData } = this.props;
 
     return (
