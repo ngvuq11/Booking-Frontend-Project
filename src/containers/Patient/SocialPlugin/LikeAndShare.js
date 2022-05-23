@@ -15,17 +15,9 @@ class LikeAndShare extends Component {
     window.fbAsyncInit = function () {
       window.FB.init({
         appId: process.env.REACT_APP_FACEBOOK_APP_ID,
-<<<<<<< HEAD
         cookie: true,
         xfbml: true,
         version: 'v13.0',
-=======
-        cookie: true, // enable cookies to allow the server to access
-        // the session
-        xfbml: true, // parse social plugins on this page
-        version: 'v13.0',
-        autoLogAppEvents: 1,
->>>>>>> ab22cd6eaf98ea1a19828a6bbf6f80c8f074a48c
       });
     };
     // Load the SDK asynchronously
@@ -56,7 +48,6 @@ class LikeAndShare extends Component {
 
     console.log(dataHref);
     return (
-<<<<<<< HEAD
       <div
         class='fb-like'
         data-href={dataHref}
@@ -66,19 +57,6 @@ class LikeAndShare extends Component {
         data-size='small'
         data-share='true'
       ></div>
-=======
-      <>
-        <div
-          className='fb-like'
-          data-href={dataHref}
-          data-width=''
-          data-layout='button_count'
-          data-action='like'
-          data-size='small'
-          data-share='true'
-        ></div>
-      </>
->>>>>>> ab22cd6eaf98ea1a19828a6bbf6f80c8f074a48c
     );
   }
 }

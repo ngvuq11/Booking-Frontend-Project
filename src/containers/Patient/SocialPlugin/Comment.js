@@ -31,16 +31,9 @@ class Comment extends Component {
     window.fbAsyncInit = function () {
       window.FB.init({
         appId: process.env.REACT_APP_FACEBOOK_APP_ID,
-<<<<<<< HEAD
         cookie: true,
         xfbml: true,
         version: 'v13.0'
-=======
-        cookie: true, // enable cookies to allow the server to access
-        // the session
-        xfbml: true, // parse social plugins on this page
-        version: 'v13.0',
->>>>>>> ab22cd6eaf98ea1a19828a6bbf6f80c8f074a48c
       });
     };
     // Load the SDK asynchronously
