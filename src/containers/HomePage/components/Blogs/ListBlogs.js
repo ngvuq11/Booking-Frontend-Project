@@ -2,6 +2,7 @@ import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import BlogCard from '../../../../components/BlogCard';
 import { Container } from '../../../../components/Container/Container.styles';
 import HomeHeader from '../../../../components/Header/HomeHeader';
 import { Section } from '../../../../components/Secction/Section.styleds';
@@ -91,25 +92,18 @@ class ListBlogs extends Component {
                   keyword={keyword}
                   handleSearchBlogs={this.handleSearchBlogs}
                 />
-                <div className='list-doctor'>
+                <div className='list-blogs'>
                   {listBlogs.length <= 0 ? 'Không tìm thấy blogs...' : ''}
                   {listBlogs.map(
                     (item, index) =>
                       index >= this.state.minIndex &&
                       index < this.state.maxIndex && (
-                        <div className='doctor-item' key={index}>
-                          <div
-                            className='doctor-item-image'
-                            style={{ backgroundImage: `url(${item.image})` }}
-                          ></div>
-                          <div className='doctor-item-infor'>
-                            <span
-                              onClick={() => this.handleViewDetailBlog(item)}
-                            >
-                              {item.name}
-                            </span>
-                          </div>
-                        </div>
+                        <BlogCard
+                          key={index}
+                          image={item.image}
+                          onClick={() => this.handleViewDetailBlog(item)}
+                          name={item.name}
+                        />
                       )
                   )}
                 </div>

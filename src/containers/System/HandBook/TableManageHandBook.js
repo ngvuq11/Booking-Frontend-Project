@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../../store/actions';
 import { Pagination, Spin } from 'antd';
-
-import './TableManageHandBook.scss';
-import Titles from '../../../components/Title';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import Titles from '../../../components/Title';
+import * as actions from '../../../store/actions';
 
 const pageSize = 10;
 class TableManageHandBook extends Component {

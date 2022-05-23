@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import Titles from '../../../components/Title';
 import * as actions from '../../../store/actions';
 
-import './TableManagePayment.scss';
-
 const pageSize = 15;
 class TableManagePayment extends Component {
   constructor(props) {

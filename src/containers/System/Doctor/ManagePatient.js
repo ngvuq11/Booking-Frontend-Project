@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
 import moment from 'moment';
-import { connect } from 'react-redux';
-import { toast } from 'react-toastify';
-import RemedyModal from './RemedyModal';
-import { LANGUAGES } from '../../../utils';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import LoadingOverlay from 'react-loading-overlay';
-import RemedyModalOnlineClinic from './RemedyModalOnlineClinic';
-import RemedyModalBlocked from './RemedyModalBlocked';
+import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import DatePicker from '../../../components/Input/DatePicker';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title';
 import {
   getAllPatientForDoctor,
+  postSendBlockedNotification,
   postSendRemedy,
   postSendRemedyOnlineClinic,
-  postSendBlockedNotification,
 } from '../../../services/userService';
-
+import { LANGUAGES } from '../../../utils';
 import './ManagePatient.scss';
-import Titles from '../../../components/Title';
-import { Section } from '../../../components/Secction/Section.styleds';
+import RemedyModal from './RemedyModal';
+import RemedyModalBlocked from './RemedyModalBlocked';
+import RemedyModalOnlineClinic from './RemedyModalOnlineClinic';
 
 class ManagePatient extends Component {
   constructor(props) {

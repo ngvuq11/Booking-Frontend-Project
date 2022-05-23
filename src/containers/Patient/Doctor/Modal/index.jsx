@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Modal, Row, Space, Typography } from 'antd';
+import { Button, Col, Form, Input, Modal, Row, Space } from 'antd';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { Component } from 'react';
@@ -9,16 +9,16 @@ import Select from 'react-select';
 import { toast } from 'react-toastify';
 import DatePicker from '../../../../components/Input/DatePicker';
 import {
+  getDetailInforDoctor,
   postBookAppointment,
   postPaymentPatient,
-  getDetailInforDoctor,
 } from '../../../../services/userService';
 import * as actions from '../../../../store/actions';
 import { LANGUAGES } from '../../../../utils';
 import ProfileDoctor from '../ProfileDoctor/index';
+import Titles from '../../../../components/Title/index';
 import './BookingModal.scss';
 
-const { Title } = Typography;
 const { TextArea } = Input;
 
 class BookingModal extends Component {
@@ -40,17 +40,14 @@ class BookingModal extends Component {
   }
 
   async componentDidMount() {
+    await this.props.getGenders();
     let { doctorIdFromParent } = this.props;
     let id = doctorIdFromParent;
     let res = await getDetailInforDoctor(id);
-    if (res.data && res.errCode === 0) {
 
-    }
-    let price = res.data.Doctor_infor.priceIdData;
-
-    this.props.getGenders();
-
-    setTimeout(() => {
+    if (res.data && res.errCode === 0) {}
+      let price = res.data.Doctor_infor.priceIdData.valueEn;
+      setTimeout(() => {
       window.paypal
         .Buttons({
           createOrder: (data, actions, err) => {
@@ -61,7 +58,7 @@ class BookingModal extends Component {
                   description: 'Cool looking table',
                   amount: {
                     currency_code: 'USD',
-                    value: +price.valueEn,
+                    value: +price,
                   },
                 },
               ],
@@ -84,7 +81,8 @@ class BookingModal extends Component {
           },
         })
         .render('.payment-root');
-    }, 20000);
+      }, 20000);
+
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -288,25 +286,13 @@ class BookingModal extends Component {
         <Modal
           visible={isOpenModalBooking}
           className={'booking-modal'}
-          footer={[
-            <Button type='danger' ghost onClick={closeBookingModal}>
-              Cancel
-            </Button>,
-            <div className='payment-root'></div>,
-            <Button
-              form='myForm'
-              type='primary'
-              htmlType='submit'
-              onClick={() => this.handleConfirmBooking()}
-            >
-              Submit
-            </Button>,
-          ]}
+          onCancel={closeBookingModal}
+          footer={[]}
         >
           <Space direction='vertical' size={15} style={{ display: 'flex' }}>
-            <Title level={4}>
-              <FormattedMessage id='patient.booking-modal.title' />
-            </Title>
+            <Titles
+              title={<FormattedMessage id='patient.booking-modal.title' />}
+            />
 
             <ProfileDoctor
               doctorId={doctorId}
@@ -482,6 +468,24 @@ class BookingModal extends Component {
                     </Form.Item>
                   </Col>
                 </Row>
+                <Row gutter={[10, 10]}>
+                  <Col span={21}>
+                    <div className='payment-root'></div>
+                    <Button
+                      form='myForm'
+                      type='primary'
+                      htmlType='submit'
+                      onClick={() => this.handleConfirmBooking()}
+                    >
+                      Submit
+                    </Button>
+                  </Col>
+                  <Col span={3}>
+                    <Button type='danger' onClick={closeBookingModal}>
+                      Cancel
+                    </Button>
+                  </Col>
+                </Row>
               </Form>
             </Row>
           </Space>
@@ -501,6 +505,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getGenders: () => dispatch(actions.fetchGenderStart()),
+    fetchDetailInforDoctor: (id) =>
+      dispatch(actions.fetchDetailInforDoctor(id)),
   };
 };
 

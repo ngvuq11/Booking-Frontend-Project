@@ -12,7 +12,7 @@ import './ListClinic.scss';
 import Search from './SearchClinic';
 
 const { Text } = Typography;
-const pageSize = 6;
+const pageSize = 8;
 class ListClinic extends Component {
   constructor(props) {
     super(props);
