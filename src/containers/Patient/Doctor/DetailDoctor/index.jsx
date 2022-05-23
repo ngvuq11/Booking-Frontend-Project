@@ -145,11 +145,12 @@ class DetailDoctor extends Component {
                       />
                     </Col>
                   </Row>
-                  <Row>
+                  <Row style={{ padding: '20px 30px' }}>
                     {detailDoctor &&
                       detailDoctor.Markdown &&
                       detailDoctor.Markdown.contentHTML && (
                         <div
+                          className='detail__info--doctor'
                           dangerouslySetInnerHTML={{
                             __html: detailDoctor.Markdown.contentHTML,
                           }}
