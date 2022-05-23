@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import TableManagePayment from './TableManagePayment';
-
-import './ManagePayment.scss';
 
 class ManagePayment extends Component {
   constructor(props) {
@@ -20,26 +17,22 @@ class ManagePayment extends Component {
   }
 
   render() {
-
     return (
       <div className='manage-specialty'>
-         <TableManagePayment />
+        <TableManagePayment />
       </div>
-        
     );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    language: state.app.language
+    language: state.app.language,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManagePayment);

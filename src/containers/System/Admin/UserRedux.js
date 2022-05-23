@@ -1,12 +1,15 @@
+import { Button } from 'antd';
 import React, { Component } from 'react';
+import { BsFillPlusCircleFill } from 'react-icons/bs';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title/index';
 import * as actions from '../../../store/actions';
-import Lightbox from 'react-image-lightbox';
+import { CommonUtils, CRUD_ACTIONS, LANGUAGES } from '../../../utils';
 import TableManageUser from './TableManageUser';
-
-import 'react-image-lightbox/style.css';
 import './UserRedux.scss';
 
 class UserRedux extends Component {
@@ -218,8 +221,8 @@ class UserRedux extends Component {
       role,
     } = this.state;
     return (
-      <section className='section-user'>
-        <h2 className='title'>Create User</h2>
+      <Section className='section-user'>
+        <Titles title='Create User' />
         <div className='section-user-content'>
           <div className='container'>
             <div className='row'>
@@ -428,32 +431,34 @@ class UserRedux extends Component {
                 </div>
               </div>
               <div className='col-12 '>
-                <button
-                  className={
-                    this.state.action === CRUD_ACTIONS.EDIT
-                      ? 'btn btn-success btn-save'
-                      : 'btn btn-primary btn-save'
-                  }
+                <Button
+                  type='primary'
+                  shape='round'
+                  icon={<BsFillPlusCircleFill />}
+                  size={'large'}
                   onClick={() => this.handleSaveUser()}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    justifyContent: 'center',
+                  }}
                 >
                   {this.state.action === CRUD_ACTIONS.EDIT ? (
-                    <FormattedMessage id='manage-user.update' />
+                    <FormattedMessage id='global.btn-update' />
                   ) : (
-                    <FormattedMessage id='manage-user.create' />
+                    <FormattedMessage id='global.btn-create' />
                   )}
-                </button>
-              </div>
-
-              <div className='col-12 '>
-                <TableManageUser
-                  handleEditUserFromParent={this.handleEditUserFromParent}
-                  action={this.state.action}
-                />
+                </Button>
               </div>
             </div>
           </div>
         </div>
-      </section>
+        <TableManageUser
+          handleEditUserFromParent={this.handleEditUserFromParent}
+          action={this.state.action}
+        />
+      </Section>
     );
   }
 }

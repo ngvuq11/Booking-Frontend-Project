@@ -12,7 +12,7 @@ import './ListDoctor.scss';
 import Search from './Search';
 
 const { Text } = Typography;
-const pageSize = 4;
+const pageSize = 8;
 class ListDoctor extends Component {
   constructor(props) {
     super(props);
@@ -108,9 +108,11 @@ class ListDoctor extends Component {
                       index >= this.state.minIndex &&
                       index < this.state.maxIndex && (
                         <DoctorInfor
+                          key={index}
                           index={index}
                           item={item}
                           language={language}
+                          onClick={() => this.handleViewDetailDoctor(item)}
                         />
                       )
                   )}

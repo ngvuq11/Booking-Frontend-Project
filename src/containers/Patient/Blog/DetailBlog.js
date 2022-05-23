@@ -9,7 +9,7 @@ import Footer from '../../HomePage/components/Section/Footer';
 import { Breadcrumb, Spin, Typography } from 'antd';
 import { Section } from '../../../components/Secction/Section.styleds';
 import { Container } from '../../../components/Container/Container.styles';
-import './DetailBlog.scss';
+import './DeatilBlog.scss';
 
 const { Text } = Typography;
 class DetailBlog extends Component {
@@ -92,7 +92,7 @@ class DetailBlog extends Component {
                   <>
                     <div className='name-clinic'>{dataBlog.name}</div>
                     <div
-                      className='content-clinic'
+                      className='content-blog'
                       dangerouslySetInnerHTML={{
                         __html: dataBlog.descriptionHTML,
                       }}

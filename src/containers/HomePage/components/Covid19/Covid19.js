@@ -1,11 +1,10 @@
-import { Col, Row, Space } from 'antd';
+import { Col, Row, Space, Table } from 'antd';
 import React, { Component } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import { FormattedMessage } from 'react-intl';
 import NumberFormat from 'react-number-format';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { Table } from 'antd';
 import {
   Bar,
   CartesianGrid,
@@ -19,11 +18,10 @@ import {
 import { Container } from '../../../../components/Container/Container.styles';
 import HomeHeader from '../../../../components/Header/HomeHeader';
 import { Section } from '../../../../components/Secction/Section.styleds';
+import Titles from '../../../../components/Title';
 import { getApiCovid19 } from '../../../../services/userService';
-
 import Footer from '../Section/Footer';
 import './Covid19.scss';
-import Titles from '../../../../components/Title';
 
 class Covid19 extends Component {
   constructor(props) {
@@ -109,14 +107,12 @@ class Covid19 extends Component {
       totalInternal,
       totalWorld,
       todayInternal,
-      // todayWorld,
       locations,
       chartOverview,
       isShowGl,
       isShowVn,
     } = this.state;
 
-    // let { language } = this.props;
     return (
       <>
         <HomeHeader />
@@ -333,7 +329,7 @@ class Covid19 extends Component {
                   ),
                 }))}
               />
-              <Titles title='Bieu do tinh hinh dich trong tuan qua' />
+              <Titles title='Biểu đồ tình hình dịch bệnh trong tuần qua' />
               <ComposedChart width={750} height={450} data={chartOverview}>
                 <XAxis dataKey='date' />
                 <YAxis />

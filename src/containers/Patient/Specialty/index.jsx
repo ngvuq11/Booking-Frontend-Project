@@ -3,9 +3,9 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from '../../../components/Container/Container.styles';
-// import { FormattedMessage } from 'react-intl';
 import HomeHeader from '../../../components/Header/HomeHeader';
 import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title/index';
 import {
   getAllCodeService,
   getAllDetailSpecialtyById,
@@ -121,11 +121,6 @@ class DetailSpecialty extends Component {
       }
     }
   };
-  // chosePage = (event) => {
-  //   this.setState({
-  //     currentPage: Number(event.target.id),
-  //   });
-  // };
 
   render() {
     let { arrDoctorId, dataDetailSpecialty, listProvince, isLoading } =
@@ -175,50 +170,50 @@ class DetailSpecialty extends Component {
                     }}
                   ></div>
                 )}
-                <div>
+
+                <Titles title={'Danh sách bác sĩ'} />
+                <Space
+                  direction='vertical'
+                  size={20}
+                  style={{ display: 'flex' }}
+                >
+                  <select
+                    onChange={(event) => this.handleOnChangeSelect(event)}
+                    className='select-location'
+                  >
+                    {listProvince &&
+                      listProvince.length > 0 &&
+                      listProvince.map((item, index) => {
+                        return (
+                          <option key={index} value={item.keymap}>
+                            {language === LANGUAGES.VI
+                              ? item.valueVi
+                              : item.valueEn}
+                          </option>
+                        );
+                      })}
+                  </select>
                   <Space
                     direction='vertical'
                     size={20}
-                    style={{ display: 'flex' }}
+                    className='list__doctor--suggest'
                   >
-                    <select
-                      onChange={(event) => this.handleOnChangeSelect(event)}
-                      className='select-location'
-                    >
-                      {listProvince &&
-                        listProvince.length > 0 &&
-                        listProvince.map((item, index) => {
-                          return (
-                            <option key={index} value={item.keymap}>
-                              {language === LANGUAGES.VI
-                                ? item.valueVi
-                                : item.valueEn}
-                            </option>
-                          );
-                        })}
-                    </select>
-                    <Space
-                      direction='vertical'
-                      size={20}
-                      className='list__doctor--suggest'
-                    >
-                      {arrDoctorId &&
-                        arrDoctorId.length > 0 &&
-                        arrDoctorId.map((item, index) => {
-                          return (
-                            <ProfileDoctor
-                              key={index}
-                              doctorId={item}
-                              isShowDescDoctor={true}
-                              isShowLinkDetail={true}
-                              isShowCalendarDoctor={true}
-                              isShowPrice={true}
-                            />
-                          );
-                        })}
-                    </Space>
+                    {arrDoctorId &&
+                      arrDoctorId.length > 0 &&
+                      arrDoctorId.map((item, index) => {
+                        return (
+                          <ProfileDoctor
+                            key={index}
+                            doctorId={item}
+                            isShowDescDoctor={true}
+                            isShowLinkDetail={true}
+                            isShowCalendarDoctor={true}
+                            isShowPrice={true}
+                          />
+                        );
+                      })}
                   </Space>
-                </div>
+                </Space>
               </Container>
             </Section>
 

@@ -1,15 +1,6 @@
-.manage-specialty {
+.specialty-list {
   width: 100%;
   font-size: 1.8rem;
-  // padding: 5rem 3rem;
-  .title {
-    text-align: center;
-    font-weight: bold;
-    color: rgb(0, 173, 0);
-    font-size: 3rem;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-  }
 
   label {
     font-weight: 600;
@@ -49,7 +40,8 @@
     }
   }
 
-  input {
+  input,
+  textarea {
     font-size: 1.6rem;
   }
 }

@@ -1,6 +1,10 @@
 .section__detail--specialty {
   .detail__specialty--description {
     padding: 20px 30px;
+    ul {
+      list-style: none;
+      padding-left: 20px;
+    }
   }
 
   .select-location {

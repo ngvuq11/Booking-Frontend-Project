@@ -1,5 +1,6 @@
 import { Space, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { Container } from '../../../../../components/Container/Container.styles';
 import {
@@ -43,6 +44,29 @@ const SectionWrapper = styled.section`
       color: #fff;
     }
   }
+  .experience__title {
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+  }
+  .experience__desc {
+    font-size: 18px;
+    margin-bottom: 20px;
+    @media screen and (max-width: 768px) {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+  }
+  .experience__heading {
+    font-size: 36px;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 20px;
+    @media screen and (max-width: 768px) {
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
+  }
 `;
 function Experience(props) {
   const [doctor, setDoctor] = useState([]);
@@ -69,25 +93,23 @@ function Experience(props) {
   }, []);
   return (
     <SectionWrapper>
-      <Container>
-        <Space
-          direction='vertical'
-          size={40}
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          className='experience__space'
-        >
-          <Title style={{ color: '#fff' }}>Năng lực của chúng tôi</Title>
-          <div
-            style={{ fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}
-          >
-            Với đội ngũ y tế chuyên nghiệp, cùng với vật tư y tế hiện đại bật
-            nhất, chúng tôi tự hào mang lại dịch vụ chăm sóc tốt nhất đến khách
-            hàng
+      <Space
+        direction='vertical'
+        size={40}
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        className='experience__space'
+      >
+        <Container>
+          <Title className='experience__heading'>
+            <FormattedMessage id='home-page.experience.title' />
+          </Title>
+          <div className='experience__desc'>
+            <FormattedMessage id='home-page.experience.desc' />
           </div>
           <Space
             size={20}
@@ -100,11 +122,7 @@ function Experience(props) {
               >
                 {sumSpecialty}
               </Title>
-              <Text
-                style={{ fontSize: '26px', color: '#fff', fontWeight: 'bold' }}
-              >
-                Phòng khám
-              </Text>
+              <Text className='experience__title'>Phòng khám</Text>
             </div>
             <div style={{ textAlign: 'center' }}>
               <Title
@@ -113,11 +131,7 @@ function Experience(props) {
               >
                 {sumClinic}
               </Title>
-              <Text
-                style={{ fontSize: '26px', color: '#fff', fontWeight: 'bold' }}
-              >
-                Chuyên khoa
-              </Text>
+              <Text className='experience__title'>Chuyên khoa</Text>
             </div>
             <div style={{ textAlign: 'center' }}>
               <Title
@@ -126,15 +140,11 @@ function Experience(props) {
               >
                 {sumDoctor}
               </Title>
-              <Text
-                style={{ fontSize: '26px', color: '#fff', fontWeight: 'bold' }}
-              >
-                Bác sĩ
-              </Text>
+              <Text className='experience__title'>Bác sĩ</Text>
             </div>
           </Space>
-        </Space>
-      </Container>
+        </Container>
+      </Space>
     </SectionWrapper>
   );
 }

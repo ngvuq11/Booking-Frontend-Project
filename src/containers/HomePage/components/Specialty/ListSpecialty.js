@@ -12,7 +12,7 @@ import './ListSpecialty.scss';
 import Search from './SearchSpecialty';
 
 const { Text } = Typography;
-const pageSize = 4;
+const pageSize = 10;
 class ListSpecialty extends Component {
   constructor(props) {
     super(props);

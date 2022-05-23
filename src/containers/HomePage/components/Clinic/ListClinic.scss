@@ -1,5 +1,5 @@
 .list__clinic--all {
-  --f-columns: 3;
+  --f-columns: 4;
   --f-gap: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -10,44 +10,15 @@
     margin-bottom: var(--f-gap);
     width: calc((100% / var(--f-columns) - var(--f-gap)));
   }
-}
-
-#page-numbers {
-  list-style: none;
-  display: flex;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  padding: 20px 0;
-  margin-top: 20px;
-}
-
-#page-numbers > li {
-  color: rgb(62, 140, 204);
-  user-select: none;
-  cursor: pointer;
-  margin: 0 3px;
-  padding: 0 5px;
-  border: 1px solid rgb(62, 140, 204);
-  text-align: center;
-  border-radius: 2px;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-}
-
-#page-numbers > li:not(.active):hover {
-  background: rgb(62, 140, 204);
-  color: white;
-}
-
-#page-numbers > li.active {
-  border-color: grey;
-  color: white;
-  background: grey;
-  cursor: default;
+  @media screen and (max-width: 990px) {
+    --f-columns: 3;
+  }
+  @media screen and (max-width: 767px) {
+    --f-columns: 2;
+  }
+  @media screen and (max-width: 480px) {
+    --f-columns: 1;
+  }
 }
 
 .table tbody tr:nth-child(2n + 1) {
@@ -66,7 +37,4 @@ th {
 
 .news-per-page {
   margin-bottom: 15px;
-}
-.clinic__card .ant-image .clinic__card--image {
-  height: 350px;
 }

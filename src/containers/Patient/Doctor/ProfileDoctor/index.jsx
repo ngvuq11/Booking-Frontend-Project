@@ -86,6 +86,7 @@ class ProfileDoctor extends Component {
       doctorId,
       isShowCalendarDoctor,
       // doctorName,
+      isShowDoctorModal,
     } = this.props;
     let nameVi = '',
       nameEn = '';
@@ -94,108 +95,121 @@ class ProfileDoctor extends Component {
       nameEn = `${dataProfile.positionData.valueEn}, ${dataProfile.firstName} ${dataProfile.lastName}`;
     }
 
-    
     return (
-      <div className='doctor__suggest--card'>
-        <Row className='doctor__suggest'>
-          <Col span={6}>
-            <Image
-              preview={false}
-              src={dataProfile && dataProfile.image ? dataProfile.image : ''}
-            />
-          </Col>
-          <Col span={18}>
-            <Space direction='vertical' size={15} style={{ display: 'flex' }}>
-              <Title level={4}>
-                {language === LANGUAGES.VI ? nameVi : nameEn}
-              </Title>
-              <Text>
-                {isShowDescDoctor === true ? (
-                  <>
-                    {dataProfile &&
-                      dataProfile.Markdown &&
-                      dataProfile.Markdown.description && (
-                        <span>{dataProfile.Markdown.description}</span>
-                      )}
-                  </>
-                ) : (
-                  <>{this.renderTimeBooking(dataTime)}</>
-                )}
-              </Text>
+      <>
+        {isShowDoctorModal ? (
+          <div className='doctor__suggest--card'>
+            <Row className='doctor__suggest'>
+              <Col span={6}>
+                <Image
+                  preview={false}
+                  src={
+                    dataProfile && dataProfile.image ? dataProfile.image : ''
+                  }
+                />
+              </Col>
+              <Col span={18}>
+                <Space
+                  direction='vertical'
+                  size={15}
+                  style={{ display: 'flex' }}
+                >
+                  <Title level={4}>
+                    {language === LANGUAGES.VI ? nameVi : nameEn}
+                  </Title>
+                  <Text>
+                    {isShowDescDoctor === true ? (
+                      <>
+                        {dataProfile &&
+                          dataProfile.Markdown &&
+                          dataProfile.Markdown.description && (
+                            <span>{dataProfile.Markdown.description}</span>
+                          )}
+                      </>
+                    ) : (
+                      <>{this.renderTimeBooking(dataTime)}</>
+                    )}
+                  </Text>
 
-              <div className='intro-doctor-content'>
-                <div className='doctor-intro'>
-                  <div>
-                    <i className='fas fa-map-marker-alt'></i>
-                    {dataProfile &&
-                      dataProfile.Doctor_Infor &&
-                      dataProfile.Doctor_Infor.provinceIdData &&
-                      language === LANGUAGES.VI && (
-                        <span className='address'>
-                          {dataProfile.Doctor_Infor.provinceIdData.valueVi}
-                        </span>
-                      )}
-                    {dataProfile &&
-                      dataProfile.Doctor_Infor &&
-                      dataProfile.Doctor_Infor.provinceIdData &&
-                      language === LANGUAGES.EN && (
-                        <span className='address'>
-                          {dataProfile.Doctor_Infor.provinceIdData.valueEn}
-                        </span>
-                      )}
+                  <div className='intro-doctor-content'>
+                    <div className='doctor-intro'>
+                      <div>
+                        <i className='fas fa-map-marker-alt'></i>
+                        {dataProfile &&
+                          dataProfile.Doctor_Infor &&
+                          dataProfile.Doctor_Infor.provinceIdData &&
+                          language === LANGUAGES.VI && (
+                            <span className='address'>
+                              {dataProfile.Doctor_Infor.provinceIdData.valueVi}
+                            </span>
+                          )}
+                        {dataProfile &&
+                          dataProfile.Doctor_Infor &&
+                          dataProfile.Doctor_Infor.provinceIdData &&
+                          language === LANGUAGES.EN && (
+                            <span className='address'>
+                              {dataProfile.Doctor_Infor.provinceIdData.valueEn}
+                            </span>
+                          )}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                  {isShowLinkDetail === true && (
+                    <Button type='primary' ghost>
+                      <Link to={`/detail-doctor/${doctorId}`}>Xem thêm</Link>
+                    </Button>
+                  )}
+                </Space>
+              </Col>
+            </Row>
+            {isShowPrice === true && (
+              <div className='doctor-price'>
+                <FormattedMessage id='patient.extra-infor-doctor.examination-price' />
+                <span>
+                  {dataProfile &&
+                    dataProfile.Doctor_Infor &&
+                    language === LANGUAGES.VI && (
+                      <NumberFormat
+                        value={dataProfile.Doctor_Infor.priceIdData.valueVi}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        suffix={' VND'}
+                      />
+                    )}
+                </span>
+                <span>
+                  {dataProfile &&
+                    dataProfile.Doctor_Infor &&
+                    language === LANGUAGES.EN && (
+                      <NumberFormat
+                        value={dataProfile.Doctor_Infor.priceIdData.valueEn}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        suffix={' $'}
+                      />
+                    )}
+                </span>
               </div>
-              {isShowLinkDetail === true && (
-                <Button type='primary' ghost>
-                  <Link to={`/detail-doctor/${doctorId}`}>Xem thêm</Link>
-                </Button>
-              )}
-            </Space>
-          </Col>
-        </Row>
-        {isShowPrice === true && (
-          <div className='doctor-price'>
-            <FormattedMessage id='patient.extra-infor-doctor.examination-price' />
-            <span>
-              {dataProfile &&
-                dataProfile.Doctor_Infor &&
-                language === LANGUAGES.VI && (
-                  <NumberFormat
-                    value={dataProfile.Doctor_Infor.priceIdData.valueVi}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                    suffix={' VND'}
-                  />
-                )}
-            </span>
-            <span>
-              {dataProfile &&
-                dataProfile.Doctor_Infor &&
-                language === LANGUAGES.EN && (
-                  <NumberFormat
-                    value={dataProfile.Doctor_Infor.priceIdData.valueEn}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                    suffix={' $'}
-                  />
-                )}
-            </span>
-          </div>
-        )}
-        {isShowCalendarDoctor ? (
-          <Row>
-            <Col span={12}>
-              <DoctorSchedule doctorIdFromParent={dataProfile.id} />
-            </Col>
-            <Col span={12}>
+            )}
+            {isShowCalendarDoctor ? (
+              <Row>
+                <Col span={12}>
+                  <DoctorSchedule doctorIdFromParent={dataProfile.id} />
+                </Col>
+                <Col span={12}>
+                  <DoctorExtraInfor doctorIdFromParent={dataProfile.id} />
+                </Col>
+              </Row>
+            ) : (
               <DoctorExtraInfor doctorIdFromParent={dataProfile.id} />
-            </Col>
-          </Row>
+            )}
+          </div>
         ) : (
-          <DoctorExtraInfor doctorIdFromParent={dataProfile.id} />
+          <>
+            <DoctorExtraInfor doctorIdFromParent={dataProfile.id} />
+          </>
         )}
-      </div>
+      </>
     );
   }
 }

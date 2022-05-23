@@ -1,8 +1,10 @@
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title';
 import * as actions from '../../../store/actions';
-
 import './TableManageSpecialty.scss';
 
 const pageSize = 10;
@@ -12,6 +14,7 @@ class TableManageSpecialty extends Component {
     this.state = {
       specialtyArray: [],
       current: 1,
+      loading: true,
     };
   }
 
@@ -25,6 +28,7 @@ class TableManageSpecialty extends Component {
         specialtyArray: this.props.allSpecialties,
         minIndex: 0,
         maxIndex: pageSize,
+        loading: false,
       });
     }
   }
@@ -50,10 +54,12 @@ class TableManageSpecialty extends Component {
     let listSpecialty = this.state.specialtyArray;
 
     return (
-      <div className='user-container'>
-        <h1 className='title-user'>TABLE SPECIALTY</h1>
+      <Section className='user-container'>
+        <Titles
+          title={<FormattedMessage id='admin.manage-specialty.table' />}
+        />
         <div className='users-table'>
-          <table id='customers'>
+          <table id='customers' style={{ position: 'relative' }}>
             <thead>
               <tr>
                 <th>STT</th>
@@ -61,33 +67,51 @@ class TableManageSpecialty extends Component {
                 <th>Options</th>
               </tr>
             </thead>
-
-            <tbody>
-              {listSpecialty.map(
-                (item, index) =>
-                  index >= this.state.minIndex &&
-                  index < this.state.maxIndex && (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>
-                        <button
-                          className='btn-edit'
-                          onClick={() => this.handleEditSpecialty(item)}
-                        >
-                          <i className='fas fa-pencil-alt'></i>
-                        </button>
-                        <button
-                          className='btn-delete'
-                          onClick={() => this.handleDeleteSpecialty(item)}
-                        >
-                          <i className='fas fa-trash-alt'></i>
-                        </button>
-                      </td>
-                    </tr>
-                  )
-              )}
-            </tbody>
+            {this.state.loading ? (
+              <Spin
+                tip='Plese wait...'
+                size='small'
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  gap: '20px',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  top: '80px',
+                  left: '50%',
+                  transform: 'translateX( -50%)',
+                }}
+              />
+            ) : (
+              <tbody>
+                {listSpecialty.map(
+                  (item, index) =>
+                    index >= this.state.minIndex &&
+                    index < this.state.maxIndex && (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.name}</td>
+                        <td>
+                          <button
+                            className='btn-edit'
+                            onClick={() => this.handleEditSpecialty(item)}
+                          >
+                            <i className='fas fa-pencil-alt'></i>
+                          </button>
+                          <button
+                            className='btn-delete'
+                            onClick={() => this.handleDeleteSpecialty(item)}
+                          >
+                            <i className='fas fa-trash-alt'></i>
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                )}
+              </tbody>
+            )}
           </table>
         </div>
         <Pagination
@@ -95,8 +119,9 @@ class TableManageSpecialty extends Component {
           onChange={this.handleChangePageNumber}
           pageSize={pageSize}
           total={listSpecialty.length}
+          style={{ marginTop: '20px', textAlign: 'end' }}
         />
-      </div>
+      </Section>
     );
   }
 }

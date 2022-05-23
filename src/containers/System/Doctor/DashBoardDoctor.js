@@ -1,13 +1,10 @@
 import { Component } from 'react';
-import NumberFormat from 'react-number-format';
 import { connect } from 'react-redux';
 import {
   getMedicalRecordForDoctor,
   getProfileDoctor,
 } from '../../../services/userService';
 import StatusCard from '../Admin/StatusCard';
-
-// import './DashBoardDoctor.scss';
 
 class DashBoardDoctor extends Component {
   constructor(props) {
@@ -75,12 +72,6 @@ class DashBoardDoctor extends Component {
               name='Total money'
               icon='fas fa-dollar-sign'
               count={'$' + newDataPatient.length * priceData + '.00'}
-            />
-            <NumberFormat
-              value={newDataPatient.length * priceData + '.00'}
-              displayType={'text'}
-              thousandSeparator={true}
-              prefix={'$'}
             />
           </div>
           <div className='dashboard-top-right'></div>

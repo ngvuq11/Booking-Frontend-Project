@@ -1,6 +1,9 @@
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title';
 import * as actions from '../../../store/actions';
 
 import './TableManageClinic.scss';
@@ -12,6 +15,7 @@ class TableManageClinic extends Component {
     this.state = {
       clinicArray: [],
       current: 1,
+      loading: true,
     };
   }
 
@@ -25,6 +29,7 @@ class TableManageClinic extends Component {
         clinicArray: this.props.allClinics,
         minIndex: 0,
         maxIndex: pageSize,
+        loading: false,
       });
     }
   }
@@ -50,10 +55,10 @@ class TableManageClinic extends Component {
     let listClinic = this.state.clinicArray;
 
     return (
-      <div className='user-container'>
-        <h1 className='title-user'>TABLE SPECIALTY</h1>
+      <Section className='user-container'>
+        <Titles title={<FormattedMessage id='admin.manage-clinic.table' />} />
         <div className='users-table'>
-          <table id='customers'>
+          <table id='customers' style={{ position: 'relative' }}>
             <thead>
               <tr>
                 <th>STT</th>
@@ -63,33 +68,52 @@ class TableManageClinic extends Component {
               </tr>
             </thead>
 
-            <tbody>
-              {listClinic.map(
-                (item, index) =>
-                  index >= this.state.minIndex &&
-                  index < this.state.maxIndex && (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>{item.address}</td>
-                      <td>
-                        <button
-                          className='btn-edit'
-                          onClick={() => this.handleEditClinic(item)}
-                        >
-                          <i className='fas fa-pencil-alt'></i>
-                        </button>
-                        <button
-                          className='btn-delete'
-                          onClick={() => this.handleDeleteClinic(item)}
-                        >
-                          <i className='fas fa-trash-alt'></i>
-                        </button>
-                      </td>
-                    </tr>
-                  )
-              )}
-            </tbody>
+            {this.state.loading ? (
+              <Spin
+                tip='Plese wait...'
+                size='small'
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  gap: '20px',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  top: '80px',
+                  left: '50%',
+                  transform: 'translateX( -50%)',
+                }}
+              />
+            ) : (
+              <tbody>
+                {listClinic.map(
+                  (item, index) =>
+                    index >= this.state.minIndex &&
+                    index < this.state.maxIndex && (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.name}</td>
+                        <td>{item.address}</td>
+                        <td>
+                          <button
+                            className='btn-edit'
+                            onClick={() => this.handleEditClinic(item)}
+                          >
+                            <i className='fas fa-pencil-alt'></i>
+                          </button>
+                          <button
+                            className='btn-delete'
+                            onClick={() => this.handleDeleteClinic(item)}
+                          >
+                            <i className='fas fa-trash-alt'></i>
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                )}
+              </tbody>
+            )}
           </table>
         </div>
         <Pagination
@@ -97,8 +121,9 @@ class TableManageClinic extends Component {
           onChange={this.handleChangePageNumber}
           pageSize={pageSize}
           total={listClinic.length}
+          style={{ marginTop: '20px', textAlign: 'end' }}
         />
-      </div>
+      </Section>
     );
   }
 }

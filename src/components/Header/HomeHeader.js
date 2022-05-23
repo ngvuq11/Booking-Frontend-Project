@@ -1,6 +1,8 @@
-import { Space, Typography } from 'antd';
+import { Button, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import React, { Component } from 'react';
+import { AiOutlineMenu } from 'react-icons/ai';
+import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -15,6 +17,9 @@ import './HomeHeader.scss';
 const { Text } = Typography;
 
 class HomeHeader extends Component {
+  state = {
+    isOpen: false,
+  };
   handleListSpecialty = () => {
     if (this.props.history) {
       this.props.history.push(`/list-specialty`);
@@ -49,6 +54,16 @@ class HomeHeader extends Component {
     if (this.props.history) {
       this.props.history.push(`/login`);
     }
+  };
+  handleCloseMenu = () => {
+    this.setState({
+      isOpen: false,
+    });
+  };
+  handleOpenMenu = () => {
+    this.setState({
+      isOpen: true,
+    });
   };
   render() {
     return (
@@ -89,8 +104,26 @@ class HomeHeader extends Component {
                 </div>
               </div>
             </div>
-            <Language />
+
+            {this.state.isOpen ? (
+              <>
+                <Language />
+              </>
+            ) : (
+              <>
+                <Button
+                  type=''
+                  icon={<AiOutlineMenu />}
+                  className='button-mobile'
+                  onClick={() => this.handleOpenMenu()}
+                >
+                  Menu
+                </Button>
+                <Language />
+              </>
+            )}
           </div>
+
           <div className='navigation__wrap'>
             <Space size={'large'}>
               <Text onClick={() => this.handleListSpecialty()}>
@@ -111,6 +144,43 @@ class HomeHeader extends Component {
             </Space>
             <Language />
           </div>
+          {this.state.isOpen ? (
+            <div className='navigation__wrap--mobile'>
+              <Space size={'large'}>
+                <Button
+                  type='link'
+                  icon={<MdOutlineKeyboardBackspace />}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '10px',
+                  }}
+                  onClick={() => this.handleCloseMenu()}
+                >
+                  Close
+                </Button>
+                <Logo />
+                <Text onClick={() => this.handleListSpecialty()}>
+                  <FormattedMessage id='header.specialty-menu' />
+                </Text>
+                <Text onClick={() => this.handleListClinic()}>
+                  <FormattedMessage id='header.clinic-menu' />
+                </Text>
+                <Text onClick={() => this.handleListDoctor()}>
+                  <FormattedMessage id='header.doctor-menu' />
+                </Text>
+                <Text onClick={() => this.handleBlogs()}>
+                  <FormattedMessage id='header.blogs-menu' />
+                </Text>
+                <Text onClick={() => this.handleCovid19()}>
+                  <FormattedMessage id='header.covid-19' />
+                </Text>
+              </Space>
+            </div>
+          ) : (
+            <></>
+          )}
         </Container>
       </div>
     );

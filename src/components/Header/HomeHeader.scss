@@ -2,6 +2,8 @@
   width: 100%;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  z-index: 9999;
+
   .header__top--wrap {
     display: flex;
     justify-content: space-between;
@@ -38,17 +40,26 @@
     .ant-switch {
       display: none;
     }
+    .button-mobile {
+      display: none;
+    }
     @media screen and (max-width: 767px) {
       .ant-switch {
         display: block;
       }
     }
   }
+  .navigation__wrap--mobile {
+    display: none;
+  }
   .navigation__wrap {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
+    .logo--main {
+      display: none;
+    }
     .ant-typography {
       cursor: pointer;
       color: #333;
@@ -77,9 +88,66 @@
         right: 0;
       }
     }
-    @media screen and (max-width: 767px) {
-      padding: 20px 10px;
+    // @media screen and (max-width: 767px) {
+    //   padding: 20px 0px;
+    //   justify-content: center;
+    //   .ant-switch {
+    //     display: none;
+    //   }
+    // }
+  }
+  @media screen and (max-width: 767px) {
+    .button-mobile {
+      display: flex !important;
+      align-items: center;
       justify-content: center;
+      gap: 10px;
+      margin-left: auto;
+      margin-right: 10px;
+    }
+    .navigation__wrap {
+      display: none;
+    }
+    .navigation__wrap--mobile {
+      display: flex;
+      width: 270px;
+      position: fixed;
+      z-index: 1000;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      background-color: #fff;
+
+      .ant-typography {
+        cursor: pointer;
+        color: #333;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .ant-space {
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        justify-content: flex-start;
+        background-color: #fff;
+        padding: 40px 0 0 30px;
+
+        .ant-space-item:not(first-child) {
+          width: 100%;
+          border-bottom: 1px solid #eee;
+        }
+        &::before {
+          content: '';
+          display: block;
+          width: 100vh;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.4);
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -1;
+        }
+      }
       .ant-switch {
         display: none;
       }

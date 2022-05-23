@@ -1,4 +1,14 @@
-import { Button, Col, Form, Input, Modal, Row, Space, Typography } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Col,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Space,
+  Typography,
+} from 'antd';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { Component } from 'react';
@@ -8,17 +18,19 @@ import { connect } from 'react-redux';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import DatePicker from '../../../../components/Input/DatePicker';
+import Titles from '../../../../components/Title/index';
 import {
-   postBookAppointment,
-   postPaymentPatient
+  getDetailInforDoctor,
+  postBookAppointment,
+  postPaymentPatient,
 } from '../../../../services/userService';
 import * as actions from '../../../../store/actions';
 import { LANGUAGES } from '../../../../utils';
 import ProfileDoctor from '../ProfileDoctor/index';
 import './BookingModal.scss';
 
-const { Title } = Typography;
 const { TextArea } = Input;
+const { Title } = Typography;
 
 class BookingModal extends Component {
   constructor(props) {
@@ -34,62 +46,61 @@ class BookingModal extends Component {
       timeType: '',
       phoneNumber: '',
       selectedGenders: '',
-      paymentIdData: {},
-      price: {},
       isLoading: false,
+      detailDoctor: [],
+      isShowBtnPayment: false,
+      unit: 0,
     };
   }
 
   async componentDidMount() {
-    let { doctorIdFromParent } = this.props;
-    let id = doctorIdFromParent;
-    if (id) {
-      let res = await this.props.fetchDetailInforDoctor(id);
-      if (res && res.errCode === 0) {
-        this.setState({
-          paymentIdData: res.data.Doctor_infor.paymentIdData,
-          price: res.data.Doctor_infor.priceIdData,
-        });
-      }
-    }
-    this.props.getGenders();
-    
-    setTimeout(() => {
-      window.paypal
-        .Buttons({
-          createOrder: (data, actions, err) => {
-            return actions.order.create({
-              intent: 'CAPTURE',
-              purchase_units: [
-                {
-                  description: 'Cool looking table',
-                  amount: {
-                    currency_code: 'USD',
-                    value: +this.state.price.valueEn,
-                  },
-                },
-              ],
-            });
-          },
-          onApprove: async (data, actions) => {
-            const order = await actions.order.capture();
-
-            if (order && order.status === 'COMPLETED') {
-              setTimeout(async () => {
-                this.handlePayment(order);
-              }, 3000);
-            }
-          },
-          onError: (err) => {
-            console.log(err);
-          },
-          style: {
-            layout: 'horizontal',
-          },
-        })
-        .render('.payment-root');
-    }, 20000);
+    await this.props.getGenders();
+    let id = this.props.doctorIdFromParent;
+    let res = await getDetailInforDoctor(id);
+    this.setState({
+      detailDoctor: res.data,
+    });
   }
+  handleRenderPayment = () => {
+    this.setState({
+      unit: 2,
+    });
+    let { detailDoctor } = this.state;
+    let price = detailDoctor?.Doctor_infor?.priceIdData?.valueEn;
+
+    window.paypal
+      .Buttons({
+        createOrder: (data, actions, err) => {
+          return actions.order.create({
+            intent: 'CAPTURE',
+            purchase_units: [
+              {
+                description: 'Cool looking table',
+                amount: {
+                  currency_code: 'USD',
+                  value: +price,
+                },
+              },
+            ],
+          });
+        },
+        onApprove: async (data, actions) => {
+          const order = await actions.order.capture();
+          if (order && order.status === 'COMPLETED') {
+            setTimeout(async () => {
+              this.handlePayment(order);
+            }, 3000);
+          }
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+        style: {
+          layout: 'horizontal',
+        },
+      })
+      .render('.payment-root');
+  };
 
   async componentDidUpdate(prevProps, prevState) {
     let { language } = this.props;
@@ -270,10 +281,29 @@ class BookingModal extends Component {
     }
     return '';
   };
+  handChangeCheckbox = (event) => {
+    let { checked } = event.target;
+    console.log('checked', checked);
+    this.setState({
+      isShowBtnPayment: !this.state.isShowBtnPayment,
+    });
+    if (checked) {
+      this.setState({
+        isShowBtnPayment: true,
+      });
+      if (this.state.unit < 2) {
+        this.handleRenderPayment();
+      }
+    } else {
+      this.setState({
+        isShowBtnPayment: false,
+      });
+    }
+  };
 
   render() {
     let { isOpenModalBooking, closeBookingModal, dataTime } = this.props;
-    let { paymentIdData } = this.state;
+    let { isShowBtnPayment } = this.state;
     let doctorId = '';
     let doctorName = '';
     if (dataTime && !_.isEmpty(dataTime)) {
@@ -284,8 +314,6 @@ class BookingModal extends Component {
         dataTime.doctorIdData.lastName + ' ' + dataTime.doctorIdData.firstName;
     }
 
-    let paymentVi = paymentIdData.valueVi;
-
     return (
       <LoadingOverlay
         active={this.state.isLoading}
@@ -295,31 +323,14 @@ class BookingModal extends Component {
         <Modal
           visible={isOpenModalBooking}
           className={'booking-modal'}
-          footer={[
-            <Button type='danger' ghost onClick={closeBookingModal}>
-              Cancel
-            </Button>,
-            <>
-              {paymentVi === 'Thẻ ATM' ? (
-                <div className='payment-root'></div>
-              ) : (
-                <Button
-                  form='myForm'
-                  type='primary'
-                  htmlType='submit'
-                  onClick={() => this.handleConfirmBooking()}
-                >
-                  Submit
-                </Button>
-              )}
-            </>,
-          ]}
+          onCancel={closeBookingModal}
+          footer={[]}
         >
           <Space direction='vertical' size={15} style={{ display: 'flex' }}>
-            <Title level={4}>
-              <FormattedMessage id='patient.booking-modal.title' />
-            </Title>
-
+            <Titles
+              title={<FormattedMessage id='patient.booking-modal.title' />}
+            />
+            <Title level={3}>Bác sĩ: {doctorName} </Title>
             <ProfileDoctor
               doctorId={doctorId}
               doctorName={doctorName}
@@ -328,6 +339,7 @@ class BookingModal extends Component {
               isShowLinkDetail={false}
               isShowPrice={true}
               isShowCalendarDoctor={false}
+              isShowDoctorModal={false}
             />
             <Row>
               <Form
@@ -494,6 +506,44 @@ class BookingModal extends Component {
                     </Form.Item>
                   </Col>
                 </Row>
+                <Row gutter={[20, 20]}>
+                  <Col span={24}>
+                    <Checkbox onChange={(ev) => this.handChangeCheckbox(ev)}>
+                      Thanh toán bằng thẻ
+                    </Checkbox>
+                  </Col>
+                  <Col span={24}>
+                    <div
+                      className={
+                        this.state.isShowBtnPayment
+                          ? 'payment-root '
+                          : 'payment-root active'
+                      }
+                    ></div>
+                  </Col>
+                </Row>
+                <Row gutter={[20, 20]} style={{ marginTop: '20px' }}>
+                  {isShowBtnPayment ? (
+                    <Col span={3} offset={21}>
+                      <Button type='danger' ghost onClick={closeBookingModal}>
+                        Cancel
+                      </Button>
+                    </Col>
+                  ) : (
+                    <>
+                      <Col span={3} offset={18}>
+                        <Button type='danger' ghost onClick={closeBookingModal}>
+                          Cancel
+                        </Button>
+                      </Col>
+                      <Col span={3}>
+                        <Button type='primary' htmlType='submit'>
+                          Confirm
+                        </Button>
+                      </Col>
+                    </>
+                  )}
+                </Row>
               </Form>
             </Row>
           </Space>
@@ -507,13 +557,15 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     genders: state.admin.genders,
+    detailDoctor: state.admin.detailDoctor,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getGenders: () => dispatch(actions.fetchGenderStart()),
-    fetchDetailInforDoctor: (id) => dispatch(actions.fetchDetailInforDoctor(id)),
+    fetchDetailInforDoctor: (id) =>
+      dispatch(actions.fetchDetailInforDoctor(id)),
   };
 };
 

@@ -1,18 +1,16 @@
+import { Button, Input } from 'antd';
 import MarkdownIt from 'markdown-it';
-
 import React, { Component } from 'react';
-
-import Select from 'react-select';
-import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
-
 import { FormattedMessage } from 'react-intl';
 import MdEditor from 'react-markdown-editor-lite';
-
 import { connect } from 'react-redux';
+import Select from 'react-select';
+import { Section } from '../../../components/Secction/Section.styleds';
+import Titles from '../../../components/Title';
 import * as actions from '../../../store/actions';
-
-import TableManageSpecialty from './TableManageSpecialty';
+import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
 import './ManageSpecialty.scss';
+import TableManageSpecialty from './TableManageSpecialty';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -50,7 +48,7 @@ class ManageSpecialty extends Component {
         descriptionHTML: '',
         descriptionMarkdown: '',
         clinicId: '',
-        listClinic: this.props.allSpecialties,
+        listClinic: '',
         action: CRUD_ACTIONS.CREATE,
       });
     }
@@ -148,6 +146,7 @@ class ManageSpecialty extends Component {
   };
 
   handleEditSpecialty = (specialty) => {
+    console.log(specialty.clinicId);
     let imageBase64 = '';
     if (specialty.image) {
       imageBase64 = Buffer.from(specialty.image, 'base64').toString('binary');
@@ -184,22 +183,20 @@ class ManageSpecialty extends Component {
     let { name, description, descriptionMarkdown, listClinic, action } =
       this.state;
 
-      console.log(this.props);
-
     return (
-      <div className='manage-specialty'>
-        <h2 className='title'>
-          <FormattedMessage id='admin.manage-specialty.specialty-title' />
-        </h2>
-
+      <Section>
+        <Titles
+          title={
+            <FormattedMessage id='admin.manage-specialty.specialty-title' />
+          }
+        />
         <div className='specialty-list row'>
           <div className='col-4 form-group'>
             <label>
               <FormattedMessage id='admin.manage-specialty.specialty-name' />
             </label>
-            <input
-              className='form-control'
-              type='text'
+            <Input
+              size='large'
               value={name}
               placeholder='Specialty Name...'
               onChange={(event) => this.handleOnChangeInput(event, 'name')}
@@ -216,6 +213,7 @@ class ManageSpecialty extends Component {
               options={listClinic}
               placeholder={<FormattedMessage id='admin.manage-doctor.clinic' />}
               name='selectedClinic'
+              style={{ width: '100%' }}
             />
           </div>
           <div className='col-4 form-group'>
@@ -249,21 +247,28 @@ class ManageSpecialty extends Component {
               renderHTML={(text) => mdParser.render(text)}
             />
           </div>
-          <div className='col-12'>
-            <button
-              className={
-                action === CRUD_ACTIONS.EDIT
-                  ? 'btn-edit-specialty'
-                  : 'btn-add-specialty'
-              }
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              width: '100%',
+              paddingRight: '50px',
+              marginTop: '20px',
+            }}
+          >
+            <Button
+              type='primary'
+              shape='round'
               onClick={() => this.handleSaveSpecialty()}
+              style={{ margin: '20px' }}
+              size='large'
             >
               {action === CRUD_ACTIONS.EDIT ? (
-                <FormattedMessage id='admin.manage-specialty.edit' />
+                <FormattedMessage id='global.btn-update' />
               ) : (
-                <FormattedMessage id='admin.manage-specialty.save' />
+                <FormattedMessage id='global.btn-create' />
               )}
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -271,7 +276,7 @@ class ManageSpecialty extends Component {
           handleEditSpecialty={this.handleEditSpecialty}
           action={action}
         />
-      </div>
+      </Section>
     );
   }
 }

@@ -1,18 +1,13 @@
+import { Button } from 'antd';
 import MarkdownIt from 'markdown-it';
-
 import React, { Component } from 'react';
-
-import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
-
 import { FormattedMessage } from 'react-intl';
 import MdEditor from 'react-markdown-editor-lite';
-
 import { connect } from 'react-redux';
+import Titles from '../../../components/Title';
 import * as actions from '../../../store/actions';
-
+import { CommonUtils, CRUD_ACTIONS } from '../../../utils';
 import TableManageHandBook from './TableManageHandBook';
-
-import './ManageHandBook.scss';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -130,9 +125,9 @@ class ManageHandBook extends Component {
 
     return (
       <div className='manage-specialty'>
-        <h2 className='title'>
-          <FormattedMessage id='admin.manage-handbook.handbook-title' />
-        </h2>
+        <Titles
+          title={<FormattedMessage id='admin.manage-handbook.handbook-title' />}
+        />
 
         <div className='specialty-list row'>
           <div className='col-6 form-group'>
@@ -165,21 +160,27 @@ class ManageHandBook extends Component {
               renderHTML={(text) => mdParser.render(text)}
             />
           </div>
-          <div className='col-12'>
-            <button
-              className={
-                this.state.action === CRUD_ACTIONS.EDIT
-                  ? 'btn-edit-handbook'
-                  : 'btn-add-handbook'
-              }
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              width: '100%',
+              paddingRight: '50px',
+              marginTop: '20px',
+            }}
+          >
+            <Button
+              type='primary'
+              shape='round'
+              size='large'
               onClick={() => this.handleSaveHandBook()}
             >
               {this.state.action === CRUD_ACTIONS.EDIT ? (
-                <FormattedMessage id='admin.manage-handbook.edit' />
+                <FormattedMessage id='global.btn-update' />
               ) : (
-                <FormattedMessage id='admin.manage-handbook.save' />
+                <FormattedMessage id='global.btn-create' />
               )}
-            </button>
+            </Button>
           </div>
         </div>
 
