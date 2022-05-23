@@ -10,7 +10,7 @@ html {
   background-size: cover;
   font-family: $fontmain;
   height: 100vh;
-  font-size: 62.5%;
+  font-size: 14px;
   overflow-x: hidden;
 }
 .main-container {
@@ -54,8 +54,4 @@ div._loading_overlay_wrapper {
     box-shadow: 2px 2px 4px 0 $box-shadow-color;
     -webkit-box-shadow: 2px 2px 4px 0 $box-shadow-color;
   }
-}
-
-.home-container {
-  // display: block;
 }
