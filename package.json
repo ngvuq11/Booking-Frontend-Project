@@ -57,10 +57,6 @@
     "eject": "react-scripts eject",
     "dev": "react-scripts start",
     "heroku-postbuild": "npm run build"
-   //  "start": "react-scripts start",
-   //  "build": "react-scripts --max_old_space_size=8192 build",
-   //  "test": "react-scripts test",
-   //  "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
