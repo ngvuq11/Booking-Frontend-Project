@@ -1,4 +1,14 @@
-import { Button, Col, Form, Input, Modal, Row, Space, Typography } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Col,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Space,
+  Typography,
+} from 'antd';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { Component } from 'react';
@@ -8,6 +18,7 @@ import { connect } from 'react-redux';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import DatePicker from '../../../../components/Input/DatePicker';
+import Titles from '../../../../components/Title/index';
 import {
   getDetailInforDoctor,
   postBookAppointment,
@@ -16,7 +27,6 @@ import {
 import * as actions from '../../../../store/actions';
 import { LANGUAGES } from '../../../../utils';
 import ProfileDoctor from '../ProfileDoctor/index';
-import Titles from '../../../../components/Title/index';
 import './BookingModal.scss';
 
 const { TextArea } = Input;
@@ -37,54 +47,60 @@ class BookingModal extends Component {
       phoneNumber: '',
       selectedGenders: '',
       isLoading: false,
+      detailDoctor: [],
+      isShowBtnPayment: false,
+      unit: 0,
     };
   }
 
   async componentDidMount() {
     await this.props.getGenders();
-    let { doctorIdFromParent } = this.props;
-    let id = doctorIdFromParent;
+    let id = this.props.doctorIdFromParent;
     let res = await getDetailInforDoctor(id);
-
-    if (res.data && res.errCode === 0) {
-    }
-    let price = res.data.Doctor_infor.priceIdData.valueEn;
-    setTimeout(() => {
-      window.paypal
-        .Buttons({
-          createOrder: (data, actions, err) => {
-            return actions.order.create({
-              intent: 'CAPTURE',
-              purchase_units: [
-                {
-                  description: 'Cool looking table',
-                  amount: {
-                    currency_code: 'USD',
-                    value: +price,
-                  },
-                },
-              ],
-            });
-          },
-          onApprove: async (data, actions) => {
-            const order = await actions.order.capture();
-
-            if (order && order.status === 'COMPLETED') {
-              setTimeout(async () => {
-                this.handlePayment(order);
-              }, 3000);
-            }
-          },
-          onError: (err) => {
-            console.log(err);
-          },
-          style: {
-            layout: 'horizontal',
-          },
-        })
-        .render('.payment-root');
-    }, 20000);
+    this.setState({
+      detailDoctor: res.data,
+    });
   }
+  handleRenderPayment = () => {
+    this.setState({
+      unit: 2,
+    });
+    let { detailDoctor } = this.state;
+    let price = detailDoctor?.Doctor_infor?.priceIdData?.valueEn;
+
+    window.paypal
+      .Buttons({
+        createOrder: (data, actions, err) => {
+          return actions.order.create({
+            intent: 'CAPTURE',
+            purchase_units: [
+              {
+                description: 'Cool looking table',
+                amount: {
+                  currency_code: 'USD',
+                  value: +price,
+                },
+              },
+            ],
+          });
+        },
+        onApprove: async (data, actions) => {
+          const order = await actions.order.capture();
+          if (order && order.status === 'COMPLETED') {
+            setTimeout(async () => {
+              this.handlePayment(order);
+            }, 3000);
+          }
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+        style: {
+          layout: 'horizontal',
+        },
+      })
+      .render('.payment-root');
+  };
 
   async componentDidUpdate(prevProps, prevState) {
     let { language } = this.props;
@@ -265,9 +281,29 @@ class BookingModal extends Component {
     }
     return '';
   };
+  handChangeCheckbox = (event) => {
+    let { checked } = event.target;
+    console.log('checked', checked);
+    this.setState({
+      isShowBtnPayment: !this.state.isShowBtnPayment,
+    });
+    if (checked) {
+      this.setState({
+        isShowBtnPayment: true,
+      });
+      if (this.state.unit < 2) {
+        this.handleRenderPayment();
+      }
+    } else {
+      this.setState({
+        isShowBtnPayment: false,
+      });
+    }
+  };
 
   render() {
     let { isOpenModalBooking, closeBookingModal, dataTime } = this.props;
+    let { isShowBtnPayment } = this.state;
     let doctorId = '';
     let doctorName = '';
     if (dataTime && !_.isEmpty(dataTime)) {
@@ -472,18 +508,41 @@ class BookingModal extends Component {
                 </Row>
                 <Row gutter={[20, 20]}>
                   <Col span={24}>
-                    <div className='payment-root'></div>
+                    <Checkbox onChange={(ev) => this.handChangeCheckbox(ev)}>
+                      Thanh toán bằng thẻ
+                    </Checkbox>
                   </Col>
-                  <Col span={3} offset={18}>
-                    <Button type='danger' ghost onClick={closeBookingModal}>
-                      Cancel
-                    </Button>
+                  <Col span={24}>
+                    <div
+                      className={
+                        this.state.isShowBtnPayment
+                          ? 'payment-root '
+                          : 'payment-root active'
+                      }
+                    ></div>
                   </Col>
-                  <Col span={3}>
-                    <Button type='primary' htmlType='submit'>
-                      Confirm
-                    </Button>
-                  </Col>
+                </Row>
+                <Row gutter={[20, 20]} style={{ marginTop: '20px' }}>
+                  {isShowBtnPayment ? (
+                    <Col span={3} offset={21}>
+                      <Button type='danger' ghost onClick={closeBookingModal}>
+                        Cancel
+                      </Button>
+                    </Col>
+                  ) : (
+                    <>
+                      <Col span={3} offset={18}>
+                        <Button type='danger' ghost onClick={closeBookingModal}>
+                          Cancel
+                        </Button>
+                      </Col>
+                      <Col span={3}>
+                        <Button type='primary' htmlType='submit'>
+                          Confirm
+                        </Button>
+                      </Col>
+                    </>
+                  )}
                 </Row>
               </Form>
             </Row>
@@ -498,6 +557,7 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     genders: state.admin.genders,
+    detailDoctor: state.admin.detailDoctor,
   };
 };
 

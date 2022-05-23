@@ -56,4 +56,10 @@
       }
     }
   }
+  .payment-root {
+    display: block;
+  }
+  .payment-root.active {
+    display: none;
+  }
 }
