@@ -277,6 +277,10 @@ class BookingModal extends Component {
         dataTime.doctorIdData.lastName + ' ' + dataTime.doctorIdData.firstName;
     }
 
+    let paymentMethod = paymentIdData;
+
+    console.log('hihi', doctorName);
+
     return (
       <LoadingOverlay
         active={this.state.isLoading}
@@ -293,6 +297,7 @@ class BookingModal extends Component {
             <Titles
               title={<FormattedMessage id='patient.booking-modal.title' />}
             />
+            <Titles title={doctorName} />
 
             <ProfileDoctor
               doctorId={doctorId}
