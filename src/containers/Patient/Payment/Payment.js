@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (props) {
-  const paypal = useRef();
   let newPrice = props.newPrice;
 
   console.log(props);

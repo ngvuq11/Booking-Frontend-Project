@@ -35,25 +35,19 @@ class BookingModal extends Component {
       timeType: '',
       phoneNumber: '',
       selectedGenders: '',
-      paymentIdData: {},
       isLoading: false,
     };
   }
 
   async componentDidMount() {
+    await this.props.getGenders();
     let { doctorIdFromParent } = this.props;
     let id = doctorIdFromParent;
     let res = await getDetailInforDoctor(id);
-    if (res.data && res.errCode === 0) {
-      this.setState({
-        paymentIdData: res.data.Doctor_infor.paymentIdData,
-      });
-    }
-    let price = res.data.Doctor_infor.priceIdData;
 
-    this.props.getGenders();
-
-    setTimeout(() => {
+    if (res.data && res.errCode === 0) {}
+      let price = res.data.Doctor_infor.priceIdData.valueEn;
+      setTimeout(() => {
       window.paypal
         .Buttons({
           createOrder: (data, actions, err) => {
@@ -64,7 +58,7 @@ class BookingModal extends Component {
                   description: 'Cool looking table',
                   amount: {
                     currency_code: 'USD',
-                    value: +price.valueEn,
+                    value: +price,
                   },
                 },
               ],
@@ -87,7 +81,8 @@ class BookingModal extends Component {
           },
         })
         .render('.payment-root');
-    }, 20000);
+      }, 20000);
+
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -272,7 +267,6 @@ class BookingModal extends Component {
 
   render() {
     let { isOpenModalBooking, closeBookingModal, dataTime } = this.props;
-    let { paymentIdData } = this.state;
     let doctorId = '';
     let doctorName = '';
     if (dataTime && !_.isEmpty(dataTime)) {
@@ -282,10 +276,6 @@ class BookingModal extends Component {
       doctorName =
         dataTime.doctorIdData.lastName + ' ' + dataTime.doctorIdData.firstName;
     }
-
-    let paymentMethod = paymentIdData;
-
-    console.log(paymentMethod);
 
     return (
       <LoadingOverlay
@@ -480,20 +470,15 @@ class BookingModal extends Component {
                 </Row>
                 <Row gutter={[10, 10]}>
                   <Col span={21}>
-                    {(paymentMethod &&
-                      paymentMethod.valueEn === 'Credit card') ||
-                    paymentMethod.valueVi === 'Thẻ ATM' ? (
-                      <div className='payment-root'></div>
-                    ) : (
-                      <Button
-                        form='myForm'
-                        type='primary'
-                        htmlType='submit'
-                        onClick={() => this.handleConfirmBooking()}
-                      >
-                        Submit
-                      </Button>
-                    )}
+                    <div className='payment-root'></div>
+                    <Button
+                      form='myForm'
+                      type='primary'
+                      htmlType='submit'
+                      onClick={() => this.handleConfirmBooking()}
+                    >
+                      Submit
+                    </Button>
                   </Col>
                   <Col span={3}>
                     <Button type='danger' onClick={closeBookingModal}>
