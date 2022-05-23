@@ -35,7 +35,6 @@ class BookingModal extends Component {
       timeType: '',
       phoneNumber: '',
       selectedGenders: '',
-      paymentIdData: {},
       isLoading: false,
     };
   }
@@ -45,9 +44,7 @@ class BookingModal extends Component {
     let id = doctorIdFromParent;
     let res = await getDetailInforDoctor(id);
     if (res.data && res.errCode === 0) {
-      this.setState({
-        paymentIdData: res.data.Doctor_infor.paymentIdData,
-      });
+
     }
     let price = res.data.Doctor_infor.priceIdData;
 
@@ -272,7 +269,6 @@ class BookingModal extends Component {
 
   render() {
     let { isOpenModalBooking, closeBookingModal, dataTime } = this.props;
-    let { paymentIdData } = this.state;
     let doctorId = '';
     let doctorName = '';
     if (dataTime && !_.isEmpty(dataTime)) {
@@ -282,10 +278,6 @@ class BookingModal extends Component {
       doctorName =
         dataTime.doctorIdData.lastName + ' ' + dataTime.doctorIdData.firstName;
     }
-
-    let paymentMethod = paymentIdData;
-
-    console.log(paymentMethod);
 
     return (
       <LoadingOverlay
@@ -300,21 +292,15 @@ class BookingModal extends Component {
             <Button type='danger' ghost onClick={closeBookingModal}>
               Cancel
             </Button>,
-            <>
-              {(paymentMethod && paymentMethod.valueEn === 'Credit card') ||
-              paymentMethod.valueVi === 'Thẻ ATM' ? (
-                <div className='payment-root'></div>
-              ) : (
-                <Button
-                  form='myForm'
-                  type='primary'
-                  htmlType='submit'
-                  onClick={() => this.handleConfirmBooking()}
-                >
-                  Submit
-                </Button>
-              )}
-            </>,
+            <div className='payment-root'></div>,
+            <Button
+              form='myForm'
+              type='primary'
+              htmlType='submit'
+              onClick={() => this.handleConfirmBooking()}
+            >
+              Submit
+            </Button>,
           ]}
         >
           <Space direction='vertical' size={15} style={{ display: 'flex' }}>
@@ -508,13 +494,13 @@ class BookingModal extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    genders: state.admin.genders
+    genders: state.admin.genders,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getGenders: () => dispatch(actions.fetchGenderStart())
+    getGenders: () => dispatch(actions.fetchGenderStart()),
   };
 };
 
