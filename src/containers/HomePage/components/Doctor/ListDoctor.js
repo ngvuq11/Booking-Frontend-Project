@@ -108,6 +108,7 @@ class ListDoctor extends Component {
                       index >= this.state.minIndex &&
                       index < this.state.maxIndex && (
                         <DoctorInfor
+                          key={index}
                           index={index}
                           item={item}
                           language={language}

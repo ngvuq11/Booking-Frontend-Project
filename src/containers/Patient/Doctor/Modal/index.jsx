@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Modal, Row, Space } from 'antd';
+import { Button, Col, Form, Input, Modal, Row, Space, Typography } from 'antd';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { Component } from 'react';
@@ -20,6 +20,7 @@ import Titles from '../../../../components/Title/index';
 import './BookingModal.scss';
 
 const { TextArea } = Input;
+const { Title } = Typography;
 
 class BookingModal extends Component {
   constructor(props) {
@@ -45,9 +46,10 @@ class BookingModal extends Component {
     let id = doctorIdFromParent;
     let res = await getDetailInforDoctor(id);
 
-    if (res.data && res.errCode === 0) {}
-      let price = res.data.Doctor_infor.priceIdData.valueEn;
-      setTimeout(() => {
+    if (res.data && res.errCode === 0) {
+    }
+    let price = res.data.Doctor_infor.priceIdData.valueEn;
+    setTimeout(() => {
       window.paypal
         .Buttons({
           createOrder: (data, actions, err) => {
@@ -81,8 +83,7 @@ class BookingModal extends Component {
           },
         })
         .render('.payment-root');
-      }, 20000);
-
+    }, 20000);
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -277,10 +278,6 @@ class BookingModal extends Component {
         dataTime.doctorIdData.lastName + ' ' + dataTime.doctorIdData.firstName;
     }
 
-    let paymentMethod = paymentIdData;
-
-    console.log('hihi', doctorName);
-
     return (
       <LoadingOverlay
         active={this.state.isLoading}
@@ -297,8 +294,7 @@ class BookingModal extends Component {
             <Titles
               title={<FormattedMessage id='patient.booking-modal.title' />}
             />
-            <Titles title={doctorName} />
-
+            <Title level={3}>Bác sĩ: {doctorName} </Title>
             <ProfileDoctor
               doctorId={doctorId}
               doctorName={doctorName}
@@ -307,6 +303,7 @@ class BookingModal extends Component {
               isShowLinkDetail={false}
               isShowPrice={true}
               isShowCalendarDoctor={false}
+              isShowDoctorModal={false}
             />
             <Row>
               <Form
@@ -473,21 +470,18 @@ class BookingModal extends Component {
                     </Form.Item>
                   </Col>
                 </Row>
-                <Row gutter={[10, 10]}>
-                  <Col span={21}>
+                <Row gutter={[20, 20]}>
+                  <Col span={24}>
                     <div className='payment-root'></div>
-                    <Button
-                      form='myForm'
-                      type='primary'
-                      htmlType='submit'
-                      onClick={() => this.handleConfirmBooking()}
-                    >
-                      Submit
+                  </Col>
+                  <Col span={3} offset={18}>
+                    <Button type='danger' ghost onClick={closeBookingModal}>
+                      Cancel
                     </Button>
                   </Col>
                   <Col span={3}>
-                    <Button type='danger' onClick={closeBookingModal}>
-                      Cancel
+                    <Button type='primary' htmlType='submit'>
+                      Confirm
                     </Button>
                   </Col>
                 </Row>

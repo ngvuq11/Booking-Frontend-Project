@@ -7,7 +7,7 @@ import './DoctorInfor.scss';
 DoctorInfor.propTypes = {};
 
 function DoctorInfor(props) {
-  const { item, index, language, onClick } = props;
+  const { item, language, onClick } = props;
   let imageBase64 = '';
   if (item.image) {
     imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
@@ -16,7 +16,7 @@ function DoctorInfor(props) {
   let nameEn = `${item.firstName} ${item.lastName}`;
 
   return (
-    <div className='doctor-item' key={index}>
+    <div className='doctor-item'>
       <Image src={imageBase64} preview={false} />
       <Space direction='vertical' className='doctor-item-infor'>
         <Titles title={`${language === LANGUAGES.VI ? nameVi : nameEn}`} />
