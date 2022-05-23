@@ -5,8 +5,6 @@ import { toast } from 'react-toastify';
 export default function (props) {
   let newPrice = props.newPrice;
 
-  console.log(props);
-
   useEffect(() => {
     window.paypal
       .Buttons({
@@ -32,8 +30,7 @@ export default function (props) {
           toast.success('Payment success !');
         },
         onError: (err) => {
-          console.log(err);
-          toast.error('Payment error !');
+          toast.error('Payment error !', err);
         },
         style: {
           layout: 'horizontal',

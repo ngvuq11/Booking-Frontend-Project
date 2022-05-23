@@ -41,48 +41,48 @@ class BookingModal extends Component {
 
   async componentDidMount() {
     await this.props.getGenders();
-    let { doctorIdFromParent } = this.props;
-    let id = doctorIdFromParent;
+
+    let id = this.props.doctorIdFromParent;
     let res = await getDetailInforDoctor(id);
 
-    if (res.data && res.errCode === 0) {}
+    if (res.data && res.errCode === 0) {
       let price = res.data.Doctor_infor.priceIdData.valueEn;
-      setTimeout(() => {
-      window.paypal
-        .Buttons({
-          createOrder: (data, actions, err) => {
-            return actions.order.create({
-              intent: 'CAPTURE',
-              purchase_units: [
-                {
-                  description: 'Cool looking table',
-                  amount: {
-                    currency_code: 'USD',
-                    value: +price,
-                  },
-                },
-              ],
-            });
-          },
-          onApprove: async (data, actions) => {
-            const order = await actions.order.capture();
+      if (price) {
+        setTimeout(() => {
+          window.paypal
+            .Buttons({
+              createOrder: (data, actions, err) => {
+                return actions.order.create({
+                  intent: 'CAPTURE',
+                  purchase_units: [
+                    {
+                      description: 'Cool looking table',
+                      amount: {
+                        currency_code: 'USD',
+                        value: +price,
+                      },
+                    },
+                  ],
+                });
+              },
+              onApprove: async (data, actions) => {
+                const order = await actions.order.capture();
 
-            if (order && order.status === 'COMPLETED') {
-              setTimeout(async () => {
-                this.handlePayment(order);
-              }, 3000);
-            }
-          },
-          onError: (err) => {
-            console.log(err);
-          },
-          style: {
-            layout: 'horizontal',
-          },
-        })
-        .render('.payment-root');
-      }, 20000);
-
+                if (order && order.status === 'COMPLETED') {
+                  this.handlePayment(order);
+                }
+              },
+              onError: (err) => {
+                console.log(err);
+              },
+              style: {
+                layout: 'horizontal',
+              },
+            })
+            .render('.payment-root');
+        }, 20000);
+      }
+    }
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -498,15 +498,13 @@ class BookingModal extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    genders: state.admin.genders,
+    genders: state.admin.genders
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getGenders: () => dispatch(actions.fetchGenderStart()),
-    fetchDetailInforDoctor: (id) =>
-      dispatch(actions.fetchDetailInforDoctor(id)),
   };
 };
 

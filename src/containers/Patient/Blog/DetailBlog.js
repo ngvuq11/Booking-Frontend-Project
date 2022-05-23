@@ -50,8 +50,6 @@ class DetailBlog extends Component {
 
   render() {
     let { dataBlog, isLoading } = this.state;
-    // let { language } = this.props;
-    console.log(dataBlog);
 
     return (
       <>

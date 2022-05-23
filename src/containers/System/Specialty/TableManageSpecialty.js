@@ -42,7 +42,6 @@ class TableManageSpecialty extends Component {
   };
 
   handleChangePageNumber = (page) => {
-    console.log(page);
     this.setState({
       current: page,
       minIndex: (page - 1) * pageSize,

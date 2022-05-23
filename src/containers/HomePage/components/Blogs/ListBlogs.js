@@ -2,7 +2,7 @@ import { Breadcrumb, Pagination, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import BlogCard from '../../../../components/BlogCard';
+import BlogCard from '../../../../components/BlogCard/index';
 import { Container } from '../../../../components/Container/Container.styles';
 import HomeHeader from '../../../../components/Header/HomeHeader';
 import { Section } from '../../../../components/Secction/Section.styleds';
@@ -51,7 +51,6 @@ class ListBlogs extends Component {
     });
   };
   handleChangePageNumber = (page) => {
-    console.log(page);
     this.setState({
       current: page,
       minIndex: (page - 1) * pageSize,

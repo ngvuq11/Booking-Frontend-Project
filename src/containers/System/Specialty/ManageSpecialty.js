@@ -146,7 +146,6 @@ class ManageSpecialty extends Component {
   };
 
   handleEditSpecialty = (specialty) => {
-    console.log(specialty.clinicId);
     let imageBase64 = '';
     if (specialty.image) {
       imageBase64 = Buffer.from(specialty.image, 'base64').toString('binary');
