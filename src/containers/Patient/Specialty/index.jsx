@@ -1,20 +1,21 @@
+import { Breadcrumb, Space, Spin, Typography } from 'antd';
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Container } from '../../../components/Container/Container.styles';
 // import { FormattedMessage } from 'react-intl';
 import HomeHeader from '../../../components/Header/HomeHeader';
-import DoctorSchedule from '../Doctor/DoctorSchedule/index';
-import DoctorExtraInfor from '../Doctor/DoctorExtraInfor/index';
-import ProfileDoctor from '../Doctor/ProfileDoctor/index';
+import { Section } from '../../../components/Secction/Section.styleds';
 import {
-  getAllDetailSpecialtyById,
   getAllCodeService,
+  getAllDetailSpecialtyById,
 } from '../../../services/userService';
-
-import './DetailSpecialty.scss';
-import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
 import Footer from '../../HomePage/components/Section/Footer';
+import ProfileDoctor from '../Doctor/ProfileDoctor/index';
+import './DetailSpecialty.scss';
 
+const { Text } = Typography;
 class DetailSpecialty extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,7 @@ class DetailSpecialty extends Component {
       arrDoctorId: [],
       dataDetailSpecialty: {},
       listProvince: [],
+      isLoading: false,
     };
   }
 
@@ -73,6 +75,7 @@ class DetailSpecialty extends Component {
           dataDetailSpecialty: res.data,
           arrDoctorId: arrDoctorId,
           listProvince: dataProvince ? dataProvince : [],
+          isLoading: true,
         });
       }
     }
@@ -118,68 +121,125 @@ class DetailSpecialty extends Component {
       }
     }
   };
+  chosePage = (event) => {
+    this.setState({
+      currentPage: Number(event.target.id),
+    });
+  };
 
   render() {
-    let { arrDoctorId, dataDetailSpecialty, listProvince } = this.state;
+    let { arrDoctorId, dataDetailSpecialty, listProvince, isLoading } =
+      this.state;
     let { language } = this.props;
-    console.log('x: ', arrDoctorId);
     return (
-      <div className='detail-specialty'>
-        <HomeHeader />
-        <section className='banner'>
-          {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty) && (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: dataDetailSpecialty.descriptionHTML,
-              }}
-            ></div>
-          )}
-        </section>
-        <section className='search-location'>
-          <select onChange={(event) => this.handleOnChangeSelect(event)}>
-            {listProvince &&
-              listProvince.length > 0 &&
-              listProvince.map((item, index) => {
-                return (
-                  <option key={index} value={item.keymap}>
-                    {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                  </option>
-                );
-              })}
-          </select>
-        </section>
-        <section className='specialty-list'>
-          {arrDoctorId &&
-            arrDoctorId.length > 0 &&
-            arrDoctorId.map((item, index) => {
-              return (
-                <div className='specialty-item' key={index}>
-                  <div className='intro'>
-                    <div className='profile-doctor'>
-                      <ProfileDoctor
-                        doctorId={item}
-                        isShowDescDoctor={true}
-                        isShowLinkDetail={true}
-                        isShowPrice={false}
-                        // dataTime={dataTime}
-                      />
-                    </div>
-                  </div>
-                  <div className='schedule'>
-                    <div className='schedule-infor'>
-                      <DoctorSchedule doctorIdFromParent={item} />
-                    </div>
-                    <div className='schedule-price'>
-                      <DoctorExtraInfor doctorIdFromParent={item} />
-                    </div>
-                  </div>
+      <>
+        {isLoading ? (
+          <>
+            <HomeHeader />
+            <Section className='section__detail--specialty'>
+              <Container>
+                <Breadcrumb
+                  style={{
+                    marginBottom: '20px',
+                    background: '#fff',
+                    padding: '10px 0',
+                    borderBottom: '1px solid #ccc',
+                  }}
+                >
+                  <Breadcrumb.Item>
+                    <Text
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.history.push('/home')}
+                    >
+                      Home
+                    </Text>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Text
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.history.push('/list-doctor')}
+                    >
+                      Danh sách các phòng khám
+                    </Text>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Text>{dataDetailSpecialty.name}</Text>
+                  </Breadcrumb.Item>
+                </Breadcrumb>
+                {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty) && (
+                  <div
+                    className='detail__specialty--description'
+                    dangerouslySetInnerHTML={{
+                      __html: dataDetailSpecialty.descriptionHTML,
+                    }}
+                  ></div>
+                )}
+                <div>
+                  <Space
+                    direction='vertical'
+                    size={20}
+                    style={{ display: 'flex' }}
+                  >
+                    <select
+                      onChange={(event) => this.handleOnChangeSelect(event)}
+                      className='select-location'
+                    >
+                      {listProvince &&
+                        listProvince.length > 0 &&
+                        listProvince.map((item, index) => {
+                          return (
+                            <option key={index} value={item.keymap}>
+                              {language === LANGUAGES.VI
+                                ? item.valueVi
+                                : item.valueEn}
+                            </option>
+                          );
+                        })}
+                    </select>
+                    <Space
+                      direction='vertical'
+                      size={20}
+                      className='list__doctor--suggest'
+                    >
+                      {arrDoctorId &&
+                        arrDoctorId.length > 0 &&
+                        arrDoctorId.map((item, index) => {
+                          return (
+                            <ProfileDoctor
+                              doctorId={item}
+                              isShowDescDoctor={true}
+                              isShowLinkDetail={true}
+                              isShowPrice={false}
+                              isShowCalendarDoctor={true}
+                              // dataTime={dataTime}
+                            />
+                          );
+                        })}
+                    </Space>
+                  </Space>
                 </div>
-              );
-            })}
-        </section>
+              </Container>
+            </Section>
 
-        <Footer />
-      </div>
+            <Footer />
+          </>
+        ) : (
+          <Spin
+            tip='Plese wait...'
+            size='large'
+            style={{
+              width: '100vw',
+              height: '100vh',
+              maxHeight: 'unset',
+              display: 'flex',
+              gap: '20px',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+        )}
+      </>
     );
   }
 }

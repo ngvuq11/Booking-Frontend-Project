@@ -7,10 +7,11 @@ import { KeyCodeUtils, LanguageUtils } from '../utils';
 
 import userIcon from '../../src/assets/images/user.svg';
 import passIcon from '../../src/assets/images/pass.svg';
-import './Login.scss';
+// import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 
 import adminService from '../services/adminService';
+import { Col, Image, Row } from 'antd';
 
 class Login extends Component {
   constructor(props) {
@@ -101,63 +102,75 @@ class Login extends Component {
     const { lang } = this.props;
 
     return (
-      <div className='login-wrapper'>
-        <div className='login-container'>
-          <div className='form_login'>
-            <h2 className='title'>
-              <FormattedMessage id='login.login' />
-            </h2>
-            <div className='form-group icon-true'>
-              <img className='icon' src={userIcon} alt='this' />
-              <input
-                placeholder={LanguageUtils.getMessageByKey(
-                  'login.username',
-                  lang
-                )}
-                id='username'
-                name='username'
-                type='text'
-                className='form-control'
-                value={username}
-                onChange={this.onUsernameChange}
-              />
-            </div>
+      <>
+        <Row>
+          <Col xs={16}>
+            <Image src='https://source.unsplash.com/random' preview={false} />
+          </Col>
+          <Col xs={8}>
+            <div className='login-wrapper'>
+              <div className='login-container'>
+                <div className='form_login'>
+                  <h2 className='title'>
+                    <FormattedMessage id='login.login' />
+                  </h2>
+                  <div className='form-group icon-true'>
+                    <img className='icon' src={userIcon} alt='this' />
+                    <input
+                      placeholder={LanguageUtils.getMessageByKey(
+                        'login.username',
+                        lang
+                      )}
+                      id='username'
+                      name='username'
+                      type='text'
+                      className='form-control'
+                      value={username}
+                      onChange={this.onUsernameChange}
+                    />
+                  </div>
 
-            <div id='phone-input-container' className='form-group icon-true'>
-              <img className='icon' src={passIcon} alt='this' />
-              <input
-                placeholder={LanguageUtils.getMessageByKey(
-                  'login.password',
-                  lang
-                )}
-                id='password'
-                name='password'
-                type='password'
-                className='form-control'
-                value={password}
-                onChange={this.onPasswordChange}
-              />
-            </div>
+                  <div
+                    id='phone-input-container'
+                    className='form-group icon-true'
+                  >
+                    <img className='icon' src={passIcon} alt='this' />
+                    <input
+                      placeholder={LanguageUtils.getMessageByKey(
+                        'login.password',
+                        lang
+                      )}
+                      id='password'
+                      name='password'
+                      type='password'
+                      className='form-control'
+                      value={password}
+                      onChange={this.onPasswordChange}
+                    />
+                  </div>
 
-            {loginError !== '' && (
-              <div className='login-error'>
-                <span className='login-error-message'>{loginError}</span>
+                  {loginError !== '' && (
+                    <div className='login-error'>
+                      <span className='login-error-message'>{loginError}</span>
+                    </div>
+                  )}
+
+                  <div className='form-group login'>
+                    <input
+                      ref={this.btnLogin}
+                      id='btnLogin'
+                      type='submit'
+                      className='btn'
+                      value={LanguageUtils.getMessageByKey('login.login', lang)}
+                      onClick={this.processLogin}
+                    />
+                  </div>
+                </div>
               </div>
-            )}
-
-            <div className='form-group login'>
-              <input
-                ref={this.btnLogin}
-                id='btnLogin'
-                type='submit'
-                className='btn'
-                value={LanguageUtils.getMessageByKey('login.login', lang)}
-                onClick={this.processLogin}
-              />
             </div>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </>
     );
   }
 }

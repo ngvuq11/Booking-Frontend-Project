@@ -1,4 +1,4 @@
-import { Breadcrumb, Spin, Typography } from 'antd';
+import { Breadcrumb, Button, Spin, Typography } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -77,47 +77,6 @@ class ListDoctor extends Component {
     const newsPerPage = this.state.newsPerPage;
     const indexOfLastNews = currentPage * newsPerPage;
     const indexOfFirstNews = indexOfLastNews - newsPerPage;
-    const currentTodos = listDoctors.slice(indexOfFirstNews, indexOfLastNews);
-    const renderTodos = currentTodos.map((item, index) => {
-      let imageBase64 = '';
-      if (item.image) {
-        imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
-      }
-      let nameVi = `${item.lastName} ${item.firstName}`;
-      let nameEn = `${item.firstName} ${item.lastName}`;
-      return (
-        <div className='doctor-item' key={index}>
-          <div
-            className='doctor-item-image'
-            style={{ backgroundImage: `url(${imageBase64})` }}
-          ></div>
-          <div className='doctor-item-infor'>
-            <div className='name'>
-              <span>Doctor: </span>
-              {language === LANGUAGES.VI ? nameVi : nameEn}
-            </div>
-            <div>
-              <span>Email: </span>
-              {item.email}
-            </div>
-            <div>
-              <span>Phone number: </span>
-              {item.phoneNumber}
-            </div>
-            <div>
-              <span>Address: </span>
-              {item.address}
-            </div>
-            <div
-              className='view'
-              onClick={() => this.handleViewDetailDoctor(item)}
-            >
-              Xem thêm
-            </div>
-          </div>
-        </div>
-      );
-    });
 
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(listDoctors.length / newsPerPage); i++) {
@@ -147,13 +106,12 @@ class ListDoctor extends Component {
                   handleSearchDoctor={this.handleSearchDoctor}
                 />
                 <div className='list-doctor'>
-                  {renderTodos}
                   {listDoctors.length <= 0
                     ? 'Không tìm thấy tên bác sĩ...'
                     : ''}
-                  {/* {listDoctors &&
-                    listDoctors.length > 0 &&
-                    listDoctors.map((item, index) => {
+                  {listDoctors
+                    .slice(indexOfFirstNews, indexOfLastNews)
+                    .map((item, index) => {
                       let imageBase64 = '';
                       if (item.image) {
                         imageBase64 = Buffer.from(
@@ -186,19 +144,17 @@ class ListDoctor extends Component {
                               <span>Address: </span>
                               {item.address}
                             </div>
-                            <div
-                              className='view'
+                            <Button
+                              type='primary'
+                              ghost
                               onClick={() => this.handleViewDetailDoctor(item)}
                             >
                               Xem thêm
-                            </div>
+                            </Button>
                           </div>
                         </div>
                       );
                     })}
-                  {listDoctors.length <= 0
-                    ? 'Không tìm thấy tên bác sĩ...'
-                    : ''} */}
                 </div>
                 <div className='pagination-custom'>
                   <ul id='page-numbers'>
@@ -225,7 +181,7 @@ class ListDoctor extends Component {
           </>
         ) : (
           <Spin
-            tip='Loading...'
+            tip='Plese wait...'
             size='large'
             style={{
               width: '100vw',

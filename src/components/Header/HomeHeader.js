@@ -43,6 +43,12 @@ class HomeHeader extends Component {
       this.props.history.push(`/covid-19`);
     }
   };
+
+  handleLogin = () => {
+    if (this.props.history) {
+      this.props.history.push(`/login`);
+    }
+  }
   render() {
     return (
       <div className='header'>

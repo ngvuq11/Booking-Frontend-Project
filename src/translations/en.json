@@ -23,18 +23,20 @@
       "manage": "User System",
       "dashboard": "Dashboard",
       "crud": "User CRUD",
-      "manage-doctor": "Doctor management",
-      "manage-admin": "Admin Management",
-      "manage-user": "Manage User",
+      "manage-doctor": "Doctors",
+      "manage-admin": "Admins",
+      "manage-user": "Users",
       "clinic": "Clinic",
-      "manage-clinic": "Clinic Management",
+      "manage-clinic": "Clinics",
       "specialty": "Specialist",
-      "manage-specialty": "Specialized management"
+      "manage-specialty": "Specialized",
+      "manage-handbook": "Handbooks",
+      "manage-payment": "Payments"
     },
     "doctor": {
-      "manage-schedule": "Manage Doctor Schedule",
-      "manage-patient": "Manage Doctor Patient",
-      "manage-medical-record": "Manage Medical Record",
+      "manage-schedule": "Doctor Schedule",
+      "manage-patient": "Doctor Patient",
+      "manage-medical-record": "Medical Record",
       "medical-record": {
         "list-medical-record": "List of patients examined",
         "see-more": "See more"
@@ -43,9 +45,7 @@
         "choose-date": "Choose a date of examination",
         "list-patient": "List of patients examined"
       },
-      "schedule" : {
-        
-      }
+      "schedule": {}
     }
   },
   "manage-user": {
@@ -136,16 +136,26 @@
       "specialty-title": "Manage Specialty",
       "specialty-name": "Name Specialty",
       "specialty-image": "Specialty image",
+      "specialty-description": "Specialty description",
       "save": "Save infor",
       "edit": "Update infor"
     },
     "manage-clinic": {
-      "clinic-title": "Manage Specialty",
+      "clinic-title": "Manage Clinic",
       "clinic-name": "Clinic Name",
       "clinic-address": "Clinic Address",
       "clinic-image": "Clinic image",
       "save": "Save infor",
       "edit": "Update infor"
-    }
+    },
+    "manage-handbook": {
+      "handbook-title": "Manage Handbook",
+      "handbook-name": "Handbook Name",
+      "handbook-address": "Handbook Address",
+      "handbook-image": "Handbook image",
+      "save": "Save infor",
+      "edit": "Update infor"
+    },
+    "manage-payment": {}
   }
 }

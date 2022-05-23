@@ -5,14 +5,19 @@ import { getAllDetailClinicById } from '../../../services/userService';
 import { withRouter } from 'react-router';
 
 import _ from 'lodash';
-import './DetailClinic.scss';
 import Footer from '../../HomePage/components/Section/Footer';
-
+import { Breadcrumb, Spin, Typography } from 'antd';
+import Maps from '../../../components/Maps';
+import { Section } from '../../../components/Secction/Section.styleds';
+import { Container } from '../../../components/Container/Container.styles';
+// import './DetailClinic.scss';
+const { Text } = Typography;
 class DetailClinic extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataDetailClinic: {},
+      isLoading: false,
     };
   }
 
@@ -31,6 +36,7 @@ class DetailClinic extends Component {
       if (res && res.errCode === 0) {
         this.setState({
           dataDetailClinic: res.data,
+          isLoading: true,
         });
       }
     }
@@ -49,46 +55,102 @@ class DetailClinic extends Component {
   };
 
   render() {
-    let { dataDetailClinic } = this.state;
+    let { dataDetailClinic, isLoading } = this.state;
     // let { language } = this.props;
     let listSpecialty = dataDetailClinic.specialtyClinic;
-    console.log(listSpecialty);
+      
     return (
-      <div className='detail-clinic'>
-        <HomeHeader />
-        <section className='banner'>
-          {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
-            <>
-              <div className='name-clinic'>{dataDetailClinic.name}</div>
-              <div className='address-clinic'>{dataDetailClinic.address}</div>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: dataDetailClinic.descriptionHTML,
-                }}
-              ></div>
-            </>
-          )}
-        </section>
-        <section className='specialty-list'>
-          {listSpecialty &&
-            listSpecialty.length > 0 &&
-            listSpecialty.map((item, index) => {
-              return (
-                <div className='specialty-item' key={index}>
-                  <div className='infor-specialty'>
-                    <div className='specialty-name'>{item.name}</div>
-                    <img className='specialty-image' src={item.image} alt='' />
-                    <span onClick={() => this.handleViewDetailSpecialty(item)}>
-                      Xem thêm
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-        </section>
+      <>
+        {isLoading ? (
+          <>
+            <HomeHeader />
+            <Section>
+              <Container>
+                <Breadcrumb
+                  style={{
+                    marginBottom: '20px',
+                    background: '#fff',
+                    padding: '10px 0',
+                    borderBottom: '1px solid #ccc',
+                  }}
+                >
+                  <Breadcrumb.Item>
+                    <Text
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.history.push('/home')}
+                    >
+                      Home
+                    </Text>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Text
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.history.push('/list-doctor')}
+                    >
+                      Danh sách các phòng khám
+                    </Text>
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    <Text>{dataDetailClinic.name}</Text>
+                  </Breadcrumb.Item>
+                </Breadcrumb>
+                {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (
+                  <>
+                    <div className='name-clinic'>{dataDetailClinic.name}</div>
+                    <div className='address-clinic'>
+                      {dataDetailClinic.address}
+                    </div>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: dataDetailClinic.descriptionHTML,
+                      }}
+                    ></div>
+                  </>
+                )}
+                {listSpecialty &&
+                  listSpecialty.length > 0 &&
+                  listSpecialty.map((item, index) => {
+                    return (
+                      <div className='specialty-item' key={index}>
+                        <div className='infor-specialty'>
+                          <div className='specialty-name'>{item.name}</div>
+                          <img
+                            className='specialty-image'
+                            src={item.image}
+                            alt=''
+                          />
+                          <span
+                            onClick={() => this.handleViewDetailSpecialty(item)}
+                          >
+                            Xem thêm
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </Container>
+            </Section>
+            <Maps address={dataDetailClinic.address} />
 
-        <Footer />
-      </div>
+            <Footer />
+          </>
+        ) : (
+          <Spin
+            tip='Plese wait...'
+            size='large'
+            style={{
+              width: '100vw',
+              height: '100vh',
+              maxHeight: 'unset',
+              display: 'flex',
+              gap: '20px',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+        )}
+      </>
     );
   }
 }

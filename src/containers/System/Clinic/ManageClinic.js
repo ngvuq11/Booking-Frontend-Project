@@ -124,7 +124,6 @@ class ManageClinic extends Component {
     let imageBase64 = '';
     if (clinic.image) {
       imageBase64 = Buffer.from(clinic.image, 'base64').toString('binary');
-      console.log(imageBase64);
     }
 
     this.setState({
@@ -135,6 +134,7 @@ class ManageClinic extends Component {
       descriptionHTML: clinic.descriptionHTML,
       descriptionMarkdown: clinic.descriptionMarkdown,
       action: CRUD_ACTIONS.EDIT,
+      imageBase64,
     });
   };
 

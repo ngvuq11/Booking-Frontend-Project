@@ -9,13 +9,19 @@ import LikeAndShare from '../../SocialPlugin/LikeAndShare';
 import { getDetailInforDoctor } from '../../../../services/userService';
 
 import './DetailDoctor.scss';
+import { Section } from '../../../../components/Secction/Section.styleds';
+import Footer from '../../../HomePage/components/Section/Footer';
+import { Container } from '../../../../components/Container/Container.styles';
+import { Breadcrumb, Col, Image, Row, Space, Spin, Typography } from 'antd';
 
+const { Title, Text } = Typography;
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       detailDoctor: {},
       currentDoctorId: -1,
+      isLoading: false,
     };
   }
 
@@ -35,6 +41,7 @@ class DetailDoctor extends Component {
       if (res && res.errCode === 0) {
         this.setState({
           detailDoctor: res.data,
+          isLoading: true,
         });
       }
     }
@@ -55,66 +62,125 @@ class DetailDoctor extends Component {
 
     let currentURL =
       +process.env.REACT_APP_IS_LOCALHOST === 1
-        ? 'https://developers.facebook.com/docs/plugins/'
+        ? 'https://client-reactjs-datn.herokuapp.com/'
         : window.location.href;
 
+        let doctorInfor = detailDoctor.Doctor_infor;
+      //   let doctorInfor = detailDoctor.Doctor_infor;
+        console.log(detailDoctor);
     return (
       <>
-        <HomeHeader isShowBanner={false} />
-
-        <div className='container-doctor'>
-          <section className='intro-doctor'>
-            <div
-              className='intro-doctor-image'
-              style={{
-                backgroundImage: `url(${
-                  detailDoctor && detailDoctor.image ? detailDoctor.image : ''
-                })`,
-              }}
-            ></div>
-            <div className='intro-doctor-content'>
-              <div className='doctor-title'>
-                <h2>{language === LANGUAGES.VI ? nameVi : nameEn}</h2>
-              </div>
-
-              <div className='doctor-intro'>
-                {detailDoctor &&
-                  detailDoctor.Markdown &&
-                  detailDoctor.Markdown.description && (
-                    <span>{detailDoctor.Markdown.description}</span>
-                  )}
-              </div>
-
-              <div className='facebook'>
-                <LikeAndShare dataHref={currentURL} />
-              </div>
-            </div>
-          </section>
-          <section className='schedule-doctor'>
-            <div className='schedule-doctor-left'>
-              <DoctorSchedule doctorIdFromParent={this.state.currentDoctorId} />
-            </div>
-            <div className='schedule-doctor-right'>
-              <DoctorExtraInfor
-                doctorIdFromParent={this.state.currentDoctorId}
-              />
-            </div>
-          </section>
-          <section className='infor-doctor'>
-            {detailDoctor &&
-              detailDoctor.Markdown &&
-              detailDoctor.Markdown.contentHTML && (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: detailDoctor.Markdown.contentHTML,
-                  }}
-                ></div>
-              )}
-          </section>
-          <section className='comment-doctor'>
-            <Comment dataHref={currentURL} width={'100%'} />
-          </section>
-        </div>
+        {this.state.isLoading ? (
+          <>
+            <HomeHeader />
+            <Section className='section__detail--doctor'>
+              <Container>
+                <Space
+                  direction='vertical'
+                  size={15}
+                  style={{ display: 'flex' }}
+                >
+                  <Breadcrumb
+                    style={{
+                      marginBottom: '20px',
+                      background: '#fff',
+                      padding: '10px 0',
+                      borderBottom: '1px solid #ccc',
+                    }}
+                  >
+                    <Breadcrumb.Item>
+                      <Text
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => this.props.history.push('/home')}
+                      >
+                        Home
+                      </Text>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                      <Text
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => this.props.history.push('/list-doctor')}
+                      >
+                        Danh sách các phòng khám
+                      </Text>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                      <Text>{language === LANGUAGES.VI ? nameVi : nameEn}</Text>
+                    </Breadcrumb.Item>
+                  </Breadcrumb>
+                  <Row>
+                    <Col xs={24} sm={24} md={6} lg={6}>
+                      <Image
+                        src={
+                          detailDoctor && detailDoctor.image
+                            ? detailDoctor.image
+                            : ''
+                        }
+                        preview={false}
+                      />
+                    </Col>
+                    <Col xs={24} sm={24} md={18} lg={18}>
+                      <Space direction='vertical' size={10}>
+                        <Title level={3}>
+                          {language === LANGUAGES.VI ? nameVi : nameEn}
+                        </Title>
+                        {detailDoctor &&
+                          detailDoctor.Markdown &&
+                          detailDoctor.Markdown.description && (
+                            <span>{detailDoctor.Markdown.description}</span>
+                          )}
+                        <LikeAndShare dataHref={currentURL} />
+                      </Space>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs={24} sm={24} md={24} lg={12}>
+                      <DoctorSchedule
+                        doctorInfor={doctorInfor}
+                        doctorIdFromParent={this.state.currentDoctorId}
+                      />
+                    </Col>
+                    <Col s={24} sm={24} md={24} lg={12}>
+                      <DoctorExtraInfor
+                        doctorIdFromParent={this.state.currentDoctorId}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    {detailDoctor &&
+                      detailDoctor.Markdown &&
+                      detailDoctor.Markdown.contentHTML && (
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: detailDoctor.Markdown.contentHTML,
+                          }}
+                        ></div>
+                      )}
+                  </Row>
+                  <Row>
+                    <Comment dataHref={currentURL} width={'100%'} />
+                  </Row>
+                </Space>
+              </Container>
+            </Section>
+            <Footer />
+          </>
+        ) : (
+          <Spin
+            tip='Plese wait...'
+            size='large'
+            style={{
+              width: '100vw',
+              height: '100vh',
+              maxHeight: 'unset',
+              display: 'flex',
+              gap: '20px',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+        )}
       </>
     );
   }

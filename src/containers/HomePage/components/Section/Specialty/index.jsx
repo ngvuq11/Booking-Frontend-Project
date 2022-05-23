@@ -52,10 +52,11 @@ class Specialty extends Component {
                 dataSpecialty.map((item, index) => {
                   return (
                     <SpecialtyCard
+                      key={index}
                       onClick={() => this.handleViewDetailSpecialty(item)}
                       name={item.name}
                       image={item.image}
-                      description={item.descriptionHTML}
+                      description={item.description}
                     />
                   );
                 })}

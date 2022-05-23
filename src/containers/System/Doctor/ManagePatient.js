@@ -155,7 +155,6 @@ class ManagePatient extends Component {
         isLoading: false,
       });
       toast.error('Something wrong... !');
-      console.log('Check error: ', res);
     }
   };
 
@@ -187,7 +186,6 @@ class ManagePatient extends Component {
         isLoading: false,
       });
       toast.error('Something wrong... !');
-      console.log('Check error: ', res);
     }
   };
 
@@ -219,7 +217,6 @@ class ManagePatient extends Component {
         isLoading: false,
       });
       toast.error('Something wrong... !');
-      console.log('Check error: ', res);
     }
   };
 
@@ -234,7 +231,11 @@ class ManagePatient extends Component {
     let { language } = this.props;
     return (
       <>
-        <LoadingOverlay active={this.state.isLoading} spinner text='Loading...'>
+        <LoadingOverlay
+          active={this.state.isLoading}
+          spinner
+          text='Plese wait...'
+        >
           <div className='manage-patient'>
             <h2 className='title'>
               <FormattedMessage id='menu.doctor.manage-patient' />
