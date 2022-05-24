@@ -1,15 +1,30 @@
 .btn-add-handbook {
-   padding: 1rem 2rem;
-    font-weight: bold;
-    font-size: 1.6rem;
-    color: white;
-    background-color: #0076ad;
-    border: none;
-    outline: none;
-    float: right;
-    margin-top: 2rem;
-    transition: all 0.2s linear;
-    &:hover{
-    background-color: #1205c1; 
-    }
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: white;
+  background-color: #0076ad;
+  border: none;
+  outline: none;
+  float: right;
+  margin-top: 2rem;
+  transition: all 0.2s linear;
+  &:hover {
+    background-color: #1205c1;
+  }
+}
+.btn-edit-handbook {
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: white;
+  background-color: #00ad0e;
+  border: none;
+  outline: none;
+  float: right;
+  margin-top: 2rem;
+  transition: all 0.2s linear;
+  &:hover {
+    background-color: #02d314;
+  }
 }

@@ -1,0 +1,19 @@
+.list-doctor-item {
+  display: flex;
+  .list-doctor-item-image {
+    width: 30rem;
+    height: 20rem;
+    border-radius: 0.8rem;
+    object-fit: cover;
+    object-position: center;
+    overflow-block: inherit;
+  }
+  .doctor-item-infor {
+    span {
+      cursor: pointer;
+      &:hover {
+        color: rgb(74, 74, 238);
+      }
+    }
+  }
+}

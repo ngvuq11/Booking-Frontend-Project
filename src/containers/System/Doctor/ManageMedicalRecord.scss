@@ -1,0 +1,26 @@
+.detail-content {
+  width: 40rem;
+  margin-bottom: 1rem;
+}
+.modal-body {
+  padding: 0 0 1rem 3rem;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  height: 29rem;
+  overflow-y: scroll;
+  .modal-total {
+    font-size: 17px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .row {
+    .first-content {
+      padding: 0.5rem 0;
+      font-weight: 500;
+    }
+    span {
+      margin-left: 15px;
+      display: block;
+    }
+  }
+}

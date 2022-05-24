@@ -134,7 +134,6 @@ class ManageMedicalRecord extends Component {
               </div>
             </div>
           </div>
-
           <PatientDetail
             detailPatient={detailPatient}
             isOpenModal={isOpenModal}

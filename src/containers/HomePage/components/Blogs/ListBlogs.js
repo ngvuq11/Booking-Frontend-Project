@@ -97,11 +97,12 @@ class ListBlogs extends Component {
                     (item, index) =>
                       index >= this.state.minIndex &&
                       index < this.state.maxIndex && (
-                        <div className='doctor-item' key={index}>
-                          <div
-                            className='doctor-item-image'
-                            style={{ backgroundImage: `url(${item.image})` }}
-                          ></div>
+                        <div className='list-doctor-item' key={index}>
+                            <img
+                              className='list-doctor-item-image'
+                              src={item.image}
+                              alt=''
+                            />
                           <div className='doctor-item-infor'>
                             <span
                               onClick={() => this.handleViewDetailBlog(item)}
