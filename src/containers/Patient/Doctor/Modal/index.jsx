@@ -7,13 +7,13 @@ import {
   Modal,
   Row,
   Space,
+  Spin,
   Typography,
 } from 'antd';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import LoadingOverlay from 'react-loading-overlay';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
@@ -87,9 +87,7 @@ class BookingModal extends Component {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           if (order && order.status === 'COMPLETED') {
-            setTimeout(async () => {
-              this.handlePayment(order);
-            }, 3000);
+            this.handlePayment(order);
           }
         },
         onError: (err) => {
@@ -315,240 +313,258 @@ class BookingModal extends Component {
     }
 
     return (
-      <LoadingOverlay
-        active={this.state.isLoading}
-        spinner
-        text='Plese wait...'
-      >
-        <Modal
-          visible={isOpenModalBooking}
-          className={'booking-modal'}
-          onCancel={closeBookingModal}
-          footer={[]}
-        >
-          <Space direction='vertical' size={15} style={{ display: 'flex' }}>
-            <Titles
-              title={<FormattedMessage id='patient.booking-modal.title' />}
-            />
-            <Title level={3}>Bác sĩ: {doctorName} </Title>
-            <ProfileDoctor
-              doctorId={doctorId}
-              doctorName={doctorName}
-              isShowDescDoctor={false}
-              dataTime={dataTime}
-              isShowLinkDetail={false}
-              isShowPrice={true}
-              isShowCalendarDoctor={false}
-              isShowDoctorModal={false}
-            />
-            <Row>
-              <Form
-                name='basic'
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                initialValues={{ remember: true }}
-                autoComplete='off'
-                id='myForm'
-                onFinish={() => this.handleConfirmBooking()}
-              >
-                <Row gutter={[15, 15]}>
-                  <Col span={12}>
-                    <Form.Item
-                      label={
-                        <FormattedMessage id='patient.booking-modal.email' />
-                      }
-                      name='email'
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input your email!',
-                        },
-                      ]}
-                    >
-                      <Input
-                        value={this.state.email}
-                        onChange={(event) =>
-                          this.handleOnChangeInput(event, 'email')
+      <>
+        {this.state.isLoading ? (
+          <Spin
+            size='large'
+            style={{
+              position: 'fixed',
+              top: '0',
+              left: '0',
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: '9999',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+        ) : (
+          <Modal
+            visible={isOpenModalBooking}
+            className={'booking-modal'}
+            onCancel={closeBookingModal}
+            footer={[]}
+          >
+            <Space direction='vertical' size={15} style={{ display: 'flex' }}>
+              <Titles
+                title={<FormattedMessage id='patient.booking-modal.title' />}
+              />
+              <Title level={3}>Bác sĩ: {doctorName} </Title>
+              <ProfileDoctor
+                doctorId={doctorId}
+                doctorName={doctorName}
+                isShowDescDoctor={false}
+                dataTime={dataTime}
+                isShowLinkDetail={false}
+                isShowPrice={true}
+                isShowCalendarDoctor={false}
+                isShowDoctorModal={false}
+              />
+              <Row>
+                <Form
+                  name='basic'
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}
+                  initialValues={{ remember: true }}
+                  autoComplete='off'
+                  id='myForm'
+                  onFinish={() => this.handleConfirmBooking()}
+                >
+                  <Row gutter={[15, 15]}>
+                    <Col span={12}>
+                      <Form.Item
+                        label={
+                          <FormattedMessage id='patient.booking-modal.email' />
                         }
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item
-                      label={
-                        <FormattedMessage id='patient.booking-modal.phone-number' />
-                      }
-                      name='phoneNumber'
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input your phone number!',
-                        },
-                      ]}
-                    >
-                      <Input
-                        value={this.state.phoneNumber}
-                        onChange={(event) =>
-                          this.handleOnChangeInput(event, 'phoneNumber')
-                        }
-                      />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={[15, 15]}>
-                  <Col span={12}>
-                    <Form.Item
-                      label={
-                        <FormattedMessage id='patient.booking-modal.full-name' />
-                      }
-                      name='fullName'
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input your full name!',
-                        },
-                      ]}
-                    >
-                      <Input
-                        value={this.state.fullName}
-                        onChange={(event) =>
-                          this.handleOnChangeInput(event, 'fullName')
-                        }
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item
-                      label={
-                        <FormattedMessage id='patient.booking-modal.address' />
-                      }
-                      name='address'
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input your address!',
-                        },
-                      ]}
-                    >
-                      <Input
-                        value={this.state.address}
-                        onChange={(event) =>
-                          this.handleOnChangeInput(event, 'address')
-                        }
-                      />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={[15, 15]}>
-                  <Col span={12}>
-                    <Form.Item
-                      label={
-                        <FormattedMessage id='patient.booking-modal.date-of-birth' />
-                      }
-                      name='birtday'
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input your birtday!',
-                        },
-                      ]}
-                    >
-                      <DatePicker
-                        onChange={this.handleOnChangeDatePicker}
-                        value={this.state.birthday}
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item
-                      label={
-                        <FormattedMessage id='patient.booking-modal.gender' />
-                      }
-                      name='gender'
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please choose your gender!',
-                        },
-                      ]}
-                    >
-                      <Select
-                        value={this.state.selectedGenders}
-                        onChange={this.handleOnChangeSelect}
-                        options={this.state.genders}
-                      />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={24}>
-                    <Form.Item
-                      label={
-                        <FormattedMessage id='patient.booking-modal.reason' />
-                      }
-                      name='reason'
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input your reason!',
-                        },
-                      ]}
-                      className='reason-booking'
-                    >
-                      <TextArea
-                        rows={4}
-                        className='form-control'
-                        value={this.state.reason}
-                        onChange={(event) =>
-                          this.handleOnChangeInput(event, 'reason')
-                        }
-                      />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={[20, 20]}>
-                  <Col span={24}>
-                    <Checkbox onChange={(ev) => this.handChangeCheckbox(ev)}>
-                      Thanh toán bằng thẻ
-                    </Checkbox>
-                  </Col>
-                  <Col span={24}>
-                    <div
-                      className={
-                        this.state.isShowBtnPayment
-                          ? 'payment-root '
-                          : 'payment-root active'
-                      }
-                    ></div>
-                  </Col>
-                </Row>
-                <Row gutter={[20, 20]} style={{ marginTop: '20px' }}>
-                  {isShowBtnPayment ? (
-                    <Col span={3} offset={21}>
-                      <Button type='danger' ghost onClick={closeBookingModal}>
-                        Cancel
-                      </Button>
+                        name='email'
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your email!',
+                          },
+                        ]}
+                      >
+                        <Input
+                          value={this.state.email}
+                          onChange={(event) =>
+                            this.handleOnChangeInput(event, 'email')
+                          }
+                        />
+                      </Form.Item>
                     </Col>
-                  ) : (
-                    <>
-                      <Col span={3} offset={18}>
+                    <Col span={12}>
+                      <Form.Item
+                        label={
+                          <FormattedMessage id='patient.booking-modal.phone-number' />
+                        }
+                        name='phoneNumber'
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your phone number!',
+                          },
+                        ]}
+                      >
+                        <Input
+                          value={this.state.phoneNumber}
+                          onChange={(event) =>
+                            this.handleOnChangeInput(event, 'phoneNumber')
+                          }
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row gutter={[15, 15]}>
+                    <Col span={12}>
+                      <Form.Item
+                        label={
+                          <FormattedMessage id='patient.booking-modal.full-name' />
+                        }
+                        name='fullName'
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your full name!',
+                          },
+                        ]}
+                      >
+                        <Input
+                          value={this.state.fullName}
+                          onChange={(event) =>
+                            this.handleOnChangeInput(event, 'fullName')
+                          }
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        label={
+                          <FormattedMessage id='patient.booking-modal.address' />
+                        }
+                        name='address'
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your address!',
+                          },
+                        ]}
+                      >
+                        <Input
+                          value={this.state.address}
+                          onChange={(event) =>
+                            this.handleOnChangeInput(event, 'address')
+                          }
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row gutter={[15, 15]}>
+                    <Col span={12}>
+                      <Form.Item
+                        label={
+                          <FormattedMessage id='patient.booking-modal.date-of-birth' />
+                        }
+                        name='birtday'
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your birtday!',
+                          },
+                        ]}
+                      >
+                        <DatePicker
+                          onChange={this.handleOnChangeDatePicker}
+                          value={this.state.birthday}
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        label={
+                          <FormattedMessage id='patient.booking-modal.gender' />
+                        }
+                        name='gender'
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please choose your gender!',
+                          },
+                        ]}
+                      >
+                        <Select
+                          value={this.state.selectedGenders}
+                          onChange={this.handleOnChangeSelect}
+                          options={this.state.genders}
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>
+                      <Form.Item
+                        label={
+                          <FormattedMessage id='patient.booking-modal.reason' />
+                        }
+                        name='reason'
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your reason!',
+                          },
+                        ]}
+                        className='reason-booking'
+                      >
+                        <TextArea
+                          rows={4}
+                          className='form-control'
+                          value={this.state.reason}
+                          onChange={(event) =>
+                            this.handleOnChangeInput(event, 'reason')
+                          }
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row gutter={[20, 20]}>
+                    <Col span={24}>
+                      <Checkbox onChange={(ev) => this.handChangeCheckbox(ev)}>
+                        Thanh toán bằng thẻ
+                      </Checkbox>
+                    </Col>
+                    <Col span={24}>
+                      <div
+                        className={
+                          this.state.isShowBtnPayment
+                            ? 'payment-root '
+                            : 'payment-root active'
+                        }
+                      ></div>
+                    </Col>
+                  </Row>
+                  <Row gutter={[20, 20]} style={{ marginTop: '20px' }}>
+                    {isShowBtnPayment ? (
+                      <Col span={3} offset={21}>
                         <Button type='danger' ghost onClick={closeBookingModal}>
                           Cancel
                         </Button>
                       </Col>
-                      <Col span={3}>
-                        <Button type='primary' htmlType='submit'>
-                          Confirm
-                        </Button>
-                      </Col>
-                    </>
-                  )}
-                </Row>
-              </Form>
-            </Row>
-          </Space>
-        </Modal>
-      </LoadingOverlay>
+                    ) : (
+                      <>
+                        <Col span={3} offset={18}>
+                          <Button
+                            type='danger'
+                            ghost
+                            onClick={closeBookingModal}
+                          >
+                            Cancel
+                          </Button>
+                        </Col>
+                        <Col span={3}>
+                          <Button type='primary' htmlType='submit'>
+                            Confirm
+                          </Button>
+                        </Col>
+                      </>
+                    )}
+                  </Row>
+                </Form>
+              </Row>
+            </Space>
+          </Modal>
+        )}
+      </>
     );
   }
 }

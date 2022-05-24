@@ -12,7 +12,7 @@ import './ListBlogs.scss';
 import SearchBlogs from './SearchBlogs';
 
 const { Text } = Typography;
-const pageSize = 4;
+const pageSize = 10;
 class ListBlogs extends Component {
   constructor(props) {
     super(props);
