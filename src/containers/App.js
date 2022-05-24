@@ -51,6 +51,20 @@ class App extends Component {
         <Router history={history}>
           <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
             <Switch>
+              <Route path={path.HOMEPAGE} component={HomePage} />
+              <Route path={path.LIST_SPECIALTY} component={ListSpecialty} />
+              <Route path={path.LIST_CLINIC} component={ListClinic} />
+              <Route path={path.LIST_DOCTOR} component={ListDoctor} />
+              <Route path={path.LIST_BLOGS} component={ListBlogs} />
+              <Route path={path.COVID_19} component={Covid19} />
+
+              <Route path={path.DETAIL_BLOG} component={DetailBlog} />
+              <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+              <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+              <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
+              <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
+            </Switch>
+            <Switch>
               <Route path={path.HOME} exact component={Home} />
               <Route
                 path={path.LOGIN}
@@ -64,20 +78,6 @@ class App extends Component {
                 path={path.DOCTOR}
                 component={userIsAuthenticated(Doctor)}
               />
-            </Switch>
-            <Switch>
-              <Route path={path.HOMEPAGE} component={HomePage} />
-              <Route path={path.LIST_SPECIALTY} component={ListSpecialty} />
-              <Route path={path.LIST_CLINIC} component={ListClinic} />
-              <Route path={path.LIST_DOCTOR} component={ListDoctor} />
-              <Route path={path.LIST_BLOGS} component={ListBlogs} />
-              <Route path={path.COVID_19} component={Covid19} />
-
-              <Route path={path.DETAIL_BLOG} component={DetailBlog} />
-              <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
-              <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
-              <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
-              <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
             </Switch>
           </CustomScrollbars>
 
